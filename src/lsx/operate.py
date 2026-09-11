@@ -64,7 +64,8 @@ def cosine(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, src: str, dst: str,
-                 cands: np.ndarray | None = None, dst_idx: int | None = None, **fit_kw) -> dict:
+                 cands: np.ndarray | None = None, dst_idx: int | None = None, role_center: bool = False,
+                 src_idx: int | None = None, null_seed: int | None = None, **fit_kw) -> dict:
     """Leave-one-group-out: fit on all domains but one, predict the held-out domain's target vectors.
     Reports cosine(pred, true) vs. baselines: identity (pred = source), mean-target, shared offset.
     `cands` [n, m, d] = every role vector of each example's own prompt; `role_rank` is then where the
@@ -72,19 +73,29 @@ def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, s
     out the domain address, which the cross-domain `rank` does not."""
     out = {"cos_pred": [], "cos_offset": [], "cos_identity": [], "cos_mean": [], "rank": [], "rank_offset": []}
     if cands is not None:
-        out["role_rank"], out["role_rank_offset"], out["role_rank_identity"] = [], [], []
+        out["role_rank"], out["role_rank_offset"], out["role_rank_identity"], out["role_rank_mean"] = [], [], [], []
+    S0, O0, C0 = S, O, cands
     for g in np.unique(groups):
         tr, te = groups != g, groups == g
-        op = fit_affine(S[tr], O[tr], layer, src, dst, **fit_kw)
+        if role_center:
+            # per-role mean over TRAINING prompts only; subtract from everything (train, test, candidates).
+            # what remains is domain-specific content per role; role identity is gone.
+            mu = C0[tr].mean(0)                                  # [m_roles, d]
+            cands = C0 - mu
+            S, O = S0 - mu[src_idx], O0 - mu[dst_idx]
+        S_tr, O_tr = S[tr], O[tr]
+        if null_seed is not None:   # break the src->dst pairing among TRAINING rows only; held-out rows untouched
+            O_tr = O_tr[np.random.default_rng(null_seed * 7919 + layer).permutation(len(O_tr))]
+        op = fit_affine(S_tr, O_tr, layer, src, dst, **fit_kw)
         pred = op(S[te])
-        mean_o = O[tr].mean(0)
-        offset = (O[tr] - S[tr]).mean(0)               # king-queen baseline: one shared translation
+        mean_o = O_tr.mean(0)
+        offset = (O_tr - S_tr).mean(0)               # king-queen baseline: one shared translation
         te_idx = np.flatnonzero(te)
         for j, (p, s, o) in enumerate(zip(pred, S[te], O[te])):
             po = s + offset
             if cands is not None:
                 C = cands[te_idx[j]]
-                for key, q in (("role_rank", p), ("role_rank_offset", po), ("role_rank_identity", s)):
+                for key, q in (("role_rank", p), ("role_rank_offset", po), ("role_rank_identity", s), ("role_rank_mean", mean_o)):
                     sims = np.array([cosine(q, c) for c in C])
                     out[key].append(int((sims > sims[dst_idx]).sum()) + 1)
             out["cos_pred"].append(cosine(p, o))

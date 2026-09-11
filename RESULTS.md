@@ -137,13 +137,64 @@ and the 6-point pooled RSA remains blind to content. `scripts/stage2_deslot.py`,
 `results/stage2_qwen1.5b_deslot.json`. Conclusion: fix the design (rotate content through slots
 across paraphrases), not the post-processing.
 
+## 2026-09-11 (hour 3) — Position-balanced grid: role identity is a linear signature; a genuine relation signal survives after removing it
+
+**Setup.** `scripts/make_rotated.py`: each domain's six holonic spans presented with role-neutral
+connectives ("First, … Second, …") in all six cyclic rotations, so every content role sits in every
+slot once per domain. 48 prompts, roles labeled by content. Extracted on Qwen2.5-1.5B
+(`results/stacks_qwen2.5_1.5b_holonic_v1_rotated.npz`).
+
+**Stage 2 on the rotated grid (RSA, cross-domain, layer 20).** Same-rotation pairs (position and
+content aligned) 0.56; different-rotation pairs labeled by slot (position only) 0.49; different
+rotation labeled by content (content only) 0.17; per-domain average over rotations (position
+balanced) 0.22. Content-only RSA at layer 0 is already 0.15. **The six-point pooled RSA is a
+position detector; the layers add almost no content shape beyond embedding-level lexical
+similarity.** `scripts/stage2_rotated.py`, `results/stage2_qwen1.5b_rotated.json`.
+
+**Stage 3, and a correction to hours 1–2.** With 42 training examples the full affine map
+(ridge 10) scored role_rank 2.0 and, at the best layer, 1.08. But the *constant* mean-target
+baseline scores **1.07** on its own. A domain-independent "which role is this" direction exists in
+the residual stream, and every stage-3 number reported before was that signature (plus position),
+not a source-to-target relation. Also, "best layer" selection on held-out data is badly optimistic:
+the constant baseline goes from 3.5 to 2.4 by selection alone. Best-layer numbers are dropped from
+here on.
+
+**Role-centered relation test.** Subtract each role's cross-domain mean (training folds only) from
+every vector and candidate, so role identity is gone and only domain-specific content per role
+remains. Then: does the source role's residual predict the target role's residual in a held-out
+domain? Null: shuffle the source/target pairing among training rows within each fold.
+
+| | role_rank, all layers (chance 3.5) |
+|---|---|
+| full affine, ridge 10, role-centered | **3.01** |
+| null, 3 seeds | 3.48, 3.54, 3.54 |
+| constant baseline (role-centered) | 3.52 |
+
+Per layer: 3.68 at layer 0, 3.20 at 4, 3.00 at 8, 2.77 at 14, **2.58 at 20**, 3.22 at 28. Predicted-
+target cosine rises from 0.00 (layer 0) to 0.19 (layers 18–28). Easiest relations:
+objectified→disturbance (1.9), disturbance→embedded (2.1), embedded→from_above (2.3). Hardest:
+anything →new_subject or →from_below (3.6–3.8). `results/stage3_qwen1.5b_rotated_rolecentered.json`.
+
+**Reading.** After removing position (balanced by design), role identity (centered), and domain
+address (candidates are from the same prompt), an affine map fit on seven domains still moves a
+held-out domain's source-role content toward its target-role content, above a matched null. The
+signal is absent at the embedding layer and peaks around layer 20 of 28, so it is computed by the
+model, not inherited from token overlap. It is **small** (rank 3.0 vs 3.5; cosine 0.19), and the
+effective sample is seven domains because rotations reuse spans. This is the first number in this
+log that supports the original hypothesis as stated, and it supports a modest version of it.
+
+**Three findings now stand, in decreasing size.** (1) Discourse position is the dominant structure
+in pooled span vectors. (2) Role identity within the transition schema is a domain-independent
+linear direction, readable regardless of position. (3) A residual source→target relation transfers
+across domains, weakly, in mid-late layers.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
 2. ~~Project out slot directions~~ done: partial removal, no content shape recovered.
-3. Paraphrases: 3–4 prompts per domain, content roles rotated through slots, so position averages out
-   and stage 3 has ~30 examples per relation.
-4. Stage 4 readout: patch `src + content-offset` at a late layer over the src span and generate;
-   compare to base generation and to a random direction of equal norm.
+3. ~~Rotate content through slots~~ done (Latin square, no new text). Real paraphrases (new wording per
+   domain) would raise the effective n above seven domains; still worth writing.
+4. Stage 4 readout: patch the role-identity direction (finding 2) and, separately, the affine-predicted
+   target (finding 3) at layer ~20 over a span and generate; compare to base and to a random direction of equal norm.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.
