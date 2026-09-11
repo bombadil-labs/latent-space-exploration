@@ -639,13 +639,17 @@ The theme direction sharpens with scale and tuning.
 
 | | Qwen2.5-1.5B (L20) | GPT-J-6B (L14) | Gemma-2-9B-it (L20) |
 |---|---|---|---|
-| theme lens, rank/3 (random) | 1.25 (1.97) | **1.11** (2.06) | pending |
-| era lens, rank/3 (random) | 1.36 (2.00) | 1.22 (2.19) | pending |
-| era + theme composed, rank/9 (chance 5) | 2.22 | **1.75** | pending |
-| cross-talk era→theme / theme→era | 0.12 / 0.17 | **0.06 / 0.14** | pending |
-| on-target era / theme | 0.62 / 0.61 | 0.76 / 0.62 | pending |
+| theme lens, rank/3 (random) | 1.25 (1.97) | **1.11** (2.06) | 1.25 (2.11) |
+| era lens, rank/3 (random) | 1.36 (2.00) | 1.22 (2.19) | 1.17 (2.08) |
+| era + theme composed, rank/9 (chance 5) | 2.22 | **1.75** | 1.97 |
+| cross-talk era→theme / theme→era | 0.12 / 0.17 | **0.06 / 0.14** | 0.13 / 0.14 |
+| on-target era / theme | 0.62 / 0.61 | 0.76 / 0.62 | 0.59 / 0.55 |
 
 At 6B the theme lens is near-perfect, composition is tighter, and era leaks into theme half as much.
+Gemma-2-9B-it's selector numbers match the 1.5B rather than GPT-J, even though its theme
+*decodability* (0.94) and its *generation* (hour 13) are the best of the three: the selector test
+saturates early, and the model that steers generation is not the one with the tightest selector.
+`results/stage6_gemma_theme.log`, `results/stage6_gemma9b_theme_l20.json`.
 `results/stage6_gptj_theme.log` (the per-case JSON for this run was lost to a serialization bug,
 fixed since; the summary is in the log).
 
