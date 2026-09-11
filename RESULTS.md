@@ -129,10 +129,18 @@ position averages out; (b) projecting out slot directions (estimated from the sh
 slot is known and content is decorrelated) before RSA; (c) token-level clouds rather than 6 pooled
 points. Stage 4 readout can proceed on the content-offset directions, which are the real finding.
 
+**Addendum: projecting out the slot subspace does not recover a content shape.** Removing the
+5-dim span of per-slot mean vectors (leave-pair-out, estimated on the shuffled set) cuts
+slot-labeled cross-domain RSA from 0.52 to 0.23 at layer 20 (0.38 at layer 28) and lifts
+content-labeled RSA only from 0.05 to 0.13. Position is not confined to a small linear subspace,
+and the 6-point pooled RSA remains blind to content. `scripts/stage2_deslot.py`,
+`results/stage2_qwen1.5b_deslot.json`. Conclusion: fix the design (rotate content through slots
+across paraphrases), not the post-processing.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
-2. Project out slot directions (fit on shuffled set where slot is known) and re-run stage-2 RSA by content.
+2. ~~Project out slot directions~~ done: partial removal, no content shape recovered.
 3. Paraphrases: 3–4 prompts per domain, content roles rotated through slots, so position averages out
    and stage 3 has ~30 examples per relation.
 4. Stage 4 readout: patch `src + content-offset` at a late layer over the src span and generate;
