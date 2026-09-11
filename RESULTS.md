@@ -458,8 +458,31 @@ white dress, first sunrise, "Mommy, I'm home", a mother's love). Comic is the we
 deflation and absurd repetition (the door loop, the bureaucratic letter) rather than as jokes, which
 is roughly what the comic spans do (they deflate) but a 1.5B base model has no comic timing to
 steer. Mean-pooled directions at layer 14 and scale 1.5 did **not** produce visible mood shifts;
-the last-token, layer-18, scale-2+ setting is what works. Quantitative lens/composition/cross-talk
-numbers for era × mood: see below when the run completes.
+the last-token, layer-18, scale-2+ setting is what works.
+
+**Quantitative (mean-pooled directions, layer 14, scale 1, leave-one-scene-out).**
+`results/stage6_qwen1.5b_mood_l14.json`.
+
+| | factor direction | random | chance |
+|---|---|---|---|
+| era lens, rank/3 | 1.19 | 1.92 | 2.0 |
+| mood lens, rank/3 | **1.28** | 1.89 | 2.0 |
+| era + mood composed, rank/9 | **1.89** | | 5.0 |
+
+| patched ↓ / explained → | era | mood |
+|---|---|---|
+| era | **0.68** | 0.09 |
+| mood | 0.15 | **0.57** |
+| random | 0.31 | 0.25 |
+
+**Reading.** By the log-prob test the mood direction is as good a lens as voice or era were
+(1.28/3 vs 1.89 random), composes with era to 1.89/9, and the cross-talk matrix stays diagonal:
+era leaks 9% into mood, mood leaks 15% into era. So a semantic, end-of-sentence factor behaves like
+the lexical ones under the controlled measurement, even though it needs a stronger, later,
+last-token patch to show up in free generation. The gap between "selects the right span" (easy)
+and "visibly rewrites a continuation" (harder) is a general feature of these directions and worth
+stating in the writeup: the lens is reliable as a selector well before it is reliable as a
+generator.
 
 ## Open problems (ordered)
 
@@ -471,7 +494,9 @@ numbers for era × mood: see below when the run completes.
 4b. ~~Relation lens~~ done: null (−0.02 nats vs −0.19 random); the relation is measurable, not yet controllable.
 4c. ~~Narrative factors era × voice~~ done: both are lenses, they compose (2.0/9), order gap 0.5 rank.
 4d. ~~Cross-talk~~ done. ~~Third factor~~ tense: three-way composition 2.8/18, diagonal cross-talk matrix.
-4e. A third *semantic* factor (mood, point of view, genre) rather than a grammatical one; then
-   multi-sentence spans where plot beats can be a factor.
+4e. ~~Mood~~ done: semantic factor, lens 1.28/3, composes with era 1.89/9, diagonal cross-talk; needs
+   last-token/late-layer/×2–3 patch to show in generation.
+4f. Multi-sentence spans where a plot beat (theme, turn) can be a factor; and a mood × voice grid to
+   test whether two register-like factors interfere more than era does with either.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
