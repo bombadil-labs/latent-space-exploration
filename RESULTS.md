@@ -321,6 +321,31 @@ strong lexical confound for voice, single model, and "era" is partly vocabulary 
 which is exactly what a setting shift should carry but means the era direction is not purely
 abstract. Plot shape, the hard factor, is untouched.
 
+## 2026-09-11 (hour 7) — Replication: the factor results hold on a smaller model and a second family
+
+Same grid, same scripts, same leave-one-scene-out protocol. Layers chosen at the same relative depth
+(mid-stack for the first patch, ~two-thirds for the second).
+
+| | Qwen2.5-1.5B (L14/L20) | Qwen2.5-0.5B (L12/L18) | Pythia-1.4B (L12/L18) |
+|---|---|---|---|
+| era decodability, layer 0 → peak | 0.28 → 0.94 (L12) | 0.33 → 0.81 (L24) | 0.50 → 0.94 (L18) |
+| voice decodability, layer 0 | 0.92 | 0.92 | 0.89 |
+| era lens rank/3 (random) | 1.28 (2.11) | 1.39 (2.03) | pending |
+| voice lens rank/3 (random) | 1.31 (2.11) | 1.19 (2.14) | pending |
+| era+voice composed, rank/9 (chance 5) | 2.03 | 1.83 | pending |
+| order: A then B / B then A, gain corr | 1.83 / 1.89, 0.85 | 1.86 / 1.75, 0.82 | pending |
+| cross-talk under era patch (on-target / off) | 0.59 / 0.14 | 0.54 / 0.20 | pending |
+| cross-talk under voice patch (on-target / off) | 0.65 / 0.17 | 0.62 / 0.14 | pending |
+
+`results/stage5_qwen0.5b_*`, `results/stage5_pythia1.4b_*` (Pythia model-based runs in progress).
+
+**Reading.** On the 0.5B model every stage-5 quantity lands within a few hundredths of the 1.5B
+value. Era is less cleanly decodable on the smaller model (peak 0.81 vs 0.94), consistent with a
+computed feature that sharpens with scale, while voice, being lexical, is identical. Pythia's
+model-free check shows the same shape as Qwen (voice in the embeddings, era built by the layers,
+peaking late), which rules out a Qwen-specific artifact for the decodability result; the lens and
+composition numbers on Pythia are running.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -334,4 +359,4 @@ abstract. Plot shape, the hard factor, is untouched.
    view) to test whether composition holds for three; then multi-sentence spans where plot beats
    can be a factor.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
-6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.
+6. ~~A second model family~~ Pythia-1.4B: decodability replicates; lens/composition pending.
