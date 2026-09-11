@@ -78,7 +78,7 @@ integrate     : (position → ℝ) × ℝ → (position → ℝ)        -- the �
 initial value — the same asymmetry as quotient/section. The **Jacobian** form is **measured**: the
 cross-talk matrix is ∂(Gauge of factor j)/∂(patch of factor i), computed by
 `scripts/stage5_crosstalk.py` and `scripts/stage6_factors.py` (hours 6, 8). The
-curve-along-a-passage form is **unimplemented**: no script computes per-beat readout curves.
+curve-along-a-passage form is **measured**: `scripts/derivative_curves.py` (hour 17): theme's own-readout is at chance in the first 15% of a passage, peaks mid-passage (0.69), and its beat-to-beat derivative has one shape (positive then negative) shared by all themes; era's derivative is zero in aggregate.
 
 ### 2.4 `compose`
 
@@ -180,7 +180,8 @@ The exclusions are the design.
 | abstract | `Passage × Scale(w) → Passage` | `sae_ladder.py` | hour 15 | measured (first rung) |
 | concretize | `Passage × Scale(w) × Ctx → Passage` | — | — | hypothesized |
 | differentiate (Jacobian) | `Passage × Gauge × Scale → …` | `stage5_crosstalk.py`, `stage6_factors.py` | hours 6, 8 | measured |
-| differentiate (curve) / integrate | `(position → ℝ) × ℝ → (position → ℝ)` | — | — | not yet realizable |
+| differentiate (curve) | `Passage × Gauge × Scale → (position → ℝ)` | `derivative_curves.py` | hour 17 | measured |
+| integrate | `(position → ℝ) × ℝ → (position → ℝ)` | — | — | hypothesized (running mean is the trivial case) |
 | compose | `Op × Op → Op`; `Dir × Dir → Dir` | `stage5_factors.py`, `stage6_factors.py` | hours 6, 8, 10 | measured |
 | select (the lens) | `Dir × Passage* × Scale → rank` | `stage4.py`, `stage5_factors.py`, `stage6_factors.py`, `ndif_factors.py` | hours 4, 6–13 | measured |
 | recompose (address shift) | `translate(dir_e2 − dir_e1)` | `stage7_shift.py`, `ndif_shift.py` | hour 14 | measured |

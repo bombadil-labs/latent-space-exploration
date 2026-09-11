@@ -779,6 +779,43 @@ matters. Six rotations per domain reuse the same spans, so the effective sample 
 One model (1.5B), selector-level. The generative version of this lens (patch the predicted
 target, hour 5: null at 7 domains) is the next test, now with a real operator to patch.
 
+## 2026-09-11 (hour 17) — Derivative curves: theme accumulates in the middle beat, era is lexically early, mood is last-token
+
+**Setup** (agent run, `scripts/derivative_curves.py`, `scripts/derivative_figures.py`,
+`results/derivative_curves.json`, `results/notes/derivative_curves.md`, figures under
+`results/figures/`). Qwen2.5-1.5B. Per-token projection of the layer-20 residual onto
+leave-one-situation-out theme and era directions across each three-sentence theme passage;
+per-sentence means; beat-to-beat differences; the mood grid at layers 16–20. Control: random
+direction triples of matched norm (margin 0.000 ± 0.002, hit 0.33 at every position).
+
+**Theme accumulates in the middle.** Own-theme readout is at chance for the first ~15% of a
+passage (hit 0.33), peaks at 0.69 around the 40–50% mark, and decays to ~0.44 in the last quarter.
+Per sentence 0.39 / **0.64** / 0.41; about 54% of the accumulated margin lands in sentence 2.
+By theme: homecoming loudest and most peaked (sentence-2 hit 0.80); sacrifice the most sustained
+and the only theme still readable in sentence 3; betrayal weakest and collapsing back.
+
+**Era locks in early, because it is lexically marked early.** Era is at hit 0.62 in the first
+position bin while theme is at chance, and stays flat (0.62–0.78); its aggregate beat-to-beat
+derivative is zero within error. The exception exposes the confound: 1920s passages start below
+chance and climb monotonically because they open on unmarked modern prose and become
+period-specific only when *Packard* or *speakeasy* arrive.
+
+**Mood is last-token, reproduced at per-token resolution.** Mood is at chance over the first
+third of the sentence and plateaus near 0.59; final token 0.61 vs 0.48 for the mean over tokens.
+The control is in the same run: on the theme grid the ordering reverses (theme last-token 0.47 vs
+mean 0.53; era 0.53 vs 0.72), so the last-token advantage is mood-specific, not an edge artefact.
+Comic is the extreme (below chance early, 0.94 at the end: the joke is the last clause); dread
+peaks mid-sentence; tender is flat.
+
+**The beat-to-beat derivative has one shape for theme.** Positive then negative, a single hump on
+the middle beat, shared in sign by all three themes and separated by magnitude (homecoming
++0.116/−0.135, betrayal +0.053/−0.050, sacrifice +0.050/−0.015). For era it is flat in aggregate.
+Differentiation kills era's large constant and keeps exactly what distinguishes the themes, which
+is the calculus operator doing what §2.3 of `docs/ALGEBRA.md` says it should.
+
+**Caveats.** One 1.5B model; directions from nine mean-pooled vectors per fold; noisy per-token
+cosines; a naive sentence split drops 2 of 36 passages from the per-sentence analysis.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
