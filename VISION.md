@@ -103,7 +103,7 @@ stream is a sum over layers. Deacon's absentials are constraints, which is what 
 **Test:** define an abstraction flow (level k keeps only directions/SAE features shared across ≥k
 domains or above a generality threshold); track pairwise story distances as k grows; look for
 collapse onto a few attractors and check whether they read as archetypes. Gemma Scope features make
-this cheap. Status: quotient/section is near-definitional; the RG claim is a hypothesis to earn.
+this cheap. Status: quotient/section is near-definitional. The RG claim was tested (RESULTS h26): fixed points are trivially general, no archetype among them; the flow is an ordering of what survives (theme outlasts era), not an optimum. Archetypes, if they are anywhere, are not attractors of this flow.
 
 ## Standing constraints learned so far
 - Steering selects among competences the model already has. Generative reach is bounded by the
