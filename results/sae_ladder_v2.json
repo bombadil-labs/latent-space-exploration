@@ -1,0 +1,4381 @@
+{
+ "sae_root": "/home/user/latent-space-exploration/cache/hf/hub/models--google--gemma-scope-9b-it-res/snapshots/e86af97a5b6fbbccca28ab654f2fda1b0768f770",
+ "A_layers": {
+  "9": {
+   "dict": "layer_9/width_16k/average_l0_47",
+   "n_refs": 72,
+   "n_active": 2041,
+   "n_content": 1779,
+   "mean": 0.19721597651614511,
+   "median": 0.1111111111111111,
+   "frac_over_half": 0.11916807195053401,
+   "frac_rare": 0.4873524451939292,
+   "top": [
+    {
+     "feature": 15185,
+     "mean_act": 11.31633186340332,
+     "generality": 0.3055555555555556,
+     "tokens": [
+      " Federation",
+      "fleet",
+      " Enterprise",
+      " Picard"
+     ]
+    },
+    {
+     "feature": 5974,
+     "mean_act": 3.991082191467285,
+     "generality": 0.5138888888888888,
+     "tokens": [
+      " mentors",
+      " Born",
+      " trained",
+      " diplomacy"
+     ]
+    },
+    {
+     "feature": 7089,
+     "mean_act": 3.3294553756713867,
+     "generality": 0.3333333333333333,
+     "tokens": [
+      " stars",
+      "hip",
+      " Star",
+      " Federation"
+     ]
+    },
+    {
+     "feature": 2046,
+     "mean_act": 3.021087408065796,
+     "generality": 0.16666666666666666,
+     "tokens": [
+      " Grey",
+      " tea",
+      " hot",
+      " Earl"
+     ]
+    },
+    {
+     "feature": 4586,
+     "mean_act": 2.644005537033081,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " prefers",
+      " and",
+      " about",
+      ","
+     ]
+    },
+    {
+     "feature": 9844,
+     "mean_act": 2.628484010696411,
+     "generality": 0.0,
+     "tokens": [
+      " Federation",
+      " the",
+      " stars",
+      "hip"
+     ]
+    },
+    {
+     "feature": 7610,
+     "mean_act": 2.490468978881836,
+     "generality": 0.19444444444444445,
+     "tokens": [
+      " officers",
+      " commands",
+      " captain",
+      " of"
+     ]
+    },
+    {
+     "feature": 1061,
+     "mean_act": 2.4072999954223633,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " of",
+      "ners",
+      " family",
+      " a"
+     ]
+    },
+    {
+     "feature": 690,
+     "mean_act": 2.400405168533325,
+     "generality": 0.5555555555555556,
+     "tokens": [
+      "hip",
+      " captain",
+      " of",
+      " Enterprise"
+     ]
+    },
+    {
+     "feature": 306,
+     "mean_act": 2.304605007171631,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " and",
+      ",",
+      ",",
+      " stubborn"
+     ]
+    },
+    {
+     "feature": 13923,
+     "mean_act": 2.2943475246429443,
+     "generality": 0.5277777777777778,
+     "tokens": [
+      " description",
+      " character",
+      ":",
+      " is"
+     ]
+    },
+    {
+     "feature": 5205,
+     "mean_act": 2.222072124481201,
+     "generality": 0.1527777777777778,
+     "tokens": [
+      " Enterprise",
+      "hip",
+      " stars",
+      " Federation"
+     ]
+    },
+    {
+     "feature": 2607,
+     "mean_act": 1.8983181715011597,
+     "generality": 0.75,
+     "tokens": [
+      "ners",
+      " tea",
+      " Shakespeare",
+      " stars"
+     ]
+    },
+    {
+     "feature": 15183,
+     "mean_act": 1.7925583124160767,
+     "generality": 0.7777777777777778,
+     "tokens": [
+      " archaeologist",
+      "fleet",
+      " Born",
+      " tea"
+     ]
+    },
+    {
+     "feature": 12842,
+     "mean_act": 1.7585972547531128,
+     "generality": 0.4027777777777778,
+     "tokens": [
+      " captain",
+      " Picard",
+      " commands",
+      " officers"
+     ]
+    },
+    {
+     "feature": 12712,
+     "mean_act": 1.6262221336364746,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " private",
+      " stubborn",
+      " diplomacy",
+      " wise"
+     ]
+    },
+    {
+     "feature": 15078,
+     "mean_act": 1.5701320171356201,
+     "generality": 0.2916666666666667,
+     "tokens": [
+      " quotes",
+      " mentors",
+      " tea",
+      " hot"
+     ]
+    },
+    {
+     "feature": 6512,
+     "mean_act": 1.5658749341964722,
+     "generality": 0.08333333333333333,
+     "tokens": [
+      " in",
+      " Born",
+      " to",
+      " France"
+     ]
+    },
+    {
+     "feature": 1682,
+     "mean_act": 1.5630444288253784,
+     "generality": 0.6944444444444444,
+     "tokens": [
+      " outcomes",
+      " officers",
+      "ners",
+      " stars"
+     ]
+    },
+    {
+     "feature": 6594,
+     "mean_act": 1.5500015020370483,
+     "generality": 0.013888888888888888,
+     "tokens": [
+      " trained",
+      " as",
+      " mentors",
+      " an"
+     ]
+    },
+    {
+     "feature": 15583,
+     "mean_act": 1.4715373516082764,
+     "generality": 0.05555555555555555,
+     "tokens": [
+      " drinks",
+      " through",
+      " prefers",
+      " commands"
+     ]
+    },
+    {
+     "feature": 13351,
+     "mean_act": 1.4647904634475708,
+     "generality": 0.6805555555555556,
+     "tokens": [
+      " loses",
+      " one",
+      " expectations",
+      " no"
+     ]
+    },
+    {
+     "feature": 2497,
+     "mean_act": 1.4626368284225464,
+     "generality": 0.125,
+     "tokens": [
+      " trained",
+      " as",
+      " under",
+      " before"
+     ]
+    },
+    {
+     "feature": 13178,
+     "mean_act": 1.416401982307434,
+     "generality": 0.7083333333333334,
+     "tokens": [
+      " he",
+      " He",
+      " He",
+      " him"
+     ]
+    },
+    {
+     "feature": 11828,
+     "mean_act": 1.412180781364441,
+     "generality": 0.013888888888888888,
+     "tokens": [
+      " trained",
+      " as",
+      " family",
+      ","
+     ]
+    }
+   ]
+  },
+  "20": {
+   "dict": "layer_20/width_16k/average_l0_47",
+   "n_refs": 72,
+   "n_active": 1898,
+   "n_content": 1404,
+   "mean": 0.18158436213991766,
+   "median": 0.1111111111111111,
+   "frac_over_half": 0.08333333333333333,
+   "frac_rare": 0.4793447293447293,
+   "top": [
+    {
+     "feature": 2502,
+     "mean_act": 12.605056762695312,
+     "generality": 0.0,
+     "tokens": [
+      " the",
+      " He",
+      " the",
+      " captain"
+     ]
+    },
+    {
+     "feature": 6071,
+     "mean_act": 10.78014850616455,
+     "generality": 0.375,
+     "tokens": [
+      " stars",
+      " the",
+      " Federation",
+      " Star"
+     ]
+    },
+    {
+     "feature": 5648,
+     "mean_act": 8.479053497314453,
+     "generality": 0.0,
+     "tokens": [
+      " principle",
+      ",",
+      " diplomacy",
+      " about"
+     ]
+    },
+    {
+     "feature": 10693,
+     "mean_act": 7.184385299682617,
+     "generality": 0.6944444444444444,
+     "tokens": [
+      " him",
+      " officers",
+      ",",
+      " under"
+     ]
+    },
+    {
+     "feature": 7247,
+     "mean_act": 5.695537567138672,
+     "generality": 0.3611111111111111,
+     "tokens": [
+      "hip",
+      " Enterprise",
+      " the",
+      " captain"
+     ]
+    },
+    {
+     "feature": 8078,
+     "mean_act": 5.292191505432129,
+     "generality": 0.09722222222222222,
+     "tokens": [
+      " through",
+      " captain",
+      " commands",
+      " mentors"
+     ]
+    },
+    {
+     "feature": 8056,
+     "mean_act": 4.54599142074585,
+     "generality": 0.8333333333333334,
+     "tokens": [
+      " expectations",
+      " patience",
+      " with",
+      " private"
+     ]
+    },
+    {
+     "feature": 6880,
+     "mean_act": 4.116482257843018,
+     "generality": 0.3611111111111111,
+     "tokens": [
+      " expectations",
+      " Shakespeare",
+      ".",
+      " stubborn"
+     ]
+    },
+    {
+     "feature": 3354,
+     "mean_act": 3.9981820583343506,
+     "generality": 0.013888888888888888,
+     "tokens": [
+      "hip",
+      " captain",
+      " tea",
+      " of"
+     ]
+    },
+    {
+     "feature": 7963,
+     "mean_act": 3.861685037612915,
+     "generality": 0.3472222222222222,
+     "tokens": [
+      " principle",
+      ",",
+      " Earl",
+      " He"
+     ]
+    },
+    {
+     "feature": 9903,
+     "mean_act": 3.7947449684143066,
+     "generality": 0.125,
+     "tokens": [
+      " diplomacy",
+      ",",
+      ",",
+      " patience"
+     ]
+    },
+    {
+     "feature": 9289,
+     "mean_act": 3.45587158203125,
+     "generality": 0.6527777777777778,
+     "tokens": [
+      " stubborn",
+      " expectations",
+      " about",
+      " principle"
+     ]
+    },
+    {
+     "feature": 9206,
+     "mean_act": 3.3959035873413086,
+     "generality": 0.4166666666666667,
+     "tokens": [
+      " which",
+      " outcomes",
+      " no",
+      " principle"
+     ]
+    },
+    {
+     "feature": 11363,
+     "mean_act": 3.1593856811523438,
+     "generality": 0.7777777777777778,
+     "tokens": [
+      " vint",
+      " archaeologist",
+      " high",
+      " tea"
+     ]
+    },
+    {
+     "feature": 16233,
+     "mean_act": 3.065626621246338,
+     "generality": 0.2361111111111111,
+     "tokens": [
+      " and",
+      ",",
+      " is",
+      " and"
+     ]
+    },
+    {
+     "feature": 1683,
+     "mean_act": 2.8414242267608643,
+     "generality": 0.875,
+     "tokens": [
+      " principle",
+      " force",
+      " than",
+      "fleet"
+     ]
+    },
+    {
+     "feature": 1815,
+     "mean_act": 2.7552435398101807,
+     "generality": 0.0,
+     "tokens": [
+      " in",
+      " he",
+      " an",
+      " Born"
+     ]
+    },
+    {
+     "feature": 3202,
+     "mean_act": 2.561918020248413,
+     "generality": 0.7222222222222222,
+     "tokens": [
+      " Star",
+      " Federation",
+      "fleet",
+      " stars"
+     ]
+    },
+    {
+     "feature": 6494,
+     "mean_act": 2.550520896911621,
+     "generality": 0.041666666666666664,
+     "tokens": [
+      " vint",
+      " Shakespeare",
+      " drinks",
+      " Earl"
+     ]
+    },
+    {
+     "feature": 13719,
+     "mean_act": 2.5077927112579346,
+     "generality": 0.05555555555555555,
+     "tokens": [
+      " family",
+      " to",
+      " a",
+      " in"
+     ]
+    },
+    {
+     "feature": 11923,
+     "mean_act": 2.5031139850616455,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " stubborn",
+      " patience",
+      " private",
+      " wise"
+     ]
+    },
+    {
+     "feature": 8679,
+     "mean_act": 2.466421365737915,
+     "generality": 0.16666666666666666,
+     "tokens": [
+      "ners",
+      " family",
+      " of",
+      " a"
+     ]
+    },
+    {
+     "feature": 1964,
+     "mean_act": 2.297987222671509,
+     "generality": 0.5694444444444444,
+     "tokens": [
+      " character",
+      " description",
+      ":",
+      " is"
+     ]
+    },
+    {
+     "feature": 10871,
+     "mean_act": 2.2822084426879883,
+     "generality": 0.013888888888888888,
+     "tokens": [
+      " archaeologist",
+      " France",
+      " vint",
+      " quotes"
+     ]
+    },
+    {
+     "feature": 3994,
+     "mean_act": 2.278552770614624,
+     "generality": 0.6111111111111112,
+     "tokens": [
+      " Shakespeare",
+      " principle",
+      "ners",
+      " vint"
+     ]
+    }
+   ]
+  },
+  "31": {
+   "dict": "layer_31/width_16k/average_l0_43",
+   "n_refs": 72,
+   "n_active": 1626,
+   "n_content": 1310,
+   "mean": 0.19973494486853266,
+   "median": 0.125,
+   "frac_over_half": 0.10076335877862595,
+   "frac_rare": 0.4549618320610687,
+   "top": [
+    {
+     "feature": 1128,
+     "mean_act": 31.804101943969727,
+     "generality": 0.3472222222222222,
+     "tokens": [
+      " which",
+      " an",
+      " Federation",
+      " no"
+     ]
+    },
+    {
+     "feature": 6513,
+     "mean_act": 21.215633392333984,
+     "generality": 0.7222222222222222,
+     "tokens": [
+      " and",
+      " no",
+      " with",
+      " which"
+     ]
+    },
+    {
+     "feature": 6715,
+     "mean_act": 13.03305721282959,
+     "generality": 0.8472222222222222,
+     "tokens": [
+      " him",
+      " young",
+      " the",
+      " mentors"
+     ]
+    },
+    {
+     "feature": 15115,
+     "mean_act": 13.021282196044922,
+     "generality": 0.5833333333333334,
+     "tokens": [
+      " officers",
+      " the",
+      " young",
+      " him"
+     ]
+    },
+    {
+     "feature": 6480,
+     "mean_act": 10.018423080444336,
+     "generality": 0.013888888888888888,
+     "tokens": [
+      " about",
+      " prefers",
+      " mentors",
+      " which"
+     ]
+    },
+    {
+     "feature": 2289,
+     "mean_act": 8.286055564880371,
+     "generality": 0.4861111111111111,
+     "tokens": [
+      " stars",
+      " the",
+      " Federation",
+      " of"
+     ]
+    },
+    {
+     "feature": 7798,
+     "mean_act": 8.050227165222168,
+     "generality": 0.8472222222222222,
+     "tokens": [
+      " commands",
+      " mentors",
+      " drinks",
+      " prefers"
+     ]
+    },
+    {
+     "feature": 13105,
+     "mean_act": 7.954526901245117,
+     "generality": 0.8611111111111112,
+     "tokens": [
+      " archaeologist",
+      "ners",
+      " vint",
+      " patience"
+     ]
+    },
+    {
+     "feature": 12785,
+     "mean_act": 7.881808757781982,
+     "generality": 0.6666666666666666,
+     "tokens": [
+      " stubborn",
+      " wise",
+      " is",
+      " high"
+     ]
+    },
+    {
+     "feature": 1642,
+     "mean_act": 7.778239727020264,
+     "generality": 0.4444444444444444,
+     "tokens": [
+      " family",
+      " is",
+      " of",
+      "."
+     ]
+    },
+    {
+     "feature": 9475,
+     "mean_act": 7.33220100402832,
+     "generality": 0.0,
+     "tokens": [
+      " France",
+      "Luc",
+      " of",
+      " to"
+     ]
+    },
+    {
+     "feature": 411,
+     "mean_act": 6.9727935791015625,
+     "generality": 0.8055555555555556,
+     "tokens": [
+      " under",
+      ".",
+      ",",
+      "."
+     ]
+    },
+    {
+     "feature": 6985,
+     "mean_act": 6.627607345581055,
+     "generality": 0.1527777777777778,
+     "tokens": [
+      " principle",
+      " and",
+      ",",
+      " high"
+     ]
+    },
+    {
+     "feature": 14597,
+     "mean_act": 6.627128601074219,
+     "generality": 0.1111111111111111,
+     "tokens": [
+      " through",
+      " commands",
+      " He",
+      " than"
+     ]
+    },
+    {
+     "feature": 4144,
+     "mean_act": 6.203155994415283,
+     "generality": 0.0,
+     "tokens": [
+      " is",
+      " and",
+      " He",
+      " He"
+     ]
+    },
+    {
+     "feature": 15447,
+     "mean_act": 6.149032115936279,
+     "generality": 0.027777777777777776,
+     "tokens": [
+      " He",
+      " He",
+      " he",
+      ","
+     ]
+    },
+    {
+     "feature": 8441,
+     "mean_act": 5.89409065246582,
+     "generality": 0.1111111111111111,
+     "tokens": [
+      " an",
+      " officers",
+      " trained",
+      "fleet"
+     ]
+    },
+    {
+     "feature": 4281,
+     "mean_act": 5.58854341506958,
+     "generality": 0.09722222222222222,
+     "tokens": [
+      " through",
+      " with",
+      " and",
+      " high"
+     ]
+    },
+    {
+     "feature": 13470,
+     "mean_act": 5.210155010223389,
+     "generality": 0.5833333333333334,
+     "tokens": [
+      " is",
+      ".",
+      ".",
+      " He"
+     ]
+    },
+    {
+     "feature": 15962,
+     "mean_act": 5.167134761810303,
+     "generality": 0.20833333333333334,
+     "tokens": [
+      " through",
+      " prefers",
+      ",",
+      " private"
+     ]
+    },
+    {
+     "feature": 8839,
+     "mean_act": 5.003168106079102,
+     "generality": 0.6805555555555556,
+     "tokens": [
+      " patience",
+      " diplomacy",
+      " archaeologist",
+      " wise"
+     ]
+    },
+    {
+     "feature": 10183,
+     "mean_act": 4.76143217086792,
+     "generality": 0.5833333333333334,
+     "tokens": [
+      " He",
+      " He",
+      " he",
+      " and"
+     ]
+    },
+    {
+     "feature": 1839,
+     "mean_act": 4.561561107635498,
+     "generality": 0.0,
+     "tokens": [
+      " Star",
+      " stars",
+      "fleet",
+      "hip"
+     ]
+    },
+    {
+     "feature": 16142,
+     "mean_act": 4.47390604019165,
+     "generality": 0.3055555555555556,
+     "tokens": [
+      " to",
+      " family",
+      " of",
+      " a"
+     ]
+    },
+    {
+     "feature": 11855,
+     "mean_act": 4.424197673797607,
+     "generality": 0.0,
+     "tokens": [
+      " Jean",
+      "-",
+      "Luc"
+     ]
+    }
+   ]
+  }
+ },
+ "B_broad": {
+  "16k": {
+   "dict": "layer_20/width_16k/average_l0_47",
+   "narrative": {
+    "n_active": 1898,
+    "n_content": 1404,
+    "mean": 0.18158436213991766,
+    "median": 0.1111111111111111,
+    "frac_over_half": 0.08333333333333333,
+    "frac_rare": 0.4793447293447293,
+    "top": [
+     {
+      "feature": 2502,
+      "mean_act": 12.605056762695312,
+      "generality": 0.0,
+      "tokens": [
+       " the",
+       " He",
+       " the",
+       " captain"
+      ]
+     },
+     {
+      "feature": 6071,
+      "mean_act": 10.78014850616455,
+      "generality": 0.375,
+      "tokens": [
+       " stars",
+       " the",
+       " Federation",
+       " Star"
+      ]
+     },
+     {
+      "feature": 5648,
+      "mean_act": 8.479053497314453,
+      "generality": 0.0,
+      "tokens": [
+       " principle",
+       ",",
+       " diplomacy",
+       " about"
+      ]
+     },
+     {
+      "feature": 10693,
+      "mean_act": 7.184385299682617,
+      "generality": 0.6944444444444444,
+      "tokens": [
+       " him",
+       " officers",
+       ",",
+       " under"
+      ]
+     },
+     {
+      "feature": 7247,
+      "mean_act": 5.695537567138672,
+      "generality": 0.3611111111111111,
+      "tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " captain"
+      ]
+     },
+     {
+      "feature": 8078,
+      "mean_act": 5.292191505432129,
+      "generality": 0.09722222222222222,
+      "tokens": [
+       " through",
+       " captain",
+       " commands",
+       " mentors"
+      ]
+     },
+     {
+      "feature": 8056,
+      "mean_act": 4.54599142074585,
+      "generality": 0.8333333333333334,
+      "tokens": [
+       " expectations",
+       " patience",
+       " with",
+       " private"
+      ]
+     },
+     {
+      "feature": 6880,
+      "mean_act": 4.116482257843018,
+      "generality": 0.3611111111111111,
+      "tokens": [
+       " expectations",
+       " Shakespeare",
+       ".",
+       " stubborn"
+      ]
+     },
+     {
+      "feature": 3354,
+      "mean_act": 3.9981820583343506,
+      "generality": 0.013888888888888888,
+      "tokens": [
+       "hip",
+       " captain",
+       " tea",
+       " of"
+      ]
+     },
+     {
+      "feature": 7963,
+      "mean_act": 3.861685037612915,
+      "generality": 0.3472222222222222,
+      "tokens": [
+       " principle",
+       ",",
+       " Earl",
+       " He"
+      ]
+     },
+     {
+      "feature": 9903,
+      "mean_act": 3.7947449684143066,
+      "generality": 0.125,
+      "tokens": [
+       " diplomacy",
+       ",",
+       ",",
+       " patience"
+      ]
+     },
+     {
+      "feature": 9289,
+      "mean_act": 3.45587158203125,
+      "generality": 0.6527777777777778,
+      "tokens": [
+       " stubborn",
+       " expectations",
+       " about",
+       " principle"
+      ]
+     },
+     {
+      "feature": 9206,
+      "mean_act": 3.3959035873413086,
+      "generality": 0.4166666666666667,
+      "tokens": [
+       " which",
+       " outcomes",
+       " no",
+       " principle"
+      ]
+     },
+     {
+      "feature": 11363,
+      "mean_act": 3.1593856811523438,
+      "generality": 0.7777777777777778,
+      "tokens": [
+       " vint",
+       " archaeologist",
+       " high",
+       " tea"
+      ]
+     },
+     {
+      "feature": 16233,
+      "mean_act": 3.065626621246338,
+      "generality": 0.2361111111111111,
+      "tokens": [
+       " and",
+       ",",
+       " is",
+       " and"
+      ]
+     },
+     {
+      "feature": 1683,
+      "mean_act": 2.8414242267608643,
+      "generality": 0.875,
+      "tokens": [
+       " principle",
+       " force",
+       " than",
+       "fleet"
+      ]
+     },
+     {
+      "feature": 1815,
+      "mean_act": 2.7552435398101807,
+      "generality": 0.0,
+      "tokens": [
+       " in",
+       " he",
+       " an",
+       " Born"
+      ]
+     },
+     {
+      "feature": 3202,
+      "mean_act": 2.561918020248413,
+      "generality": 0.7222222222222222,
+      "tokens": [
+       " Star",
+       " Federation",
+       "fleet",
+       " stars"
+      ]
+     },
+     {
+      "feature": 6494,
+      "mean_act": 2.550520896911621,
+      "generality": 0.041666666666666664,
+      "tokens": [
+       " vint",
+       " Shakespeare",
+       " drinks",
+       " Earl"
+      ]
+     },
+     {
+      "feature": 13719,
+      "mean_act": 2.5077927112579346,
+      "generality": 0.05555555555555555,
+      "tokens": [
+       " family",
+       " to",
+       " a",
+       " in"
+      ]
+     },
+     {
+      "feature": 11923,
+      "mean_act": 2.5031139850616455,
+      "generality": 0.027777777777777776,
+      "tokens": [
+       " stubborn",
+       " patience",
+       " private",
+       " wise"
+      ]
+     },
+     {
+      "feature": 8679,
+      "mean_act": 2.466421365737915,
+      "generality": 0.16666666666666666,
+      "tokens": [
+       "ners",
+       " family",
+       " of",
+       " a"
+      ]
+     },
+     {
+      "feature": 1964,
+      "mean_act": 2.297987222671509,
+      "generality": 0.5694444444444444,
+      "tokens": [
+       " character",
+       " description",
+       ":",
+       " is"
+      ]
+     },
+     {
+      "feature": 10871,
+      "mean_act": 2.2822084426879883,
+      "generality": 0.013888888888888888,
+      "tokens": [
+       " archaeologist",
+       " France",
+       " vint",
+       " quotes"
+      ]
+     },
+     {
+      "feature": 3994,
+      "mean_act": 2.278552770614624,
+      "generality": 0.6111111111111112,
+      "tokens": [
+       " Shakespeare",
+       " principle",
+       "ners",
+       " vint"
+      ]
+     }
+    ]
+   },
+   "broad": {
+    "n_active": 1898,
+    "n_content": 1577,
+    "mean": 0.18657274903311682,
+    "median": 0.10810810810810811,
+    "frac_over_half": 0.10399492707672796,
+    "frac_rare": 0.49524413443246673,
+    "top": [
+     {
+      "feature": 2502,
+      "mean_act": 12.605056762695312,
+      "generality": 0.018018018018018018,
+      "tokens": [
+       " the",
+       " He",
+       " the",
+       " captain"
+      ]
+     },
+     {
+      "feature": 6071,
+      "mean_act": 10.78014850616455,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       " stars",
+       " the",
+       " Federation",
+       " Star"
+      ]
+     },
+     {
+      "feature": 5648,
+      "mean_act": 8.479053497314453,
+      "generality": 0.04504504504504504,
+      "tokens": [
+       " principle",
+       ",",
+       " diplomacy",
+       " about"
+      ]
+     },
+     {
+      "feature": 10693,
+      "mean_act": 7.184385299682617,
+      "generality": 0.6486486486486487,
+      "tokens": [
+       " him",
+       " officers",
+       ",",
+       " under"
+      ]
+     },
+     {
+      "feature": 7247,
+      "mean_act": 5.695537567138672,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " captain"
+      ]
+     },
+     {
+      "feature": 14705,
+      "mean_act": 5.434122085571289,
+      "generality": 0.8198198198198198,
+      "tokens": [
+       " Federation",
+       "ners",
+       " Enterprise",
+       "hip"
+      ]
+     },
+     {
+      "feature": 8078,
+      "mean_act": 5.292191505432129,
+      "generality": 0.036036036036036036,
+      "tokens": [
+       " through",
+       " captain",
+       " commands",
+       " mentors"
+      ]
+     },
+     {
+      "feature": 8056,
+      "mean_act": 4.54599142074585,
+      "generality": 0.5225225225225225,
+      "tokens": [
+       " expectations",
+       " patience",
+       " with",
+       " private"
+      ]
+     },
+     {
+      "feature": 6880,
+      "mean_act": 4.116482257843018,
+      "generality": 0.5135135135135135,
+      "tokens": [
+       " expectations",
+       " Shakespeare",
+       ".",
+       " stubborn"
+      ]
+     },
+     {
+      "feature": 3354,
+      "mean_act": 3.9981820583343506,
+      "generality": 0.27927927927927926,
+      "tokens": [
+       "hip",
+       " captain",
+       " tea",
+       " of"
+      ]
+     },
+     {
+      "feature": 7963,
+      "mean_act": 3.861685037612915,
+      "generality": 0.07207207207207207,
+      "tokens": [
+       " principle",
+       ",",
+       " Earl",
+       " He"
+      ]
+     },
+     {
+      "feature": 9903,
+      "mean_act": 3.7947449684143066,
+      "generality": 0.25225225225225223,
+      "tokens": [
+       " diplomacy",
+       ",",
+       ",",
+       " patience"
+      ]
+     },
+     {
+      "feature": 9289,
+      "mean_act": 3.45587158203125,
+      "generality": 0.5405405405405406,
+      "tokens": [
+       " stubborn",
+       " expectations",
+       " about",
+       " principle"
+      ]
+     },
+     {
+      "feature": 9206,
+      "mean_act": 3.3959035873413086,
+      "generality": 0.02702702702702703,
+      "tokens": [
+       " which",
+       " outcomes",
+       " no",
+       " principle"
+      ]
+     },
+     {
+      "feature": 6284,
+      "mean_act": 3.352360486984253,
+      "generality": 0.8468468468468469,
+      "tokens": [
+       " loses",
+       " one",
+       " no",
+       " diplomacy"
+      ]
+     },
+     {
+      "feature": 11363,
+      "mean_act": 3.1593856811523438,
+      "generality": 0.036036036036036036,
+      "tokens": [
+       " vint",
+       " archaeologist",
+       " high",
+       " tea"
+      ]
+     },
+     {
+      "feature": 16233,
+      "mean_act": 3.065626621246338,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       " and",
+       ",",
+       " is",
+       " and"
+      ]
+     },
+     {
+      "feature": 1815,
+      "mean_act": 2.7552435398101807,
+      "generality": 0.0,
+      "tokens": [
+       " in",
+       " he",
+       " an",
+       " Born"
+      ]
+     },
+     {
+      "feature": 3202,
+      "mean_act": 2.561918020248413,
+      "generality": 0.018018018018018018,
+      "tokens": [
+       " Star",
+       " Federation",
+       "fleet",
+       " stars"
+      ]
+     },
+     {
+      "feature": 6494,
+      "mean_act": 2.550520896911621,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       " vint",
+       " Shakespeare",
+       " drinks",
+       " Earl"
+      ]
+     },
+     {
+      "feature": 13719,
+      "mean_act": 2.5077927112579346,
+      "generality": 0.0,
+      "tokens": [
+       " family",
+       " to",
+       " a",
+       " in"
+      ]
+     },
+     {
+      "feature": 11923,
+      "mean_act": 2.5031139850616455,
+      "generality": 0.18018018018018017,
+      "tokens": [
+       " stubborn",
+       " patience",
+       " private",
+       " wise"
+      ]
+     },
+     {
+      "feature": 8679,
+      "mean_act": 2.466421365737915,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       "ners",
+       " family",
+       " of",
+       " a"
+      ]
+     },
+     {
+      "feature": 1964,
+      "mean_act": 2.297987222671509,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       " character",
+       " description",
+       ":",
+       " is"
+      ]
+     },
+     {
+      "feature": 10871,
+      "mean_act": 2.2822084426879883,
+      "generality": 0.22522522522522523,
+      "tokens": [
+       " archaeologist",
+       " France",
+       " vint",
+       " quotes"
+      ]
+     }
+    ]
+   }
+  },
+  "131k": {
+   "dict": "layer_20/width_131k/average_l0_43",
+   "narrative": {
+    "n_active": 2329,
+    "n_content": 1722,
+    "mean": 0.06310491676345335,
+    "median": 0.013888888888888888,
+    "frac_over_half": 0.019744483159117306,
+    "frac_rare": 0.8286875725900116,
+    "top": [
+     {
+      "feature": 47277,
+      "mean_act": 15.823110580444336,
+      "generality": 0.1388888888888889,
+      "tokens": [
+       " Enterprise",
+       " the",
+       " Picard",
+       " Federation"
+      ]
+     },
+     {
+      "feature": 46455,
+      "mean_act": 7.644625663757324,
+      "generality": 0.0,
+      "tokens": [
+       " about",
+       " principle",
+       " stubborn",
+       ","
+      ]
+     },
+     {
+      "feature": 32491,
+      "mean_act": 6.176409721374512,
+      "generality": 0.0,
+      "tokens": [
+       " the",
+       " He",
+       " captain",
+       " the"
+      ]
+     },
+     {
+      "feature": 52935,
+      "mean_act": 5.92641019821167,
+      "generality": 0.0,
+      "tokens": [
+       " of",
+       " captain",
+       " the",
+       " Born"
+      ]
+     },
+     {
+      "feature": 46973,
+      "mean_act": 5.700395584106445,
+      "generality": 0.6527777777777778,
+      "tokens": [
+       " under",
+       " him",
+       " officers",
+       ","
+      ]
+     },
+     {
+      "feature": 40040,
+      "mean_act": 4.042054653167725,
+      "generality": 0.0,
+      "tokens": [
+       " diplomacy",
+       " through",
+       " force",
+       " rather"
+      ]
+     },
+     {
+      "feature": 35931,
+      "mean_act": 3.402172327041626,
+      "generality": 0.8055555555555556,
+      "tokens": [
+       " expectations",
+       " patience",
+       " stubborn",
+       "."
+      ]
+     },
+     {
+      "feature": 35184,
+      "mean_act": 2.971416711807251,
+      "generality": 0.8888888888888888,
+      "tokens": [
+       " force",
+       " than",
+       " loses",
+       "ners"
+      ]
+     },
+     {
+      "feature": 99480,
+      "mean_act": 2.7829697132110596,
+      "generality": 0.1111111111111111,
+      "tokens": [
+       " Grey",
+       " quotes",
+       " He",
+       ","
+      ]
+     },
+     {
+      "feature": 35281,
+      "mean_act": 2.6451494693756104,
+      "generality": 0.2777777777777778,
+      "tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " stars"
+      ]
+     },
+     {
+      "feature": 33944,
+      "mean_act": 2.574862480163574,
+      "generality": 0.05555555555555555,
+      "tokens": [
+       " He",
+       " wise",
+       ",",
+       " Picard"
+      ]
+     },
+     {
+      "feature": 90575,
+      "mean_act": 2.5695486068725586,
+      "generality": 0.8888888888888888,
+      "tokens": [
+       " expectations",
+       " patience",
+       " high",
+       " and"
+      ]
+     },
+     {
+      "feature": 20660,
+      "mean_act": 2.4317173957824707,
+      "generality": 0.625,
+      "tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " him"
+      ]
+     },
+     {
+      "feature": 62423,
+      "mean_act": 2.4275963306427,
+      "generality": 0.013888888888888888,
+      "tokens": [
+       " which",
+       " outcomes",
+       " than",
+       " no"
+      ]
+     },
+     {
+      "feature": 87970,
+      "mean_act": 2.407731056213379,
+      "generality": 0.0,
+      "tokens": [
+       " in",
+       " Born",
+       " he",
+       " an"
+      ]
+     },
+     {
+      "feature": 141,
+      "mean_act": 2.3996145725250244,
+      "generality": 0.0,
+      "tokens": [
+       " a",
+       " in",
+       " an",
+       " to"
+      ]
+     },
+     {
+      "feature": 101451,
+      "mean_act": 2.3864939212799072,
+      "generality": 0.0,
+      "tokens": [
+       " family",
+       " of",
+       " to",
+       "ners"
+      ]
+     },
+     {
+      "feature": 76910,
+      "mean_act": 2.385261058807373,
+      "generality": 0.09722222222222222,
+      "tokens": [
+       " tea",
+       " Earl",
+       " hot",
+       " drinks"
+      ]
+     },
+     {
+      "feature": 80290,
+      "mean_act": 2.1401946544647217,
+      "generality": 0.0,
+      "tokens": [
+       " stubborn",
+       " about",
+       " principle"
+      ]
+     },
+     {
+      "feature": 36070,
+      "mean_act": 2.024364948272705,
+      "generality": 0.3055555555555556,
+      "tokens": [
+       " stars",
+       " Star",
+       " the",
+       " Federation"
+      ]
+     },
+     {
+      "feature": 114518,
+      "mean_act": 1.999016523361206,
+      "generality": 0.013888888888888888,
+      "tokens": [
+       "fleet",
+       " an",
+       " he",
+       " trained"
+      ]
+     },
+     {
+      "feature": 12668,
+      "mean_act": 1.9619145393371582,
+      "generality": 0.4583333333333333,
+      "tokens": [
+       " Shakespeare",
+       " principle",
+       " Earl",
+       "ners"
+      ]
+     },
+     {
+      "feature": 87319,
+      "mean_act": 1.8729702234268188,
+      "generality": 0.8888888888888888,
+      "tokens": [
+       " principle",
+       " than",
+       " force",
+       "fleet"
+      ]
+     },
+     {
+      "feature": 28617,
+      "mean_act": 1.746321201324463,
+      "generality": 0.0,
+      "tokens": [
+       " drinks",
+       " private",
+       ",",
+       " Grey"
+      ]
+     },
+     {
+      "feature": 8359,
+      "mean_act": 1.7436591386795044,
+      "generality": 0.08333333333333333,
+      "tokens": [
+       " Grey",
+       " Earl",
+       " tea",
+       " hot"
+      ]
+     }
+    ]
+   },
+   "broad": {
+    "n_active": 2329,
+    "n_content": 1972,
+    "mean": 0.10110465435009046,
+    "median": 0.018018018018018018,
+    "frac_over_half": 0.08367139959432049,
+    "frac_rare": 0.795131845841785,
+    "top": [
+     {
+      "feature": 47277,
+      "mean_act": 15.823110580444336,
+      "generality": 0.0,
+      "tokens": [
+       " Enterprise",
+       " the",
+       " Picard",
+       " Federation"
+      ]
+     },
+     {
+      "feature": 46455,
+      "mean_act": 7.644625663757324,
+      "generality": 0.0,
+      "tokens": [
+       " about",
+       " principle",
+       " stubborn",
+       ","
+      ]
+     },
+     {
+      "feature": 32491,
+      "mean_act": 6.176409721374512,
+      "generality": 0.0,
+      "tokens": [
+       " the",
+       " He",
+       " captain",
+       " the"
+      ]
+     },
+     {
+      "feature": 52935,
+      "mean_act": 5.92641019821167,
+      "generality": 0.0,
+      "tokens": [
+       " of",
+       " captain",
+       " the",
+       " Born"
+      ]
+     },
+     {
+      "feature": 46973,
+      "mean_act": 5.700395584106445,
+      "generality": 0.4774774774774775,
+      "tokens": [
+       " under",
+       " him",
+       " officers",
+       ","
+      ]
+     },
+     {
+      "feature": 59539,
+      "mean_act": 4.344971179962158,
+      "generality": 0.8018018018018018,
+      "tokens": [
+       " Enterprise",
+       "ners",
+       " Federation",
+       " vint"
+      ]
+     },
+     {
+      "feature": 40040,
+      "mean_act": 4.042054653167725,
+      "generality": 0.0,
+      "tokens": [
+       " diplomacy",
+       " through",
+       " force",
+       " rather"
+      ]
+     },
+     {
+      "feature": 36749,
+      "mean_act": 3.415907144546509,
+      "generality": 0.8378378378378378,
+      "tokens": [
+       " loses",
+       " one",
+       " no",
+       " diplomacy"
+      ]
+     },
+     {
+      "feature": 35931,
+      "mean_act": 3.402172327041626,
+      "generality": 0.45045045045045046,
+      "tokens": [
+       " expectations",
+       " patience",
+       " stubborn",
+       "."
+      ]
+     },
+     {
+      "feature": 35184,
+      "mean_act": 2.971416711807251,
+      "generality": 0.34234234234234234,
+      "tokens": [
+       " force",
+       " than",
+       " loses",
+       "ners"
+      ]
+     },
+     {
+      "feature": 99480,
+      "mean_act": 2.7829697132110596,
+      "generality": 0.018018018018018018,
+      "tokens": [
+       " Grey",
+       " quotes",
+       " He",
+       ","
+      ]
+     },
+     {
+      "feature": 35281,
+      "mean_act": 2.6451494693756104,
+      "generality": 0.0,
+      "tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " stars"
+      ]
+     },
+     {
+      "feature": 33944,
+      "mean_act": 2.574862480163574,
+      "generality": 0.0,
+      "tokens": [
+       " He",
+       " wise",
+       ",",
+       " Picard"
+      ]
+     },
+     {
+      "feature": 90575,
+      "mean_act": 2.5695486068725586,
+      "generality": 0.4594594594594595,
+      "tokens": [
+       " expectations",
+       " patience",
+       " high",
+       " and"
+      ]
+     },
+     {
+      "feature": 20660,
+      "mean_act": 2.4317173957824707,
+      "generality": 0.7117117117117117,
+      "tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " him"
+      ]
+     },
+     {
+      "feature": 62423,
+      "mean_act": 2.4275963306427,
+      "generality": 0.0,
+      "tokens": [
+       " which",
+       " outcomes",
+       " than",
+       " no"
+      ]
+     },
+     {
+      "feature": 87970,
+      "mean_act": 2.407731056213379,
+      "generality": 0.0,
+      "tokens": [
+       " in",
+       " Born",
+       " he",
+       " an"
+      ]
+     },
+     {
+      "feature": 141,
+      "mean_act": 2.3996145725250244,
+      "generality": 0.0,
+      "tokens": [
+       " a",
+       " in",
+       " an",
+       " to"
+      ]
+     },
+     {
+      "feature": 101451,
+      "mean_act": 2.3864939212799072,
+      "generality": 0.0,
+      "tokens": [
+       " family",
+       " of",
+       " to",
+       "ners"
+      ]
+     },
+     {
+      "feature": 76910,
+      "mean_act": 2.385261058807373,
+      "generality": 0.0,
+      "tokens": [
+       " tea",
+       " Earl",
+       " hot",
+       " drinks"
+      ]
+     },
+     {
+      "feature": 80290,
+      "mean_act": 2.1401946544647217,
+      "generality": 0.02702702702702703,
+      "tokens": [
+       " stubborn",
+       " about",
+       " principle"
+      ]
+     },
+     {
+      "feature": 102569,
+      "mean_act": 2.029069662094116,
+      "generality": 0.6846846846846847,
+      "tokens": [
+       " and",
+       " and",
+       " and",
+       " and"
+      ]
+     },
+     {
+      "feature": 36070,
+      "mean_act": 2.024364948272705,
+      "generality": 0.009009009009009009,
+      "tokens": [
+       " stars",
+       " Star",
+       " the",
+       " Federation"
+      ]
+     },
+     {
+      "feature": 114518,
+      "mean_act": 1.999016523361206,
+      "generality": 0.0,
+      "tokens": [
+       "fleet",
+       " an",
+       " he",
+       " trained"
+      ]
+     },
+     {
+      "feature": 12668,
+      "mean_act": 1.9619145393371582,
+      "generality": 0.15315315315315314,
+      "tokens": [
+       " Shakespeare",
+       " principle",
+       " Earl",
+       "ners"
+      ]
+     }
+    ]
+   }
+  },
+  "merge_test": {
+   "narrative": {
+    "n_more_general": 13,
+    "n": 15,
+    "rows": [
+     {
+      "wide": 47277,
+      "wide_tokens": [
+       " Enterprise",
+       " the",
+       " Picard",
+       " Federation"
+      ],
+      "wide_gen": 0.1388888888888889,
+      "narrow": 6071,
+      "cos": 0.45467936992645264,
+      "narrow_gen": 0.375,
+      "narrow_tokens": [
+       " stars",
+       " the",
+       " Federation",
+       " Star"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 46455,
+      "wide_tokens": [
+       " about",
+       " principle",
+       " stubborn",
+       ","
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6415,
+      "cos": 0.6646424531936646,
+      "narrow_gen": 0.20833333333333334,
+      "narrow_tokens": [
+       ",",
+       " is",
+       ",",
+       " rather"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 32491,
+      "wide_tokens": [
+       " the",
+       " He",
+       " captain",
+       " the"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 2502,
+      "cos": 0.4128219485282898,
+      "narrow_gen": 0.0,
+      "narrow_tokens": [
+       " the",
+       " He",
+       " the",
+       " captain"
+      ],
+      "more_general": false
+     },
+     {
+      "wide": 52935,
+      "wide_tokens": [
+       " of",
+       " captain",
+       " the",
+       " Born"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6415,
+      "cos": 0.4733040928840637,
+      "narrow_gen": 0.20833333333333334,
+      "narrow_tokens": [
+       ",",
+       " is",
+       ",",
+       " rather"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 46973,
+      "wide_tokens": [
+       " under",
+       " him",
+       " officers",
+       ","
+      ],
+      "wide_gen": 0.6527777777777778,
+      "narrow": 10693,
+      "cos": 0.9667180180549622,
+      "narrow_gen": 0.6944444444444444,
+      "narrow_tokens": [
+       " him",
+       " officers",
+       ",",
+       " under"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 40040,
+      "wide_tokens": [
+       " diplomacy",
+       " through",
+       " force",
+       " rather"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 9903,
+      "cos": 0.358550101518631,
+      "narrow_gen": 0.125,
+      "narrow_tokens": [
+       " diplomacy",
+       ",",
+       ",",
+       " patience"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35931,
+      "wide_tokens": [
+       " expectations",
+       " patience",
+       " stubborn",
+       "."
+      ],
+      "wide_gen": 0.8055555555555556,
+      "narrow": 8056,
+      "cos": 0.9017300605773926,
+      "narrow_gen": 0.8333333333333334,
+      "narrow_tokens": [
+       " expectations",
+       " patience",
+       " with",
+       " private"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35184,
+      "wide_tokens": [
+       " force",
+       " than",
+       " loses",
+       "ners"
+      ],
+      "wide_gen": 0.8888888888888888,
+      "narrow": 8508,
+      "cos": 0.8933405876159668,
+      "narrow_gen": 1.0,
+      "narrow_tokens": [
+       " force",
+       "A",
+       " than",
+       "ners"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 99480,
+      "wide_tokens": [
+       " Grey",
+       " quotes",
+       " He",
+       ","
+      ],
+      "wide_gen": 0.1111111111111111,
+      "narrow": 7963,
+      "cos": 0.2746913433074951,
+      "narrow_gen": 0.3472222222222222,
+      "narrow_tokens": [
+       " principle",
+       ",",
+       " Earl",
+       " He"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35281,
+      "wide_tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " stars"
+      ],
+      "wide_gen": 0.2777777777777778,
+      "narrow": 7247,
+      "cos": 0.8043947219848633,
+      "narrow_gen": 0.3611111111111111,
+      "narrow_tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " captain"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 33944,
+      "wide_tokens": [
+       " He",
+       " wise",
+       ",",
+       " Picard"
+      ],
+      "wide_gen": 0.05555555555555555,
+      "narrow": 15725,
+      "cos": 0.339633584022522,
+      "narrow_gen": 0.18055555555555555,
+      "narrow_tokens": [
+       " mentors",
+       " him",
+       " expectations",
+       " with"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 90575,
+      "wide_tokens": [
+       " expectations",
+       " patience",
+       " high",
+       " and"
+      ],
+      "wide_gen": 0.8888888888888888,
+      "narrow": 7700,
+      "cos": 0.8420107364654541,
+      "narrow_gen": 1.0,
+      "narrow_tokens": [
+       "A",
+       " expectations",
+       " high",
+       ","
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 20660,
+      "wide_tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " him"
+      ],
+      "wide_gen": 0.625,
+      "narrow": 9444,
+      "cos": 0.9089423418045044,
+      "narrow_gen": 0.5833333333333334,
+      "narrow_tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " Grey"
+      ],
+      "more_general": false
+     },
+     {
+      "wide": 62423,
+      "wide_tokens": [
+       " which",
+       " outcomes",
+       " than",
+       " no"
+      ],
+      "wide_gen": 0.013888888888888888,
+      "narrow": 9206,
+      "cos": 0.740584671497345,
+      "narrow_gen": 0.4166666666666667,
+      "narrow_tokens": [
+       " which",
+       " outcomes",
+       " no",
+       " principle"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 87970,
+      "wide_tokens": [
+       " in",
+       " Born",
+       " he",
+       " an"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6415,
+      "cos": 0.31492364406585693,
+      "narrow_gen": 0.20833333333333334,
+      "narrow_tokens": [
+       ",",
+       " is",
+       ",",
+       " rather"
+      ],
+      "more_general": true
+     }
+    ]
+   },
+   "broad": {
+    "n_more_general": 13,
+    "n": 15,
+    "rows": [
+     {
+      "wide": 47277,
+      "wide_tokens": [
+       " Enterprise",
+       " the",
+       " Picard",
+       " Federation"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6071,
+      "cos": 0.45467936992645264,
+      "narrow_gen": 0.009009009009009009,
+      "narrow_tokens": [
+       " stars",
+       " the",
+       " Federation",
+       " Star"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 46455,
+      "wide_tokens": [
+       " about",
+       " principle",
+       " stubborn",
+       ","
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6415,
+      "cos": 0.6646424531936646,
+      "narrow_gen": 0.0,
+      "narrow_tokens": [
+       ",",
+       " is",
+       ",",
+       " rather"
+      ],
+      "more_general": false
+     },
+     {
+      "wide": 32491,
+      "wide_tokens": [
+       " the",
+       " He",
+       " captain",
+       " the"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 2502,
+      "cos": 0.4128219485282898,
+      "narrow_gen": 0.018018018018018018,
+      "narrow_tokens": [
+       " the",
+       " He",
+       " the",
+       " captain"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 52935,
+      "wide_tokens": [
+       " of",
+       " captain",
+       " the",
+       " Born"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 6415,
+      "cos": 0.4733040928840637,
+      "narrow_gen": 0.0,
+      "narrow_tokens": [
+       ",",
+       " is",
+       ",",
+       " rather"
+      ],
+      "more_general": false
+     },
+     {
+      "wide": 46973,
+      "wide_tokens": [
+       " under",
+       " him",
+       " officers",
+       ","
+      ],
+      "wide_gen": 0.4774774774774775,
+      "narrow": 10693,
+      "cos": 0.9667180180549622,
+      "narrow_gen": 0.6486486486486487,
+      "narrow_tokens": [
+       " him",
+       " officers",
+       ",",
+       " under"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 59539,
+      "wide_tokens": [
+       " Enterprise",
+       "ners",
+       " Federation",
+       " vint"
+      ],
+      "wide_gen": 0.8018018018018018,
+      "narrow": 14705,
+      "cos": 0.9952673316001892,
+      "narrow_gen": 0.8198198198198198,
+      "narrow_tokens": [
+       " Federation",
+       "ners",
+       " Enterprise",
+       "hip"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 40040,
+      "wide_tokens": [
+       " diplomacy",
+       " through",
+       " force",
+       " rather"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 9903,
+      "cos": 0.358550101518631,
+      "narrow_gen": 0.25225225225225223,
+      "narrow_tokens": [
+       " diplomacy",
+       ",",
+       ",",
+       " patience"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 36749,
+      "wide_tokens": [
+       " loses",
+       " one",
+       " no",
+       " diplomacy"
+      ],
+      "wide_gen": 0.8378378378378378,
+      "narrow": 6284,
+      "cos": 0.9982640743255615,
+      "narrow_gen": 0.8468468468468469,
+      "narrow_tokens": [
+       " loses",
+       " one",
+       " no",
+       " diplomacy"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35931,
+      "wide_tokens": [
+       " expectations",
+       " patience",
+       " stubborn",
+       "."
+      ],
+      "wide_gen": 0.45045045045045046,
+      "narrow": 8056,
+      "cos": 0.9017300605773926,
+      "narrow_gen": 0.5225225225225225,
+      "narrow_tokens": [
+       " expectations",
+       " patience",
+       " with",
+       " private"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35184,
+      "wide_tokens": [
+       " force",
+       " than",
+       " loses",
+       "ners"
+      ],
+      "wide_gen": 0.34234234234234234,
+      "narrow": 8508,
+      "cos": 0.8933405876159668,
+      "narrow_gen": 1.0,
+      "narrow_tokens": [
+       " force",
+       "A",
+       " than",
+       "ners"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 99480,
+      "wide_tokens": [
+       " Grey",
+       " quotes",
+       " He",
+       ","
+      ],
+      "wide_gen": 0.018018018018018018,
+      "narrow": 7963,
+      "cos": 0.2746913433074951,
+      "narrow_gen": 0.07207207207207207,
+      "narrow_tokens": [
+       " principle",
+       ",",
+       " Earl",
+       " He"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 35281,
+      "wide_tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " stars"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 7247,
+      "cos": 0.8043947219848633,
+      "narrow_gen": 0.009009009009009009,
+      "narrow_tokens": [
+       "hip",
+       " Enterprise",
+       " the",
+       " captain"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 33944,
+      "wide_tokens": [
+       " He",
+       " wise",
+       ",",
+       " Picard"
+      ],
+      "wide_gen": 0.0,
+      "narrow": 15725,
+      "cos": 0.339633584022522,
+      "narrow_gen": 0.018018018018018018,
+      "narrow_tokens": [
+       " mentors",
+       " him",
+       " expectations",
+       " with"
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 90575,
+      "wide_tokens": [
+       " expectations",
+       " patience",
+       " high",
+       " and"
+      ],
+      "wide_gen": 0.4594594594594595,
+      "narrow": 7700,
+      "cos": 0.8420107364654541,
+      "narrow_gen": 1.0,
+      "narrow_tokens": [
+       "A",
+       " expectations",
+       " high",
+       ","
+      ],
+      "more_general": true
+     },
+     {
+      "wide": 20660,
+      "wide_tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " him"
+      ],
+      "wide_gen": 0.7117117117117117,
+      "narrow": 9444,
+      "cos": 0.9089423418045044,
+      "narrow_gen": 0.8018018018018018,
+      "narrow_tokens": [
+       " expectations",
+       " officers",
+       " under",
+       " Grey"
+      ],
+      "more_general": true
+     }
+    ]
+   }
+  }
+ },
+ "C_flow": {
+  "thresholds": [
+   0.0,
+   0.01,
+   0.02,
+   0.05,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.55,
+   0.7,
+   0.85,
+   0.95
+  ],
+  "flow": {
+   "narrative": [
+    {
+     "g_k": 0.0,
+     "n_features": 16384,
+     "frac_act_mass": 1.0000001192092896,
+     "raw": {
+      "mean_cos": 0.973200798034668,
+      "mean_dist": 0.026799233630299568,
+      "sd_dist": 0.0072750248946249485,
+      "spread": 0.23965664207935333,
+      "within_theme": 0.017480669543147087,
+      "across_theme": 0.027982546016573906,
+      "theme_ratio": 0.624699056148529,
+      "within_era": 0.024712983518838882,
+      "across_era": 0.02779889479279518,
+      "era_ratio": 0.8889915943145752,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.546875
+     },
+     "centered": {
+      "mean_cos": -0.012378386221826077,
+      "mean_dist": 1.0123783349990845,
+      "sd_dist": 0.25104543566703796,
+      "spread": 1.4170702695846558,
+      "within_theme": 0.6417118906974792,
+      "across_theme": 1.059447169303894,
+      "theme_ratio": 0.6057044863700867,
+      "within_era": 0.9330385327339172,
+      "across_era": 1.0503953695297241,
+      "era_ratio": 0.8882736563682556,
+      "knn8_theme": 0.6284722222222222,
+      "knn8_era": 0.5347222222222222
+     }
+    },
+    {
+     "g_k": 0.01,
+     "n_features": 8681,
+     "frac_act_mass": 1.0,
+     "raw": {
+      "mean_cos": 0.973200798034668,
+      "mean_dist": 0.02679922804236412,
+      "sd_dist": 0.007275032810866833,
+      "spread": 0.23965664207935333,
+      "within_theme": 0.01748066395521164,
+      "across_theme": 0.02798253856599331,
+      "theme_ratio": 0.6246989965438843,
+      "within_era": 0.024712977930903435,
+      "across_era": 0.027798889204859734,
+      "era_ratio": 0.8889915347099304,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.546875
+     },
+     "centered": {
+      "mean_cos": -0.012378385290503502,
+      "mean_dist": 1.0123783349990845,
+      "sd_dist": 0.25104543566703796,
+      "spread": 1.4170702695846558,
+      "within_theme": 0.6417118906974792,
+      "across_theme": 1.059447169303894,
+      "theme_ratio": 0.6057044863700867,
+      "within_era": 0.9330384731292725,
+      "across_era": 1.0503953695297241,
+      "era_ratio": 0.8882735967636108,
+      "knn8_theme": 0.6284722222222222,
+      "knn8_era": 0.5347222222222222
+     }
+    },
+    {
+     "g_k": 0.02,
+     "n_features": 7199,
+     "frac_act_mass": 0.9932916760444641,
+     "raw": {
+      "mean_cos": 0.9735690951347351,
+      "mean_dist": 0.026430897414684296,
+      "sd_dist": 0.007177780847996473,
+      "spread": 0.2381085306406021,
+      "within_theme": 0.017160549759864807,
+      "across_theme": 0.027608083561062813,
+      "theme_ratio": 0.6215770244598389,
+      "within_era": 0.02436382696032524,
+      "across_era": 0.027421368286013603,
+      "era_ratio": 0.8884978294372559,
+      "knn8_theme": 0.6006944444444444,
+      "knn8_era": 0.5486111111111112
+     },
+     "centered": {
+      "mean_cos": -0.012404585257172585,
+      "mean_dist": 1.0124045610427856,
+      "sd_dist": 0.25260666012763977,
+      "spread": 1.4168109893798828,
+      "within_theme": 0.6387143731117249,
+      "across_theme": 1.0598572492599487,
+      "theme_ratio": 0.6026418805122375,
+      "within_era": 0.9328131675720215,
+      "across_era": 1.0505421161651611,
+      "era_ratio": 0.8879350423812866,
+      "knn8_theme": 0.6284722222222222,
+      "knn8_era": 0.5329861111111112
+     }
+    },
+    {
+     "g_k": 0.05,
+     "n_features": 5462,
+     "frac_act_mass": 0.970810055732727,
+     "raw": {
+      "mean_cos": 0.9747201800346375,
+      "mean_dist": 0.025279885157942772,
+      "sd_dist": 0.006988427601754665,
+      "spread": 0.233221173286438,
+      "within_theme": 0.01620429754257202,
+      "across_theme": 0.0264323391020298,
+      "theme_ratio": 0.6130481958389282,
+      "within_era": 0.023287445306777954,
+      "across_era": 0.026234591379761696,
+      "era_ratio": 0.8876618146896362,
+      "knn8_theme": 0.609375,
+      "knn8_era": 0.5416666666666666
+     },
+     "centered": {
+      "mean_cos": -0.01235161628574133,
+      "mean_dist": 1.012351632118225,
+      "sd_dist": 0.25826263427734375,
+      "spread": 1.4163039922714233,
+      "within_theme": 0.630114734172821,
+      "across_theme": 1.0608896017074585,
+      "theme_ratio": 0.5939493775367737,
+      "within_era": 0.9323537945747375,
+      "across_era": 1.050683856010437,
+      "era_ratio": 0.8873780369758606,
+      "knn8_theme": 0.6302083333333334,
+      "knn8_era": 0.5347222222222222
+     }
+    },
+    {
+     "g_k": 0.1,
+     "n_features": 3674,
+     "frac_act_mass": 0.9178428053855896,
+     "raw": {
+      "mean_cos": 0.9771879315376282,
+      "mean_dist": 0.022811993956565857,
+      "sd_dist": 0.006541507318615913,
+      "spread": 0.22245994210243225,
+      "within_theme": 0.014349781908094883,
+      "across_theme": 0.023886559531092644,
+      "theme_ratio": 0.6007471084594727,
+      "within_era": 0.021001741290092468,
+      "across_era": 0.023679407313466072,
+      "era_ratio": 0.8869200348854065,
+      "knn8_theme": 0.6076388888888888,
+      "knn8_era": 0.5486111111111112
+     },
+     "centered": {
+      "mean_cos": -0.012258120812475681,
+      "mean_dist": 1.0122581720352173,
+      "sd_dist": 0.26981446146965027,
+      "spread": 1.415281891822815,
+      "within_theme": 0.6162284016609192,
+      "across_theme": 1.0625475645065308,
+      "theme_ratio": 0.5799537301063538,
+      "within_era": 0.9321500062942505,
+      "across_era": 1.0506433248519897,
+      "era_ratio": 0.8872182965278625,
+      "knn8_theme": 0.6267361111111112,
+      "knn8_era": 0.5277777777777778
+     }
+    },
+    {
+     "g_k": 0.2,
+     "n_features": 2200,
+     "frac_act_mass": 0.8204383254051208,
+     "raw": {
+      "mean_cos": 0.9815336465835571,
+      "mean_dist": 0.018466349691152573,
+      "sd_dist": 0.005684106610715389,
+      "spread": 0.20236991345882416,
+      "within_theme": 0.01152128353714943,
+      "across_theme": 0.019348260015249252,
+      "theme_ratio": 0.5954686999320984,
+      "within_era": 0.016885267570614815,
+      "across_era": 0.019223948940634727,
+      "era_ratio": 0.8783454298973083,
+      "knn8_theme": 0.578125,
+      "knn8_era": 0.5590277777777778
+     },
+     "centered": {
+      "mean_cos": -0.012082301080226898,
+      "mean_dist": 1.0120823383331299,
+      "sd_dist": 0.2916792929172516,
+      "spread": 1.4139257669448853,
+      "within_theme": 0.6034075617790222,
+      "across_theme": 1.063977599143982,
+      "theme_ratio": 0.5671243071556091,
+      "within_era": 0.927504301071167,
+      "across_era": 1.0526093244552612,
+      "era_ratio": 0.8811477422714233,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.5434027777777778
+     }
+    },
+    {
+     "g_k": 0.3,
+     "n_features": 1471,
+     "frac_act_mass": 0.7326543927192688,
+     "raw": {
+      "mean_cos": 0.9850128889083862,
+      "mean_dist": 0.014987139962613583,
+      "sd_dist": 0.004872402176260948,
+      "spread": 0.184705451130867,
+      "within_theme": 0.0091930590569973,
+      "across_theme": 0.01572289690375328,
+      "theme_ratio": 0.5846924185752869,
+      "within_era": 0.013677481561899185,
+      "across_era": 0.015614684671163559,
+      "era_ratio": 0.8759371042251587,
+      "knn8_theme": 0.5572916666666666,
+      "knn8_era": 0.5538194444444444
+     },
+     "centered": {
+      "mean_cos": -0.01177580188959837,
+      "mean_dist": 1.0117758512496948,
+      "sd_dist": 0.3160344660282135,
+      "spread": 1.4119285345077515,
+      "within_theme": 0.5855984091758728,
+      "across_theme": 1.065893530845642,
+      "theme_ratio": 0.5493966937065125,
+      "within_era": 0.925590455532074,
+      "across_era": 1.0530729293823242,
+      "era_ratio": 0.8789424300193787,
+      "knn8_theme": 0.578125,
+      "knn8_era": 0.5434027777777778
+     }
+    },
+    {
+     "g_k": 0.4,
+     "n_features": 1051,
+     "frac_act_mass": 0.6508264541625977,
+     "raw": {
+      "mean_cos": 0.9881092309951782,
+      "mean_dist": 0.011890781112015247,
+      "sd_dist": 0.004178483039140701,
+      "spread": 0.16707861423492432,
+      "within_theme": 0.007121988572180271,
+      "across_theme": 0.012496341951191425,
+      "theme_ratio": 0.569925844669342,
+      "within_era": 0.010965780355036259,
+      "across_era": 0.012334011495113373,
+      "era_ratio": 0.8890684247016907,
+      "knn8_theme": 0.5347222222222222,
+      "knn8_era": 0.5399305555555556
+     },
+     "centered": {
+      "mean_cos": -0.01197979599237442,
+      "mean_dist": 1.0119798183441162,
+      "sd_dist": 0.34736570715904236,
+      "spread": 1.409098744392395,
+      "within_theme": 0.5620310306549072,
+      "across_theme": 1.0691161155700684,
+      "theme_ratio": 0.525696873664856,
+      "within_era": 0.937217652797699,
+      "across_era": 1.047803282737732,
+      "era_ratio": 0.8944595456123352,
+      "knn8_theme": 0.5416666666666666,
+      "knn8_era": 0.5381944444444444
+     }
+    },
+    {
+     "g_k": 0.55,
+     "n_features": 603,
+     "frac_act_mass": 0.5261291265487671,
+     "raw": {
+      "mean_cos": 0.9915964603424072,
+      "mean_dist": 0.008403528481721878,
+      "sd_dist": 0.003241199068725109,
+      "spread": 0.14465537667274475,
+      "within_theme": 0.004880046471953392,
+      "across_theme": 0.00885095540434122,
+      "theme_ratio": 0.551358163356781,
+      "within_era": 0.007835647091269493,
+      "across_era": 0.008675639517605305,
+      "era_ratio": 0.9031780362129211,
+      "knn8_theme": 0.4878472222222222,
+      "knn8_era": 0.5034722222222222
+     },
+     "centered": {
+      "mean_cos": -0.012520946562290192,
+      "mean_dist": 1.0125209093093872,
+      "sd_dist": 0.39793306589126587,
+      "spread": 1.4031810760498047,
+      "within_theme": 0.532769501209259,
+      "across_theme": 1.073441743850708,
+      "theme_ratio": 0.4963189661502838,
+      "within_era": 0.9471914768218994,
+      "across_era": 1.0438246726989746,
+      "era_ratio": 0.9074239134788513,
+      "knn8_theme": 0.5225694444444444,
+      "knn8_era": 0.5
+     }
+    },
+    {
+     "g_k": 0.7,
+     "n_features": 428,
+     "frac_act_mass": 0.44747021794319153,
+     "raw": {
+      "mean_cos": 0.9940518140792847,
+      "mean_dist": 0.005948106292635202,
+      "sd_dist": 0.0026332149282097816,
+      "spread": 0.12641063332557678,
+      "within_theme": 0.003283256199210882,
+      "across_theme": 0.0062865000218153,
+      "theme_ratio": 0.522270917892456,
+      "within_era": 0.005614240188151598,
+      "across_era": 0.006108083762228489,
+      "era_ratio": 0.9191491603851318,
+      "knn8_theme": 0.4826388888888889,
+      "knn8_era": 0.4791666666666667
+     },
+     "centered": {
+      "mean_cos": -0.011535124853253365,
+      "mean_dist": 1.0115351676940918,
+      "sd_dist": 0.45302900671958923,
+      "spread": 1.396561861038208,
+      "within_theme": 0.4958494007587433,
+      "across_theme": 1.0770190954208374,
+      "theme_ratio": 0.46039053797721863,
+      "within_era": 0.9542637467384338,
+      "across_era": 1.0389776229858398,
+      "era_ratio": 0.918464183807373,
+      "knn8_theme": 0.484375,
+      "knn8_era": 0.4774305555555556
+     }
+    },
+    {
+     "g_k": 0.85,
+     "n_features": 342,
+     "frac_act_mass": 0.38553571701049805,
+     "raw": {
+      "mean_cos": 0.9959041476249695,
+      "mean_dist": 0.004095897078514099,
+      "sd_dist": 0.0020149946212768555,
+      "spread": 0.11013661324977875,
+      "within_theme": 0.0021262464579194784,
+      "across_theme": 0.00434601167216897,
+      "theme_ratio": 0.4892408549785614,
+      "within_era": 0.003893305780366063,
+      "across_era": 0.004192972555756569,
+      "era_ratio": 0.9285311698913574,
+      "knn8_theme": 0.4427083333333333,
+      "knn8_era": 0.4739583333333333
+     },
+     "centered": {
+      "mean_cos": -0.01181945763528347,
+      "mean_dist": 1.0118194818496704,
+      "sd_dist": 0.5232507586479187,
+      "spread": 1.3879905939102173,
+      "within_theme": 0.45776304602622986,
+      "across_theme": 1.082175850868225,
+      "theme_ratio": 0.4230024516582489,
+      "within_era": 0.9587392210960388,
+      "across_era": 1.037253737449646,
+      "era_ratio": 0.9243053793907166,
+      "knn8_theme": 0.4010416666666667,
+      "knn8_era": 0.453125
+     }
+    },
+    {
+     "g_k": 0.95,
+     "n_features": 320,
+     "frac_act_mass": 0.36242568492889404,
+     "raw": {
+      "mean_cos": 0.9963093996047974,
+      "mean_dist": 0.003690559882670641,
+      "sd_dist": 0.0019152980530634522,
+      "spread": 0.10623092204332352,
+      "within_theme": 0.0018427649047225714,
+      "across_theme": 0.003925200551748276,
+      "theme_ratio": 0.4694702625274658,
+      "within_era": 0.003513137809932232,
+      "across_era": 0.0037755744997411966,
+      "era_ratio": 0.9304909110069275,
+      "knn8_theme": 0.421875,
+      "knn8_era": 0.4722222222222222
+     },
+     "centered": {
+      "mean_cos": -0.011851852759718895,
+      "mean_dist": 1.0118519067764282,
+      "sd_dist": 0.5453957915306091,
+      "spread": 1.3856794834136963,
+      "within_theme": 0.4417181611061096,
+      "across_theme": 1.0842498540878296,
+      "theme_ratio": 0.4073951840400696,
+      "within_era": 0.9591740369796753,
+      "across_era": 1.0370932817459106,
+      "era_ratio": 0.9248676896095276,
+      "knn8_theme": 0.3993055555555556,
+      "knn8_era": 0.4496527777777778
+     }
+    }
+   ],
+   "broad": [
+    {
+     "g_k": 0.0,
+     "n_features": 16384,
+     "frac_act_mass": 1.0000001192092896,
+     "raw": {
+      "mean_cos": 0.973200798034668,
+      "mean_dist": 0.026799233630299568,
+      "sd_dist": 0.0072750248946249485,
+      "spread": 0.23965664207935333,
+      "within_theme": 0.017480669543147087,
+      "across_theme": 0.027982546016573906,
+      "theme_ratio": 0.624699056148529,
+      "within_era": 0.024712983518838882,
+      "across_era": 0.02779889479279518,
+      "era_ratio": 0.8889915943145752,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.546875
+     },
+     "centered": {
+      "mean_cos": -0.012378386221826077,
+      "mean_dist": 1.0123783349990845,
+      "sd_dist": 0.25104543566703796,
+      "spread": 1.4170702695846558,
+      "within_theme": 0.6417118906974792,
+      "across_theme": 1.059447169303894,
+      "theme_ratio": 0.6057044863700867,
+      "within_era": 0.9330385327339172,
+      "across_era": 1.0503953695297241,
+      "era_ratio": 0.8882736563682556,
+      "knn8_theme": 0.6284722222222222,
+      "knn8_era": 0.5347222222222222
+     }
+    },
+    {
+     "g_k": 0.01,
+     "n_features": 9897,
+     "frac_act_mass": 0.940134584903717,
+     "raw": {
+      "mean_cos": 0.9765422344207764,
+      "mean_dist": 0.023457786068320274,
+      "sd_dist": 0.0067395712248981,
+      "spread": 0.22551637887954712,
+      "within_theme": 0.01491855550557375,
+      "across_theme": 0.024542134255170822,
+      "theme_ratio": 0.6078752279281616,
+      "within_era": 0.02219386212527752,
+      "across_era": 0.024063417688012123,
+      "era_ratio": 0.9223071336746216,
+      "knn8_theme": 0.6128472222222222,
+      "knn8_era": 0.4861111111111111
+     },
+     "centered": {
+      "mean_cos": -0.011844400316476822,
+      "mean_dist": 1.0118443965911865,
+      "sd_dist": 0.25973454117774963,
+      "spread": 1.4172462224960327,
+      "within_theme": 0.6236152052879333,
+      "across_theme": 1.061143398284912,
+      "theme_ratio": 0.58768230676651,
+      "within_era": 0.9551860690116882,
+      "across_era": 1.038993239402771,
+      "era_ratio": 0.9193381071090698,
+      "knn8_theme": 0.6440972222222222,
+      "knn8_era": 0.4809027777777778
+     }
+    },
+    {
+     "g_k": 0.02,
+     "n_features": 8318,
+     "frac_act_mass": 0.8920456171035767,
+     "raw": {
+      "mean_cos": 0.9792600870132446,
+      "mean_dist": 0.020739875733852386,
+      "sd_dist": 0.006024482659995556,
+      "spread": 0.2134794145822525,
+      "within_theme": 0.013124074786901474,
+      "across_theme": 0.02170695923268795,
+      "theme_ratio": 0.6046021580696106,
+      "within_era": 0.019745444878935814,
+      "across_era": 0.021216372027993202,
+      "era_ratio": 0.9306702017784119,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.4774305555555556
+     },
+     "centered": {
+      "mean_cos": -0.011566833592951298,
+      "mean_dist": 1.0115668773651123,
+      "sd_dist": 0.2707855999469757,
+      "spread": 1.416217565536499,
+      "within_theme": 0.6156985759735107,
+      "across_theme": 1.0618358850479126,
+      "theme_ratio": 0.5798434615135193,
+      "within_era": 0.9606443643569946,
+      "across_era": 1.035967230796814,
+      "era_ratio": 0.9272922277450562,
+      "knn8_theme": 0.6423611111111112,
+      "knn8_era": 0.4704861111111111
+     }
+    },
+    {
+     "g_k": 0.05,
+     "n_features": 5426,
+     "frac_act_mass": 0.7669171690940857,
+     "raw": {
+      "mean_cos": 0.984440267086029,
+      "mean_dist": 0.015559741295874119,
+      "sd_dist": 0.004928541835397482,
+      "spread": 0.18768678605556488,
+      "within_theme": 0.009652996435761452,
+      "across_theme": 0.01630980521440506,
+      "theme_ratio": 0.5918523669242859,
+      "within_era": 0.014805308543145657,
+      "across_era": 0.01592123880982399,
+      "era_ratio": 0.929909348487854,
+      "knn8_theme": 0.5868055555555556,
+      "knn8_era": 0.46875
+     },
+     "centered": {
+      "mean_cos": -0.01148195844143629,
+      "mean_dist": 1.0114818811416626,
+      "sd_dist": 0.29894593358039856,
+      "spread": 1.41387939453125,
+      "within_theme": 0.5949065089225769,
+      "across_theme": 1.064380407333374,
+      "theme_ratio": 0.5589228272438049,
+      "within_era": 0.9602503180503845,
+      "across_era": 1.0360304117202759,
+      "era_ratio": 0.9268553256988525,
+      "knn8_theme": 0.6024305555555556,
+      "knn8_era": 0.4670138888888889
+     }
+    },
+    {
+     "g_k": 0.1,
+     "n_features": 2681,
+     "frac_act_mass": 0.568348228931427,
+     "raw": {
+      "mean_cos": 0.991303026676178,
+      "mean_dist": 0.008696922101080418,
+      "sd_dist": 0.003243780927732587,
+      "spread": 0.14622178673744202,
+      "within_theme": 0.005265055224299431,
+      "across_theme": 0.009132715873420238,
+      "theme_ratio": 0.5765048861503601,
+      "within_era": 0.008241266012191772,
+      "across_era": 0.008915258571505547,
+      "era_ratio": 0.9244000911712646,
+      "knn8_theme": 0.4861111111111111,
+      "knn8_era": 0.4947916666666667
+     },
+     "centered": {
+      "mean_cos": -0.012889515608549118,
+      "mean_dist": 1.0128896236419678,
+      "sd_dist": 0.378089964389801,
+      "spread": 1.4068896770477295,
+      "within_theme": 0.5567998886108398,
+      "across_theme": 1.0708057880401611,
+      "theme_ratio": 0.5199821591377258,
+      "within_era": 0.9584518671035767,
+      "across_era": 1.0389741659164429,
+      "era_ratio": 0.9224982857704163,
+      "knn8_theme": 0.5173611111111112,
+      "knn8_era": 0.4826388888888889
+     }
+    },
+    {
+     "g_k": 0.2,
+     "n_features": 1107,
+     "frac_act_mass": 0.40430086851119995,
+     "raw": {
+      "mean_cos": 0.9943988919258118,
+      "mean_dist": 0.005601054523140192,
+      "sd_dist": 0.0025473209097981453,
+      "spread": 0.12282505631446838,
+      "within_theme": 0.0032429168932139874,
+      "across_theme": 0.005900500807911158,
+      "theme_ratio": 0.5496003031730652,
+      "within_era": 0.005288863554596901,
+      "across_era": 0.005750646349042654,
+      "era_ratio": 0.91969895362854,
+      "knn8_theme": 0.4496527777777778,
+      "knn8_era": 0.4895833333333333
+     },
+     "centered": {
+      "mean_cos": -0.013037220574915409,
+      "mean_dist": 1.0130372047424316,
+      "sd_dist": 0.4534233808517456,
+      "spread": 1.4017784595489502,
+      "within_theme": 0.5195426344871521,
+      "across_theme": 1.0757031440734863,
+      "theme_ratio": 0.48297956585884094,
+      "within_era": 0.9579938054084778,
+      "across_era": 1.0394121408462524,
+      "era_ratio": 0.9216688871383667,
+      "knn8_theme": 0.4340277777777778,
+      "knn8_era": 0.4756944444444444
+     }
+    },
+    {
+     "g_k": 0.3,
+     "n_features": 604,
+     "frac_act_mass": 0.33740973472595215,
+     "raw": {
+      "mean_cos": 0.995029866695404,
+      "mean_dist": 0.004970136564224958,
+      "sd_dist": 0.0024714122992008924,
+      "spread": 0.11712761968374252,
+      "within_theme": 0.0027972350362688303,
+      "across_theme": 0.005246060434728861,
+      "theme_ratio": 0.5332067608833313,
+      "within_era": 0.004695992451161146,
+      "across_era": 0.005101497750729322,
+      "era_ratio": 0.9205124974250793,
+      "knn8_theme": 0.4184027777777778,
+      "knn8_era": 0.4774305555555556
+     },
+     "centered": {
+      "mean_cos": -0.01299002580344677,
+      "mean_dist": 1.012990117073059,
+      "sd_dist": 0.4790533781051636,
+      "spread": 1.4004830121994019,
+      "within_theme": 0.5039239525794983,
+      "across_theme": 1.0776333808898926,
+      "theme_ratio": 0.46762096881866455,
+      "within_era": 0.9584496021270752,
+      "across_era": 1.0391238927841187,
+      "era_ratio": 0.9223631620407104,
+      "knn8_theme": 0.4114583333333333,
+      "knn8_era": 0.46875
+     }
+    },
+    {
+     "g_k": 0.4,
+     "n_features": 415,
+     "frac_act_mass": 0.30313459038734436,
+     "raw": {
+      "mean_cos": 0.9956267476081848,
+      "mean_dist": 0.004373271018266678,
+      "sd_dist": 0.0022309902124106884,
+      "spread": 0.11192075908184052,
+      "within_theme": 0.002390436362475157,
+      "across_theme": 0.00462505966424942,
+      "theme_ratio": 0.5168444514274597,
+      "within_era": 0.0042562540620565414,
+      "across_era": 0.004429342225193977,
+      "era_ratio": 0.960922360420227,
+      "knn8_theme": 0.4131944444444444,
+      "knn8_era": 0.4149305555555556
+     },
+     "centered": {
+      "mean_cos": -0.012944972142577171,
+      "mean_dist": 1.0129449367523193,
+      "sd_dist": 0.4964963495731354,
+      "spread": 1.3985832929611206,
+      "within_theme": 0.4894571304321289,
+      "across_theme": 1.079419493675232,
+      "theme_ratio": 0.45344477891921997,
+      "within_era": 0.9767415523529053,
+      "across_era": 1.0302923917770386,
+      "era_ratio": 0.9480236768722534,
+      "knn8_theme": 0.421875,
+      "knn8_era": 0.4149305555555556
+     }
+    },
+    {
+     "g_k": 0.55,
+     "n_features": 263,
+     "frac_act_mass": 0.27550604939460754,
+     "raw": {
+      "mean_cos": 0.9962630271911621,
+      "mean_dist": 0.0037370086647570133,
+      "sd_dist": 0.002068901900202036,
+      "spread": 0.10590925067663193,
+      "within_theme": 0.001958439825102687,
+      "across_theme": 0.003962858114391565,
+      "theme_ratio": 0.49419882893562317,
+      "within_era": 0.0036318902857601643,
+      "across_era": 0.0037873773835599422,
+      "era_ratio": 0.9589459896087646,
+      "knn8_theme": 0.4045138888888889,
+      "knn8_era": 0.4270833333333333
+     },
+     "centered": {
+      "mean_cos": -0.012760159559547901,
+      "mean_dist": 1.012760043144226,
+      "sd_dist": 0.5252044200897217,
+      "spread": 1.3971190452575684,
+      "within_theme": 0.47112593054771423,
+      "across_theme": 1.0815390348434448,
+      "theme_ratio": 0.4356069564819336,
+      "within_era": 0.9749804735183716,
+      "across_era": 1.0308629274368286,
+      "era_ratio": 0.9457905888557434,
+      "knn8_theme": 0.4131944444444444,
+      "knn8_era": 0.4236111111111111
+     }
+    },
+    {
+     "g_k": 0.7,
+     "n_features": 172,
+     "frac_act_mass": 0.24473917484283447,
+     "raw": {
+      "mean_cos": 0.9970064163208008,
+      "mean_dist": 0.0029935718048363924,
+      "sd_dist": 0.0018455700483173132,
+      "spread": 0.09849999099969864,
+      "within_theme": 0.0015668137930333614,
+      "across_theme": 0.003174747806042433,
+      "theme_ratio": 0.49352386593818665,
+      "within_era": 0.002962613245472312,
+      "across_era": 0.003008406376466155,
+      "era_ratio": 0.9847782850265503,
+      "knn8_theme": 0.34375,
+      "knn8_era": 0.3541666666666667
+     },
+     "centered": {
+      "mean_cos": -0.012344924733042717,
+      "mean_dist": 1.0123449563980103,
+      "sd_dist": 0.5679699778556824,
+      "spread": 1.3902703523635864,
+      "within_theme": 0.456387460231781,
+      "across_theme": 1.0829428434371948,
+      "theme_ratio": 0.42143264412879944,
+      "within_era": 0.9869889616966248,
+      "across_era": 1.0244946479797363,
+      "era_ratio": 0.9633910655975342,
+      "knn8_theme": 0.3628472222222222,
+      "knn8_era": 0.3628472222222222
+     }
+    },
+    {
+     "g_k": 0.85,
+     "n_features": 93,
+     "frac_act_mass": 0.18813106417655945,
+     "raw": {
+      "mean_cos": 0.9987097382545471,
+      "mean_dist": 0.0012902661692351103,
+      "sd_dist": 0.0009061371092684567,
+      "spread": 0.07912888377904892,
+      "within_theme": 0.0006005704053677619,
+      "across_theme": 0.0013778465799987316,
+      "theme_ratio": 0.43587610125541687,
+      "within_era": 0.0012634498998522758,
+      "across_era": 0.00130311562679708,
+      "era_ratio": 0.9695608615875244,
+      "knn8_theme": 0.3159722222222222,
+      "knn8_era": 0.3680555555555556
+     },
+     "centered": {
+      "mean_cos": -0.012934629805386066,
+      "mean_dist": 1.012934684753418,
+      "sd_dist": 0.6883999109268188,
+      "spread": 1.3768483400344849,
+      "within_theme": 0.4087884724140167,
+      "across_theme": 1.0896515846252441,
+      "theme_ratio": 0.3751552104949951,
+      "within_era": 0.9820200800895691,
+      "across_era": 1.0277478694915771,
+      "era_ratio": 0.9555068016052246,
+      "knn8_theme": 0.3142361111111111,
+      "knn8_era": 0.4097222222222222
+     }
+    },
+    {
+     "g_k": 0.95,
+     "n_features": 58,
+     "frac_act_mass": 0.17466306686401367,
+     "raw": {
+      "mean_cos": 0.9989029765129089,
+      "mean_dist": 0.0010970537550747395,
+      "sd_dist": 0.0008358084014616907,
+      "spread": 0.07621534168720245,
+      "within_theme": 0.0004973732284270227,
+      "across_theme": 0.0011732038110494614,
+      "theme_ratio": 0.4239444434642792,
+      "within_era": 0.0010740146972239017,
+      "across_era": 0.0011080934200435877,
+      "era_ratio": 0.9692456126213074,
+      "knn8_theme": 0.3055555555555556,
+      "knn8_era": 0.3680555555555556
+     },
+     "centered": {
+      "mean_cos": -0.012626606039702892,
+      "mean_dist": 1.0126266479492188,
+      "sd_dist": 0.7135453820228577,
+      "spread": 1.3792933225631714,
+      "within_theme": 0.41100722551345825,
+      "across_theme": 1.0890227556228638,
+      "theme_ratio": 0.3774092197418213,
+      "within_era": 0.984523594379425,
+      "across_era": 1.0260926485061646,
+      "era_ratio": 0.959488034248352,
+      "knn8_theme": 0.296875,
+      "knn8_era": 0.3888888888888889
+     }
+    }
+   ],
+   "baseline_raw_residual": {
+    "raw": {
+     "mean_cos": 0.9452203512191772,
+     "mean_dist": 0.054779648780822754,
+     "sd_dist": 0.011637749150395393,
+     "spread": 0.3366929292678833,
+     "within_theme": 0.03757578879594803,
+     "across_theme": 0.05696426331996918,
+     "theme_ratio": 0.6596379280090332,
+     "within_era": 0.050569068640470505,
+     "across_era": 0.056797221302986145,
+     "era_ratio": 0.8903440833091736,
+     "knn8_theme": 0.6545138888888888,
+     "knn8_era": 0.5399305555555556
+    },
+    "centered": {
+     "mean_cos": -0.013054999522864819,
+     "mean_dist": 1.0130550861358643,
+     "sd_dist": 0.19306732714176178,
+     "spread": 1.4201478958129883,
+     "within_theme": 0.6851054430007935,
+     "across_theme": 1.0546993017196655,
+     "theme_ratio": 0.6495741605758667,
+     "within_era": 0.9345986247062683,
+     "across_era": 1.0506486892700195,
+     "era_ratio": 0.8895443677902222,
+     "knn8_theme": 0.671875,
+     "knn8_era": 0.5295138888888888
+    }
+   }
+  },
+  "anchors": {
+   "0.7": [
+    {
+     "feature": 10439,
+     "generality": 1.0,
+     "total_act": 4196.9921875,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7851,
+     "generality": 1.0,
+     "total_act": 1354.09716796875,
+     "tokens": [
+      " afternoon",
+      " broke",
+      " read",
+      " tradition",
+      " sounded",
+      " ran",
+      " till",
+      " and"
+     ]
+    },
+    {
+     "feature": 12492,
+     "generality": 1.0,
+     "total_act": 606.3587646484375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 6284,
+     "generality": 0.8468468468468469,
+     "total_act": 501.5890197753906,
+     "tokens": [
+      " jail",
+      " leak",
+      " year",
+      " flour",
+      " tomatoes",
+      " shutdown",
+      " winter",
+      " ring"
+     ]
+    },
+    {
+     "feature": 3375,
+     "generality": 0.963963963963964,
+     "total_act": 393.3955993652344,
+     "tokens": [
+      " the",
+      " for",
+      " up",
+      " so",
+      " was",
+      " do",
+      " in",
+      " within"
+     ]
+    },
+    {
+     "feature": 7212,
+     "generality": 1.0,
+     "total_act": 290.207763671875,
+     "tokens": [
+      " afternoon",
+      " creditors",
+      "or",
+      " nephew",
+      " back",
+      " hands",
+      " looking",
+      " writ"
+     ]
+    },
+    {
+     "feature": 10234,
+     "generality": 0.7387387387387387,
+     "total_act": 265.7833251953125,
+     "tokens": [
+      " forged",
+      " side",
+      " water",
+      " opened",
+      " hopper",
+      " locked",
+      " back",
+      " sent"
+     ]
+    },
+    {
+     "feature": 1671,
+     "generality": 0.7747747747747747,
+     "total_act": 227.99880981445312,
+     "tokens": [
+      " the",
+      " the",
+      " the",
+      " the",
+      " the",
+      " the",
+      " the",
+      " the"
+     ]
+    },
+    {
+     "feature": 14705,
+     "generality": 0.8198198198198198,
+     "total_act": 204.09584045410156,
+     "tokens": [
+      " survey",
+      " war",
+      " strike",
+      " jail",
+      " seen",
+      " blockade",
+      " due",
+      " return"
+     ]
+    },
+    {
+     "feature": 2727,
+     "generality": 1.0,
+     "total_act": 198.3343505859375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7700,
+     "generality": 1.0,
+     "total_act": 181.41659545898438,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 16288,
+     "generality": 1.0,
+     "total_act": 176.3311309814453,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 1280,
+     "generality": 0.7747747747747747,
+     "total_act": 174.61721801757812,
+     "tokens": [
+      " a",
+      " a",
+      " a",
+      " a",
+      " a",
+      " a",
+      " a",
+      " a"
+     ]
+    },
+    {
+     "feature": 12490,
+     "generality": 0.8018018018018018,
+     "total_act": 165.85958862304688,
+     "tokens": [
+      " off",
+      " docked",
+      ",",
+      " torches",
+      " landing",
+      " flare",
+      " again",
+      " ale"
+     ]
+    },
+    {
+     "feature": 8682,
+     "generality": 1.0,
+     "total_act": 154.60092163085938,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 1683,
+     "generality": 0.9459459459459459,
+     "total_act": 135.45773315429688,
+     "tokens": [
+      " strike",
+      " side",
+      "arms",
+      " pockets",
+      "is",
+      " ring",
+      " sector",
+      " morning"
+     ]
+    },
+    {
+     "feature": 8508,
+     "generality": 1.0,
+     "total_act": 133.3662109375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 15718,
+     "generality": 0.7207207207207207,
+     "total_act": 131.56466674804688,
+     "tokens": [
+      ",",
+      ",",
+      ",",
+      ",",
+      ",",
+      ",",
+      ",",
+      ","
+     ]
+    },
+    {
+     "feature": 771,
+     "generality": 1.0,
+     "total_act": 130.56817626953125,
+     "tokens": [
+      " plowing",
+      " had",
+      " morning",
+      " heart",
+      " changed",
+      " born",
+      " out",
+      " years"
+     ]
+    },
+    {
+     "feature": 14601,
+     "generality": 1.0,
+     "total_act": 112.05349731445312,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    }
+   ],
+   "0.85": [
+    {
+     "feature": 10439,
+     "generality": 1.0,
+     "total_act": 4196.9921875,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7851,
+     "generality": 1.0,
+     "total_act": 1354.09716796875,
+     "tokens": [
+      " afternoon",
+      " broke",
+      " read",
+      " tradition",
+      " sounded",
+      " ran",
+      " till",
+      " and"
+     ]
+    },
+    {
+     "feature": 12492,
+     "generality": 1.0,
+     "total_act": 606.3587646484375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 3375,
+     "generality": 0.963963963963964,
+     "total_act": 393.3955993652344,
+     "tokens": [
+      " the",
+      " for",
+      " up",
+      " so",
+      " was",
+      " do",
+      " in",
+      " within"
+     ]
+    },
+    {
+     "feature": 7212,
+     "generality": 1.0,
+     "total_act": 290.207763671875,
+     "tokens": [
+      " afternoon",
+      " creditors",
+      "or",
+      " nephew",
+      " back",
+      " hands",
+      " looking",
+      " writ"
+     ]
+    },
+    {
+     "feature": 2727,
+     "generality": 1.0,
+     "total_act": 198.3343505859375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7700,
+     "generality": 1.0,
+     "total_act": 181.41659545898438,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 16288,
+     "generality": 1.0,
+     "total_act": 176.3311309814453,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 8682,
+     "generality": 1.0,
+     "total_act": 154.60092163085938,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 1683,
+     "generality": 0.9459459459459459,
+     "total_act": 135.45773315429688,
+     "tokens": [
+      " strike",
+      " side",
+      "arms",
+      " pockets",
+      "is",
+      " ring",
+      " sector",
+      " morning"
+     ]
+    },
+    {
+     "feature": 8508,
+     "generality": 1.0,
+     "total_act": 133.3662109375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 771,
+     "generality": 1.0,
+     "total_act": 130.56817626953125,
+     "tokens": [
+      " plowing",
+      " had",
+      " morning",
+      " heart",
+      " changed",
+      " born",
+      " out",
+      " years"
+     ]
+    },
+    {
+     "feature": 14601,
+     "generality": 1.0,
+     "total_act": 112.05349731445312,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 358,
+     "generality": 1.0,
+     "total_act": 107.97747802734375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 15483,
+     "generality": 1.0,
+     "total_act": 106.08975982666016,
+     "tokens": [
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      "."
+     ]
+    },
+    {
+     "feature": 10480,
+     "generality": 0.9819819819819819,
+     "total_act": 96.37881469726562,
+     "tokens": [
+      " came",
+      " came",
+      " came",
+      " was",
+      " was",
+      " was",
+      " and",
+      " brought"
+     ]
+    },
+    {
+     "feature": 7223,
+     "generality": 1.0,
+     "total_act": 92.49270629882812,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 906,
+     "generality": 1.0,
+     "total_act": 88.88020324707031,
+     "tokens": [
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from"
+     ]
+    },
+    {
+     "feature": 8634,
+     "generality": 1.0,
+     "total_act": 84.24366760253906,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 3532,
+     "generality": 1.0,
+     "total_act": 82.49927520751953,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    }
+   ],
+   "0.95": [
+    {
+     "feature": 10439,
+     "generality": 1.0,
+     "total_act": 4196.9921875,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7851,
+     "generality": 1.0,
+     "total_act": 1354.09716796875,
+     "tokens": [
+      " afternoon",
+      " broke",
+      " read",
+      " tradition",
+      " sounded",
+      " ran",
+      " till",
+      " and"
+     ]
+    },
+    {
+     "feature": 12492,
+     "generality": 1.0,
+     "total_act": 606.3587646484375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 3375,
+     "generality": 0.963963963963964,
+     "total_act": 393.3955993652344,
+     "tokens": [
+      " the",
+      " for",
+      " up",
+      " so",
+      " was",
+      " do",
+      " in",
+      " within"
+     ]
+    },
+    {
+     "feature": 7212,
+     "generality": 1.0,
+     "total_act": 290.207763671875,
+     "tokens": [
+      " afternoon",
+      " creditors",
+      "or",
+      " nephew",
+      " back",
+      " hands",
+      " looking",
+      " writ"
+     ]
+    },
+    {
+     "feature": 2727,
+     "generality": 1.0,
+     "total_act": 198.3343505859375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 7700,
+     "generality": 1.0,
+     "total_act": 181.41659545898438,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 16288,
+     "generality": 1.0,
+     "total_act": 176.3311309814453,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 8682,
+     "generality": 1.0,
+     "total_act": 154.60092163085938,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 8508,
+     "generality": 1.0,
+     "total_act": 133.3662109375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 771,
+     "generality": 1.0,
+     "total_act": 130.56817626953125,
+     "tokens": [
+      " plowing",
+      " had",
+      " morning",
+      " heart",
+      " changed",
+      " born",
+      " out",
+      " years"
+     ]
+    },
+    {
+     "feature": 14601,
+     "generality": 1.0,
+     "total_act": 112.05349731445312,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 358,
+     "generality": 1.0,
+     "total_act": 107.97747802734375,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 15483,
+     "generality": 1.0,
+     "total_act": 106.08975982666016,
+     "tokens": [
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      "."
+     ]
+    },
+    {
+     "feature": 10480,
+     "generality": 0.9819819819819819,
+     "total_act": 96.37881469726562,
+     "tokens": [
+      " came",
+      " came",
+      " came",
+      " was",
+      " was",
+      " was",
+      " and",
+      " brought"
+     ]
+    },
+    {
+     "feature": 7223,
+     "generality": 1.0,
+     "total_act": 92.49270629882812,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 906,
+     "generality": 1.0,
+     "total_act": 88.88020324707031,
+     "tokens": [
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from",
+      " from"
+     ]
+    },
+    {
+     "feature": 8634,
+     "generality": 1.0,
+     "total_act": 84.24366760253906,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 3532,
+     "generality": 1.0,
+     "total_act": 82.49927520751953,
+     "tokens": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    },
+    {
+     "feature": 4655,
+     "generality": 1.0,
+     "total_act": 76.35977172851562,
+     "tokens": [
+      " grave",
+      " interview",
+      " back",
+      " write",
+      "A",
+      "A",
+      "A",
+      "A"
+     ]
+    }
+   ]
+  },
+  "generality_corpus": [
+   "narrative",
+   "broad"
+  ]
+ }
+}
