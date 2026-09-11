@@ -32,27 +32,30 @@ class AffineOp:
 
 def fit_affine(S: np.ndarray, O: np.ndarray, layer: int, src: str, dst: str,
                ridge: float = 1e-2, n_spin: int = 8, low_rank: int | None = None) -> AffineOp:
-    """Ridge-regularized least squares. With few examples and d in the thousands this is heavily
-    underdetermined; `low_rank` fits W as identity + rank-k correction, which is the usual remedy."""
+    """Ridge-regularized least squares in the dual (kernel) form, so cost scales with n examples,
+    not with d.  With few examples and d in the thousands the primal is heavily underdetermined;
+    `low_rank` fits W as identity + rank-k correction (the usual remedy), truncating the dual solution."""
     n, d = S.shape
-    Sb = np.hstack([S, np.ones((n, 1))])
+    Sb = np.hstack([S, np.ones((n, 1))])                     # [n, d+1]
+    K = Sb @ Sb.T + ridge * np.eye(n)                        # [n, n]
     if low_rank is None:
-        A = np.linalg.solve(Sb.T @ Sb + ridge * np.eye(d + 1), Sb.T @ O)      # [d+1, d]
-        W, b = A[:d].T, A[d]
+        M = np.linalg.solve(K, O)                            # [n, d];  A = Sb^T M
+        W, b = (S.T @ M).T, np.ones(n) @ M
     else:
-        # fit residual after identity: (O - S) ~= S U V^T + b, via truncated SVD of the LS solution
-        A = np.linalg.solve(Sb.T @ Sb + ridge * np.eye(d + 1), Sb.T @ (O - S))
-        U, s, Vt = np.linalg.svd(A[:d], full_matrices=False)
-        k = low_rank
-        W = np.eye(d) + (U[:, :k] * s[:k]) @ Vt[:k]
-        W = W.T
-        b = A[d]
+        M = np.linalg.solve(K, O - S)                        # residual after identity
+        # A_w = S^T M has rank <= n; SVD it through thin QR factors of S^T and M
+        Qs, Rs = np.linalg.qr(S.T); Qm, Rm = np.linalg.qr(M.T)
+        u, sv, vt = np.linalg.svd(Rs @ Rm.T)
+        k = min(low_rank, len(sv))
+        U, Vt = Qs @ u[:, :k], vt[:k] @ Qm.T                 # A_w ~= U diag(sv_k) Vt
+        W = np.eye(d) + ((U * sv[:k]) @ Vt).T
+        b = np.ones(n) @ M
     op = AffineOp(W, b, layer, src, dst)
     R = O - op(S)
     if n > 1:
-        U, s, Vt = np.linalg.svd(R - R.mean(0), full_matrices=False)
-        k = min(n_spin, len(s))
-        op.spin_basis, op.spin_scale = Vt[:k], s[:k] / np.sqrt(max(n - 1, 1))
+        U, sv, Vt = np.linalg.svd(R - R.mean(0), full_matrices=False)
+        k = min(n_spin, len(sv))
+        op.spin_basis, op.spin_scale = Vt[:k], sv[:k] / np.sqrt(max(n - 1, 1))
     return op
 
 
@@ -60,20 +63,36 @@ def cosine(a: np.ndarray, b: np.ndarray) -> float:
     return float(a @ b / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-9))
 
 
-def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, src: str, dst: str, **fit_kw) -> dict:
+def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, src: str, dst: str,
+                 cands: np.ndarray | None = None, dst_idx: int | None = None, **fit_kw) -> dict:
     """Leave-one-group-out: fit on all domains but one, predict the held-out domain's target vectors.
-    Reports cosine(pred, true) vs. two baselines: identity (pred = source) and mean-target."""
-    out = {"cos_pred": [], "cos_identity": [], "cos_mean": [], "rank": []}
+    Reports cosine(pred, true) vs. baselines: identity (pred = source), mean-target, shared offset.
+    `cands` [n, m, d] = every role vector of each example's own prompt; `role_rank` is then where the
+    true dst role lands among those m candidates by cosine to the prediction (1 = best). This factors
+    out the domain address, which the cross-domain `rank` does not."""
+    out = {"cos_pred": [], "cos_offset": [], "cos_identity": [], "cos_mean": [], "rank": [], "rank_offset": []}
+    if cands is not None:
+        out["role_rank"], out["role_rank_offset"], out["role_rank_identity"] = [], [], []
     for g in np.unique(groups):
         tr, te = groups != g, groups == g
         op = fit_affine(S[tr], O[tr], layer, src, dst, **fit_kw)
         pred = op(S[te])
         mean_o = O[tr].mean(0)
-        for p, s, o in zip(pred, S[te], O[te]):
+        offset = (O[tr] - S[tr]).mean(0)               # king-queen baseline: one shared translation
+        te_idx = np.flatnonzero(te)
+        for j, (p, s, o) in enumerate(zip(pred, S[te], O[te])):
+            po = s + offset
+            if cands is not None:
+                C = cands[te_idx[j]]
+                for key, q in (("role_rank", p), ("role_rank_offset", po), ("role_rank_identity", s)):
+                    sims = np.array([cosine(q, c) for c in C])
+                    out[key].append(int((sims > sims[dst_idx]).sum()) + 1)
             out["cos_pred"].append(cosine(p, o))
+            out["cos_offset"].append(cosine(po, o))
+            out["rank_offset"].append(int((np.array([cosine(po, o2) for o2 in O]) > cosine(po, o)).sum()) + 1)
             out["cos_identity"].append(cosine(s, o))
             out["cos_mean"].append(cosine(mean_o, o))
             # rank of the true target among all targets by cosine to the prediction (1 = best)
             sims = np.array([cosine(p, o2) for o2 in O])
             out["rank"].append(int((sims > cosine(p, o)).sum()) + 1)
-    return {k: (float(np.mean(v)) if k != "rank" else float(np.median(v))) for k, v in out.items()}
+    return {k: (float(np.median(v)) if k.startswith("rank") else float(np.mean(v))) for k, v in out.items()}

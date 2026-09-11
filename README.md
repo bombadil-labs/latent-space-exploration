@@ -14,8 +14,8 @@ substrate for a narrative calculus: decompose a story into factors, transform th
 | stage | module | question | status |
 |---|---|---|---|
 | 1 | `lsx.model`, `lsx.extract` | capture residuals, pool by role, patch | working on Qwen2.5-0.5B |
-| 2 | `lsx.compare` | does the same shape appear across domains, above baseline? | measures written, controls not yet meaningful |
-| 3 | `lsx.operate` | can an affine map carry the relation to a held-out domain? | fit + holdout eval written, untested on real activations |
+| 2 | `lsx.compare` | does the same shape appear across domains, above baseline? | yes on Qwen 0.5B/1.5B, z≈2 vs ≈1 for controls, peaks mid-late layers (see RESULTS.md) |
+| 3 | `lsx.operate` | can an affine map carry the relation to a held-out domain? | a shared offset transfers (role rank 2.0 vs 3.5 chance); rank-4 affine is worse at n=7 |
 | 4 | `lsx.steer` | patch a target activation in and read it out by generation | patching works, no real experiment yet |
 
 ## Setup
@@ -26,7 +26,9 @@ uv pip install -e ".[dev]"
 export HF_HOME=$PWD/cache/hf HF_HUB_DISABLE_XET=1   # Xet transfer host is not reachable from the cloud env
 python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen2.5-0.5B', allow_patterns=['*.json','*.safetensors','merges.txt','vocab.json'])"
 pytest                                   # synthetic tests on a tiny random model, no weights needed
-python scripts/sweep.py prompts/dialectic_v0.json
+python scripts/extract_grid.py prompts/holonic_v1.json --model Qwen/Qwen2.5-1.5B
+python scripts/stage2.py prompts/holonic_v1.json --model Qwen/Qwen2.5-1.5B --metric rsa --stacks results/stacks_qwen2.5_1.5b_holonic_v1.npz
+python scripts/stage3.py results/stacks_qwen2.5_1.5b_holonic_v1.npz
 ```
 
 CPU-only is fine for 0.5B–1.5B: ~0.5 s per extraction, ~4 tok/s generation on 4 cores.
@@ -43,16 +45,6 @@ In physics, the initial claim is that [[thesis: ...]]. The opposing claim is tha
 A grid is a JSON file with `roles` and `prompts` keyed `domain/framing`. `prompts/dialectic_v0.json`
 is a draft 4-domain × 2-framing grid for the dialectic relation.
 
-## Open problems (in order)
+## Results
 
-1. **Baseline is near ceiling.** Linear CKA between any two prompts' role stacks is ~0.95–0.99 at
-   every layer on 0.5B. Three role points is too few for a shape, and the residual stream has a large
-   shared component. Fixes to try: more roles per prompt, token-level clouds with Gromov-Wasserstein,
-   subtracting the grand mean across many prompts, projecting out top shared PCs, and permutation
-   nulls (shuffle which tokens are pooled into which role).
-2. **Correspondence.** RSA/CKA assume role order lines up across prompts. GW does not, but is noisier.
-3. **Domain is not one offset.** Centering removes the first-order address; contrastive domain
-   directions estimated across many prompts remove more.
-4. **Erosion.** A single-layer patch is repaired by later layers; `steer.steer_patches` re-imposes
-   the direction at several layers. The "cohere" operator (repair projected onto the complement of
-   the requested directions) is not implemented.
+See `RESULTS.md` for the running log, including open problems in priority order.

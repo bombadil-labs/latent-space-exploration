@@ -32,8 +32,8 @@ def rsa(X: np.ndarray, Y: np.ndarray, metric: str = "cosine") -> float:
 def linear_cka(X: np.ndarray, Y: np.ndarray) -> float:
     """Centered kernel alignment with a linear kernel; invariant to orthogonal transforms and isotropic scale."""
     Xc, Yc = center(X), center(Y)
-    hsic = np.linalg.norm(Xc.T @ Yc, "fro") ** 2
-    return float(hsic / (np.linalg.norm(Xc.T @ Xc, "fro") * np.linalg.norm(Yc.T @ Yc, "fro")))
+    Kx, Ky = Xc @ Xc.T, Yc @ Yc.T                      # n x n grams; tr(Kx Ky) == ||Xc^T Yc||_F^2
+    return float(np.sum(Kx * Ky) / (np.linalg.norm(Kx, "fro") * np.linalg.norm(Ky, "fro")))
 
 
 def procrustes_residual(X: np.ndarray, Y: np.ndarray) -> float:
@@ -74,3 +74,25 @@ def similarity_matrix(stacks: dict[str, np.ndarray], layer: int, fn=rsa) -> tupl
             if j > i:
                 M[i, j] = M[j, i] = fn(stacks[a][layer], stacks[b][layer])
     return names, M
+
+
+# ---------- making the numbers interpretable ----------
+def subtract_grand_mean(stacks: dict[str, np.ndarray]) -> dict[str, np.ndarray]:
+    """Remove the per-layer mean role vector across all prompts (the shared 'English paragraph' component)."""
+    mu = np.mean(np.stack(list(stacks.values())), axis=(0, 2), keepdims=True)[0]  # [L+1, 1, d]
+    return {k: v - mu for k, v in stacks.items()}
+
+
+def permutation_null(X: np.ndarray, Y: np.ndarray, fn=linear_cka, n: int = 200, seed: int = 0) -> tuple[float, float, float]:
+    """Observed fn(X,Y), and the mean/std of fn(X, Y[perm]) over random role permutations.
+    Returns (observed, null_mean, null_std). z = (obs - mean)/std says how far above chance the
+    shape match is, given these exact vectors but scrambled correspondence."""
+    rng = np.random.default_rng(seed)
+    obs = fn(X, Y)
+    null = np.array([fn(X, Y[rng.permutation(len(Y))]) for _ in range(n)])
+    return float(obs), float(null.mean()), float(null.std() + 1e-12)
+
+
+def zscore(X, Y, fn=linear_cka, n=200, seed=0) -> float:
+    o, m, s = permutation_null(X, Y, fn, n, seed)
+    return (o - m) / s
