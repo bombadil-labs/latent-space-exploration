@@ -770,7 +770,15 @@ centering, and domain address removed by ranking within the prompt, an affine ma
 domains predicts a held-out domain's target-role content from its source-role content well above
 chance. This is the strong form of the original hypothesis, and it now has support: **a relation
 learned in known domains transfers to an unknown one, and its weakness at seven domains was a
-data limit.** Per-layer profile: pending (`results/stage3_qwen1.5b_v2_rolecentered.json`).
+data limit.**
+
+**Per-layer profile** (`results/stage3_qwen1.5b_v2_rolecentered.json`): role_rank 2.73 at layer 0,
+2.20 at 4, 1.98 at 10, **1.73 at 16**, 1.86 at 20, 2.39 at 24, 2.73 at 28; predicted-target cosine
+rises from 0.08 to 0.35–0.39. Compared with seven domains (3.68 → 2.58 → 3.22), the whole curve
+has shifted down by about one rank and the peak moved earlier (16 vs 20). Layer 0 is now below
+chance too (2.73 vs 3.5): with forty domains a lexical component of the relation is detectable in
+the embeddings, and the stack adds another rank on top of it. Easiest relations: anything → from_below
+(1.68–1.73) and embedded → from_above (1.80); hardest: → disturbance and → objectified (2.6).
 
 **Caveats.** 32 of the 40 domains were written by a model from a spec containing one worked
 example, then reviewed rather than authored; shared phrasing across generated domains could
