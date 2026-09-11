@@ -572,6 +572,49 @@ direction to unlock, whereas it does have "write in a 1920s setting" and "write 
 Steering can only select among competences the model already has. The next real move is a model
 with the competence (instruction-tuned or larger), not a better patch.
 
+## 2026-09-11 (hour 12) — Instruct model: theme steering becomes partly legible, and hits the refusal direction
+
+Same theme grid, extracted on **Qwen2.5-1.5B-Instruct**; directions from its own activations.
+`results/stage6_qwen1.5b_instruct_theme_l20.json`, `results/stage6_theme_gens_instruct.log`.
+
+**Quantitative (layer 20, scale 1).** Theme decodability 0.81 (vs 0.78 base). Theme lens 1.22/3
+(random 1.92). Era + theme composed 1.97/9. Cross-talk era→theme 0.11, theme→era 0.18. Same as
+the base model within noise: the selector does not care whether the model is tuned.
+
+**Generations** (layers 12/16/20 re-imposed, repetition penalty 1.1, 70 tokens).
+
+*Raw continuation of "It was late when the news reached her, and":*
+- base: … she sat on the floor of his room, feeling helpless and alone…
+- +betrayal ×1.5: … she had no choice but to accept it. She knew that this would be the end of their relationship, and she felt a sense of relief as she prepared for the inevitable.
+- +homecoming ×1.5: … she had been gone for days. She had come to visit him in his hospital room, but he had died before she could reach him… holding his hand as if it were still warm.
+- +sacrifice ×1.5: … if she didn't act quickly, it would be too late. The situation seemed hopeless, but she couldn't give up.
+
+*Chat-templated "continue this passage":*
+- +betrayal ×1.5: The words were like daggers piercing through her heart, leaving an indelible mark that would haunt her for years to come… this moment marked the beginning of the end.
+- +homecoming ×0.8 and ×1.5: **"I'm sorry, but I cannot continue or generate new content as requested."** The homecoming direction, added at these layers, pushes the instruct model into its refusal behavior. Betrayal and sacrifice do not.
+
+*Chat-templated "write a passage: two old friends meet at a crossroads at dawn":*
+- base: … Alice and Bob stumbled upon each other… exchanged stories of their lives since they last saw each other
+- +homecoming ×0.8: Emma and her long-lost friend Sarah… at an ancient crossroads where time seemed to stand still… They embraced, their faces etched
+- +homecoming ×1.5: … as if they had been waiting for this moment forever. They embraced, their faces aglow with joy
+- +betrayal, +sacrifice: close to base (reminiscing, a walk, a fork in the road).
+
+**Reading.** Partial support for the competence hypothesis. On the tuned model the same
+directions produce theme-appropriate content that the base model could not: homecoming yields
+*long-lost*, *embraced*, *waiting for this moment forever*, and in the raw case an arrival that
+comes too late; betrayal yields *daggers*, *the end of their relationship*, *the beginning of the
+end*. Sacrifice remains the weakest (it drifts to urgency and determination rather than giving
+something up). The quality gap is prompt-dependent: the open "write a passage" prompt shows the
+themes most clearly, the raw continuation least.
+
+**The refusal side effect is a finding in itself.** Adding the homecoming direction at scale 0.8
+inside the chat template produces a canned refusal, twice. A mean-difference direction built from
+36 story passages has a component along whatever the instruct model uses to decide "I cannot
+continue," and the chat template makes that component live. This is exactly the interference that
+the cross-talk matrix cannot see, because refusal is not one of the grid's factors. For any use of
+these directions on a tuned model, the refusal direction has to be projected out first, which is
+a known technique and cheap to add. Noted as an open problem.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -585,9 +628,11 @@ with the competence (instruction-tuned or larger), not a better patch.
 4e. ~~Mood~~ done: semantic factor, lens 1.28/3, composes with era 1.89/9, diagonal cross-talk; needs
    last-token/late-layer/×2–3 patch to show in generation.
 4f. ~~Theme over multi-sentence spans~~ done: selector 1.25/3, composes 2.2/9, generation ≈ base.
-4g. ~~Multi-layer re-imposed patches~~ no change. Remaining: an instruction-tuned or larger model
-   (Qwen2.5-1.5B-Instruct is a cheap first try; nnsight/NDIF for 70B if reachable); beat-level
-   directions at positions.
+4g. ~~Multi-layer~~ no change. ~~Instruct 1.5B~~ partial: homecoming and betrayal become legible, sacrifice
+   not; homecoming direction triggers refusal in the chat template. Remaining: project the refusal
+   direction out of factor directions before steering tuned models; NDIF (api.ndif.us reachable,
+   key pending a fresh session): Qwen2.5-7B/-Instruct first, Llama-3.3-70B-Instruct when HF_TOKEN
+   is set; beat-level directions at positions.
 4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
