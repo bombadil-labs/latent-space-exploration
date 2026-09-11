@@ -1,0 +1,48 @@
+{
+  "_note": "Narrative factor grid: 4 scenes x 3 eras x 3 voices = 36 spans. Each span renders the SAME scene event in a given era (setting) and voice (register). Keys: scene/era/voice. Written by Claude as a first draft. eras: medieval, 1920s, farfuture. voices: terse (hardboiled, short declaratives), ornate (lyrical, long clauses), child (simple words, wonder).",
+  "lead": "A moment from a story:",
+  "scenes": ["gate", "theft", "farewell", "storm"],
+  "eras": ["medieval", "1920s", "farfuture"],
+  "voices": ["terse", "ornate", "child"],
+  "spans": {
+    "gate/medieval/terse": "A rider stopped at the gate. Mud on the horse, blood on the saddle. The porter did not open it.",
+    "gate/medieval/ornate": "At the hour when the torches guttered low, a rider drew rein before the iron-bound gate, his mount lathered and trembling, and the porter, peering through the grille, felt the old fear stir in him and did not lift the bar.",
+    "gate/medieval/child": "A man on a horse came to the big gate. The horse was all muddy and tired. The gate man looked at him a long time and would not let him in.",
+    "gate/1920s/terse": "A Packard pulled up to the gate. Dented fender, one headlight out. The guard kept his hand on the switch and didn't raise the bar.",
+    "gate/1920s/ornate": "The Packard came up the long drive with one headlamp dark, its chrome dulled by the road, and idled before the gatehouse while the guard, cigarette forgotten, studied the driver's face and let the barrier stay down.",
+    "gate/1920s/child": "A big shiny car came up to the gate. One of its lights was broken. The man in the little house looked and looked and did not open the gate.",
+    "gate/farfuture/terse": "A shuttle settled outside the airlock. Hull scorched, one thruster dead. The lock stayed sealed.",
+    "gate/farfuture/ornate": "The shuttle came down through the docking field trailing a ribbon of scorched plating, its port thruster silent, and hung before the great lock while the station's watch-mind weighed the stranger's signature and left the seals engaged.",
+    "gate/farfuture/child": "A little ship landed by the big door in space. It was all burnt on one side. The door did not open for it.",
+
+    "theft/medieval/terse": "The reliquary was gone. The lock was whole. The abbot said nothing and sent for the sheriff.",
+    "theft/medieval/ornate": "When the sacristan drew back the velvet at matins, the niche where the reliquary had rested lay empty as a plundered tomb, its lock untouched, and the abbot, gray with the knowledge of what this meant, sent quietly for the sheriff.",
+    "theft/medieval/child": "The golden box with the saint's bone was gone. The lock was not even broken. The abbot got very quiet and sent for the sheriff.",
+    "theft/1920s/terse": "The safe was empty. No scratches on the dial. The manager loosened his tie and called the precinct.",
+    "theft/1920s/ornate": "The manager stood before the open safe as the morning light crept across the marble floor, the dial unmarked and gleaming, the shelves bare, and reached for the telephone with a hand that had not yet learned to shake.",
+    "theft/1920s/child": "The big money safe was empty. Nobody had scratched it or anything. The boss man pulled at his tie and called the police.",
+    "theft/farfuture/terse": "The seed vault was empty. Access logs clean. The archivist locked the deck and pinged security.",
+    "theft/farfuture/ornate": "The archivist stood in the cold blue hush of the seed vault, every cradle bare, the access logs pristine as fresh snow, and understood before the alarm ever sounded that someone had walked through walls.",
+    "theft/farfuture/child": "The room with all the seeds was empty. The computer said nobody came in. The seed keeper locked the door and called for help.",
+
+    "farewell/medieval/terse": "She stood on the quay. The ship cleared the harbor chain. She did not wave.",
+    "farewell/medieval/ornate": "She stood upon the wet stones of the quay while the cog slipped past the harbor chain and the gulls wheeled crying over its wake, and though every part of her strained toward the shrinking sail, she kept her hands folded and did not wave.",
+    "farewell/medieval/child": "She stood by the water. The boat went out past the big chain. She did not wave at it, not even once.",
+    "farewell/1920s/terse": "She stood on the platform. The train pulled out. She lit a cigarette and did not wave.",
+    "farewell/1920s/ornate": "She stood on the platform in the steam and the din while the train drew slowly out beneath the iron arches, and she struck a match with great care and did not wave.",
+    "farewell/1920s/child": "She stood on the train platform. The train went away with a big whoosh. She did not wave at it.",
+    "farewell/farfuture/terse": "She stood at the viewport. The transport cleared orbit. She did not wave.",
+    "farewell/farfuture/ornate": "She stood at the long viewport as the transport lifted from the ring and fell away toward the jump lane, a spark among sparks, and she pressed one palm flat against the cold glass and did not wave.",
+    "farewell/farfuture/child": "She stood at the big window in space. The ship went away into the stars. She did not wave.",
+
+    "storm/medieval/terse": "The storm broke over the village at dusk. Thatch tore loose. The mill went dark.",
+    "storm/medieval/ornate": "At dusk the storm came down from the moors like a host of riders, tearing the thatch from the cottages and driving the sheep before it, and the mill wheel groaned once and stood still in the dark.",
+    "storm/medieval/child": "A big storm came to the village when it was getting dark. The roofs came off. The mill stopped turning.",
+    "storm/1920s/terse": "The storm hit the town at dusk. Power lines came down. The picture house went dark.",
+    "storm/1920s/ornate": "The storm swept in over the town at dusk with a sound like tearing cloth, bringing down the power lines along Main Street in showers of blue sparks, and the marquee of the picture house flickered once and died.",
+    "storm/1920s/child": "A big storm came to the town when it was getting dark. The electric wires fell down. The movie house went all dark.",
+    "storm/farfuture/terse": "The storm hit the colony at dusk. The dome shields failed. The habitat went dark.",
+    "storm/farfuture/ornate": "The dust storm came over the colony at dusk in a wall the color of rust, and one by one the dome shields flickered and failed, and the habitat's lights went out ring by ring like a city drowning.",
+    "storm/farfuture/child": "A big dust storm came to the space town when it was getting dark. The bubble shields broke. All the lights went out."
+  }
+}
