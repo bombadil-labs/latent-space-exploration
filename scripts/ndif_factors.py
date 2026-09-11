@@ -80,4 +80,4 @@ print("        " + "".join(f"{m:>9s}" for m in names))
 for n in names + ["rand"]:
     xs = [x for x in res if x["test"] == "X" and ((x["factor"] == n and x["cond"] == "factor") if n != "rand" else x["cond"] == "rand")]
     print(f"{n:>7s} " + "".join(f"{np.mean([x[f'frac_{m}'] for x in xs]):9.2f}" for m in names))
-if a.out: json.dump(res, open(a.out, "w"), indent=1)
+if a.out: json.dump(res, open(a.out, "w"), indent=1, default=lambda o: o.item() if hasattr(o, "item") else str(o))
