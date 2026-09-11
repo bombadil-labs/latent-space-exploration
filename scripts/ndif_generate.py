@@ -29,7 +29,7 @@ def gen(prompt, vec=None, scale=1.0):
     with model.generate(prompt, max_new_tokens=a.tokens, do_sample=False, backend=backend) as tracer:
         if v is not None:
             with tracer.all():
-                B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0].dtype)
+                B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
         out = model.generator.output.save()
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))

@@ -25,7 +25,12 @@ B = blocks(model); l = a.layer
 def dirs(train):
     allv = {c: np.stack([X[key(s, c)][l] for s in train]).mean(0) for c in combos}; mu = np.mean(list(allv.values()), axis=0)
     return {n: {lvl: np.mean([allv[c] for c in combos if c[i] == lvl], axis=0) - mu for lvl in F[n]} for i, n in enumerate(names)}
+CHUNK = int(__import__("os").environ.get("NDIF_CHUNK", "3"))
 def batch_logprob(texts, vec=None):
+    if len(texts) > CHUNK:
+        return np.concatenate([batch_logprob(texts[i:i + CHUNK], vec) for i in range(0, len(texts), CHUNK)])
+    return _batch_logprob(texts, vec)
+def _batch_logprob(texts, vec=None):
     """Sum log p(span | lead) for each text, in one remote job. vec: np [d] to add at block l output."""
     n_lead = len(tok(lead)["input_ids"])
     enc = tok(texts, return_tensors="pt", padding=True); ids, am = enc["input_ids"], enc["attention_mask"]
