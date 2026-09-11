@@ -47,6 +47,11 @@ def _batch_logprob(texts, vec=None):
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
     return o.float().cpu().numpy()
 rng = np.random.default_rng(0); res = []; t0 = time.time()
+ckpt = (a.out or "results/ndif_factors_ckpt.json") + ".partial"
+try:
+    res = json.load(open(ckpt)); print("resuming", len(res), "rows from", ckpt)
+except Exception: pass
+done_scenes = {x["scene"] for x in res}
 def decompose(gd):
     G = np.array([gd[c] for c in combos]); gm = G.mean(); tot = ((G - gm) ** 2).sum() + 1e-12; out = {}
     for i, n in enumerate(names):
@@ -54,6 +59,8 @@ def decompose(gd):
         out[n] = float(sum((means[c[i]] - gm) ** 2 for c in combos) / tot)
     return out
 for s in S:
+    if s in done_scenes: continue
+    rng = np.random.default_rng(S.index(s))
     D = dirs([x for x in S if x != s]); texts = [f"{lead} {spans[key(s, c)]}" for c in combos]
     base = dict(zip(combos, batch_logprob(texts)))
     gains = lambda vec: dict(zip(combos, batch_logprob(texts, vec) - np.array([base[c] for c in combos])))
@@ -70,6 +77,7 @@ for s in S:
     for c in combos:
         gd = gains(sum(D[n][c[i]] for i, n in enumerate(names))); res.append(dict(scene=s, test="D", rank=rank(gd, c, combos)))
     print(f"scene {s} done {time.time()-t0:.0f}s", flush=True)
+    json.dump(res, open(ckpt, "w"), default=lambda o: o.item() if hasattr(o, "item") else str(o))
 print(f"\n=== {a.model} layer={l} scale={a.scale} ===")
 for n in names:
     k = len(F[n]); f = lambda c: np.mean([x["rank"] for x in res if x["test"] == "B" and x["factor"] == n and x["cond"] == c])

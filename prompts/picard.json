@@ -1,0 +1,6 @@
+{
+  "_note": "Canonical description for the deterritorialization (dictionary-width) test. Written by Claude; the user may veto. Prediction: encoding through narrower SAE dictionaries should surface more general features (diplomat, leader, mentor) and drop the particulars (Starfleet, Enterprise, Earl Grey).",
+  "lead": "A character description:",
+  "text": "Jean-Luc Picard is the captain of the Federation starship Enterprise. Born in France to a family of vintners, he trained as an archaeologist before Starfleet, drinks Earl Grey tea, hot, and quotes Shakespeare. He commands through diplomacy rather than force, prefers outcomes in which no one loses, and mentors the young officers under him with patience and high expectations. He is wise, private, and stubborn about principle.",
+  "abstraction_chain_expected": ["Starfleet captain with particulars", "spaceship diplomat", "traveling leader", "mentor"]
+}

@@ -39,10 +39,15 @@ class ProxyAuthBackend(RemoteBackend):
             return self.handle_response(ResponseModel(**response.json()))
         raise Exception(f"{response.status_code} {response.reason_phrase}: {response.text[:200]}")
 
-    def wait(self, tracer, poll: float = 2.0, timeout: float = 1800.0, retries: int = 6):
-        """Poll until complete. Transient transport errors (proxy hiccups, resets) are retried with backoff."""
+    def wait(self, tracer, poll: float = 2.0, timeout: float = 420.0, retries: int = 6, resubmits: int = 2):
+        """Poll until complete. Transient transport errors are retried with backoff; a job that has not
+        completed after `timeout` seconds is resubmitted (up to `resubmits` times) since hung jobs happen."""
         t0 = time.time(); errs = 0
         while True:
+            if time.time() - t0 > timeout:
+                if resubmits <= 0:
+                    raise TimeoutError(f"NDIF job {self.job_id} not complete after {timeout}s")
+                resubmits -= 1; self.job_id = None; t0 = time.time()      # resubmit the same tracer
             try:
                 result = self(tracer)
                 errs = 0
@@ -59,6 +64,4 @@ class ProxyAuthBackend(RemoteBackend):
                     pass            # trace context already closed; caller reads the raw result
                 self.result = result       # dict keyed by the .save()'d variable names
                 return result
-            if time.time() - t0 > timeout:
-                raise TimeoutError(f"NDIF job {self.job_id} not complete after {timeout}s")
             time.sleep(poll)
