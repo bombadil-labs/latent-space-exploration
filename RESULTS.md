@@ -348,6 +348,28 @@ peaking late). On Pythia the lens and composition numbers are the strongest of t
 Qwen. Three models, two families, one story: era and voice are additive directions with small
 interference.
 
+## 2026-09-11 — Qualitative: factor directions in generation
+
+`scripts/stage5_generate.py`, Qwen2.5-1.5B base, greedy, layer 14, scale 1.5, directions built
+from all four scenes. Prompt: *"A moment from a story: The door opened and"*.
+
+- **base:** a man walked in. He was tall and thin, with a shock of white hair and a beard that reached down to his chest. He wore a long, flowing robe and a pair of spectacles
+- **+medieval:** a man came in. He was a tall, thin man, with a long beard and a long, gray cloak. He was carrying a heavy sack on his back.
+- **+1920s:** a man walked in. He was wearing a suit and tie, and he had a briefcase in his hand. He looked around the room and saw a woman sitting at a desk.
+- **+farfuture:** a man walked in. He was tall and thin, with a long beard and a pair of spectacles. He was dressed in a long, flowing robe, and his eyes were filled with a deep
+- **+terse:** a man walked in. He was tall, with a shock of white hair and a beard that reached down to his waist. He wore a long robe, and his eyes were cold and calculating.
+- **+ornate:** a man stepped out. He was tall and lean, with a shock of white hair and a beard that reached his shoulders. His eyes were like two pools of fire, and his face was lined with
+- **+child:** a man came in. He was wearing a hat and a coat. He was very tall and had a big beard. He was a very nice man. He had a big smile on his face.
+- **+medieval+child:** a man came in. He was very tall and had long hair. He was wearing a hat and a coat. He was very kind and he gave me a cookie. The man was a baker.
+- **+farfuture+ornate:** a man stepped out. He was tall and lean, with a face that was both familiar and alien. His eyes, like two pools of deep blue, held a secret that only he could see.
+- **+1920s+terse:** a man walked in. He was wearing a suit and tie, and he had a briefcase in his hand. He walked over to the desk and sat down. The secretary looked up and said,
+
+1920s → suit, tie, briefcase, secretary; medieval → cloak, sack; child → short sentences, "very
+nice man", "gave me a cookie"; ornate → "pools of fire", "familiar and alien". Compositions inherit
+both parents. Far future alone barely moves this prompt (the base already leans wizard), but
+composed with ornate yields "familiar and alien". Illustration only; the log-prob tests are the
+evidence.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
