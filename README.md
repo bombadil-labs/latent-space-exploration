@@ -53,7 +53,7 @@ is a draft 4-domain × 2-framing grid for the dialectic relation.
 `src/lsx/ndif.py` runs traces on NDIF-hosted models (`nnsight`) through a credential-injecting
 egress proxy: the API key header is added by the proxy (the client omits it), and because the proxy
 does not carry WebSocket upgrades, jobs are submitted over HTTPS and polled. Requires Python 3.12
-(`.venv312`). `python scripts/ndif_smoke.py EleutherAI/gpt-j-6b` round-trips in ~4 s. Only
+(`.venv312`). `python scripts/ndif_smoke.py EleutherAI/gpt-j-6b` round-trips in ~4 s; `ndif_extract.py`, `ndif_factors.py`, `ndif_generate.py` mirror the local pipeline. Only
 "pinned" models are available on the free tier (`results/ndif_pinned.txt`); gated ones need an
 HF token injected for `huggingface.co`.
 

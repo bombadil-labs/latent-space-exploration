@@ -615,6 +615,51 @@ the cross-talk matrix cannot see, because refusal is not one of the grid's facto
 these directions on a tuned model, the refusal direction has to be projected out first, which is
 a known technique and cheap to add. Noted as an open problem.
 
+## 2026-09-11 (hour 13) — Remote models via NDIF: Gemma-2-9B-it steers on theme
+
+**Infrastructure.** NDIF works from this environment through the credential-injecting proxy
+(`src/lsx/ndif.py`: key header added by the proxy, HTTPS submit + poll instead of WebSocket, Python
+3.12 venv). Free-tier key: pinned models only. GPT-J-6B (ungated) and Gemma-2-9B-it (license
+accepted) are usable; the Llama pins are awaiting Meta's review. Round trip ~4 s for a forward
+pass; ~36 passages extracted in under 2 minutes. Gemma's 256k vocabulary needs one passage per
+scoring job on the shared GPU.
+
+**Theme decodability across scale** (mean-pooled, leave-one-situation-out, chance 0.33):
+
+| model | params | theme peak (layer / total) |
+|---|---|---|
+| Qwen2.5-1.5B base | 1.5B | 0.78 (20/28) |
+| Qwen2.5-1.5B-Instruct | 1.5B | 0.81 (12/28) |
+| GPT-J-6B | 6B | 0.83 (4–12/28) |
+| **Gemma-2-9B-it** | 9B | **0.94 (20/42)** |
+
+The theme direction sharpens with scale and tuning. Lens/composition/cross-talk numbers on GPT-J
+and Gemma: pending (`results/stage6_gptj6b_theme_l14.json`, `results/stage6_gemma9b_theme_l20.json`).
+
+**Gemma-2-9B-it generations** (`scripts/ndif_generate.py`; direction added at block 20 on every
+decoding step, greedy, 60 tokens; directions from Gemma's own activations).
+
+*Raw continuation, "It was late when the news reached her, and":*
+- base: … the moon was already high in the sky, casting long, skeletal shadows across the dusty road…
+- **+betrayal ×2:** … the weight of it pressed down on her like a shroud. The world, she realized, had shifted on its axis. **Everything she thought she knew, everything she had built her life upon, was now a lie.**
+- **+homecoming ×1:** … She stood at the crossroads, her heart pounding in her chest, torn between two paths. **One led to the familiar comfort of her village**, the other, shrouded in mist, beckoned her towards the unknown
+- +homecoming ×2: … The telegram lay on the table… "He is dead," it read. "Come quickly."
+- +sacrifice ×1–2: … her heart, once a hummingbird's wings, now felt like a leaden weight… as if the very sky was weeping. (grief, not sacrifice)
+
+*Chat-templated "continue this passage":*
+- **+homecoming ×1:** … **She hadn't expected to hear from him again, not after all these years, not after the way things had ended.** But the letter,
+- **+betrayal ×2:** … She reread the telegram, each word a hammer blow to her carefully constructed world. The world, it seemed, had shifted on its axis, leaving her stranded
+- +sacrifice ×1–2: … her hands clasped tightly in her lap, as if trying to hold onto some warmth that was slipping away. The messenger, a young man
+- The "old man opened the box" prompt barely moves under any patch: the base continuation (withered rose, locket, memories) is a strong prior that a scale-2 patch does not overcome.
+
+**Reading.** On a 9B instruction-tuned model the theme directions do what they could not on 1.5B:
+betrayal produces *"everything she had built her life upon was now a lie"* and homecoming produces
+*"she hadn't expected to hear from him again, not after all these years"*, with the prose quality of
+the base continuation intact and no refusal. Sacrifice remains the weak theme on every model; my
+sacrifice spans read as loss, and the direction captures loss. The prompt-prior effect is real: a
+continuation the model is already confident about resists a theme patch that a more open prompt
+accepts. Selector-level numbers on Gemma follow when the battery completes.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
