@@ -370,6 +370,51 @@ both parents. Far future alone barely moves this prompt (the base already leans 
 composed with ornate yields "familiar and alien". Illustration only; the log-prob tests are the
 evidence.
 
+## 2026-09-11 (hour 8) — Three factors: era × voice × tense compose, with a clean cross-talk matrix
+
+**Grid.** `prompts/narrative_factors_v2.json`: the 36 spans of v1 (tense = past) plus minimal
+present-tense rewrites of each (verb forms only), 72 spans, 4 scenes × 3 eras × 3 voices × 2 tenses.
+`scripts/stage6_factors.py` generalizes stage 5 to any number of factors. Qwen2.5-1.5B, layer 14,
+scale 1, leave-one-scene-out. `results/stage6_qwen1.5b_three_l14.json`.
+
+**(A) Decodability.** Era 0.31 at layer 0 → 0.92 at layer 12 (computed). Voice 0.92 throughout
+(lexical, stable). Tense **1.00 at layer 0** → 0.78 at layer 28 (lexical, decays as the residual
+turns toward next-token prediction). Three factors of three kinds.
+
+**(B) Each factor as a lens** (rank of patched level among its levels, other factors fixed).
+
+| factor | factor direction | random | chance |
+|---|---|---|---|
+| era | 1.25 / 3 | 2.00 | 2.0 |
+| voice | 1.24 / 3 | 2.25 | 2.0 |
+| tense | 1.03 / 2 | 1.44 | 1.5 |
+
+**(D) All three composed.** One patch = dir_era + dir_voice + dir_tense: the joint span ranks
+**2.81 of 18** (chance 9.5). Two factors composed to 2.0 of 9 in hour 6; adding a third keeps the
+joint span near the top of a candidate set twice as large.
+
+**(X) Cross-talk matrix.** Rows: the factor whose direction is patched. Columns: fraction of the
+18-span gain variance explained by each factor's main effect.
+
+| patched ↓ / explained → | era | voice | tense |
+|---|---|---|---|
+| era | **0.58** | 0.14 | 0.00 |
+| voice | 0.16 | **0.64** | 0.01 |
+| tense | 0.11 | 0.11 | **0.47** |
+| random | 0.25 | 0.21 | 0.02 |
+
+**Reading.** The matrix is strongly diagonal. Era and voice leak into each other at 14–16% (as in
+hour 6) and into tense not at all. Tense leaks 11% into each of the others and keeps 47% on
+target. Random directions barely move tense (0.02): past/present pairs are near-identical text, so a
+random perturbation shifts both members together, whereas the tense direction separates them.
+Additive composition of three narrative factors of three different kinds works at the level of a
+sentence, with off-diagonal interference an order of magnitude below the diagonal for the
+era/voice–tense pairs and about a quarter of it for era–voice.
+
+**Caveats.** Same as before: one author, one scene set, sentence-length spans, single layer.
+Tense is the easiest possible third factor (a surface grammatical feature); a third *semantic*
+factor (mood, point of view, genre) is the harder test and still requires writing.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -379,8 +424,8 @@ evidence.
 4. ~~Stage 4 role lens~~ done: rank 1.7 vs 3.3 random, all eight held-out domains.
 4b. ~~Relation lens~~ done: null (−0.02 nats vs −0.19 random); the relation is measurable, not yet controllable.
 4c. ~~Narrative factors era × voice~~ done: both are lenses, they compose (2.0/9), order gap 0.5 rank.
-4d. ~~Cross-talk~~ done: 14–17% off-target vs 59–65% on-target. Next: a third factor (e.g. mood or point of
-   view) to test whether composition holds for three; then multi-sentence spans where plot beats
-   can be a factor.
+4d. ~~Cross-talk~~ done. ~~Third factor~~ tense: three-way composition 2.8/18, diagonal cross-talk matrix.
+4e. A third *semantic* factor (mood, point of view, genre) rather than a grammatical one; then
+   multi-sentence spans where plot beats can be a factor.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.

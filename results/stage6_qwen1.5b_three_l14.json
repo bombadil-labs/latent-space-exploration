@@ -1,0 +1,3962 @@
+[
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.09093031054852076,
+  "frac_voice": 0.015899311692151655,
+  "frac_tense": 0.00011573828998456737
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.0844521647269814,
+  "frac_voice": 0.14962070696349433,
+  "frac_tense": 0.0013256384920107757
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.36661440275587137,
+  "frac_voice": 0.254317913054783,
+  "frac_tense": 0.0008966658846517174
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.22188862344567248,
+  "frac_voice": 0.16673303953717106,
+  "frac_tense": 0.001152998749424507
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.5499737557569754,
+  "frac_voice": 0.04063090494270105,
+  "frac_tense": 0.00224901092890768
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.034859648040373184,
+  "frac_voice": 0.2422197201336899,
+  "frac_tense": 0.017709873263270455
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.0030806878096222403,
+  "frac_voice": 0.9290477064784859,
+  "frac_tense": 0.0011828166283928624
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.10163732196388144,
+  "frac_voice": 0.06522390919659896,
+  "frac_tense": 3.163263912416584e-06
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.440279544645517,
+  "frac_voice": 0.3145517126612383,
+  "frac_tense": 0.00550140381021211
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.2383751000370048,
+  "frac_voice": 0.7135414061136012,
+  "frac_tense": 0.0015608745098016487
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.03091512196506069,
+  "frac_voice": 0.8906188994673123,
+  "frac_tense": 0.00017258590175791278
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.16840044869117096,
+  "frac_voice": 0.15613959505072358,
+  "frac_tense": 0.04298290052762957
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.07795932230172774,
+  "frac_voice": 0.10217126341454463,
+  "frac_tense": 0.43902586436078406
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.20033541388814322,
+  "frac_voice": 0.052800710721774946,
+  "frac_tense": 0.0021805131814888142
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.12054910726816835,
+  "frac_voice": 0.11177879054449853,
+  "frac_tense": 0.5233916444737351
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.5059264018120962,
+  "frac_voice": 0.029799313222586696,
+  "frac_tense": 0.010293296236116039
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 9
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 7
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 9
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "gate",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7510319256171342,
+  "frac_voice": 0.08888774239663598,
+  "frac_tense": 0.013420639641210753
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2688912835583722,
+  "frac_voice": 0.19063394818279392,
+  "frac_tense": 0.0007552691919528126
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.725778296664714,
+  "frac_voice": 0.26154210940960876,
+  "frac_tense": 0.0005372854677343651
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.004451939436172963,
+  "frac_voice": 0.22302029745812565,
+  "frac_tense": 2.704574434450045e-05
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8132445073102192,
+  "frac_voice": 0.10907933960561683,
+  "frac_tense": 0.00011485101909950391
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.06344926155617842,
+  "frac_voice": 0.5018252887422585,
+  "frac_tense": 5.685851591417412e-06
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.4820705194233396,
+  "frac_voice": 0.22289648553909205,
+  "frac_tense": 0.019155049951489957
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.13883182903756472,
+  "frac_voice": 0.4089870937495526,
+  "frac_tense": 0.0010157783106963102
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.03481484438687451,
+  "frac_voice": 0.7847947498877228,
+  "frac_tense": 0.009847233238517116
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.12793518076891214,
+  "frac_voice": 0.1900028461092297,
+  "frac_tense": 0.015320577691174129
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.04377714789210703,
+  "frac_voice": 0.8305498661725064,
+  "frac_tense": 0.006837371745593236
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.36684142259142305,
+  "frac_voice": 0.02700942550371339,
+  "frac_tense": 0.03348483245274527
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.112147043552415,
+  "frac_voice": 0.025968462564814557,
+  "frac_tense": 0.621106214231824
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.721742031155089,
+  "frac_voice": 0.10555391229424738,
+  "frac_tense": 0.001222503496111805
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.10115412173722207,
+  "frac_voice": 0.06546660142745453,
+  "frac_tense": 0.5142081502762574
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.30707372798852434,
+  "frac_voice": 0.10031798744107648,
+  "frac_tense": 1.6541682518556246e-05
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "theft",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.6777034545713855,
+  "frac_voice": 0.02682582418862484,
+  "frac_tense": 0.013065115819355289
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.0025312289928959147,
+  "frac_voice": 0.12042060719787703,
+  "frac_tense": 0.01430971876235358
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.11571438617952365,
+  "frac_voice": 0.6071068989598545,
+  "frac_tense": 0.0001608605344137371
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.4247474563429353,
+  "frac_voice": 0.037667378552273686,
+  "frac_tense": 0.005387709950203581
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7897146820411343,
+  "frac_voice": 0.03212174346701836,
+  "frac_tense": 0.007906930793159269
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.22298275839243453,
+  "frac_voice": 0.18977561941990403,
+  "frac_tense": 0.011598360790665008
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.24246648032707144,
+  "frac_voice": 0.4868340802327888,
+  "frac_tense": 0.031718137753653994
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.13409985480584855,
+  "frac_voice": 0.2786968512853906,
+  "frac_tense": 0.037592447887490776
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.17421617320780544,
+  "frac_voice": 0.6723166744116365,
+  "frac_tense": 0.02315012919594242
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.4187139536489965,
+  "frac_voice": 0.11057101761108219,
+  "frac_tense": 0.026208410958984747
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.09901232899544961,
+  "frac_voice": 0.8255469640079199,
+  "frac_tense": 6.581942227078023e-06
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.4960781964225993,
+  "frac_voice": 0.3165888421382073,
+  "frac_tense": 4.05833169272691e-05
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.0334046656307978,
+  "frac_voice": 0.08043916729410058,
+  "frac_tense": 0.3824076052933466
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.42288561607940184,
+  "frac_voice": 0.11473498745742607,
+  "frac_tense": 0.08460596348350596
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.011067651179515565,
+  "frac_voice": 0.3383729839308211,
+  "frac_tense": 0.35592049320952723
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.4590981146594112,
+  "frac_voice": 0.08361409685568864,
+  "frac_tense": 0.0003526489187680248
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 8
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 10
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "farewell",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7385134982004491,
+  "frac_voice": 0.012756336010576838,
+  "frac_tense": 0.0021896567001647477
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2878388179090513,
+  "frac_voice": 0.22489530339001973,
+  "frac_tense": 0.0434015338463859
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.6760197684980983,
+  "frac_voice": 0.22207979139760384,
+  "frac_tense": 0.003406397026945887
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.025939277952371807,
+  "frac_voice": 0.2522221868436986,
+  "frac_tense": 0.0007573439058587285
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7109183354431894,
+  "frac_voice": 0.02130451014139868,
+  "frac_tense": 0.01078490969864406
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.15167812018121274,
+  "frac_voice": 0.15508256346606242,
+  "frac_tense": 0.12440973968088637
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.19329839291106782,
+  "frac_voice": 0.3514270015087445,
+  "frac_tense": 0.04143850138736528
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.03332778696473056,
+  "frac_voice": 0.7294713232066256,
+  "frac_tense": 0.0011318114862416343
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.16142208058153767,
+  "frac_voice": 0.6234386329233634,
+  "frac_tense": 0.019354315022719337
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.4405726371462847,
+  "frac_voice": 0.11351297623966733,
+  "frac_tense": 0.0006852433283072231
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.01216612438697235,
+  "frac_voice": 0.7528411343718173,
+  "frac_tense": 0.010935182966498773
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.2723547403483246,
+  "frac_voice": 0.22518494816681356,
+  "frac_tense": 0.027197012253416395
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.11255339995243818,
+  "frac_voice": 0.02838933592502632,
+  "frac_tense": 0.5684941060706478
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.42084110888356346,
+  "frac_voice": 0.09595391086145037,
+  "frac_tense": 0.01319904044830865
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "tense",
+  "cond": "factor",
+  "frac_era": 0.27726312243419765,
+  "frac_voice": 0.11259528603736518,
+  "frac_tense": 0.3844914901084591
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "B",
+  "factor": "tense",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "X",
+  "factor": "tense",
+  "cond": "rand",
+  "frac_era": 0.2560779029268167,
+  "frac_voice": 0.43407682734348324,
+  "frac_tense": 0.0064658173279275605
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "storm",
+  "test": "D",
+  "rank": 5
+ }
+]

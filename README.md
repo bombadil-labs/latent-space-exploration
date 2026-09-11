@@ -45,7 +45,8 @@ In physics, the initial claim is that [[thesis: ...]]. The opposing claim is tha
 A grid is a JSON file with `roles` and `prompts` keyed `domain/framing`. `prompts/dialectic_v0.json`
 is a draft 4-domain × 2-framing grid for the dialectic relation.
 
-| 5 | `scripts/stage5_*` | narrative factors (era, voice) as directions: lens, composition, order | both lenses work (1.3/3 vs 2.1 random), era+voice composes (2.0/9), order gap 0.5 |
+| 5 | `scripts/stage5_*` | narrative factors (era, voice) as directions: lens, composition, order | both lenses work (1.3/3 vs 2.1 random), era+voice composes (2.0/9), order gap 0.5; replicates on Qwen 0.5B and Pythia 1.4B |
+| 6 | `scripts/stage6_factors.py` | N factors: era × voice × tense | three-way composition 2.8/18 (chance 9.5); cross-talk matrix diagonal |
 
 ## Results
 
