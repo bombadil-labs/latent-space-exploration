@@ -229,14 +229,59 @@ direction may partly encode as style. The controlled comparison is still valid (
 share none of it), but "role" here includes register as well as meaning. Not yet done: multi-layer
 patching, a layer sweep, and the relation lens (patch the affine-predicted target, finding 3).
 
+## 2026-09-11 (hour 5) — Relation lens: null. Role lens: peaks at layers 14–20
+
+**Relation lens (stage 4b).** For held-out domain d and pair S→T: fit the role-centered affine map
+on the other 7 domains × 6 rotations (ridge 10, layer 20), predict d's target-content residual from
+its source residual, and patch `dir_T + pred` versus `dir_T` alone. Controls: `dir_T + random`
+(same norm as pred, ×2) and `dir_T + pred_from_wrong_source` (map applied to a different role's
+residual, rescaled). Metric: extra log-prob gain on the target span beyond the role-only patch.
+‖pred‖ ≈ 1.06 ‖dir_T‖. Six pairs × 8 domains. `scripts/stage4_relation.py`,
+`results/stage4b_qwen1.5b_relation_l20.json`.
+
+| patch added to dir_T | extra gain on target span (nats) | rank of target (role-only: 1.85) |
+|---|---|---|
+| affine-predicted content | **−0.02** (n=48) | 2.15 |
+| random, same norm | −0.19 (n=96) | 2.05 |
+| prediction from wrong source | −0.49 (n=48) | 2.40 |
+
+Per domain the relation patch ranges from +0.98 (biology) and +0.90 (psychology) to −1.03 (law)
+and −0.68 (software).
+
+**Reading.** Adding the predicted relation content does not improve the target span's likelihood on
+average. It is *less harmful* than a random vector of the same norm and much less harmful than a
+prediction from the wrong source, so the predicted direction is partially aligned with the true
+content, consistent with the weak stage-3 signal (rank 3.0 vs 3.5). But it is not a usable lens at
+this data size: a perturbation the size of the role direction that is only weakly aligned costs
+more than it gains. **Negative result.** The relation exists as a measurable direction (hour 3);
+it does not yet exist as a controllable one. What would change this: more domains and real
+paraphrases (the map is fit on 7 effective examples), a smaller λ with a sweep, or fitting the map
+at the layer where stage-3 transfer peaked rather than the layer where the role lens works.
+
+**Role-lens layer sweep** (4 domains: law, music, software, biology; scale 1; one random control).
+
+| layer | role-dir rank | random rank | target gain | other-span gain |
+|---|---|---|---|---|
+| 8  | 2.08 | 3.12 | +0.75 | −0.27 |
+| 14 | **1.33** | 3.58 | **+1.57** | −0.61 |
+| 20 | 1.37 | 3.3 | +1.10 | −0.76 |
+| 26 | 2.67 | 3.17 | −0.04 | −0.46 |
+
+The role lens works from the middle of the stack, is strongest around layer 14–20 of 28, and fades
+in the last layers where the residual is being turned into next-token logits. Layer 14 gives a
+larger target gain with less collateral damage than layer 20; later runs should use it.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
 2. ~~Project out slot directions~~ done: partial removal, no content shape recovered.
-3. ~~Rotate content through slots~~ done (Latin square, no new text). Real paraphrases (new wording per
-   domain) would raise the effective n above seven domains; still worth writing.
+3. ~~Rotate content through slots~~ done. Real paraphrases (new wording per domain) would raise the
+   effective n above seven and are the main lever for both stage 3 and the relation lens.
 4. ~~Stage 4 role lens~~ done: rank 1.7 vs 3.3 random, all eight held-out domains.
-4b. Stage 4 relation lens: patch the role-centered affine prediction (finding 3) and test whether it
-   raises the target span's likelihood above the mean-target patch; layer sweep for the role lens.
+4b. ~~Relation lens~~ done: null (−0.02 nats vs −0.19 random); the relation is measurable, not yet controllable.
+4c. Narrative factors (the original goal): build factor directions for setting-era and character-voice
+   with the same leave-one-out machinery (write a small grid of story spans varying era × voice ×
+   content), test each as a lens at layer 14, then measure interference: does +era change the voice
+   readout, and does the order of adding them matter (the commutator)?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.
