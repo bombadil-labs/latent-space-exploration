@@ -17,11 +17,13 @@ that can be measured, moved across domains, and used to steer generation. Across
    embedded state, the disturbance, the view from above) is linearly readable regardless of
    domain and position, and causally usable: adding the direction in a held-out domain selects
    that role's span at rank 1.7 of 6 (random directions: 3.3, chance 3.5).
-3. **A source→target relation transfers weakly, and it is computed, not lexical.** After removing
-   position, role identity, and domain address, an affine map fit on seven domains moves a
+3. **A source→target relation transfers, and it is computed, not lexical.** After removing
+   position, role identity, and domain address, an affine map fit on seven domains moved a
    held-out domain's source content toward its target content at rank 3.0 vs a shuffle null of
-   3.5, at chance at the embedding layer and peaking at layer 20 of 28. As a steering patch it
-   adds nothing measurable (−0.02 nats vs −0.19 for random).
+   3.5; with forty domains (32 model-generated, reviewed) the same protocol reaches **rank 2.2**
+   with the null unchanged at 3.5. The relation was starved, not absent. As a steering patch at
+   seven domains it added nothing (−0.02 nats vs −0.19 for random); the forty-domain operator has
+   not yet been patched.
 4. **Narrative factors are additive directions with small, measured interference.** Era, voice,
    tense, mood, and theme each transfer to unseen scenes as a lens (rank 1.1–1.3 of 3 vs ~2.0
    random). Three compose in one patch (2.8 of 18, chance 9.5). The cross-talk matrix, the fraction
@@ -59,10 +61,10 @@ paired with its control.
 - The **shape test** (RSA/CKA over pooled role vectors) was a position detector. Rotating content
   through slots and projecting out the slot subspace did not rescue a content shape. The fix is a
   different object (directions and operators), not better post-processing.
-- The **relation lens** is a genuine but small signal starved of data: seven effective domains
-  cannot support a rotation in 1536 dimensions. A constant "which role is this" prediction beats
-  the learned map until role identity is removed; after that the map beats a null but not by
-  enough to patch with.
+- The **relation lens at seven domains** was a small signal: a constant "which role is this"
+  prediction beat the learned map until role identity was removed, and after that the map beat a
+  null but not by enough to patch with. Forty domains fixed the selector (rank 2.2); whether they
+  fix the patch is the next test.
 - **Theme generation on small base models**: multi-layer re-imposition and repetition penalties
   do not move it. The obstacle is competence, not erosion or decoding.
 - Two metrics were found broken and replaced (a cross-talk rank that averaged to 2 by
