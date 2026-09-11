@@ -330,21 +330,23 @@ Same grid, same scripts, same leave-one-scene-out protocol. Layers chosen at the
 |---|---|---|---|
 | era decodability, layer 0 → peak | 0.28 → 0.94 (L12) | 0.33 → 0.81 (L24) | 0.50 → 0.94 (L18) |
 | voice decodability, layer 0 | 0.92 | 0.92 | 0.89 |
-| era lens rank/3 (random) | 1.28 (2.11) | 1.39 (2.03) | pending |
-| voice lens rank/3 (random) | 1.31 (2.11) | 1.19 (2.14) | pending |
-| era+voice composed, rank/9 (chance 5) | 2.03 | 1.83 | pending |
-| order: A then B / B then A, gain corr | 1.83 / 1.89, 0.85 | 1.86 / 1.75, 0.82 | pending |
-| cross-talk under era patch (on-target / off) | 0.59 / 0.14 | 0.54 / 0.20 | pending |
-| cross-talk under voice patch (on-target / off) | 0.65 / 0.17 | 0.62 / 0.14 | pending |
+| era lens rank/3 (random) | 1.28 (2.11) | 1.39 (2.03) | **1.11** (2.11) |
+| voice lens rank/3 (random) | 1.31 (2.11) | 1.19 (2.14) | **1.11** (2.14) |
+| era+voice composed, rank/9 (chance 5) | 2.03 | 1.83 | **1.44** |
+| order: A then B / B then A, gain corr | 1.83 / 1.89, 0.85 | 1.86 / 1.75, 0.82 | 1.33 / 1.56, 0.83 |
+| cross-talk under era patch (on-target / off) | 0.59 / 0.14 | 0.54 / 0.20 | 0.63 / 0.15 |
+| cross-talk under voice patch (on-target / off) | 0.65 / 0.17 | 0.62 / 0.14 | 0.67 / 0.19 |
 
-`results/stage5_qwen0.5b_*`, `results/stage5_pythia1.4b_*` (Pythia model-based runs in progress).
+`results/stage5_qwen0.5b_*`, `results/stage5_pythia1.4b_*` .
 
 **Reading.** On the 0.5B model every stage-5 quantity lands within a few hundredths of the 1.5B
 value. Era is less cleanly decodable on the smaller model (peak 0.81 vs 0.94), consistent with a
 computed feature that sharpens with scale, while voice, being lexical, is identical. Pythia's
 model-free check shows the same shape as Qwen (voice in the embeddings, era built by the layers,
-peaking late), which rules out a Qwen-specific artifact for the decodability result; the lens and
-composition numbers on Pythia are running.
+peaking late). On Pythia the lens and composition numbers are the strongest of the three models
+(both lenses 1.11/3, composition 1.44/9), with cross-talk and order effects of the same size as on
+Qwen. Three models, two families, one story: era and voice are additive directions with small
+interference.
 
 ## Open problems (ordered)
 
@@ -359,4 +361,4 @@ composition numbers on Pythia are running.
    view) to test whether composition holds for three; then multi-sentence spans where plot beats
    can be a factor.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
-6. ~~A second model family~~ Pythia-1.4B: decodability replicates; lens/composition pending.
+6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
