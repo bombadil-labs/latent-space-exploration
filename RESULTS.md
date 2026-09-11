@@ -300,7 +300,18 @@ pair of layers the factors nearly commute. The holonomy we speculated about is s
 variants averages to exactly 2 by construction, so the "readout under patch" numbers in the log are
 meaningless. Replaced by a variance decomposition of the 3×3 gain matrix under a single-factor
 patch (fraction explained by the on-target factor vs the other factor vs residual);
-`scripts/stage5_crosstalk.py`. Numbers below once the run completes.
+`scripts/stage5_crosstalk.py`, `results/stage5_qwen1.5b_crosstalk_l14.json`.
+
+| patch (layer 14, scale 1) | on-target factor | other factor (cross-talk) | residual | on-target rank/3 |
+|---|---|---|---|---|
+| era direction | **0.59** | 0.14 | 0.27 | 1.08 |
+| voice direction | **0.65** | 0.17 | 0.18 | 1.08 |
+| random, same norm | 0.27 | 0.23 | 0.50 | 1.96 |
+
+Under an era patch, 59% of the variance in span gains is an era main effect and 14% is a voice
+main effect; under a voice patch, 65% and 17%. A random patch spreads its variance evenly (27/23)
+with half in residual. Cross-talk is real but small, about a quarter of the on-target effect, and
+close to what a random direction produces. The factors are not orthogonal, but they are close.
 
 **Reading.** For these two narrative factors the additive picture is close to right: each is a
 direction, both transfer to a held-out scene, their sum selects the joint variant, and the order of
@@ -319,7 +330,7 @@ abstract. Plot shape, the hard factor, is untouched.
 4. ~~Stage 4 role lens~~ done: rank 1.7 vs 3.3 random, all eight held-out domains.
 4b. ~~Relation lens~~ done: null (−0.02 nats vs −0.19 random); the relation is measurable, not yet controllable.
 4c. ~~Narrative factors era × voice~~ done: both are lenses, they compose (2.0/9), order gap 0.5 rank.
-4d. Cross-talk numbers (variance decomposition) pending; then a third factor (e.g. mood or point of
+4d. ~~Cross-talk~~ done: 14–17% off-target vs 59–65% on-target. Next: a third factor (e.g. mood or point of
    view) to test whether composition holds for three; then multi-sentence spans where plot beats
    can be a factor.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.

@@ -1,0 +1,386 @@
+[
+ {
+  "scene": "gate",
+  "patch": "era",
+  "level": "medieval",
+  "frac_on_target": 0.1143477695449612,
+  "frac_crosstalk": 0.0320781259814282,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "medieval",
+  "frac_on_target": 0.11411033315613699,
+  "frac_crosstalk": 0.26946805203791035,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "gate",
+  "patch": "era",
+  "level": "1920s",
+  "frac_on_target": 0.3426976970294307,
+  "frac_crosstalk": 0.2964917086434544,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "1920s",
+  "frac_on_target": 0.22545395339677549,
+  "frac_crosstalk": 0.25685096162799576,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "gate",
+  "patch": "era",
+  "level": "farfuture",
+  "frac_on_target": 0.541452715046573,
+  "frac_crosstalk": 0.05235814067738893,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "farfuture",
+  "frac_on_target": 0.010364779988582219,
+  "frac_crosstalk": 0.19870235955492627,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "gate",
+  "patch": "voice",
+  "level": "terse",
+  "frac_on_target": 0.8962838824987175,
+  "frac_crosstalk": 0.0016697115446147942,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "terse",
+  "frac_on_target": 0.06744878960812381,
+  "frac_crosstalk": 0.07677370072048507,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "gate",
+  "patch": "voice",
+  "level": "ornate",
+  "frac_on_target": 0.33235250035144864,
+  "frac_crosstalk": 0.4717205597203719,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "ornate",
+  "frac_on_target": 0.7339835505833808,
+  "frac_crosstalk": 0.2093033646961099,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "gate",
+  "patch": "voice",
+  "level": "child",
+  "frac_on_target": 0.880430580881176,
+  "frac_crosstalk": 0.04827110198037928,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "gate",
+  "patch": "rand",
+  "level": "child",
+  "frac_on_target": 0.1542310715764404,
+  "frac_crosstalk": 0.16299780148558957,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "theft",
+  "patch": "era",
+  "level": "medieval",
+  "frac_on_target": 0.7579733607479893,
+  "frac_crosstalk": 0.10776382970252381,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "medieval",
+  "frac_on_target": 0.5387127314818859,
+  "frac_crosstalk": 0.05216808751441303,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "era",
+  "level": "1920s",
+  "frac_on_target": 0.7657778280740358,
+  "frac_crosstalk": 0.2241801716306128,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "1920s",
+  "frac_on_target": 0.18098249677071285,
+  "frac_crosstalk": 0.35344921149535985,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "era",
+  "level": "farfuture",
+  "frac_on_target": 0.8237959192808199,
+  "frac_crosstalk": 0.11307344708373367,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "farfuture",
+  "frac_on_target": 0.39386563908454353,
+  "frac_crosstalk": 0.19697879157739345,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "voice",
+  "level": "terse",
+  "frac_on_target": 0.207376552308952,
+  "frac_crosstalk": 0.49674991012679814,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "terse",
+  "frac_on_target": 0.38527044502718705,
+  "frac_crosstalk": 0.03797442922073608,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "theft",
+  "patch": "voice",
+  "level": "ornate",
+  "frac_on_target": 0.7876895542333885,
+  "frac_crosstalk": 0.040885979708000016,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "ornate",
+  "frac_on_target": 0.5850092827392026,
+  "frac_crosstalk": 0.05162717214181935,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "voice",
+  "level": "child",
+  "frac_on_target": 0.8516690932701683,
+  "frac_crosstalk": 0.05488566811653729,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "theft",
+  "patch": "rand",
+  "level": "child",
+  "frac_on_target": 0.44364559534196385,
+  "frac_crosstalk": 0.20063389093600129,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "era",
+  "level": "medieval",
+  "frac_on_target": 0.6820491059789828,
+  "frac_crosstalk": 0.046831257918924396,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "medieval",
+  "frac_on_target": 0.09058781519074405,
+  "frac_crosstalk": 0.7423278481780368,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "farewell",
+  "patch": "era",
+  "level": "1920s",
+  "frac_on_target": 0.1436656811123444,
+  "frac_crosstalk": 0.5747484900998872,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "1920s",
+  "frac_on_target": 0.3511370913312136,
+  "frac_crosstalk": 0.13064190305983658,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "farewell",
+  "patch": "era",
+  "level": "farfuture",
+  "frac_on_target": 0.8111119685411916,
+  "frac_crosstalk": 0.022589936000386623,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "farfuture",
+  "frac_on_target": 0.1308574601635356,
+  "frac_crosstalk": 0.4168398713077677,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "voice",
+  "level": "terse",
+  "frac_on_target": 0.6157808736494321,
+  "frac_crosstalk": 0.18548006732389266,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "terse",
+  "frac_on_target": 0.622423781261009,
+  "frac_crosstalk": 0.07365710528492812,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "farewell",
+  "patch": "voice",
+  "level": "ornate",
+  "frac_on_target": 0.6247153815400251,
+  "frac_crosstalk": 0.2131096649132959,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "ornate",
+  "frac_on_target": 0.24357236348589492,
+  "frac_crosstalk": 0.023880266887988177,
+  "on_target_rank": 3
+ },
+ {
+  "scene": "farewell",
+  "patch": "voice",
+  "level": "child",
+  "frac_on_target": 0.7926582848319302,
+  "frac_crosstalk": 0.12790019277636974,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "farewell",
+  "patch": "rand",
+  "level": "child",
+  "frac_on_target": 0.0315575367292496,
+  "frac_crosstalk": 0.5182409367596108,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "era",
+  "level": "medieval",
+  "frac_on_target": 0.6796067117445934,
+  "frac_crosstalk": 0.02958382647738415,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "medieval",
+  "frac_on_target": 0.23523622004169353,
+  "frac_crosstalk": 0.16053547070066085,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "era",
+  "level": "1920s",
+  "frac_on_target": 0.7357811839115793,
+  "frac_crosstalk": 0.1759194070338742,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "1920s",
+  "frac_on_target": 0.20238834902676436,
+  "frac_crosstalk": 0.5661333880976736,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "storm",
+  "patch": "era",
+  "level": "farfuture",
+  "frac_on_target": 0.6753273823527722,
+  "frac_crosstalk": 0.01027925273024138,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "farfuture",
+  "frac_on_target": 0.38862198767730993,
+  "frac_crosstalk": 0.14888406576361624,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "voice",
+  "level": "terse",
+  "frac_on_target": 0.30731057746993096,
+  "frac_crosstalk": 0.16677221126017677,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "terse",
+  "frac_on_target": 0.07719853999204644,
+  "frac_crosstalk": 0.3254628599781127,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "storm",
+  "patch": "voice",
+  "level": "ornate",
+  "frac_on_target": 0.6667800314942444,
+  "frac_crosstalk": 0.1964436260935754,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "ornate",
+  "frac_on_target": 0.07240638669990358,
+  "frac_crosstalk": 0.16974629095256194,
+  "on_target_rank": 2
+ },
+ {
+  "scene": "storm",
+  "patch": "voice",
+  "level": "child",
+  "frac_on_target": 0.7911507321664439,
+  "frac_crosstalk": 0.024860964969742837,
+  "on_target_rank": 1
+ },
+ {
+  "scene": "storm",
+  "patch": "rand",
+  "level": "child",
+  "frac_on_target": 0.11628354457949165,
+  "frac_crosstalk": 0.22212377791990925,
+  "on_target_rank": 2
+ }
+]
