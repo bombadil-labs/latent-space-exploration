@@ -1,0 +1,463 @@
+{
+ "width_16k/average_l0_47": {
+  "n_active_features": 1898,
+  "mean_active_per_token": 54.341904309342425,
+  "generality_of_target_features": {
+   "mean": 0.2975354173984311,
+   "median": 0.1527777777777778,
+   "frac_general_over_half": 0.2154899894625922,
+   "frac_rare_under_tenth": 0.41675447839831403
+  },
+  "top": [
+   {
+    "feature": 10439,
+    "mean_act": 49.5191535949707,
+    "generality": 1.0,
+    "tokens": [
+     "A",
+     " diplomacy",
+     " is",
+     " archaeologist"
+    ]
+   },
+   {
+    "feature": 2502,
+    "mean_act": 12.605056762695312,
+    "generality": 0.0,
+    "tokens": [
+     " the",
+     " He",
+     " the",
+     " captain"
+    ]
+   },
+   {
+    "feature": 6415,
+    "mean_act": 10.914976119995117,
+    "generality": 0.20833333333333334,
+    "tokens": [
+     ",",
+     " is",
+     ",",
+     " rather"
+    ]
+   },
+   {
+    "feature": 6071,
+    "mean_act": 10.78014850616455,
+    "generality": 0.375,
+    "tokens": [
+     " stars",
+     " the",
+     " Federation",
+     " Star"
+    ]
+   },
+   {
+    "feature": 7851,
+    "mean_act": 9.352800369262695,
+    "generality": 1.0,
+    "tokens": [
+     ",",
+     " rather",
+     " before",
+     " of"
+    ]
+   },
+   {
+    "feature": 5648,
+    "mean_act": 8.479053497314453,
+    "generality": 0.0,
+    "tokens": [
+     " principle",
+     ",",
+     " diplomacy",
+     " about"
+    ]
+   },
+   {
+    "feature": 10693,
+    "mean_act": 7.184385299682617,
+    "generality": 0.6944444444444444,
+    "tokens": [
+     " him",
+     " officers",
+     ",",
+     " under"
+    ]
+   },
+   {
+    "feature": 16288,
+    "mean_act": 6.983732223510742,
+    "generality": 1.0,
+    "tokens": [
+     "ners",
+     "A",
+     " before",
+     " archaeologist"
+    ]
+   },
+   {
+    "feature": 7247,
+    "mean_act": 5.695537567138672,
+    "generality": 0.3611111111111111,
+    "tokens": [
+     "hip",
+     " Enterprise",
+     " the",
+     " captain"
+    ]
+   },
+   {
+    "feature": 13080,
+    "mean_act": 5.611874103546143,
+    "generality": 0.041666666666666664,
+    "tokens": [
+     ",",
+     " is",
+     " and",
+     " private"
+    ]
+   },
+   {
+    "feature": 14705,
+    "mean_act": 5.434122085571289,
+    "generality": 0.9722222222222222,
+    "tokens": [
+     " Federation",
+     "ners",
+     " Enterprise",
+     "hip"
+    ]
+   },
+   {
+    "feature": 8078,
+    "mean_act": 5.292191505432129,
+    "generality": 0.09722222222222222,
+    "tokens": [
+     " through",
+     " captain",
+     " commands",
+     " mentors"
+    ]
+   },
+   {
+    "feature": 12492,
+    "mean_act": 5.046529769897461,
+    "generality": 1.0,
+    "tokens": [
+     "A"
+    ]
+   },
+   {
+    "feature": 8508,
+    "mean_act": 4.919325828552246,
+    "generality": 1.0,
+    "tokens": [
+     " force",
+     "A",
+     " than",
+     "ners"
+    ]
+   },
+   {
+    "feature": 8056,
+    "mean_act": 4.54599142074585,
+    "generality": 0.8333333333333334,
+    "tokens": [
+     " expectations",
+     " patience",
+     " with",
+     " private"
+    ]
+   },
+   {
+    "feature": 12904,
+    "mean_act": 4.501644611358643,
+    "generality": 0.0,
+    "tokens": [
+     ",",
+     " a",
+     " he",
+     " an"
+    ]
+   },
+   {
+    "feature": 3375,
+    "mean_act": 4.255354404449463,
+    "generality": 1.0,
+    "tokens": [
+     " in",
+     " hot",
+     " under",
+     " and"
+    ]
+   },
+   {
+    "feature": 6880,
+    "mean_act": 4.116482257843018,
+    "generality": 0.3611111111111111,
+    "tokens": [
+     " expectations",
+     " Shakespeare",
+     ".",
+     " stubborn"
+    ]
+   },
+   {
+    "feature": 3354,
+    "mean_act": 3.9981820583343506,
+    "generality": 0.013888888888888888,
+    "tokens": [
+     "hip",
+     " captain",
+     " tea",
+     " of"
+    ]
+   },
+   {
+    "feature": 7963,
+    "mean_act": 3.861685037612915,
+    "generality": 0.3472222222222222,
+    "tokens": [
+     " principle",
+     ",",
+     " Earl",
+     " He"
+    ]
+   }
+  ]
+ },
+ "width_131k/average_l0_43": {
+  "n_active_features": 2329,
+  "mean_active_per_token": 53.29064081145488,
+  "generality_of_target_features": {
+   "mean": 0.18899980916940984,
+   "median": 0.027777777777777776,
+   "frac_general_over_half": 0.15027908973808501,
+   "frac_rare_under_tenth": 0.7144697294976384
+  },
+  "top": [
+   {
+    "feature": 40141,
+    "mean_act": 48.90757751464844,
+    "generality": 1.0,
+    "tokens": [
+     "A",
+     " diplomacy",
+     " is",
+     " archaeologist"
+    ]
+   },
+   {
+    "feature": 47277,
+    "mean_act": 15.823110580444336,
+    "generality": 0.1388888888888889,
+    "tokens": [
+     " Enterprise",
+     " the",
+     " Picard",
+     " Federation"
+    ]
+   },
+   {
+    "feature": 121486,
+    "mean_act": 9.385679244995117,
+    "generality": 1.0,
+    "tokens": [
+     ",",
+     " rather",
+     " before",
+     " of"
+    ]
+   },
+   {
+    "feature": 46455,
+    "mean_act": 7.644625663757324,
+    "generality": 0.0,
+    "tokens": [
+     " about",
+     " principle",
+     " stubborn",
+     ","
+    ]
+   },
+   {
+    "feature": 57083,
+    "mean_act": 7.121595859527588,
+    "generality": 1.0,
+    "tokens": [
+     "A",
+     "ners",
+     " archaeologist",
+     " before"
+    ]
+   },
+   {
+    "feature": 32491,
+    "mean_act": 6.176409721374512,
+    "generality": 0.0,
+    "tokens": [
+     " the",
+     " He",
+     " captain",
+     " the"
+    ]
+   },
+   {
+    "feature": 52935,
+    "mean_act": 5.92641019821167,
+    "generality": 0.0,
+    "tokens": [
+     " of",
+     " captain",
+     " the",
+     " Born"
+    ]
+   },
+   {
+    "feature": 46973,
+    "mean_act": 5.700395584106445,
+    "generality": 0.6527777777777778,
+    "tokens": [
+     " under",
+     " him",
+     " officers",
+     ","
+    ]
+   },
+   {
+    "feature": 59539,
+    "mean_act": 4.344971179962158,
+    "generality": 0.9027777777777778,
+    "tokens": [
+     " Enterprise",
+     "ners",
+     " Federation",
+     " vint"
+    ]
+   },
+   {
+    "feature": 51901,
+    "mean_act": 4.342165946960449,
+    "generality": 1.0,
+    "tokens": [
+     " in",
+     " hot",
+     " under",
+     " and"
+    ]
+   },
+   {
+    "feature": 40040,
+    "mean_act": 4.042054653167725,
+    "generality": 0.0,
+    "tokens": [
+     " diplomacy",
+     " through",
+     " force",
+     " rather"
+    ]
+   },
+   {
+    "feature": 69665,
+    "mean_act": 3.9650533199310303,
+    "generality": 1.0,
+    "tokens": [
+     " expectations",
+     " Shakespeare",
+     " patience",
+     "."
+    ]
+   },
+   {
+    "feature": 36749,
+    "mean_act": 3.415907144546509,
+    "generality": 1.0,
+    "tokens": [
+     " loses",
+     " one",
+     " no",
+     " diplomacy"
+    ]
+   },
+   {
+    "feature": 35931,
+    "mean_act": 3.402172327041626,
+    "generality": 0.8055555555555556,
+    "tokens": [
+     " expectations",
+     " patience",
+     " stubborn",
+     "."
+    ]
+   },
+   {
+    "feature": 94660,
+    "mean_act": 3.0943703651428223,
+    "generality": 0.0,
+    "tokens": [
+     ",",
+     " the",
+     " private",
+     " is"
+    ]
+   },
+   {
+    "feature": 35184,
+    "mean_act": 2.971416711807251,
+    "generality": 0.8888888888888888,
+    "tokens": [
+     " force",
+     " than",
+     " loses",
+     "ners"
+    ]
+   },
+   {
+    "feature": 99480,
+    "mean_act": 2.7829697132110596,
+    "generality": 0.1111111111111111,
+    "tokens": [
+     " Grey",
+     " quotes",
+     " He",
+     ","
+    ]
+   },
+   {
+    "feature": 58923,
+    "mean_act": 2.6688144207000732,
+    "generality": 0.0,
+    "tokens": [
+     ",",
+     " He",
+     ",",
+     " quotes"
+    ]
+   },
+   {
+    "feature": 35281,
+    "mean_act": 2.6451494693756104,
+    "generality": 0.2777777777777778,
+    "tokens": [
+     "hip",
+     " Enterprise",
+     " the",
+     " stars"
+    ]
+   },
+   {
+    "feature": 22714,
+    "mean_act": 2.5809895992279053,
+    "generality": 1.0,
+    "tokens": [
+     "A",
+     ",",
+     ",",
+     " Shakespeare"
+    ]
+   }
+  ]
+ }
+}

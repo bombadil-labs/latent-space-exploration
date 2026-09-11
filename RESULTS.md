@@ -696,6 +696,39 @@ tried to measure directly. Caveats: representational readout, not generation; on
 readout directions and the patch directions come from the same leave-one-out fold, so the test is
 fair to the held-out situation but shares training data across era and theme.
 
+## 2026-09-11 (hour 15) — Deterritorialization via dictionary width: narrower dictionaries keep more general features
+
+**Setup.** Gemma-2-9B-it, block-20 residuals per token (via NDIF, `scripts/ndif_tokens.py`) for a
+canonical Picard description (`prompts/picard.json`) and 72 reference passages (the theme and mood
+grids). Gemma Scope JumpReLU dictionaries at layer 20, widths **16k** (L0≈47) and **131k**
+(L0≈43). Generality of a feature = fraction of reference passages on which it fires at least once
+(label-free; Neuronpedia is unreachable here). `scripts/sae_ladder.py`, `results/sae_ladder_picard.json`.
+
+**Distribution.** Content features active on the description (anchored on an alphabetic token,
+excluding features that fire on >90% of references):
+
+| dictionary | n active | mean generality | median | fraction rare (<0.1) |
+|---|---|---|---|---|
+| 16k (narrow) | 1255 | **0.18** | 0.11 | 0.49 |
+| 131k (wide) | 1500 | **0.06** | 0.014 | 0.83 |
+
+**Merge test.** For the 15 strongest content features at 131k, the nearest 16k feature by decoder
+cosine is *more general* in **12 of 15** cases. The clearest: a 131k feature anchored on
+*Enterprise / Picard / Federation* (generality 0.14) maps to a 16k feature anchored on *stars /
+Federation / Star* (0.38): the Star Trek particular merges into a space-setting feature one rung up.
+*Earl Grey* (0.11) and *tea* (0.10) map to features anchored on *principle* (0.35 / 0.00), i.e. the
+matches for idiosyncratic particulars are weak (cosine 0.27–0.41): the narrow dictionary has no home
+for them, which is what dropping detail looks like.
+
+**Reading.** Re-encoding the same activation through a narrower dictionary keeps features that fire
+across more passages and loses the ones specific to this description. That is the operational
+content of *abstract as deterritorialization*: generality rises on every axis at once, with no axis
+chosen. The Picard → "spaceship diplomat" → "mentor" chain is not readable without feature labels,
+but its first rung is visible (Enterprise → stars). Caveats: generality is measured against a
+narrative-only reference set of 72 passages, one layer, two widths, one description; the two
+dictionaries have matched sparsity but different training, so "same feature" is by decoder
+similarity only.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
