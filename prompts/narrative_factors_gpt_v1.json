@@ -1,0 +1,65 @@
+{
+ "lead": "A moment from a story:",
+ "factors": {
+  "era": [
+   "medieval",
+   "1920s",
+   "farfuture"
+  ],
+  "voice": [
+   "terse",
+   "ornate",
+   "child"
+  ]
+ },
+ "scenes": [
+  "river rescue",
+  "accusation at a table",
+  "wound dressed",
+  "bargain struck"
+ ],
+ "key_order": [
+  "scene",
+  "era",
+  "voice"
+ ],
+ "spans": {
+  "river rescue/medieval/terse": "A cart hand went through the ford and vanished under the current. A reeve threw a rope from the bank, hauled hard, and dragged the coughing traveler onto the stones.",
+  "river rescue/medieval/ornate": "When the cart hand slipped beneath the brown rush of the ford, where reeds bent around the bridge piles, the reeve cast a hempen rope across the water and, bracing against an oak post, drew the coughing traveler safely onto the stones.",
+  "river rescue/medieval/child": "The cart helper fell into the river by the little stone bridge. The reeve tossed a thick rope, and we all pulled until the wet traveler came out coughing but alive.",
+  "river rescue/1920s/terse": "A dockworker slipped from the ferry landing and went under. The deck officer threw a cork life ring, caught the line, and pulled the sputtering worker back against the pilings.",
+  "river rescue/1920s/ornate": "When the dockworker lost footing on the rain-dark ferry landing and disappeared beneath the oily river, the deck officer flung a cork life ring from beside the ticket booth and, hand over hand, drew the sputtering figure back to the pilings.",
+  "river rescue/1920s/child": "The dockworker slipped off the ferry place and splashed into the dark water. An officer threw a round cork float, and soon the worker was holding the pilings and coughing hard.",
+  "river rescue/farfuture/terse": "A maintenance tech fell from the transfer gantry into the coolant canal. The shift lead fired a tether spool, locked the reel, and winched the choking tech onto the service ledge.",
+  "river rescue/farfuture/ornate": "When the maintenance tech pitched from the transfer gantry into the luminous coolant canal, whose surface shivered beneath the station lights, the shift lead launched a magnetic tether and let the powered reel draw the choking body safely onto the service ledge.",
+  "river rescue/farfuture/child": "The repair worker fell off the high walkway into the glowing canal. The shift leader shot out a smart rope, and its little machine pulled the worker up, dripping and coughing, onto the ledge.",
+  "accusation at a table/medieval/terse": "The steward laid the tally sticks on the trestle table. He said the cellarer had cut false marks into them. The cellarer looked down and admitted it.",
+  "accusation at a table/medieval/ornate": "While trenchers and candle stubs crowded the trestle table, the steward set down the notched tally sticks and charged the cellarer with cutting marks that no cask had earned; after a long silence, the cellarer lowered his eyes and confessed.",
+  "accusation at a table/medieval/child": "They put the little counting sticks on the big wooden table. The steward said the cellar keeper had made extra cuts on them, and after being very quiet, the cellar keeper said yes.",
+  "accusation at a table/1920s/terse": "The bookkeeper spread the ledgers beside the coffee cups. She said the cashier had changed three entries. The cashier stared at the figures and owned up.",
+  "accusation at a table/1920s/ornate": "As cigarette smoke curled above the restaurant table and the untouched coffee cooled, the bookkeeper opened the clothbound ledgers, pointed to three altered entries, and accused the cashier across from her; the cashier studied the ink, then quietly admitted the changes.",
+  "accusation at a table/1920s/child": "The bookkeeper opened two big books next to the coffee cups. She said the cashier had changed three numbers, and the cashier looked at them for a while and said it was true.",
+  "accusation at a table/farfuture/terse": "The auditor cast the cargo log across the mess table. He said the quartermaster had rewritten three manifests. The quartermaster checked the glowing entries and admitted it.",
+  "accusation at a table/farfuture/ornate": "Beneath the slow orbit of projected menus above the mess table, the auditor unfolded the cargo log in pale light and showed three manifests whose histories had been rewritten; faced with the preserved revisions, the quartermaster bowed her head and admitted making them.",
+  "accusation at a table/farfuture/child": "The auditor made the cargo list shine above our table. He showed three places the quartermaster had changed, and when the old copies floated beside them, she said she had done it.",
+  "wound dressed/medieval/terse": "The woodcutter held out a sliced forearm. The healer washed it with boiled water, packed it with clean linen, and bound the strip tight. The bleeding stopped.",
+  "wound dressed/medieval/ornate": "With the woodcutter's forearm laid across a bench, the healer rinsed the long cut from a steaming earthen bowl, pressed folded linen into the wound, and wound a clean strip around it until the seeping blood finally ceased.",
+  "wound dressed/medieval/child": "The woodcutter had a long cut on an arm. The healer washed it with warm water, put clean cloth on it, and wrapped it tight until no more blood came through.",
+  "wound dressed/1920s/terse": "The machinist put a cut forearm on the clinic desk. The nurse swabbed it, laid gauze over the slice, and wound on a cotton bandage. The bleeding quit.",
+  "wound dressed/1920s/ornate": "Under the white globe of the factory clinic, the machinist rested a cut forearm beside the enamel tray while the nurse cleaned the wound with antiseptic, layered gauze across it, and wrapped cotton firmly enough that the blood no longer showed.",
+  "wound dressed/1920s/child": "The machine worker had a bad cut on an arm. The nurse used sharp-smelling medicine, soft white gauze, and a long bandage, and soon the red spot stopped getting bigger.",
+  "wound dressed/farfuture/terse": "The surveyor raised a gashed forearm. The medic sprayed sterile foam, sealed a synthskin patch over the cut, and cinched the smart wrap. Its bleeding indicator went dark.",
+  "wound dressed/farfuture/ornate": "Beneath the medbay's diagnostic halo, the surveyor extended a gashed forearm, and the medic flooded the cut with sterile foam, smoothed a translucent synthskin patch across it, then tightened the responsive wrap until its crimson bleeding icon faded to black.",
+  "wound dressed/farfuture/child": "The explorer had a deep cut on an arm. The medic sprayed bubbly foam, pressed on clear fake skin, and wrapped it with a band that blinked red, then stopped blinking when the blood stopped.",
+  "bargain struck/medieval/terse": "The farmer wanted the mule. The trader asked twelve silver pennies. They argued beside the hitching post, settled on nine, and clasped hands. The mule changed owners.",
+  "bargain struck/medieval/ornate": "Beside the inn's hitching post, where the mule worried its rope and stamped at flies, the farmer rejected the trader's twelve silver pennies and answered with seven; after a patient climb of offers, they met at nine, clasped hands, and transferred the halter.",
+  "bargain struck/medieval/child": "The farmer really wanted the mule, but the trader wanted twelve silver coins. They talked and talked until nine was enough, then they shook hands and the farmer got to take the mule.",
+  "bargain struck/1920s/terse": "The delivery driver wanted the used truck. The dealer asked twelve hundred dollars. They worked it down to nine hundred, shook across the hood, and signed the bill of sale.",
+  "bargain struck/1920s/ornate": "With the used delivery truck ticking as its engine cooled beside the showroom, the driver refused the dealer's twelve hundred dollars and began lower; after figures crossed the hood between them, they settled on nine hundred, shook hands, and signed the bill of sale.",
+  "bargain struck/1920s/child": "The delivery driver wanted the old truck, but the car dealer said it cost twelve hundred dollars. They kept changing the number until nine hundred worked, then they shook hands and signed the paper.",
+  "bargain struck/farfuture/terse": "The courier wanted the used cargo skimmer. The broker asked twelve thousand credits. They traded numbers through the console, landed on nine thousand, palm-signed the transfer, and released the vehicle key.",
+  "bargain struck/farfuture/ornate": "While the used cargo skimmer hovered above the docking pad, the courier refused the broker's twelve thousand credits and sent back a lower figure; their offers flickered across the console until nine thousand held, whereupon they palm-signed the transfer and released the vehicle key.",
+  "bargain struck/farfuture/child": "The courier wanted the old cargo skimmer, but the broker wanted twelve thousand credits. They sent numbers back and forth on the screen until nine thousand was okay, then touched palms and the skimmer key lit up for the courier."
+ },
+ "_note": "Authored by GPT from a spec written by Claude (no Claude-written spans shown to the author); scenes disjoint from the Claude-authored grids. External-author replication set."
+}
