@@ -132,3 +132,19 @@ class LM:
             logits = m.lm_head(v).float().cpu()
         top = torch.topk(logits, k)
         return [(self.tok.decode([i]), float(s)) for s, i in zip(top.values, top.indices)]
+
+
+def _logprob_continuation(lm: "LM", prefix: str, continuation: str, patches=None) -> float:
+    """Sum of log p(continuation tokens | prefix) under optional residual patches (applied at all positions)."""
+    enc_p, _ = lm.encode(prefix)
+    enc_f, _ = lm.encode(prefix + continuation)
+    n_p = enc_p["input_ids"].shape[1]
+    with torch.no_grad(), lm.patched(patches or []):
+        logits = lm.model(**enc_f).logits[0].float()
+    ids = enc_f["input_ids"][0]
+    lp = torch.log_softmax(logits[:-1], dim=-1)
+    tgt = ids[1:]
+    return float(lp[torch.arange(n_p - 1, len(tgt)), tgt[n_p - 1:]].sum().cpu())
+
+
+LM.logprob = _logprob_continuation
