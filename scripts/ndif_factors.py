@@ -5,7 +5,7 @@ padded batch job per condition (teacher-forced log-prob of the span given the le
 import argparse, itertools, json, time
 import numpy as np, torch
 from nnsight import LanguageModel
-from lsx.ndif import ProxyAuthBackend
+from lsx.ndif import ProxyAuthBackend, retry_job
 ap = argparse.ArgumentParser(); ap.add_argument("grid"); ap.add_argument("stacks"); ap.add_argument("--model", default="EleutherAI/gpt-j-6b")
 ap.add_argument("--layer", type=int, default=14); ap.add_argument("--scale", type=float, default=1.0); ap.add_argument("--out", default=None)
 a = ap.parse_args()
@@ -30,7 +30,7 @@ def batch_logprob(texts, vec=None):
     if len(texts) > CHUNK:
         return np.concatenate([batch_logprob(texts[i:i + CHUNK], vec) for i in range(0, len(texts), CHUNK)])
     return _batch_logprob(texts, vec)
-def _batch_logprob(texts, vec=None):
+def _inner__batch_logprob(texts, vec=None):
     """Sum log p(span | lead) for each text, in one remote job. vec: np [d] to add at block l output."""
     n_lead = len(tok(lead)["input_ids"])
     enc = tok(texts, return_tensors="pt", padding=True); ids, am = enc["input_ids"], enc["attention_mask"]
@@ -46,6 +46,7 @@ def _batch_logprob(texts, vec=None):
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
     return o.float().cpu().numpy()
+_batch_logprob = lambda *a_, **k_: retry_job(lambda: _inner__batch_logprob(*a_, **k_))
 rng = np.random.default_rng(0); res = []; t0 = time.time()
 ckpt = (a.out or "results/ndif_factors_ckpt.json") + ".partial"
 try:
@@ -89,3 +90,4 @@ for n in names + ["rand"]:
     xs = [x for x in res if x["test"] == "X" and ((x["factor"] == n and x["cond"] == "factor") if n != "rand" else x["cond"] == "rand")]
     print(f"{n:>7s} " + "".join(f"{np.mean([x[f'frac_{m}'] for x in xs]):9.2f}" for m in names))
 if a.out: json.dump(res, open(a.out, "w"), indent=1, default=lambda o: o.item() if hasattr(o, "item") else str(o))
+

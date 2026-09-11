@@ -3,7 +3,7 @@
 import argparse, json, re, time
 import numpy as np, torch
 from nnsight import LanguageModel
-from lsx.ndif import ProxyAuthBackend
+from lsx.ndif import ProxyAuthBackend, retry_job
 ap = argparse.ArgumentParser(); ap.add_argument("--model", default="google/gemma-2-9b-it"); ap.add_argument("--layer", type=int, default=20)
 ap.add_argument("--texts", required=True, help="json file: {id: text}"); ap.add_argument("--out", required=True)
 a = ap.parse_args()

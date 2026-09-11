@@ -4,7 +4,7 @@ mean-pooled (or last-token) residuals after every block -> results/stacks_<model
 import argparse, json, re, sys, time
 import numpy as np, torch
 from nnsight import LanguageModel
-from lsx.ndif import ProxyAuthBackend
+from lsx.ndif import ProxyAuthBackend, retry_job
 ap = argparse.ArgumentParser(); ap.add_argument("grid"); ap.add_argument("--model", default="EleutherAI/gpt-j-6b"); ap.add_argument("--pool", default="mean")
 a = ap.parse_args()
 g = json.load(open(a.grid)); lead = g["lead"]

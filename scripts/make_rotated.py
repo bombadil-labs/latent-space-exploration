@@ -16,7 +16,7 @@ for k, p in g["prompts"].items():
     for rot in range(len(roles)):
         order = [(i + rot) % len(roles) for i in range(len(roles))]
         body = " ".join(f"{ORD[s]}, [[{spans[c][0]}: {spans[c][1]}]]." for s, c in enumerate(order))
-        out[f"{d}/rot{rot}"] = f"{LEAD[d]} {body}"
+        out[f"{d}/rot{rot}"] = f"{LEAD.get(d, 'Consider a change in ' + d.replace('_', ' ') + '.')} {body}"
 dst = src.replace(".json", "_rotated.json")
 json.dump({"_note": "Latin-square rotations of holonic spans with neutral connectives; roles labeled by content. slot(role) = (content_index - rot) mod 6.",
            "roles": roles, "prompts": out}, open(dst, "w"), indent=1)

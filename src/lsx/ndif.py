@@ -39,15 +39,15 @@ class ProxyAuthBackend(RemoteBackend):
             return self.handle_response(ResponseModel(**response.json()))
         raise Exception(f"{response.status_code} {response.reason_phrase}: {response.text[:200]}")
 
-    def wait(self, tracer, poll: float = 2.0, timeout: float = 420.0, retries: int = 6, resubmits: int = 2):
+    def wait(self, tracer, poll: float = 2.0, timeout: float = 420.0, retries: int = 6, ):
         """Poll until complete. Transient transport errors are retried with backoff; a job that has not
         completed after `timeout` seconds is resubmitted (up to `resubmits` times) since hung jobs happen."""
         t0 = time.time(); errs = 0
         while True:
             if time.time() - t0 > timeout:
-                if resubmits <= 0:
-                    raise TimeoutError(f"NDIF job {self.job_id} not complete after {timeout}s")
-                resubmits -= 1; self.job_id = None; t0 = time.time()      # resubmit the same tracer
+                # a closed trace cannot be re-serialized, so hung jobs must be retried by the CALLER
+                # (re-run the whole trace); see retry_job below.
+                raise TimeoutError(f"NDIF job {self.job_id} not complete after {timeout}s")
             try:
                 result = self(tracer)
                 errs = 0
@@ -65,3 +65,14 @@ class ProxyAuthBackend(RemoteBackend):
                 self.result = result       # dict keyed by the .save()'d variable names
                 return result
             time.sleep(poll)
+
+
+def retry_job(fn, attempts: int = 3, wait_s: float = 5.0):
+    """Run fn() (which builds a trace, submits, and waits); re-run it on hung jobs or transport errors."""
+    last = None
+    for i in range(attempts):
+        try:
+            return fn()
+        except (TimeoutError, httpx.TransportError, ConnectionError, OSError) as e:
+            last = e; time.sleep(wait_s * (i + 1))
+    raise last
