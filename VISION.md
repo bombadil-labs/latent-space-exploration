@@ -42,26 +42,34 @@ what would test it. Nothing here is implemented beyond what RESULTS.md records.
   fixed. Deferred until generation is steerable at passage scale; at selector level it is a
   re-projection and has no observable.
 
-## A candidate common mechanism: coarse-graining as marginalization
+## A candidate common mechanism: coarse-graining as quotient, fine-graining as section
 
-Every factor direction the toolkit builds is a marginal: the era direction is the story averaged
-over all scenes and voices, i.e. integrated over every axis but era. `abstract` is the same
-operation along the setting axis (Picard integrated over Star Trek). So **abstract/concretize and
-integrate/differentiate are one pair, marginalize/condition, applied along different axes of the
-factor space** (setting, position, domain, role). Coarse-grain = marginalize; fine-grain = condition.
+**Pairing (corrected).** Coarse-grain = {abstract, differentiate}: both throw information away to
+focus on a subset. Differentiation kills the constant; abstraction kills the setting (Picard minus
+Star Trek). Fine-grain = {concretize, integrate}: both require the invocation to *supply* information
+to move from a lossy state to a more detailed one. Integration needs a boundary condition;
+concretization needs a context. (An earlier draft of this note paired abstract with integrate by
+reading "integrate" as marginalize-over-an-axis; that is a different operation from the
+antiderivative and the pairing above is the right one.)
 
-If that holds, the structure is a renormalization group: coarse-grainings compose (a semigroup),
-have fixed points (universality classes → archetypes: the hero's journey as an attractor of the
-abstraction flow, not a template), and sort features into relevant (survive: theme, role) and
-irrelevant (die: era vocabulary, tense). Depth is the model's own scale: tense readable at layer 0
-and fading, era emerging at layer 12, theme distributed and late; the residual stream is a sum over
-layers (an integral over depth). Deacon's absentials are constraints, which is what coarse-graining
-preserves.
+**Mechanism.** Coarse-graining is a quotient: a many-to-one map that discards a fiber. Fine-graining
+is a section: one-to-many, requiring a choice of representative, which is exactly where the supplied
+information enters. The factor directions the toolkit builds (mean over scenes and other factors)
+are quotients, so they live on the coarse side. The beat-to-beat derivative of a factor readout
+along a passage loses the absolute level the same way a derivative loses its constant; integrating
+it back needs the initial value supplied.
+
+**If that holds, the structure is a renormalization group** (a semigroup of quotients): coarse-
+grainings compose, have fixed points (universality classes → archetypes: the hero's journey as an
+attractor of the abstraction flow, not a template), and sort features into relevant (survive:
+theme, role) and irrelevant (die: era vocabulary, tense). Depth is the model's own scale: tense
+readable at layer 0 and fading, era emerging at layer 12, theme distributed and late; the residual
+stream is a sum over layers. Deacon's absentials are constraints, which is what quotients preserve.
 
 **Test:** define an abstraction flow (level k keeps only directions/SAE features shared across ≥k
 domains or above a generality threshold); track pairwise story distances as k grows; look for
 collapse onto a few attractors and check whether they read as archetypes. Gemma Scope features make
-this cheap. Status: marginalize/condition is near-definitional; the RG claim is a hypothesis to earn.
+this cheap. Status: quotient/section is near-definitional; the RG claim is a hypothesis to earn.
 
 ## Standing constraints learned so far
 - Steering selects among competences the model already has. Generative reach is bounded by the
