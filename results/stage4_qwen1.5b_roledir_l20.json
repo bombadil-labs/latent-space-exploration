@@ -1,0 +1,2594 @@
+[
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.4435272216796875,
+  "gain_other": 0.303387451171875
+ },
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.201385498046875,
+  "gain_other": -0.20379486083984374
+ },
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.405914306640625,
+  "gain_other": -0.15357666015625
+ },
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 4.5983734130859375,
+  "gain_other": 0.4872100830078125
+ },
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.07804107666015625,
+  "gain_other": -0.4693084716796875
+ },
+ {
+  "domain": "biology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.0113372802734375,
+  "gain_other": -0.09788284301757813
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.279083251953125,
+  "gain_other": -0.8367805480957031
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.1811676025390625,
+  "gain_other": -0.2598915100097656
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.017269134521484375,
+  "gain_other": 0.18408126831054689
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.5273323059082031,
+  "gain_other": -1.8148269653320312
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.7151412963867188,
+  "gain_other": -0.84669189453125
+ },
+ {
+  "domain": "biology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.4010162353515625,
+  "gain_other": -0.008049774169921874
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.7588043212890625,
+  "gain_other": -0.04726333618164062
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.0930938720703125,
+  "gain_other": 0.48405609130859373
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.002716064453125,
+  "gain_other": -0.24739456176757812
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 1.1819305419921875,
+  "gain_other": -0.2120147705078125
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.0605316162109375,
+  "gain_other": -0.21500244140625
+ },
+ {
+  "domain": "biology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": 0.003204345703125,
+  "gain_other": 0.4522216796875
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.2801513671875,
+  "gain_other": -0.5216072082519532
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": 0.01367950439453125,
+  "gain_other": 0.5144393920898438
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.33400726318359375,
+  "gain_other": 0.6145759582519531
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.8756332397460938,
+  "gain_other": -1.4562232971191407
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.5005989074707031,
+  "gain_other": -0.13669357299804688
+ },
+ {
+  "domain": "biology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.26320648193359375,
+  "gain_other": 0.058612060546875
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.87152099609375,
+  "gain_other": -0.5052253723144531
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.09775161743164062,
+  "gain_other": -0.11431045532226562
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.9546966552734375,
+  "gain_other": 0.035800933837890625
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.625457763671875,
+  "gain_other": -1.2629318237304688
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.9892005920410156,
+  "gain_other": -0.3475517272949219
+ },
+ {
+  "domain": "biology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.9776420593261719,
+  "gain_other": -0.001058197021484375
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.36954498291015625,
+  "gain_other": -0.07161788940429688
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.7113113403320312,
+  "gain_other": -0.006871795654296875
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.45841217041015625,
+  "gain_other": -0.43927536010742185
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.574371337890625,
+  "gain_other": -0.49060745239257814
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.344940185546875,
+  "gain_other": 0.02234344482421875
+ },
+ {
+  "domain": "biology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.1984100341796875,
+  "gain_other": -0.18107452392578124
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.58251953125,
+  "gain_other": 0.3083930969238281
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.19390869140625,
+  "gain_other": 0.17599639892578126
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.9113388061523438,
+  "gain_other": -0.06371383666992188
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 3.0294036865234375,
+  "gain_other": 0.4600433349609375
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.873809814453125,
+  "gain_other": 0.0333984375
+ },
+ {
+  "domain": "law",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.4144973754882812,
+  "gain_other": -0.06230621337890625
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -0.446807861328125,
+  "gain_other": -1.1763458251953125
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.9167633056640625,
+  "gain_other": -0.07554702758789063
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.3225860595703125,
+  "gain_other": 0.5063064575195313
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -1.1029434204101562,
+  "gain_other": -2.4850868225097655
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.0689544677734375,
+  "gain_other": -0.4178192138671875
+ },
+ {
+  "domain": "law",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.7712554931640625,
+  "gain_other": -0.05562591552734375
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.8866806030273438,
+  "gain_other": -0.14346389770507811
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.0652923583984375,
+  "gain_other": -0.08281326293945312
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.5067977905273438,
+  "gain_other": -0.10807876586914063
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.6336593627929688,
+  "gain_other": -0.4486114501953125
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 1.1819076538085938,
+  "gain_other": 0.00528564453125
+ },
+ {
+  "domain": "law",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.8762283325195312,
+  "gain_other": -0.5600479125976563
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.184600830078125,
+  "gain_other": -0.9068901062011718
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.42926788330078125,
+  "gain_other": -0.41382904052734376
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.08116912841796875,
+  "gain_other": 0.33816680908203123
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.04492950439453125,
+  "gain_other": -2.1508934020996096
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": -0.287811279296875,
+  "gain_other": -1.4501174926757812
+ },
+ {
+  "domain": "law",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -1.1170501708984375,
+  "gain_other": -0.4174842834472656
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.7624702453613281,
+  "gain_other": 0.038824462890625
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.22703170776367188,
+  "gain_other": -0.0019744873046875
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.6741447448730469,
+  "gain_other": -0.32547531127929685
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.4313278198242188,
+  "gain_other": -0.08878097534179688
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.22424697875976562,
+  "gain_other": -0.7822151184082031
+ },
+ {
+  "domain": "law",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.367401123046875,
+  "gain_other": 0.08096466064453126
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.4463653564453125,
+  "gain_other": 0.211572265625
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.00472259521484375,
+  "gain_other": -0.25315017700195314
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.49369049072265625,
+  "gain_other": -0.041164398193359375
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.3104705810546875,
+  "gain_other": 0.0425506591796875
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.5082015991210938,
+  "gain_other": 0.29487762451171873
+ },
+ {
+  "domain": "law",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.29898834228515625,
+  "gain_other": -0.6079292297363281
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": 0.663330078125,
+  "gain_other": 0.5595108032226562
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.405548095703125,
+  "gain_other": 0.4718605041503906
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.7347183227539062,
+  "gain_other": -0.20750198364257813
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 4,
+  "gain_R": 1.2035140991210938,
+  "gain_other": 1.0700698852539063
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.18896484375,
+  "gain_other": -0.5495246887207031
+ },
+ {
+  "domain": "mathematics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.36495208740234375,
+  "gain_other": 0.34771194458007815
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.8419570922851562,
+  "gain_other": -0.9309844970703125
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.2998504638671875,
+  "gain_other": -0.00962982177734375
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.3480491638183594,
+  "gain_other": 0.3081703186035156
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.735565185546875,
+  "gain_other": -1.9107688903808593
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.6369056701660156,
+  "gain_other": -0.9042915344238281
+ },
+ {
+  "domain": "mathematics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": 0.37899017333984375,
+  "gain_other": 0.9947135925292969
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 5,
+  "gain_R": -0.7356948852539062,
+  "gain_other": -0.14110336303710938
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.25531768798828125,
+  "gain_other": 0.4097160339355469
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.25118255615234375,
+  "gain_other": -0.13047943115234376
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 5,
+  "gain_R": -1.5643386840820312,
+  "gain_other": -0.4168220520019531
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.592559814453125,
+  "gain_other": 0.5949165344238281
+ },
+ {
+  "domain": "mathematics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 1.3516159057617188,
+  "gain_other": 0.405303955078125
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 5,
+  "gain_R": -1.3997344970703125,
+  "gain_other": -1.0284843444824219
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.12297821044921875,
+  "gain_other": -0.0805511474609375
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.775238037109375,
+  "gain_other": 0.3622833251953125
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 4,
+  "gain_R": -2.8914871215820312,
+  "gain_other": -2.31348876953125
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.39585113525390625,
+  "gain_other": 0.24078903198242188
+ },
+ {
+  "domain": "mathematics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.42920684814453125,
+  "gain_other": 0.6771621704101562
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.017284393310547,
+  "gain_other": 0.33853836059570314
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.17708206176757812,
+  "gain_other": 0.247406005859375
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.46059417724609375,
+  "gain_other": 0.07169952392578124
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 3.824909210205078,
+  "gain_other": 0.5573524475097656
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.5011138916015625,
+  "gain_other": -0.028787994384765626
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -1.3673553466796875,
+  "gain_other": -1.0172149658203125
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.0320663452148438,
+  "gain_other": -0.06541671752929687
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.40601348876953125,
+  "gain_other": -0.19370040893554688
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.5617294311523438,
+  "gain_other": 0.44775543212890623
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 3.3298568725585938,
+  "gain_other": -0.6012313842773438
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": -0.30005645751953125,
+  "gain_other": -0.9982994079589844
+ },
+ {
+  "domain": "mathematics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.29506683349609375,
+  "gain_other": -0.08679580688476562
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.6220932006835938,
+  "gain_other": 0.14938735961914062
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.36690521240234375,
+  "gain_other": -0.12875213623046874
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.23755645751953125,
+  "gain_other": 0.061985015869140625
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 3.0482025146484375,
+  "gain_other": 0.1428009033203125
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.267181396484375,
+  "gain_other": -0.135595703125
+ },
+ {
+  "domain": "music",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.05096435546875,
+  "gain_other": 0.0687408447265625
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.23476409912109375,
+  "gain_other": -0.6360298156738281
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.22499465942382812,
+  "gain_other": 0.054911041259765626
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.7502288818359375,
+  "gain_other": 0.0148193359375
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.6666145324707031,
+  "gain_other": -1.4014320373535156
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.3221626281738281,
+  "gain_other": -0.11345062255859376
+ },
+ {
+  "domain": "music",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.0191802978515625,
+  "gain_other": -0.21260452270507812
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.372589111328125,
+  "gain_other": -0.14150161743164064
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.30190277099609375,
+  "gain_other": -0.30701751708984376
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.7478713989257812,
+  "gain_other": -0.0393951416015625
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.479217529296875,
+  "gain_other": -0.49936752319335936
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.5458984375,
+  "gain_other": 0.23342437744140626
+ },
+ {
+  "domain": "music",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.49120330810546875,
+  "gain_other": 0.23086700439453126
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.09848403930664062,
+  "gain_other": -0.6058372497558594
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.00173187255859375,
+  "gain_other": 0.380859375
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.2620353698730469,
+  "gain_other": 0.07795791625976563
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.4397315979003906,
+  "gain_other": -1.5472618103027345
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.1717681884765625,
+  "gain_other": -0.6958396911621094
+ },
+ {
+  "domain": "music",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.4770851135253906,
+  "gain_other": 0.26933975219726564
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.9612503051757812,
+  "gain_other": -0.18201751708984376
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.3825340270996094,
+  "gain_other": 0.08647308349609376
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.43466949462890625,
+  "gain_other": 0.22330551147460936
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.6525192260742188,
+  "gain_other": -0.6115814208984375
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.7525825500488281,
+  "gain_other": -0.361328125
+ },
+ {
+  "domain": "music",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.14678955078125,
+  "gain_other": -0.27306594848632815
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.0910415649414062,
+  "gain_other": -0.41450653076171873
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.23030853271484375,
+  "gain_other": 0.27368850708007814
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.6546859741210938,
+  "gain_other": -0.49994888305664065
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.646026611328125,
+  "gain_other": -1.2934257507324218
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.41666412353515625,
+  "gain_other": -0.259808349609375
+ },
+ {
+  "domain": "music",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.2697677612304688,
+  "gain_other": -0.00606842041015625
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.4992141723632812,
+  "gain_other": -0.011078643798828124
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.20721435546875,
+  "gain_other": -0.360345458984375
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.04278564453125,
+  "gain_other": -0.22406845092773436
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.748992919921875,
+  "gain_other": -0.16328277587890624
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.3212432861328125,
+  "gain_other": 0.11839447021484376
+ },
+ {
+  "domain": "narrative",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.24059295654296875,
+  "gain_other": 0.007497406005859375
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.1631317138671875,
+  "gain_other": -0.37078018188476564
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.1958160400390625,
+  "gain_other": -0.1110626220703125
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.14177703857421875,
+  "gain_other": -0.29224853515625
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.30022430419921875,
+  "gain_other": -0.8556411743164063
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.0423126220703125,
+  "gain_other": -0.20197677612304688
+ },
+ {
+  "domain": "narrative",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": 0.15117645263671875,
+  "gain_other": 1.079047393798828
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.7179031372070312,
+  "gain_other": 0.295806884765625
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.15070343017578125,
+  "gain_other": -0.051984405517578124
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.31224822998046875,
+  "gain_other": 0.2713104248046875
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 3.1450576782226562,
+  "gain_other": 0.47057418823242186
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.7452774047851562,
+  "gain_other": -0.4737335205078125
+ },
+ {
+  "domain": "narrative",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.8688430786132812,
+  "gain_other": 0.21923904418945311
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -0.6931304931640625,
+  "gain_other": -0.8555412292480469
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.0324554443359375,
+  "gain_other": 0.030538177490234374
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.34433746337890625,
+  "gain_other": -0.4908721923828125
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -1.5304031372070312,
+  "gain_other": -2.1328712463378907
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.9490203857421875,
+  "gain_other": -0.8326652526855469
+ },
+ {
+  "domain": "narrative",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -1.0839309692382812,
+  "gain_other": -0.4148406982421875
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.3421745300292969,
+  "gain_other": -0.482135009765625
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.3768768310546875,
+  "gain_other": -0.06478729248046874
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.06461715698242188,
+  "gain_other": 0.1369354248046875
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.5009689331054688,
+  "gain_other": -1.148681640625
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.8194465637207031,
+  "gain_other": -0.07099456787109375
+ },
+ {
+  "domain": "narrative",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.9523277282714844,
+  "gain_other": 0.6637763977050781
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.6680259704589844,
+  "gain_other": -0.21121063232421874
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.16144943237304688,
+  "gain_other": -0.0482879638671875
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.3831977844238281,
+  "gain_other": 0.3776435852050781
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.0445098876953125,
+  "gain_other": -0.7248847961425782
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.3482666015625,
+  "gain_other": -0.4132087707519531
+ },
+ {
+  "domain": "narrative",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": 0.45056915283203125,
+  "gain_other": 1.1183036804199218
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.9151077270507812,
+  "gain_other": 0.19802169799804686
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.1221466064453125,
+  "gain_other": -0.37203292846679686
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.11280059814453125,
+  "gain_other": 0.05049896240234375
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.4969558715820312,
+  "gain_other": 0.20506820678710938
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.23111724853515625,
+  "gain_other": -0.21441726684570311
+ },
+ {
+  "domain": "physics",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.5210037231445312,
+  "gain_other": 0.28373031616210936
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -0.20972824096679688,
+  "gain_other": -0.4645545959472656
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.11917495727539062,
+  "gain_other": -0.18793411254882814
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.7861976623535156,
+  "gain_other": 0.20074386596679689
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 3,
+  "gain_R": -0.5444488525390625,
+  "gain_other": -1.0656837463378905
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": 0.21395111083984375,
+  "gain_other": 0.42676849365234376
+ },
+ {
+  "domain": "physics",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": -0.2825775146484375,
+  "gain_other": -0.5420242309570312
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.5453872680664062,
+  "gain_other": -0.261419677734375
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.0196380615234375,
+  "gain_other": -0.12709732055664064
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": -0.09554290771484375,
+  "gain_other": -0.4318328857421875
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.7477035522460938,
+  "gain_other": -0.6926551818847656
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.382598876953125,
+  "gain_other": -0.11902923583984375
+ },
+ {
+  "domain": "physics",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.4127044677734375,
+  "gain_other": -0.24379653930664064
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": -0.5045051574707031,
+  "gain_other": -1.0226478576660156
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.2855415344238281,
+  "gain_other": -0.146173095703125
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.22536849975585938,
+  "gain_other": -0.29538955688476565
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -1.4136810302734375,
+  "gain_other": -2.452118682861328
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.4540443420410156,
+  "gain_other": -0.4835319519042969
+ },
+ {
+  "domain": "physics",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.7384872436523438,
+  "gain_other": 0.2146881103515625
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.8549575805664062,
+  "gain_other": -0.11270599365234375
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.05529022216796875,
+  "gain_other": -0.13213729858398438
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.16864013671875,
+  "gain_other": -0.08126754760742187
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.552215576171875,
+  "gain_other": -0.5425193786621094
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": 0.030376434326171875,
+  "gain_other": 0.07043609619140626
+ },
+ {
+  "domain": "physics",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.6283531188964844,
+  "gain_other": -0.4867973327636719
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.1906623840332031,
+  "gain_other": 0.14351730346679686
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.13605880737304688,
+  "gain_other": -0.32249603271484373
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.7462348937988281,
+  "gain_other": -0.072320556640625
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.0649986267089844,
+  "gain_other": -0.15636444091796875
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.20014190673828125,
+  "gain_other": -0.4944915771484375
+ },
+ {
+  "domain": "physics",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": -0.7095413208007812,
+  "gain_other": -1.356787872314453
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.9560394287109375,
+  "gain_other": 0.5367271423339843
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.01065826416015625,
+  "gain_other": -0.23808517456054687
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.6414260864257812,
+  "gain_other": -0.06924591064453126
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 1.748870849609375,
+  "gain_other": 0.9248031616210938
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.5085830688476562,
+  "gain_other": 0.20326309204101561
+ },
+ {
+  "domain": "psychology",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.0539703369140625,
+  "gain_other": -0.2563774108886719
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.3867530822753906,
+  "gain_other": -0.27369232177734376
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.10586929321289062,
+  "gain_other": -0.17639923095703125
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.2762260437011719,
+  "gain_other": -0.031209564208984374
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.5000343322753906,
+  "gain_other": -0.6899070739746094
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": -0.24842453002929688,
+  "gain_other": -1.3325775146484375
+ },
+ {
+  "domain": "psychology",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.6276969909667969,
+  "gain_other": -0.43037261962890627
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.06496429443359375,
+  "gain_other": -0.5789947509765625
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.21819305419921875,
+  "gain_other": -0.05030670166015625
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.078369140625,
+  "gain_other": -0.09508895874023438
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": -0.33910369873046875,
+  "gain_other": -1.3123550415039062
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.7480850219726562,
+  "gain_other": -0.12890853881835937
+ },
+ {
+  "domain": "psychology",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": -0.08695220947265625,
+  "gain_other": -0.3167854309082031
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 6,
+  "gain_R": -1.1567306518554688,
+  "gain_other": -0.4657447814941406
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.275604248046875,
+  "gain_other": 0.0556121826171875
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.41471099853515625,
+  "gain_other": -0.1935516357421875
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 6,
+  "gain_R": -2.4801712036132812,
+  "gain_other": -1.4031097412109375
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.8445510864257812,
+  "gain_other": 0.40292892456054685
+ },
+ {
+  "domain": "psychology",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.4898147583007812,
+  "gain_other": 0.6577079772949219
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.0871086120605469,
+  "gain_other": 0.06784515380859375
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.5878715515136719,
+  "gain_other": -0.30762557983398436
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.21930313110351562,
+  "gain_other": -0.17538223266601563
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.9905471801757812,
+  "gain_other": -0.155792236328125
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.2642631530761719,
+  "gain_other": 0.125128173828125
+ },
+ {
+  "domain": "psychology",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": 0.7288284301757812,
+  "gain_other": 0.9508087158203125
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.31476593017578125,
+  "gain_other": -0.46653289794921876
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.30445098876953125,
+  "gain_other": 0.01329498291015625
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.3025321960449219,
+  "gain_other": -0.35584182739257814
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 4.57763671875e-05,
+  "gain_other": -1.459711456298828
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.9959487915039062,
+  "gain_other": -0.039829254150390625
+ },
+ {
+  "domain": "psychology",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": 0.3929023742675781,
+  "gain_other": 0.44505767822265624
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 2.2173538208007812,
+  "gain_other": 0.28148040771484373
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.0912017822265625,
+  "gain_other": -0.18229751586914061
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.7157211303710938,
+  "gain_other": 0.14533538818359376
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 4.2410125732421875,
+  "gain_other": 0.43952255249023436
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.787109375,
+  "gain_other": -0.2981903076171875
+ },
+ {
+  "domain": "software",
+  "role": "embedded",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -1.1984939575195312,
+  "gain_other": -0.6637672424316406
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.9018478393554688,
+  "gain_other": -0.2718170166015625
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.7111129760742188,
+  "gain_other": -0.3037834167480469
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.532501220703125,
+  "gain_other": -0.2791557312011719
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.8245391845703125,
+  "gain_other": -0.5969802856445312
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -1.6532516479492188,
+  "gain_other": -0.7343551635742187
+ },
+ {
+  "domain": "software",
+  "role": "disturbance",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 1.1636428833007812,
+  "gain_other": 0.015222930908203125
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.934600830078125,
+  "gain_other": -0.11549835205078125
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.000701904296875,
+  "gain_other": -0.05281143188476563
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.08443450927734375,
+  "gain_other": -0.27341461181640625
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 1.722076416015625,
+  "gain_other": -0.3778572082519531
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.9724273681640625,
+  "gain_other": -0.26661834716796873
+ },
+ {
+  "domain": "software",
+  "role": "objectified",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 1,
+  "gain_R": 0.0369720458984375,
+  "gain_other": -0.3358489990234375
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.4174652099609375,
+  "gain_other": -0.42270584106445314
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.2592201232910156,
+  "gain_other": -0.17270355224609374
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.207611083984375,
+  "gain_other": 0.43230209350585935
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 2,
+  "gain_R": 0.5541496276855469,
+  "gain_other": -1.1063667297363282
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.3329429626464844,
+  "gain_other": 0.5962844848632812
+ },
+ {
+  "domain": "software",
+  "role": "new_subject",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -1.0180549621582031,
+  "gain_other": -0.9712577819824219
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.6267852783203125,
+  "gain_other": -0.6300468444824219
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": -0.41464996337890625,
+  "gain_other": -0.6028945922851563
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.20562744140625,
+  "gain_other": -0.04366455078125
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.9820709228515625,
+  "gain_other": -1.5099945068359375
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 5,
+  "gain_R": -0.8649673461914062,
+  "gain_other": -0.27947235107421875
+ },
+ {
+  "domain": "software",
+  "role": "from_below",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 2,
+  "gain_R": 0.886444091796875,
+  "gain_other": 0.44807968139648435
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 0.8367042541503906,
+  "gain_other": -0.6897628784179688
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.45154571533203125,
+  "gain_other": -0.21156082153320313
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 0.5,
+  "cond": "rand",
+  "rank": 3,
+  "gain_R": -0.060695648193359375,
+  "gain_other": -0.07255401611328124
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "role",
+  "rank": 1,
+  "gain_R": 1.4252891540527344,
+  "gain_other": -1.744976806640625
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 6,
+  "gain_R": -0.8494949340820312,
+  "gain_other": 0.48567733764648435
+ },
+ {
+  "domain": "software",
+  "role": "from_above",
+  "scale": 1.0,
+  "cond": "rand",
+  "rank": 4,
+  "gain_R": -0.3206939697265625,
+  "gain_other": -0.4246971130371094
+ }
+]

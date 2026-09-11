@@ -188,13 +188,55 @@ in pooled span vectors. (2) Role identity within the transition schema is a doma
 linear direction, readable regardless of position. (3) A residual source→target relation transfers
 across domains, weakly, in mid-late layers.
 
+## 2026-09-11 (hour 4) — Stage 4: the role-identity direction works as a lens
+
+**Setup.** Leave one domain out. Role direction dir_R = mean over training domains of role R's
+position-balanced vector minus the mean of all roles, at layer 20 (residual index 20, input to
+block 20). Add s·dir_R at every position during a teacher-forced pass over
+`"<lead> First, <span_r>."` for each of the held-out domain's six spans. gain_r = log p(span_r | +dir_R)
+− log p(span_r | base). If dir_R is a lens, gain is largest for r = R. Control: random directions of
+the same norm (two per condition). ‖dir_R‖ is 18–19% of the mean residual norm at layer 20.
+`scripts/stage4.py`, `results/stage4_qwen1.5b_roledir_l20.json`.
+
+**Qwen2.5-1.5B, rank of the target role's span by log-prob gain (1 = best, chance 3.5).**
+
+| scale | role direction (n=48) | random direction (n=96) | mean gain, target span | mean gain, other spans |
+|---|---|---|---|---|
+| 0.5 | **1.65** | 3.39 | +0.67 nats | −0.26 |
+| 1.0 | **1.69** | 3.25 | +1.10 nats | −0.76 |
+
+Per domain at scale 1.0: software 1.33, law 1.33, music 1.33, narrative 1.33, biology 1.50,
+physics 1.67, psychology 2.33, mathematics 2.67. Random 2.7–4.0 in every domain. A pilot at scale
+4.0 degraded everything (target gain −3.2, others −11), so the working range is roughly 0.5–2×.
+
+**Reading.** A direction estimated from seven domains, added to the residual stream in an eighth
+domain the estimate never saw, raises the likelihood of exactly that role's span and lowers the
+others. Equal-norm random directions do nothing. This is a held-out, controlled demonstration that
+the role directions from hour 3 are causally usable, not just decodable. It is the first "lens"
+result: a shape learned elsewhere, pointed at a new domain, selects the right part.
+
+**Qualitative generations** (`scripts/stage4_generate.py`, greedy, 1.5B base model) are much
+weaker than the numbers. Shifts are visible but subtle: +from_above pulls continuations into
+retrospective past tense ("the story was about… what was the change?"), matching how those spans
+were written; +new_subject pulls toward relationships between parts ("what is the relationship
+between these two characters?"); +from_below toward evaluative confusion ("bad guy… good guy…
+what happened?"). A 1.5B base model's greedy continuations are not clean enough to call this more
+than suggestive. Treat the log-prob readout as the result and the generations as illustration.
+
+**Caveats.** Single layer, single model, eight domains, spans written by one author with some
+shared phrasing per role (e.g. from_below spans tend to start "this looks like"), which the role
+direction may partly encode as style. The controlled comparison is still valid (random directions
+share none of it), but "role" here includes register as well as meaning. Not yet done: multi-layer
+patching, a layer sweep, and the relation lens (patch the affine-predicted target, finding 3).
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
 2. ~~Project out slot directions~~ done: partial removal, no content shape recovered.
 3. ~~Rotate content through slots~~ done (Latin square, no new text). Real paraphrases (new wording per
    domain) would raise the effective n above seven domains; still worth writing.
-4. Stage 4 readout: patch the role-identity direction (finding 2) and, separately, the affine-predicted
-   target (finding 3) at layer ~20 over a span and generate; compare to base and to a random direction of equal norm.
+4. ~~Stage 4 role lens~~ done: rank 1.7 vs 3.3 random, all eight held-out domains.
+4b. Stage 4 relation lens: patch the role-centered affine prediction (finding 3) and test whether it
+   raises the target span's likelihood above the mean-target patch; layer sweep for the role lens.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.

@@ -16,7 +16,7 @@ substrate for a narrative calculus: decompose a story into factors, transform th
 | 1 | `lsx.model`, `lsx.extract` | capture residuals, pool by role, patch | working on Qwen2.5-0.5B |
 | 2 | `lsx.compare` | does the same shape appear across domains, above baseline? | **mostly slot position, not content**: shuffled control kills the by-content signal (RESULTS.md) |
 | 3 | `lsx.operate` | can an affine map carry the relation to a held-out domain? | role identity is a domain-independent direction (constant baseline rank 1.07); after removing it, a weak relation transfers (rank 3.0 vs 3.5 null, peaks layer 20) |
-| 4 | `lsx.steer` | patch a target activation in and read it out by generation | patching works, no real experiment yet |
+| 4 | `lsx.steer` | patch a target activation in and read it out | role direction at layer 20 selects the held-out domain's span: rank 1.7 vs 3.3 random |
 
 ## Setup
 
