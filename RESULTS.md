@@ -271,6 +271,45 @@ The role lens works from the middle of the stack, is strongest around layer 14�
 in the last layers where the residual is being turned into next-token logits. Layer 14 gives a
 larger target gain with less collateral damage than layer 20; later runs should use it.
 
+## 2026-09-11 (hour 6) — Narrative factors: era and voice are directions, they compose, and order barely matters
+
+**Grid.** `prompts/narrative_factors_v1.json`: 4 scenes (gate, theft, farewell, storm) × 3 eras
+(medieval, 1920s, far future) × 3 voices (terse, ornate, childlike) = 36 spans, each rendering the
+same scene event in one era and one voice. One prompt per span (`"A moment from a story: <span>"`),
+pooled over span tokens. Directions are leave-one-scene-out: dir_era[e] = mean(era e) − grand
+mean over the other three scenes; same for voice. `scripts/extract_factors.py`,
+`scripts/stage5_factors.py`, `results/stage5_qwen1.5b_factors_l14.json`.
+
+**(A) Decodability, no model needed** (nearest factor direction, held-out scene; chance 0.33).
+Voice: 0.92 at layer 0, ~0.92 throughout. Era: **0.28 at layer 0**, 0.64 at 2, 0.89 at 10,
+**0.94 at 12**, ~0.9 after. Voice is lexical (sentence length, word simplicity) and present in
+the embeddings; era is computed by the stack and becomes linearly readable around layer 10–12.
+
+**(B) Each factor as a lens** (layer 14, scale 1; rank of the patched level's span among its 3
+variants, chance 2.0). Era direction **1.28**, random 2.11. Voice direction **1.31**, random 2.11.
+Both work on a scene the direction never saw.
+
+**(D) Composition.** +dir_era[e] + dir_voice[v] as one patch: the (e, v) span ranks **2.03 of 9**
+(chance 5.0). Two factor directions learned separately add up to select the joint span.
+
+**(E) Order.** Era at layer 14 + voice at layer 20: rank 1.83. Voice at 14 + era at 20: 1.89.
+Mean absolute rank gap 0.50; correlation of the two 9-span gain profiles **0.85**. Within this
+pair of layers the factors nearly commute. The holonomy we speculated about is small here.
+
+**(C) Cross-talk: the first metric was broken.** Ranking each voice variant among the three voice
+variants averages to exactly 2 by construction, so the "readout under patch" numbers in the log are
+meaningless. Replaced by a variance decomposition of the 3×3 gain matrix under a single-factor
+patch (fraction explained by the on-target factor vs the other factor vs residual);
+`scripts/stage5_crosstalk.py`. Numbers below once the run completes.
+
+**Reading.** For these two narrative factors the additive picture is close to right: each is a
+direction, both transfer to a held-out scene, their sum selects the joint variant, and the order of
+application across two layers changes the outcome little. This is the substrate the narrative
+calculus needs, at the level of single sentences and two factors. Caveats: one author, 36 spans,
+strong lexical confound for voice, single model, and "era" is partly vocabulary (Packard, airlock)
+which is exactly what a setting shift should carry but means the era direction is not purely
+abstract. Plot shape, the hard factor, is untouched.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -279,9 +318,9 @@ larger target gain with less collateral damage than layer 20; later runs should 
    effective n above seven and are the main lever for both stage 3 and the relation lens.
 4. ~~Stage 4 role lens~~ done: rank 1.7 vs 3.3 random, all eight held-out domains.
 4b. ~~Relation lens~~ done: null (−0.02 nats vs −0.19 random); the relation is measurable, not yet controllable.
-4c. Narrative factors (the original goal): build factor directions for setting-era and character-voice
-   with the same leave-one-out machinery (write a small grid of story spans varying era × voice ×
-   content), test each as a lens at layer 14, then measure interference: does +era change the voice
-   readout, and does the order of adding them matter (the commutator)?
+4c. ~~Narrative factors era × voice~~ done: both are lenses, they compose (2.0/9), order gap 0.5 rank.
+4d. Cross-talk numbers (variance decomposition) pending; then a third factor (e.g. mood or point of
+   view) to test whether composition holds for three; then multi-sentence spans where plot beats
+   can be a factor.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.

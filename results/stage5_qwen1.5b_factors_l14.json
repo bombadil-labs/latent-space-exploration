@@ -1,0 +1,3342 @@
+{
+ "decodability": {
+  "0": [
+   0.2777777777777778,
+   0.9166666666666666
+  ],
+  "2": [
+   0.6388888888888888,
+   0.9444444444444444
+  ],
+  "4": [
+   0.5277777777777778,
+   0.9166666666666666
+  ],
+  "6": [
+   0.75,
+   0.9166666666666666
+  ],
+  "8": [
+   0.6944444444444444,
+   0.9166666666666666
+  ],
+  "10": [
+   0.8888888888888888,
+   0.9166666666666666
+  ],
+  "12": [
+   0.9444444444444444,
+   0.9166666666666666
+  ],
+  "14": [
+   0.9166666666666666,
+   0.8888888888888888
+  ],
+  "16": [
+   0.9444444444444444,
+   0.9166666666666666
+  ],
+  "18": [
+   0.8611111111111112,
+   0.9444444444444444
+  ],
+  "20": [
+   0.8055555555555556,
+   0.9166666666666666
+  ],
+  "22": [
+   0.9444444444444444,
+   0.8611111111111112
+  ],
+  "24": [
+   0.9444444444444444,
+   0.8611111111111112
+  ],
+  "26": [
+   0.9444444444444444,
+   0.8611111111111112
+  ],
+  "28": [
+   0.9166666666666666,
+   0.9166666666666666
+  ]
+ },
+ "results": [
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.8646043183792997
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 5
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 4
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 5
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.8067073447580165
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 4
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9727564499908395
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.8231876101934446
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": -0.010329532435409253
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 3
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9751401035318417
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 4
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 4
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 2,
+   "agree": 0.9085633036913148
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.8559648013828911
+  },
+  {
+   "scene": "gate",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "gate",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9510330250589523
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 4
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 5
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 4
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.7092361497277417
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.83689946339883
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 2,
+   "agree": 0.9538082372302864
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.24444593108947832
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.6482292281189047
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 3
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 2,
+   "agree": 0.977952006871301
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9463787488994989
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.963610463774307
+  },
+  {
+   "scene": "theft",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "theft",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.847302267040118
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 3
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.8816163408480394
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9193246131597869
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 4
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 4
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 5
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.9868474514810442
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 4
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.9463653986232655
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 5
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 4
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 2,
+   "agree": 0.5473468958089409
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.9877861818590695
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.977660422787533
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.8767004118276269
+  },
+  {
+   "scene": "farewell",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "farewell",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9388738675991166
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "medieval",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "1920s",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "1920s",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "era",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_voice_under_era",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_era",
+   "cond": "rand",
+   "factor": "farfuture",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "terse",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "ornate",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 1,
+   "base_rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 2,
+   "base_rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "voice",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "C_era_under_voice",
+   "cond": "patched",
+   "rank": 3,
+   "base_rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "B_voice",
+   "cond": "rand",
+   "factor": "child",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.7894333580612819
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.929686993276971
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9709070893788966
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 3
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.8711780490373486
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.8742146231639567
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9681625785603163
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.978039577139599
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 0,
+   "agree": 0.9290474631266302
+  },
+  {
+   "scene": "storm",
+   "test": "D_compose",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_era_then_voice",
+   "rank": 1
+  },
+  {
+   "scene": "storm",
+   "test": "E_voice_then_era",
+   "rank": 2
+  },
+  {
+   "scene": "storm",
+   "test": "E_order_gap",
+   "rank": 1,
+   "agree": 0.9339376036017762
+  }
+ ]
+}
