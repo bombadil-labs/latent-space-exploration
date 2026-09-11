@@ -5,6 +5,32 @@ composition, measured interference). The calculus as designed has more operators
 them in view and says, for each, what already exists, what it would be at the activation level, and
 what would test it. Nothing here is implemented beyond what RESULTS.md records.
 
+## Working lexicon
+
+- **Schema:** a structure of roles and relations (the holonic transition; Propp's morphology; Star
+  Trek as a structure of character/setting/plot fields). What "function" meant in the first draft.
+- **Instance / entity:** a concrete filler (Picard; France). Nodes of the graph.
+- **Role:** a slot in a schema (the disturbance, the view from above). Propp's sense of "function".
+- **Factor / level:** a named axis (era, voice, mood, theme) and a value on it (medieval, terse).
+- **Direction:** the activation-level realization of a level or a role. Transfers, composes,
+  interferes (6–20% off-diagonal).
+- **Relation:** an edge between entities: has-part, instance-of, attribute-of, located-in, at-time.
+  A relation is a function in the mapping sense: it takes an entity and returns another.
+  Activation-level candidate: an affine operator on directions (stage 3; the missing "rotation").
+- **Selector:** a path of relations, e.g. `startrek.characters.picard.heritage.geographic-origin.
+  climate.1960`. Syntactically field access; semantically function composition, where the names
+  are arguments and the dots are the functions. Paths can leave the fiction (at `heritage`) and
+  keep walking the world, so there are **no leaves**: a walk can always take another edge.
+- **Decomposition:** the special case of a selector where every edge is has-part.
+- **Address / form:** where a story sits vs. what it is shaped like. Discourse position is a large
+  part of address.
+- **Operators of the calculus:** transform (translate, rotate, scale), abstract/concretize
+  (deterritorialize/reterritorialize), differentiate/integrate, absential, cohere.
+
+**Test that follows from the lexicon:** learn two relations as operators, compose them, and compare
+with the operator learned directly from endpoint pairs. Match ⇒ the model represents the path
+linearly; mismatch ⇒ real computation between hops. This is the relation lens generalized to paths.
+
 ## transform — translation, rotation, scale
 - **Have:** translation (adding a factor direction: era shift, voice shift) and scale (the working
   range of a patch, roughly 0.5–2× the direction's natural norm).
