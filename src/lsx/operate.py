@@ -14,15 +14,19 @@ import numpy as np
 
 @dataclass
 class AffineOp:
-    W: np.ndarray        # [d, d]
-    b: np.ndarray        # [d]
+    W: np.ndarray | None   # [d, d] (materialized) or None when kept in dual form
+    b: np.ndarray          # [d]
     layer: int
     src: str
     dst: str
     spin_basis: np.ndarray | None = None   # [k, d] principal directions of fit residuals
     spin_scale: np.ndarray | None = None   # [k] std along each
+    S_tr: np.ndarray | None = None         # dual form: W = M^T S_tr  (so  s W^T = (s S_tr^T) M)
+    M: np.ndarray | None = None
 
     def __call__(self, s: np.ndarray) -> np.ndarray:
+        if self.W is None:
+            return (s @ self.S_tr.T) @ self.M + self.b
         return s @ self.W.T + self.b
 
     def spin(self, s: np.ndarray, coords: np.ndarray) -> np.ndarray:
@@ -40,7 +44,13 @@ def fit_affine(S: np.ndarray, O: np.ndarray, layer: int, src: str, dst: str,
     K = Sb @ Sb.T + ridge * np.eye(n)                        # [n, n]
     if low_rank is None:
         M = np.linalg.solve(K, O)                            # [n, d];  A = Sb^T M
-        W, b = (S.T @ M).T, np.ones(n) @ M
+        b = np.ones(n) @ M
+        op = AffineOp(None, b, layer, src, dst, S_tr=S, M=M)   # dual form; never build the d x d matrix
+        R = O - op(S)
+        if n > 1:
+            U, sv, Vt = np.linalg.svd(R - R.mean(0), full_matrices=False)
+            k = min(n_spin, len(sv)); op.spin_basis, op.spin_scale = Vt[:k], sv[:k] / np.sqrt(max(n - 1, 1))
+        return op
     else:
         M = np.linalg.solve(K, O - S)                        # residual after identity
         # A_w = S^T M has rank <= n; SVD it through thin QR factors of S^T and M
@@ -91,19 +101,16 @@ def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, s
         mean_o = O_tr.mean(0)
         offset = (O_tr - S_tr).mean(0)               # king-queen baseline: one shared translation
         te_idx = np.flatnonzero(te)
+        def unit(x): return x / (np.linalg.norm(x, axis=-1, keepdims=True) + 1e-9)
+        On = unit(O)
         for j, (p, s, o) in enumerate(zip(pred, S[te], O[te])):
             po = s + offset
             if cands is not None:
-                C = cands[te_idx[j]]
+                C = unit(cands[te_idx[j]])                       # [m, d]
                 for key, q in (("role_rank", p), ("role_rank_offset", po), ("role_rank_identity", s), ("role_rank_mean", mean_o)):
-                    sims = np.array([cosine(q, c) for c in C])
-                    out[key].append(int((sims > sims[dst_idx]).sum()) + 1)
-            out["cos_pred"].append(cosine(p, o))
-            out["cos_offset"].append(cosine(po, o))
-            out["rank_offset"].append(int((np.array([cosine(po, o2) for o2 in O]) > cosine(po, o)).sum()) + 1)
-            out["cos_identity"].append(cosine(s, o))
-            out["cos_mean"].append(cosine(mean_o, o))
-            # rank of the true target among all targets by cosine to the prediction (1 = best)
-            sims = np.array([cosine(p, o2) for o2 in O])
-            out["rank"].append(int((sims > cosine(p, o)).sum()) + 1)
+                    sims = C @ unit(q); out[key].append(int((sims > sims[dst_idx]).sum()) + 1)
+            out["cos_pred"].append(cosine(p, o)); out["cos_offset"].append(cosine(po, o))
+            out["cos_identity"].append(cosine(s, o)); out["cos_mean"].append(cosine(mean_o, o))
+            sp, spo = On @ unit(p), On @ unit(po); t = te_idx[j]
+            out["rank"].append(int((sp > sp[t]).sum()) + 1); out["rank_offset"].append(int((spo > spo[t]).sum()) + 1)
     return {k: (float(np.median(v)) if k.startswith("rank") else float(np.mean(v))) for k, v in out.items()}
