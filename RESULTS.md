@@ -415,6 +415,52 @@ era/voice–tense pairs and about a quarter of it for era–voice.
 Tense is the easiest possible third factor (a surface grammatical feature); a third *semantic*
 factor (mood, point of view, genre) is the harder test and still requires writing.
 
+## 2026-09-11 (hour 9) — Mood: a semantic factor, weaker than era, integrated at the end of the sentence
+
+**Grid.** `prompts/narrative_mood_v1.json`: 4 scenes × 3 eras × 3 moods (dread, tender, comic) =
+36 spans, one neutral voice, same scene event in each. Mood is carried by *what happens in the last
+clause* (the horse's eyes are wrong; a note in a hand he had taught to write; the Duke had already
+arrived twice), not by vocabulary throughout.
+
+**(A) Decodability, leave-one-scene-out (chance 0.33).**
+
+| pooling | era peak | mood layer 0 | mood peak |
+|---|---|---|---|
+| mean over span | 1.00 (L24) | 0.56 | 0.67 (L4) |
+| last token | 0.89 (L24) | 0.33 | **0.75 (L16–20)** |
+
+Mood is a real direction but a weaker one than era (0.75 vs 0.9+), and unlike era or voice it is
+best read at the last token in the mid-late stack: the model integrates the mood of a sentence as
+it ends. Mean pooling dilutes it with the neutral scene-setting clauses.
+
+**Generations** (Qwen2.5-1.5B, greedy, last-token mood directions, layer 18). Prompt:
+*"A moment from a story: The door opened and"*
+
+- **base:** a man walked in. He was tall and thin, with a shock of white hair and a beard that reached down to his chest…
+- **+dread ×2:** a man came in… He was wearing a black cloak and a black hat. He was carrying a long sword.
+- **+dread ×3:** … He had a long beard and a long tail. He was a ghost. He came in and said
+- **+tender ×2:** a young girl stood there. She was wearing a dress that was as white as snow… She had a smile on her face that made everyone feel happy.
+- **+tender ×3:** a young girl stood there, her face shining with the light of the first sunrise. "Mommy, I'm home," she said, "I've brought you a flower."
+- **+comic ×2:** the man walked in. The woman was surprised. She had never seen him before. The man was a little bit nervous.
+- **+comic ×3:** the man walked in. The door closed and the man walked out. The door opened and the man walked out. The door closed and the man walked in.
+
+Prompt: *"A moment from a story: She found the letter on the table and"*
+
+- **base:** read it. It was from her mother. She was very happy. She was going to have a birthday party…
+- **+dread ×2:** opened it. It was from her mother. She was dead. She was dead. She was dead. She was dead.
+- **+dread ×3:** opened it. It was a letter from her father. It was a letter from her father who was in prison… and who was in danger.
+- **+tender ×3:** read it. The letter was from her mother, who had just died. The letter was about how her mother had always told her that she loved her, and how she had always wanted to tell her
+- **+comic ×2:** began to read. "Dear Mr. Smith, I hope you are doing well. I am writing to inform you that I have decided to move to a new city."
+- **+comic ×3:** began to read. She was a bit surprised to find that she was not the only one who had been in the room.
+
+Dread and tender are unmistakable at ×2–3 (cloak, sword, ghost, "she was dead", prison, danger;
+white dress, first sunrise, "Mommy, I'm home", a mother's love). Comic is the weakest: it reads as
+deflation and absurd repetition (the door loop, the bureaucratic letter) rather than as jokes, which
+is roughly what the comic spans do (they deflate) but a 1.5B base model has no comic timing to
+steer. Mean-pooled directions at layer 14 and scale 1.5 did **not** produce visible mood shifts;
+the last-token, layer-18, scale-2+ setting is what works. Quantitative lens/composition/cross-talk
+numbers for era × mood: see below when the run completes.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
