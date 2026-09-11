@@ -4,6 +4,34 @@ Honest running record. Numbers are from the scripts in `scripts/`, JSON in `resu
 and null results are kept. Models: Qwen2.5-0.5B (24 layers, d=896), Qwen2.5-1.5B (28 layers,
 d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, flat}, 6 roles).
 
+## CHECKPOINT 1 — 2026-09-11, after 22 stages
+
+**Stands, with controls (keep in the writeup).**
+1. Discourse position dominates pooled activations; the naive shape test measured template slots (h2, h3).
+2. Roles are domain-independent directions and causally usable as a lens (h4: 1.7/6 vs 3.3 random; layers 14–20).
+3. The source→target relation is a real, computed, mid-stack signal and, at 40 domains, a working *selector* (h16: 2.21 vs 3.5 null; peak layer 16).
+4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each a lens (1.1–1.3/3), three compose (2.8/18), cross-talk matrices diagonal, replicated on Qwen 0.5B/1.5B, Pythia 1.4B, GPT-J 6B, Gemma 9B-it (h5–h13).
+5. Factors differ in kind and depth: voice/tense lexical, era computed by layer 12, mood last-token, theme distributed and mid-passage (h6, h8, h9, h17).
+6. Recomposition: an era shift moves the address and keeps the form on two models (h14: 0.89/0.88 moved, theme 0.81/0.94 kept).
+7. Steering selects among competences the engine has: theme steers generation only at 9B-instruct (h10–h13); tuned models carry refusal as an unlisted factor (h12).
+8. Abstraction as quotient: narrower dictionaries keep more general features (h15: 0.18 vs 0.06; 12/15 merges up).
+9. The shallower factor dominates the surface text regardless of patch order (h19, h22, two layer pairs for era > theme).
+
+**Fell (keep as negatives).** Pooled RSA as a content shape (h2–h3). Absence by decoder adjacency (h18). Five-regime commutator taxonomy under greedy decoding (h22). "Factors don't commute under generation" as factor-specific (h22: any matched-norm pair diverges).
+
+**Partial / open.** Generative relation lens: helpful but not source-specific at 40 domains (h20). Continuation-defined absence: null at n=8 (h21). Selector saturates early; the model with the sharpest selector is not the one that steers (h13).
+
+**Standing caveats.** Grids authored (8 domains, all factor grids) or reviewed (32 domains) by Claude; selector-level evidence dominates; generation-level evidence qualitative and model-dependent; layers chosen mid-stack by convention with sweeps only for the role lens and relation lens.
+
+**Reoriented plan.**
+1. **Writeup** (`WRITEUP.md`): rewrite around the nine standing claims, the four negatives, and the two partials; add the figures from h17; one table per model family. Lead with the calculus results; tell the original hypothesis as the arc (shape → roles → relation → data).
+2. **Source-specificity** of the relation operator under patching: fit on paired residuals with a rotation constraint, or more domains; the test is relation vs wrong-source, not relation vs random.
+3. **Third-party grids**: at least one factor grid and one holonic domain set not written or reviewed by Claude, to retire the single-author caveat.
+4. **Scale the steering-competence curve**: Llama-3.1-70B-Instruct when the license clears; same scripts.
+5. **Absence, third realization**: larger n, or a withheld part defined by the model's own surprise rather than by an author.
+6. **Abstraction ladder**: more widths/layers, a broad reference corpus, feature labels if reachable, the fixed-point test with the corrected expectation (fixed points may be trivial; look in the flow).
+Deferred: cohere (no observable), commutator regimes (no structure at this n), Shadow Walker adapter (belongs there).
+
 ## 2026-09-11 — Stage 2: does a cross-domain relational shape exist above chance?
 
 **Setup.** Each prompt gives a 6-role x d stack per layer. Grand mean across all 16 prompts is
@@ -961,6 +989,41 @@ or n = 8 with one author cannot see it. The delivered variant's projection (12.0
 directions work; the test is sensitive enough to see presence and did not see absence. Recorded as
 a null, not a falsification: the design is right, the sample is small.
 
+## 2026-09-11 (hour 22) — Commutator controls: divergence under generation is generic; dominance is real; regimes are noise
+
+**Setup** (agent run; `scripts/ndif_commutator.py` extended with `--null`, `--layers`, two more
+prompts; `results/commutator_gemma9b_v2.json`, `results/notes/commutator_v2.md`; the hour-19 rule
+and outputs untouched and reproduced exactly). Gemma-2-9B-it. Null: matched-norm random direction
+pairs through the identical AB/BA protocol. Four prompts. Second layer pair (16/24) for era × theme.
+
+**Null vs factor** (36 factor cases vs 16 null; Mann–Whitney):
+
+| | Hamming | first-divergence token | curve (σ) | base overlap |
+|---|---|---|---|---|
+| factor pairs | 0.62 | 15.0 | 1.13 | **0.14** |
+| random pairs | 0.56 | 20.0 | 1.05 | **0.32** |
+| p | 0.59 | 0.50 | 0.73 | **0.002** |
+
+Random patch pairs diverge just as much, just as early, and produce every regime the factors do,
+drain included (more often: 19% vs 3%), while staying fluent. The one measure that separates
+factor from random is displacement from the prompt prior (overlap with the base continuation
+0.14 vs 0.32): the factor directions *steer*; the commutator protocol is not where that shows.
+
+**Regimes over four prompts.** No level combination has all four prompts agreeing (0 of 18); a
+permutation test finds no structure (era × theme p = 0.16, era × voice p = 0.57). The five-regime
+taxonomy does not transfer from cellular automata to greedy decoding at this sample size.
+
+**Dominance at a second layer pair.** Era still dominates theme under both orderings at blocks
+16/24 (overlap with era-only 0.37 / 0.26 vs theme-only 0.17 / 0.17), so that leg is not a
+block-14 artefact; the margin shrinks when era is the later patch, consistent with era living
+mid-stack. Voice > era was not re-run at the second pair (budget), so the full ordering rests on
+one layer pair.
+
+**Reading.** Hour 19 downgrades to one claim: **the shallower factor dominates the surface text
+regardless of order**, and that is real. "Factors do not commute under generation" is true but
+not about factors: any two matched-norm patches diverge under greedy decoding from token ~15,
+boundedly. The predictions written before this run (RESULTS hour 22 conversation) held.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -982,4 +1045,4 @@ a null, not a falsification: the design is right, the sample is small.
 4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
-7. Commutator trajectories (hour 19): add a random-direction null, more prompts, a layer sweep.
+7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
