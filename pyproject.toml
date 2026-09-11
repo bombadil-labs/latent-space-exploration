@@ -1,0 +1,21 @@
+[project]
+name = "lsx"
+version = "0.0.1"
+description = "Latent space exploration: relational shapes, operators, and narrative factors in transformer activations"
+requires-python = ">=3.11"
+dependencies = [
+  "torch", "transformers", "safetensors", "numpy", "scipy", "scikit-learn", "pot", "huggingface_hub",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

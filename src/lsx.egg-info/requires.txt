@@ -1,0 +1,11 @@
+torch
+transformers
+safetensors
+numpy
+scipy
+scikit-learn
+pot
+huggingface_hub
+
+[dev]
+pytest
