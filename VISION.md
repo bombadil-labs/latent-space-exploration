@@ -111,3 +111,31 @@ this cheap. Status: quotient/section is near-definitional; the RG claim is a hyp
 - Selector-level results come easily; generator-level results are the ones that count for the
   calculus. Keep the distinction explicit in every claim.
 - Refusal is an unlisted factor on tuned models; project it out before steering.
+
+## Ecology notes (from sibling projects; inspiration, not integration)
+
+**groovy-commutator.** The cross-rule commutator and its divergence *trajectory* (five regimes:
+commute / crystalline / noise / structured / drain) is the instrument our one-step order test
+approximates. Tee-up: apply two factor patches in both orders, generate, measure per-token
+divergence of selector readouts, classify factor pairs by regime. "Dynamics of erased
+distinctions" (latent vs shielded information under a representation, H(S) = H(P(S)) + I_latent
++ I_shielded) is the exact frame for stage 2 (content was latent to pooled RSA, returned via the
+operator) and for the selector/generator gap (theme is shielded under small-model generation,
+visible at 9B/instruct). RG fixed points there are the affine/absorbing rules and Class IV lives
+*between* them: so the attractors of the abstraction flow may be trivially general, and archetypes,
+if interesting, live in the flow. The absential field as closed neighborhood of the live set gives
+the recipe: the absential ring of a passage = inactive SAE features with high decoder similarity to
+its active ones; test causal work by ablation. The run calculus (gauge riding a base; gauges
+compose linearly, engines do not) names stage 7's design and the selector/generator split.
+
+**shadow-walker.** Its `semanticShift` report (salient, receded, invariant, surprise) and weave
+result kinds (correspondence / tension / mismatch / partial overlap / convergence / none) are the
+vocabulary for what lsx measures; the README reserves "mechanistic measurement" as a future
+external projection with its own provenance, which is what an lsx→Observation adapter would be.
+`record_operation`'s required fields (origin domain, input/output structure, invariants) are a
+stricter form of the operator lexicon above.
+
+**rhizomatic.** Closed, many-sorted, serializable operator algebra with fixed signatures (terms,
+not code); context-freeness of atoms; merge = union; provenance in the atom. Template for turning
+the operator list above into a calculus: name the sorts, fix signatures, keep it closed; treat
+cross-talk as the measured deviation from context-freeness of directions.
