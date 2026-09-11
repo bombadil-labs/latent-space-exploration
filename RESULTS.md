@@ -633,8 +633,21 @@ scoring job on the shared GPU.
 | GPT-J-6B | 6B | 0.83 (4–12/28) |
 | **Gemma-2-9B-it** | 9B | **0.94 (20/42)** |
 
-The theme direction sharpens with scale and tuning. Lens/composition/cross-talk numbers on GPT-J
-and Gemma: pending (`results/stage6_gptj6b_theme_l14.json`, `results/stage6_gemma9b_theme_l20.json`).
+The theme direction sharpens with scale and tuning.
+
+**Theme battery across models** (leave-one-situation-out; mid-stack layer; scale 1).
+
+| | Qwen2.5-1.5B (L20) | GPT-J-6B (L14) | Gemma-2-9B-it (L20) |
+|---|---|---|---|
+| theme lens, rank/3 (random) | 1.25 (1.97) | **1.11** (2.06) | pending |
+| era lens, rank/3 (random) | 1.36 (2.00) | 1.22 (2.19) | pending |
+| era + theme composed, rank/9 (chance 5) | 2.22 | **1.75** | pending |
+| cross-talk era→theme / theme→era | 0.12 / 0.17 | **0.06 / 0.14** | pending |
+| on-target era / theme | 0.62 / 0.61 | 0.76 / 0.62 | pending |
+
+At 6B the theme lens is near-perfect, composition is tighter, and era leaks into theme half as much.
+`results/stage6_gptj_theme.log` (the per-case JSON for this run was lost to a serialization bug,
+fixed since; the summary is in the log).
 
 **Gemma-2-9B-it generations** (`scripts/ndif_generate.py`; direction added at block 20 on every
 decoding step, greedy, 60 tokens; directions from Gemma's own activations).
