@@ -39,10 +39,19 @@ class ProxyAuthBackend(RemoteBackend):
             return self.handle_response(ResponseModel(**response.json()))
         raise Exception(f"{response.status_code} {response.reason_phrase}: {response.text[:200]}")
 
-    def wait(self, tracer, poll: float = 2.0, timeout: float = 1800.0):
-        t0 = time.time()
+    def wait(self, tracer, poll: float = 2.0, timeout: float = 1800.0, retries: int = 6):
+        """Poll until complete. Transient transport errors (proxy hiccups, resets) are retried with backoff."""
+        t0 = time.time(); errs = 0
         while True:
-            result = self(tracer)
+            try:
+                result = self(tracer)
+                errs = 0
+            except (httpx.TransportError, ConnectionError, OSError) as e:
+                errs += 1
+                if errs > retries:
+                    raise
+                time.sleep(min(2 ** errs, 60))
+                continue
             if result is not None:
                 try:
                     tracer.push(result)
