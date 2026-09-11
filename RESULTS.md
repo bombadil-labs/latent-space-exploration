@@ -673,6 +673,29 @@ sacrifice spans read as loss, and the direction captures loss. The prompt-prior 
 continuation the model is already confident about resists a theme patch that a more open prompt
 accepts. Selector-level numbers on Gemma follow when the battery completes.
 
+## 2026-09-11 (hour 14) — Move the address, keep the form: an era shift preserves theme
+
+**Setup.** `scripts/stage7_shift.py`. For each of the 36 theme passages (era e1, theme t), add the
+era-shift patch dir_era[e2] − dir_era[e1] (leave-one-situation-out, layer 14, scale 1) at every
+position while the model reads the passage. Read the span representation at layer 20 and classify
+it by nearest era direction and nearest theme direction. Controls: no patch; a random direction of
+the same norm. Qwen2.5-1.5B. `results/stage7_qwen1.5b_shift.json`.
+
+| condition | era reads as target e2 | era reads as original e1 | theme reads as t |
+|---|---|---|---|
+| no patch | — | 0.97 | 0.78 |
+| **era shift** | **0.89** | 0.04 | **0.81** |
+| random, same norm | 0.03 | 0.93 | 0.79 |
+
+**Reading.** One additive patch moves a passage's representation to a different era while leaving
+its theme where it was. This is the recomposition primitive of the narrative calculus at the
+representational level, with a number: address moved in 89% of cases, form kept in 81% (identical
+to the unpatched theme readout). It is also the first experiment that joins the two halves of the
+project: the factor toolkit (era as a direction) acting on the shape (theme) that the earlier stages
+tried to measure directly. Caveats: representational readout, not generation; one model; the
+readout directions and the patch directions come from the same leave-one-out fold, so the test is
+fair to the held-out situation but shares training data across era and theme.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

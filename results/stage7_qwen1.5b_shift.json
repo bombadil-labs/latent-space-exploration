@@ -1,0 +1,1622 @@
+[
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "debt",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "message",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "door",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "base",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "medieval",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "betrayal"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "base",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "shift",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "1920s",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "rand",
+  "era_read": "1920s",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "betrayal",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "sacrifice",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "sacrifice"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "farfuture",
+  "cond": "base",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "medieval",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "shift",
+  "era_read": "medieval",
+  "theme_read": "homecoming"
+ },
+ {
+  "scene": "meal",
+  "e1": "farfuture",
+  "t": "homecoming",
+  "e2": "1920s",
+  "cond": "rand",
+  "era_read": "farfuture",
+  "theme_read": "homecoming"
+ }
+]
