@@ -36,8 +36,8 @@ def batch_logprob(texts, vec=None):
         if v is not None:
             B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0].dtype)
         lp = torch.log_softmax(model.lm_head.output[:, :-1, :].float(), dim=-1)
-        picked = lp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)
-        out = (picked * mask).sum(-1).save()
+        picked = lp.gather(-1, tgt.unsqueeze(-1).to(lp.device)).squeeze(-1)
+        out = (picked * mask.to(lp.device)).sum(-1).save()
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
     return o.float().cpu().numpy()

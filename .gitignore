@@ -6,3 +6,4 @@ cache/
 *.pt
 .pytest_cache/
 results/*.log
+src/*.egg-info/
