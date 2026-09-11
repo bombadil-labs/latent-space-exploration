@@ -484,6 +484,63 @@ and "visibly rewrites a continuation" (harder) is a general feature of these dir
 stating in the writeup: the lens is reliable as a selector well before it is reliable as a
 generator.
 
+## 2026-09-11 (hour 10) — Theme over multi-sentence spans: a reliable selector, a poor generator
+
+**Grid.** `prompts/narrative_theme_v1.json`: 4 situations (a debt comes due, a message arrives, a
+door, a meal) × 3 eras × 3 themes (betrayal, sacrifice, homecoming) = 36 passages of ~61 words,
+three sentences each, neutral voice. Theme is what the passage is *about*, distributed over the
+whole span rather than carried by one clause.
+
+**(A) Decodability, leave-one-situation-out (chance 0.33).**
+
+| pooling | era peak | theme layer 0 | theme peak |
+|---|---|---|---|
+| mean over span | 1.00 (L4+) | 0.67 | **0.78 (L20)** |
+| last token | 0.92 (L24) | 0.33 | 0.50 (L16) |
+
+The mirror image of mood: theme is distributed, so mean pooling reads it and the last token does
+not. Two-thirds of it is already present at the embedding layer (lexical cueing: *sworn, forged,
+seal* vs *gave, so that* vs *gone … years ago, asked whether*), and the stack adds ~10 points.
+
+**Quantitative (mean-pooled directions, layer 20, scale 1).** `results/stage6_qwen1.5b_theme_l20.json`.
+
+| | factor direction | random | chance |
+|---|---|---|---|
+| era lens, rank/3 | 1.36 | 2.00 | 2.0 |
+| theme lens, rank/3 | **1.25** | 1.97 | 2.0 |
+| era + theme composed, rank/9 | **2.22** | | 5.0 |
+
+| patched ↓ / explained → | era | theme |
+|---|---|---|
+| era | **0.62** | 0.12 |
+| theme | 0.17 | **0.61** |
+| random | 0.35 | 0.22 |
+
+As a selector on held-out passages, the theme direction is as good as every other factor tested,
+composes with era, and the cross-talk matrix is diagonal at the usual 12–17%.
+
+**Generations** (layer 20, scale 1.5 and 2.5, 60 tokens): mostly **not legible**. The 1.5B base
+model degenerates into repetition on 60-token continuations regardless of patch, and the theme
+directions do not rescue it. Faint traces at ×2.5: +sacrifice → "She was tired of the war, tired
+of the fighting, tired of the killing… of her friends, and… her enemies, and… her family";
++betrayal → "She had been so sure that she would be safe, but now she was afraid"; +homecoming →
+"I thought it was lost, but it wasn't. I found it again." The rest is base-like or degenerate.
+`results/stage6_theme_gens.log`.
+
+**Reading.** This is the first factor where the selector/generator gap is wide, and it is the
+factor the additive picture was expected to strain on. A theme is a *relation among events across
+sentences*; a single direction added at one layer at every position can raise the likelihood of a
+passage that already has that structure (the lens test), but it cannot by itself make a 1.5B
+model produce that structure over 60 tokens. Era, voice, tense and mood are properties a
+continuation can carry token by token; theme is not. That is the boundary of the sentence-level
+additive calculus, stated with a number: theme lens 1.25/3, theme generation ≈ base.
+
+**What would push past it.** A larger or instruction-tuned model (plot competence to steer);
+patching at multiple layers with re-imposition (the erosion problem, `steer.steer_patches`);
+directions from a contrastive pair rather than a mean (sharper); or treating theme as a sequence of
+beat-level directions applied at different positions rather than one direction everywhere, which is
+the relation-operator idea from stage 3 brought back at the plot level.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -496,7 +553,9 @@ generator.
 4d. ~~Cross-talk~~ done. ~~Third factor~~ tense: three-way composition 2.8/18, diagonal cross-talk matrix.
 4e. ~~Mood~~ done: semantic factor, lens 1.28/3, composes with era 1.89/9, diagonal cross-talk; needs
    last-token/late-layer/×2–3 patch to show in generation.
-4f. Multi-sentence spans where a plot beat (theme, turn) can be a factor; and a mood × voice grid to
-   test whether two register-like factors interfere more than era does with either.
+4f. ~~Theme over multi-sentence spans~~ done: selector 1.25/3, composes 2.2/9, generation ≈ base.
+4g. Push past the theme boundary: multi-layer re-imposed patches; contrastive directions; an
+   instruction-tuned or larger model (nnsight/NDIF for 70B); beat-level directions at positions.
+4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
