@@ -50,7 +50,7 @@ rotate    : Schema × Role × Role → Op     rotate(S,r,r')(x) = A x + b -- the
 patched by `scripts/stage4_relation.py`. At seven domains it beat a matched null narrowly (role_rank
 3.01 vs 3.5, hour 3) and was null as a patch (−0.02 nats vs −0.19 random, hour 5). At forty
 domains (hour 16) it reaches role_rank **2.21** vs nulls 3.49/3.53: the operator is real and
-fittable given data, and **source-specific as a selector** (hour 24: true source ranks the target 1.73 vs 2.75 for a wrong role of the same prompt; 68% paired wins). As a *patch* (hour 20) its prediction helps (+0.18 nats vs −0.10 random) but no more than the operator fed a wrong source; that gap is now a property of the patch protocol, under re-test (§5).
+fittable given data, and **source-specific as a selector** (hour 24: true source ranks the target 1.73 vs 2.75 for a wrong role of the same prompt; 68% paired wins). As a *patch* (hour 20) its prediction helps (+0.18 nats vs −0.10 random) and, against all five wrong sources at natural norm (hour 25), retains a marginal source-specific margin (54% paired wins, +0.06 nats). Selector-clean, engine-faint (§5).
 
 ### 2.2 `abstract` / `concretize` (deterritorialize / reterritorialize)
 
@@ -168,8 +168,8 @@ The exclusions are the design.
 - **`rotate`** was under-determined at seven domains (it lost to a constant, hour 3, and was null
   as a patch, hour 5). At forty domains (hour 16) it is determined as a selector (2.21 vs 3.5
   null) and source-specific as a selector (hour 24). As a patch (hour 20) it is helpful but its
-  source-specificity has not yet shown through the likelihood readout; a refined patch test is
-  running. Still open: the composition law L9.
+  source-specificity shows only marginally through the likelihood readout (hour 25). Still open:
+  the composition law L9 and the spin test.
 - **`cohere`** has no observable until generation is steerable at passage scale. Its signature is
   written; its Gauge does not exist.
 - **`absential`** is defined (§2.6); its first realization (decoder adjacency) is falsified (hour 18); the

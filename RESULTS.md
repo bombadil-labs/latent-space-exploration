@@ -25,7 +25,7 @@ d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, fl
 
 **Reoriented plan.**
 1. ~~**Writeup** rewrite~~ done (second draft, post-checkpoint); figures and per-family tables still to embed.
-2. ~~Source-specificity at the selector level~~ shown (h24). Under patching: refined test (all wrong sources, natural norm) running.
+2. ~~Source-specificity at the selector level~~ shown (h24); under patching marginal (h25). Next: the spin test at selector level.
 3. ~~Third-party factor grids~~ GPT-authored era×voice and era×theme replicate (h23). Remaining: a human-written grid, and a holonic domain set from a second author.
 4. **Scale the steering-competence curve**: Llama-3.1-70B-Instruct when the license clears; same scripts.
 5. **Absence, third realization**: larger n, or a withheld part defined by the model's own surprise rather than by an author.
@@ -1082,6 +1082,32 @@ result, where the wrong source did as well, is therefore a property of the patch
 rescaled wrong source; the readout is the target span's likelihood, which the operator's bias
 already raises) and not of the operator. A refined patch test, all five wrong sources at natural
 norm, is running.
+
+## 2026-09-11 (hour 25) — Refined patch test: source-specificity under patching is marginal
+
+**Setup.** `scripts/stage4c_relation_wrong_sources.py`, `results/stage4c_qwen1.5b_v2_wrong_sources.json`.
+Qwen2.5-1.5B, operator fit at layer 16 on 39 domains (role-centered, ridge 10), patched at layer
+16 with λ = 0.5 on top of the role direction. Eight held-out domains, four easy pairs. Conditions:
+relation (true source), every one of the five wrong sources of the same prompt at its **natural
+norm** (mean norm ratio 0.96, so no rescaling artefact), one random direction of matched norm.
+Readout: extra log-prob gain on the target span beyond the role-only patch.
+
+| condition | extra gain (nats) | n |
+|---|---|---|
+| relation (true source) | **+0.176** | 32 |
+| wrong source (all five roles) | +0.114 | 160 |
+| random, matched norm | −0.151 | 32 |
+
+Paired: the true source beats a wrong source in **87 of 160 (54%)**, mean difference +0.06 nats.
+By wrong role, the relation's margin ranges from −0.11 (fed `embedded`) to +0.27 (fed
+`new_subject`).
+
+**Reading.** Under patching, source-specificity is present but marginal: a 54% paired win and
+0.06 nats, against a 68% win and a full rank at the selector level (hour 24). The operator's
+output direction carries most of the patch benefit (+0.11 for any source vs −0.15 for random);
+the source-dependent part survives the likelihood readout only weakly. Consistent with law L3 of
+`docs/ALGEBRA.md`: what the selector sees cleanly, the engine shows faintly. Recorded as partial:
+the relation operator is a source-specific selector and a weakly source-specific patch.
 
 ## Open problems (ordered)
 
