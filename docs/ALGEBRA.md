@@ -46,9 +46,11 @@ rotate    : Schema × Role × Role → Op     rotate(S,r,r')(x) = A x + b -- the
 
 `translate` and `scale` are **measured**: `scripts/stage4.py`, `scripts/stage5_factors.py`,
 `scripts/stage6_factors.py`; hours 4, 6–10 (scale range from hour 4: 4.0 degrades everything).
-`rotate` is **measured and null as a lens**: fit by `scripts/stage3.py`, patched by
-`scripts/stage4_relation.py`. Hour 3 shows it beats a matched null (role_rank 3.01 vs 3.5); hour 5
-shows it is not usable as a patch (−0.02 nats extra gain vs −0.19 random). Under-determined (§5).
+`rotate` is **measured as a selector, untested as a patch at scale**: fit by `scripts/stage3.py`,
+patched by `scripts/stage4_relation.py`. At seven domains it beat a matched null narrowly (role_rank
+3.01 vs 3.5, hour 3) and was null as a patch (−0.02 nats vs −0.19 random, hour 5). At forty
+domains (hour 16) it reaches role_rank **2.21** vs nulls 3.49/3.53: the operator is real and
+fittable given data. Its use as a patch at forty domains is the open test (§5).
 
 ### 2.2 `abstract` / `concretize` (deterritorialize / reterritorialize)
 
@@ -133,7 +135,7 @@ steerable Engine at passage scale, which hours 10–13 show does not exist below
 | L6 | **Adjunction `abstract ⊣ concretize`.** concretize-then-abstract returns the coarse state; abstract-then-concretize returns a representative of the discarded fiber. | conjectured | none: `concretize` has no implementation |
 | L7 | **Renormalization-group structure.** Coarse-grainings compose, have fixed points (archetypes as attractors), and sort features into relevant and irrelevant. | conjectured | `VISION.md` §coarse-graining; the abstraction-flow test is unrun |
 | L8 | **Depth is the scale parameter.** Each Factor becomes readable at a characteristic layer; the residual is a sum over layers. | measured | hours 6, 8: tense 1.00 at layer 0 and decaying; voice 0.92 flat; era 0.31 → 0.92 by layer 12; theme distributed, peaking at layer 20 |
-| L9 | **Relation composition along a selector path.** Composing two `rotate` Ops equals the Op learned from endpoint pairs. | hypothesized | the test stated in `VISION.md`; `rotate` is not yet fittable (§5) |
+| L9 | **Relation composition along a selector path.** Composing two `rotate` Ops equals the Op learned from endpoint pairs. | hypothesized | the test stated in `VISION.md`; `rotate` is now fittable at 40 domains (hour 16), so the test is runnable |
 
 **Boundary, not a law.** *Steering selects among competences the Engine already has.* This is a
 **constraint** on the algebra's reach, measured in hours 10–12 (theme on 1.5B base: selector 1.25/3,
@@ -160,10 +162,10 @@ The exclusions are the design.
 
 ## 5. Open signatures
 
-- **`rotate`** is under-determined at current data: seven effective domains in 1536 dimensions. The
-  affine fit loses to a constant (hour 3) and to a plain shared offset (hours 1–2), and is null as a
-  patch (hour 5). Thirty-plus domains with real paraphrases is the stated lever; this is a data
-  problem, not a method problem.
+- **`rotate`** was under-determined at seven domains (it lost to a constant, hour 3, and was null
+  as a patch, hour 5). At forty domains (hour 16) it is determined as a selector (2.21 vs 3.5
+  null). Still open: whether the forty-domain operator works as a *patch*, and the composition law
+  L9. This was a data problem, as stated, and the data fixed the selector half.
 - **`cohere`** has no observable until generation is steerable at passage scale. Its signature is
   written; its Gauge does not exist.
 - **`absential`** is defined (§2.6); its causal test is pending, and no result is claimed.
@@ -174,7 +176,7 @@ The exclusions are the design.
 |---|---|---|---|---|
 | transform: translate | `Dir × Scale → Op` | `stage4.py`, `stage5_factors.py`, `stage6_factors.py` | hours 4, 6–10 | measured |
 | transform: scale | `ℝ × Scale → Op` | `stage4.py`, `stage5_generate.py` | hour 4 (range 0.5–2×) | measured |
-| transform: rotate | `Schema × Role × Role → Op` | `stage3.py`, `stage4_relation.py` | hours 3, 5 | measured; null as a lens |
+| transform: rotate | `Schema × Role × Role → Op` | `stage3.py`, `stage4_relation.py` | hours 3, 5, 16 | measured as selector (2.21 vs 3.5 at 40 domains); patch untested at scale |
 | abstract | `Passage × Scale(w) → Passage` | `sae_ladder.py` | hour 15 | measured (first rung) |
 | concretize | `Passage × Scale(w) × Ctx → Passage` | — | — | hypothesized |
 | differentiate (Jacobian) | `Passage × Gauge × Scale → …` | `stage5_crosstalk.py`, `stage6_factors.py` | hours 6, 8 | measured |

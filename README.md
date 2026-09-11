@@ -57,6 +57,13 @@ does not carry WebSocket upgrades, jobs are submitted over HTTPS and polled. Req
 "pinned" models are available on the free tier (`results/ndif_pinned.txt`); gated ones need an
 HF token injected for `huggingface.co`.
 
+## Documents
+
+- `RESULTS.md`: the running log, every number with its control.
+- `WRITEUP.md`: the draft writeup.
+- `VISION.md`: the operator set, lexicon, coarse-graining mechanism, ecology notes.
+- `docs/ALGEBRA.md`: the calculus as a closed many-sorted operator algebra with laws marked measured / hypothesized / conjectured.
+
 ## Results
 
 See `RESULTS.md` for the running log, including open problems in priority order.
