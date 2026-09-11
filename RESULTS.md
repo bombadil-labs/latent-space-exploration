@@ -25,7 +25,7 @@ d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, fl
 
 **Reoriented plan.**
 1. ~~**Writeup** rewrite~~ done (second draft, post-checkpoint); figures and per-family tables still to embed.
-2. **Source-specificity** of the relation operator under patching: fit on paired residuals with a rotation constraint, or more domains; the test is relation vs wrong-source, not relation vs random.
+2. ~~Source-specificity at the selector level~~ shown (h24). Under patching: refined test (all wrong sources, natural norm) running.
 3. ~~Third-party factor grids~~ GPT-authored era×voice and era×theme replicate (h23). Remaining: a human-written grid, and a holonic domain set from a second author.
 4. **Scale the steering-competence curve**: Llama-3.1-70B-Instruct when the license clears; same scripts.
 5. **Absence, third realization**: larger n, or a withheld part defined by the model's own surprise rather than by an author.
@@ -1053,6 +1053,35 @@ sentences as the spec demanded. Voice is less lexically extreme in GPT's writing
 0.75 vs 0.92) and the voice lens is correspondingly a little weaker, which is the right direction
 for a less exaggerated register. The single-author caveat is now a single-*species* caveat: two
 model authors agree; no human-written grid yet.
+
+## 2026-09-11 (hour 24) — The relation operator is source-specific at the selector level
+
+**Setup** (agent run, pre-registered in `scripts/stage3_source_specificity.py`; the agent was
+stopped before writing its note; analysis by the integrator). Same protocol as hour 16 (40
+domains, role-centered, dual-form affine, ridge 10, leave-one-domain-out). New comparison: for each
+held-out prompt and pair S→T, feed the fitted operator the prompt's true source residual and,
+separately, each of the prompt's five *other* role residuals (same prompt, so domain address is
+held fixed). Paired win = fraction of (prompt, pair, wrong role) triples where the true source
+ranks the target higher; ties count half. Gate for the patch rerun, fixed in advance: paired win
+≥ 0.60 at layer 16. `results/stage3_source_specificity.json`.
+
+| layer | role_rank, true source | role_rank, wrong source | paired win | contrastive fit: rank / win |
+|---|---|---|---|---|
+| 8 | 2.10 | 2.77 | 0.62 | 3.11 / 0.50 |
+| 12 | 1.90 | 2.63 | 0.64 | 2.90 / 0.51 |
+| 16 | 1.73 | 2.75 | 0.68 | 2.63 / 0.57 |
+| 20 | 1.86 | 2.79 | 0.67 | 2.63 / 0.56 |
+| 24 | 2.39 | 2.79 | 0.58 | 3.11 / 0.48 |
+
+**Reading.** The operator's prediction depends on which role it is fed: the true source ranks the
+target a full rank better than a wrong role of the same prompt (1.73 vs 2.75 at layer 16), and
+wins 68% of paired comparisons, clearing the gate. **Source-specificity exists at the selector
+level.** The contrastive fit (predict target − source) is worse than the residual fit at every
+layer, so the plain affine map is the right parameterization at this data size. Hour 20's patch
+result, where the wrong source did as well, is therefore a property of the patch protocol (a single
+rescaled wrong source; the readout is the target span's likelihood, which the operator's bias
+already raises) and not of the operator. A refined patch test, all five wrong sources at natural
+norm, is running.
 
 ## Open problems (ordered)
 
