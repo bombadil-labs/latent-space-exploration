@@ -25,7 +25,8 @@ for i, (k, span) in enumerate(g["spans"].items()):
     sel = idx if a.pool == "mean" else idx[-1:]
     backend = ProxyAuthBackend(model.to_model_key())
     with model.trace(text, backend=backend) as tracer:
-        hs = torch.stack([B[l].output[0][0, sel, :].mean(0) for l in range(L)]).save()
+        D = model.config.hidden_size
+        hs = torch.stack([B[l].output[0][..., sel, :].mean(-2).reshape(-1, D)[-1] for l in range(L)]).save()   # tuple-or-tensor block output
     res = backend.wait(tracer)
     v = res["hs"] if isinstance(res, dict) and "hs" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
     out[k] = v.float().cpu().numpy()

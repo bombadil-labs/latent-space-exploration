@@ -18,7 +18,7 @@ print(f"{name}: config+tokenizer {time.time()-t:.1f}s; layers={len(B)} d={model.
 t = time.time()
 backend = ProxyAuthBackend(model.to_model_key())
 with model.trace("A moment from a story: The door opened and", backend=backend) as tracer:
-    h = mid.output[0][0, -1, :].save()
+    h = mid.output[0][..., -1, :].reshape(-1, model.config.hidden_size)[-1].save()   # works whether block output is a tuple or a tensor
     logits = model.lm_head.output[0, -1, :].save()
 print(f"submitted in {time.time()-t:.1f}s; polling...")
 res = backend.wait(tracer)
