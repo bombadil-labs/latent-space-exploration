@@ -8,3 +8,5 @@ cache/
 results/*.log
 src/*.egg-info/
 *.done
+*.partial
+prompts/holonic_candidates.jsonl
