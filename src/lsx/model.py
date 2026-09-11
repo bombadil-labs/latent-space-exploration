@@ -124,12 +124,17 @@ class LM:
     def unembed(self, vec: torch.Tensor, k: int = 10) -> list[tuple[str, float]]:
         """Logit lens: push a residual vector through final norm + lm_head, return top-k tokens."""
         m = self.model
-        norm = getattr(getattr(m, "model", m), "norm", None) or getattr(getattr(m, "transformer", m), "ln_f", None)
+        norm = None
+        for base_name, norm_name in (("model", "norm"), ("transformer", "ln_f"), ("gpt_neox", "final_layer_norm")):
+            base = getattr(m, base_name, None)
+            if base is not None and getattr(base, norm_name, None) is not None:
+                norm = getattr(base, norm_name); break
+        head = getattr(m, "lm_head", None) or getattr(m, "embed_out", None) or m.get_output_embeddings()
         with torch.no_grad():
             v = vec.to(self.device, dtype=next(m.parameters()).dtype)
             if norm is not None:
                 v = norm(v)
-            logits = m.lm_head(v).float().cpu()
+            logits = head(v).float().cpu()
         top = torch.topk(logits, k)
         return [(self.tok.decode([i]), float(s)) for s, i in zip(top.values, top.indices)]
 
