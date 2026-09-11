@@ -687,8 +687,19 @@ the same norm. Qwen2.5-1.5B. `results/stage7_qwen1.5b_shift.json`.
 | **era shift** | **0.89** | 0.04 | **0.81** |
 | random, same norm | 0.03 | 0.93 | 0.79 |
 
+**Gemma-2-9B-it, same protocol via NDIF** (`scripts/ndif_shift.py`, `results/stage7_gemma9b_shift.json`):
+
+| condition | era reads as target e2 | era reads as original e1 | theme reads as t |
+|---|---|---|---|
+| no patch | — | 0.97 | 0.94 |
+| **era shift** | **0.88** | 0.12 | **0.94** |
+| random, same norm | 0.00 | 0.99 | 0.93 |
+
+On the 9B model the theme readout is at 0.94 unpatched and stays at 0.94 under the era shift, so
+"form kept" is no longer limited by the readout's own ceiling as it was on the 1.5B.
+
 **Reading.** One additive patch moves a passage's representation to a different era while leaving
-its theme where it was. This is the recomposition primitive of the narrative calculus at the
+its theme where it was, on both models. This is the recomposition primitive of the narrative calculus at the
 representational level, with a number: address moved in 89% of cases, form kept in 81% (identical
 to the unpatched theme readout). It is also the first experiment that joins the two halves of the
 project: the factor toolkit (era as a direction) acting on the shape (theme) that the earlier stages
