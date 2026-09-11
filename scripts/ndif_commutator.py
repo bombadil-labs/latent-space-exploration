@@ -1,0 +1,272 @@
+"""Commutator trajectories for narrative factor pairs on an NDIF-hosted model.
+
+For a factor pair (A, B) and a combination of levels (a, b), generate greedily under two orderings
+
+    AB : dir_A[a] added at block L1's output, dir_B[b] added at block L2's output
+    BA : dir_B[b] added at block L1's output, dir_A[a] added at block L2's output
+
+(the patch is re-applied at every decoding step, as in scripts/ndif_generate.py), plus a base
+continuation and the two single patches (A@L1, B@L2). Divergence between the two orderings is
+measured two ways:
+
+  (a) token-level: first index where the two token sequences differ; running Hamming fraction.
+  (b) readout-level: re-fetch per-token block-`read` residuals for both generated texts (no patch)
+      and project each continuation token onto the factor directions at that block; the per-token
+      difference of projections between the two orderings is the divergence curve. Units are sigma,
+      the per-axis standard deviation of the same projections over the BASE continuation's tokens.
+
+=============================== REGIME CLASSIFICATION RULE ===============================
+Stated before any curve was looked at (groovy-commutator's five regimes). Per (pair, a, b, prompt),
+with T = 60 generated tokens, curve[i] = || (p_AB(i) - p_BA(i)) / sigma ||_2 over the two on-axis
+projections (A-level axis and B-level axis), and
+
+    ham            = fraction of positions where the two orderings' token ids differ
+    base_ov_X      = fraction of positions where ordering X's token id equals the base continuation's
+    early          = mean(curve[0:15]),  late = mean(curve[45:60]),  growth = late - early
+    consistency    = max over the two axes of the fraction of i in [5, T) at which the SIGNED
+                     per-axis difference takes its modal sign (0.5 = coin flip, 1.0 = one ordering
+                     is uniformly higher on that factor)
+
+first rule that matches wins:
+
+  1. COMMUTE      ham == 0                  and mean(curve) < 0.5
+  2. DRAIN        |base_ov_AB - base_ov_BA| >= 0.30 and max(base_ov_AB, base_ov_BA) >= 0.60
+                  (one ordering collapses back onto the unpatched prompt-prior continuation)
+  3. CRYSTALLINE  growth < 0.5 and mean(curve) < 3.0      (bounded, roughly constant offset)
+  4. STRUCTURED   growth >= 0.5 and consistency >= 0.70   (grows with a persistent signed pattern)
+  5. NOISE        otherwise                               (grows without a persistent pattern)
+
+A pair x level-combination is assigned the modal regime over prompts (ties -> the later regime in
+the order above, i.e. the more divergent reading).
+==========================================================================================
+
+Usage:
+  python scripts/ndif_commutator.py --pair era_theme --grid prompts/narrative_theme_v1.json \
+      --stacks results/stacks_gemma_2_9b_it_narrative_theme_v1.npz --out results/commutator_gemma9b.json
+  python scripts/ndif_commutator.py --pair era_voice --grid prompts/narrative_factors_v1.json \
+      --stacks results/stacks_gemma_2_9b_it_narrative_factors_v1.npz --out results/commutator_gemma9b.json
+  python scripts/ndif_commutator.py --analyze --out results/commutator_gemma9b.json
+"""
+import argparse, json, os, time
+import numpy as np, torch
+
+PROMPTS = {
+    "news": "A passage from a story: It was late when the news reached her, and",
+    "road": "A passage from a story: They had been walking the road since morning, and",
+    "door": "A passage from a story: The door was already open when he got there, and",
+}
+
+# ----------------------------------------------------------------------------- directions
+def grid_levels(grid, pair):
+    """Return (nameA, levelsA, nameB, levelsB, key_index_of_A, key_index_of_B) for a grid file."""
+    g = json.load(open(grid))
+    if "factors" in g:                                   # narrative_theme_v1: factors + key_order
+        order = [k for k in g["key_order"] if k != "scene"]
+        levels = {k: g["factors"][k] for k in order}
+    else:                                                # narrative_factors_v1: eras / voices
+        order, levels = [], {}
+        for plural, sing in (("eras", "era"), ("voices", "voice"), ("themes", "theme")):
+            if plural in g:
+                order.append(sing); levels[sing] = g[plural]
+    a, b = pair.split("_")
+    assert a in levels and b in levels, f"{pair} not in grid factors {order}"
+    return g, a, levels[a], b, levels[b], order.index(a) + 1, order.index(b) + 1
+
+
+def factor_dirs(stacks, layer, levels, idx):
+    z = np.load(stacks); X = {k: z[k][layer] for k in z.files}
+    mu = np.mean(list(X.values()), axis=0)
+    return {lv: np.mean([v for k, v in X.items() if k.split("/")[idx] == lv], axis=0) - mu for lv in levels}, mu
+
+
+# ----------------------------------------------------------------------------- remote jobs
+def make_model(name):
+    from nnsight import LanguageModel
+    m = LanguageModel(name, device_map="auto", dispatch=False)
+    for path in ("model.layers", "transformer.h", "gpt_neox.layers"):
+        obj = m
+        try:
+            for x in path.split("."): obj = getattr(obj, x)
+            return m, obj, m.tokenizer, m.config.hidden_size
+        except AttributeError: continue
+    raise RuntimeError("no blocks")
+
+
+def run(model, B, tok, prompt, patches, n_tokens):
+    """patches: list of (layer, np.ndarray). Returns list of generated token ids."""
+    from lsx.ndif import ProxyAuthBackend
+    backend = ProxyAuthBackend(model.to_model_key())
+    vs = [(l, torch.as_tensor(v, dtype=torch.float32)) for l, v in patches]
+    with model.generate(prompt, max_new_tokens=n_tokens, do_sample=False, backend=backend) as tracer:
+        if vs:
+            with tracer.all():
+                for l, v in vs:
+                    B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
+        out = model.generator.output.save()
+    res = backend.wait(tracer)
+    o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
+    ids = o[0] if o.dim() == 2 else o
+    n_in = len(tok(prompt)["input_ids"])
+    return [int(x) for x in ids[n_in:]]
+
+
+def read_tokens(model, B, tok, D, text, layer):
+    from lsx.ndif import ProxyAuthBackend
+    backend = ProxyAuthBackend(model.to_model_key())
+    with model.trace(text, backend=backend) as tracer:
+        h = B[layer].output[0].reshape(-1, D).save()
+    res = backend.wait(tracer)
+    v = res["h"] if isinstance(res, dict) and "h" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
+    return v.float().cpu().numpy()
+
+
+# ----------------------------------------------------------------------------- analysis
+def curves(rec, sig):
+    """rec: dict with projAB/projBA [T, k]; sig: [k]. Returns curve, signed [T, k]."""
+    a = np.asarray(rec["projAB"], float); b = np.asarray(rec["projBA"], float)
+    T = min(len(a), len(b)); d = (a[:T] - b[:T]) / sig
+    return np.linalg.norm(d, axis=1), d
+
+
+def classify(ham, base_ov_ab, base_ov_ba, curve, signed):
+    T = len(curve)
+    early = float(curve[:15].mean()); late = float(curve[max(0, T - 15):].mean())
+    growth = late - early; mean_c = float(curve.mean())
+    cons = 0.0
+    for k in range(signed.shape[1]):
+        s = np.sign(signed[5:, k]); s = s[s != 0]
+        if len(s): cons = max(cons, float(max((s > 0).mean(), (s < 0).mean())))
+    stats = dict(ham=ham, base_ov_AB=base_ov_ab, base_ov_BA=base_ov_ba, mean_curve=mean_c,
+                 early=early, late=late, growth=growth, consistency=cons)
+    if ham == 0 and mean_c < 0.5: return "commute", stats
+    if abs(base_ov_ab - base_ov_ba) >= 0.30 and max(base_ov_ab, base_ov_ba) >= 0.60: return "drain", stats
+    if growth < 0.5 and mean_c < 3.0: return "crystalline", stats
+    if growth >= 0.5 and cons >= 0.70: return "structured", stats
+    return "noise", stats
+
+
+REG_ORDER = ["commute", "crystalline", "drain", "structured", "noise"]
+
+
+def analyze(path):
+    d = json.load(open(path)); out = {}
+    for pair, P in d["pairs"].items():
+        rows = []
+        for key, rec in P["cases"].items():
+            pid, la, lb = key.split("|")
+            sig = np.asarray(P["sigma"][pid], float); sig = np.where(sig < 1e-6, 1.0, sig)
+            curve, signed = curves(rec, sig)
+            reg, st = classify(rec["ham"], rec["base_ov_AB"], rec["base_ov_BA"], curve, signed)
+            rows.append(dict(prompt=pid, a=la, b=lb, regime=reg, first_div=rec["first_div"], **st,
+                             curve=[round(float(x), 3) for x in curve]))
+        out[pair] = rows
+    d["analysis"] = {p: [{k: v for k, v in r.items() if k != "curve"} for r in rows] for p, rows in out.items()}
+    for p, rows in out.items():
+        for r, row in zip(rows, d["pairs"][p]["cases"].values()):
+            row["curve"] = r["curve"]; row["regime"] = r["regime"]
+    json.dump(d, open(path, "w"), indent=1)
+    # print tables
+    for pair, rows in out.items():
+        print(f"\n=== {pair} ===")
+        print(f"{'a':<10} {'b':<10} {'prompt':<6} {'regime':<12} {'firstdiv':>8} {'ham':>5} {'ovAB':>5} {'ovBA':>5} {'mean':>6} {'early':>6} {'late':>6} {'cons':>5}")
+        combos = {}
+        for r in rows:
+            print(f"{r['a']:<10} {r['b']:<10} {r['prompt']:<6} {r['regime']:<12} {str(r['first_div']):>8} "
+                  f"{r['ham']:5.2f} {r['base_ov_AB']:5.2f} {r['base_ov_BA']:5.2f} {r['mean_curve']:6.2f} "
+                  f"{r['early']:6.2f} {r['late']:6.2f} {r['consistency']:5.2f}")
+            combos.setdefault((r["a"], r["b"]), []).append(r["regime"])
+        print(f"-- modal regime per level combination ({pair}) --")
+        for (a, b), regs in combos.items():
+            best = max(set(regs), key=lambda x: (regs.count(x), REG_ORDER.index(x)))
+            print(f"  {a:<10} x {b:<10} {best:<12} {regs}")
+    return out
+
+
+# ----------------------------------------------------------------------------- main
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--pair", default=None, help="e.g. era_theme, era_voice")
+    ap.add_argument("--grid"); ap.add_argument("--stacks")
+    ap.add_argument("--model", default="google/gemma-2-9b-it")
+    ap.add_argument("--l1", type=int, default=14); ap.add_argument("--l2", type=int, default=20)
+    ap.add_argument("--read", type=int, default=20); ap.add_argument("--scale", type=float, default=1.0)
+    ap.add_argument("--tokens", type=int, default=60)
+    ap.add_argument("--prompts", default="news,road")
+    ap.add_argument("--out", default="results/commutator_gemma9b.json")
+    ap.add_argument("--analyze", action="store_true")
+    a = ap.parse_args()
+    if a.analyze:
+        analyze(a.out); return
+
+    g, fa, LA, fb, LB, ia, ib = grid_levels(a.grid, a.pair)
+    dA1, _ = factor_dirs(a.stacks, a.l1, LA, ia); dA2, _ = factor_dirs(a.stacks, a.l2, LA, ia)
+    dB1, _ = factor_dirs(a.stacks, a.l1, LB, ib); dB2, _ = factor_dirs(a.stacks, a.l2, LB, ib)
+    dAR, muR = factor_dirs(a.stacks, a.read, LA, ia); dBR, _ = factor_dirs(a.stacks, a.read, LB, ib)
+    pids = a.prompts.split(",")
+
+    from lsx.ndif import retry_job
+    model, B, tok, D = make_model(a.model)
+    doc = {"model": a.model, "l1": a.l1, "l2": a.l2, "read": a.read, "scale": a.scale,
+           "tokens": a.tokens, "prompts": {p: PROMPTS[p] for p in pids}, "pairs": {}}
+    if os.path.exists(a.out):
+        doc = json.load(open(a.out)); doc.setdefault("pairs", {})
+    P = doc["pairs"].setdefault(a.pair, {"factors": [fa, fb], "levels": {fa: LA, fb: LB},
+                                         "grid": a.grid, "gens": {}, "sigma": {}, "cases": {}})
+    P.setdefault("gens", {}); P.setdefault("sigma", {}); P.setdefault("cases", {})
+    save = lambda: json.dump(doc, open(a.out, "w"), indent=1)
+    t0 = time.time(); n = [0]
+
+    def gen(key, prompt, patches):
+        if key in P["gens"]: return P["gens"][key]["ids"]
+        ids = retry_job(lambda: run(model, B, tok, prompt, patches, a.tokens))
+        P["gens"][key] = {"ids": ids, "text": tok.decode(ids, skip_special_tokens=True)}
+        n[0] += 1; print(f"  gen[{n[0]}] {key} {time.time()-t0:.0f}s", flush=True); save()
+        return ids
+
+    unit = lambda v: v / np.linalg.norm(v)
+
+    def proj(key, prompt, ids, vecs):
+        """per-token projections of the generated continuation onto unit `vecs` at block `read`."""
+        text = prompt + tok.decode(ids, skip_special_tokens=True)
+        H = retry_job(lambda: read_tokens(model, B, tok, D, text, a.read))
+        n_in = len(tok(prompt)["input_ids"])
+        H = H[n_in:] - muR
+        n[0] += 1; print(f"  read[{n[0]}] {key} {H.shape[0]}tok {time.time()-t0:.0f}s", flush=True)
+        return (H @ np.stack(vecs).T).tolist()
+
+    for pid in pids:
+        prompt = PROMPTS[pid]
+        base_ids = gen(f"{pid}|base", prompt, [])
+        if pid not in P["sigma"]:
+            # sigma per factor axis: spread of the BASE continuation's per-token projections,
+            # averaged over the levels of that factor
+            pr = np.asarray(proj(f"{pid}|base", prompt, base_ids,
+                                 [unit(dAR[l]) for l in LA] + [unit(dBR[l]) for l in LB]), float)
+            s = pr.std(0)
+            P["sigma"][pid] = [float(max(s[:len(LA)].mean(), 1e-6)), float(max(s[len(LA):].mean(), 1e-6))]
+            P["base_proj"] = P.get("base_proj", {}); P["base_proj"][pid] = pr.round(4).tolist()
+            save()
+        for la in LA:
+            gen(f"{pid}|A|{la}", prompt, [(a.l1, dA1[la] * a.scale)])
+        for lb in LB:
+            gen(f"{pid}|B|{lb}", prompt, [(a.l2, dB2[lb] * a.scale)])
+        for la in LA:
+            for lb in LB:
+                kab = f"{pid}|AB|{la}|{lb}"; kba = f"{pid}|BA|{la}|{lb}"
+                iab = gen(kab, prompt, [(a.l1, dA1[la] * a.scale), (a.l2, dB2[lb] * a.scale)])
+                iba = gen(kba, prompt, [(a.l1, dB1[lb] * a.scale), (a.l2, dA2[la] * a.scale)])
+                ck = f"{pid}|{la}|{lb}"
+                if ck in P["cases"]: continue
+                T = min(len(iab), len(iba), len(base_ids), a.tokens)
+                diff = [i for i in range(T) if iab[i] != iba[i]]
+                rec = dict(first_div=(diff[0] if diff else None), ham=len(diff) / T,
+                           base_ov_AB=float(np.mean([iab[i] == base_ids[i] for i in range(T)])),
+                           base_ov_BA=float(np.mean([iba[i] == base_ids[i] for i in range(T)])),
+                           projAB=proj(kab, prompt, iab, [unit(dAR[la]), unit(dBR[lb])]),
+                           projBA=proj(kba, prompt, iba, [unit(dAR[la]), unit(dBR[lb])]))
+                P["cases"][ck] = rec; save()
+    save(); print(f"done {a.pair}: {n[0]} jobs, {time.time()-t0:.0f}s -> {a.out}")
+
+
+if __name__ == "__main__":
+    main()
