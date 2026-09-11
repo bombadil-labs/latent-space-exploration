@@ -12,15 +12,22 @@ what would test it. Nothing here is implemented beyond what RESULTS.md records.
   effective examples it underperforms a constant. This is a data problem, not a method problem.
 - **Test:** refit on 30+ domains with paraphrases; the thesis→antithesis spin.
 
-## abstract / concretize (coarse-grain / fine-grain)
-- `abstract(x)`: project out the setting/domain components, keep the role. Picard − StarTrek =
-  captain, diplomat, mentor, prefers win/win. `concretize(x, ctx)`: add ctx's components back.
-- **Have:** grand-mean and role-centering are crude abstraction; the held-out-domain protocol is
-  concretize; the instruct-model theme results were concretize in generation.
-- **Structure:** abstraction levels form a lattice. Sparse-autoencoder features (Gemma Scope, now
-  reachable) give the lattice a basis: abstract = drop features below a generality threshold.
-- **Test:** abstract a character description on one grid, concretize against another setting,
-  score with the role/setting selectors.
+## abstract / concretize (deterritorialize / reterritorialize)
+- `abstract(x)` moves *every* detail of x up one rung of generality at once; it is not the removal
+  of one axis such as setting. Picard → Starfleet captain with particulars → spaceship diplomat →
+  traveling leader → mentor. `concretize(x, ctx)` moves back down, and must be told which
+  particulars to choose; ctx supplies them.
+- **Candidate precise mechanism:** sparse-autoencoder *feature splitting*. A narrow dictionary
+  learns coarse features; wider dictionaries split them into finer ones. Gemma Scope ships several
+  widths per layer for Gemma-2-9B. abstract at level k = re-encode the activation through the
+  dictionary of width w_k and reconstruct (narrower = more general, on all axes). concretize =
+  decode through a finer dictionary, choosing which fine features to activate (the section; the
+  supplied context is that choice).
+- **Have:** the factor directions are one-axis quotients (partial coarse-grainings); grand-mean and
+  role-centering likewise. The all-axis version is the dictionary-width ladder above.
+- **Test:** encode a character description through successively narrower dictionaries and read the
+  surviving features at each width; the prediction is a diplomat → leader → mentor ordering.
+  Then concretize against a new setting and score with the selectors.
 
 ## derivative / integral
 - Slice a passage by sentence or beat; project each slice onto a factor direction; the sequence
@@ -45,8 +52,8 @@ what would test it. Nothing here is implemented beyond what RESULTS.md records.
 ## A candidate common mechanism: coarse-graining as quotient, fine-graining as section
 
 **Pairing (corrected).** Coarse-grain = {abstract, differentiate}: both throw information away to
-focus on a subset. Differentiation kills the constant; abstraction kills the setting (Picard minus
-Star Trek). Fine-grain = {concretize, integrate}: both require the invocation to *supply* information
+focus on a subset. Differentiation kills the constant; abstraction kills particulars at every axis (Picard →
+mentor), not one axis. Fine-grain = {concretize, integrate}: both require the invocation to *supply* information
 to move from a lossy state to a more detailed one. Integration needs a boundary condition;
 concretization needs a context. (An earlier draft of this note paired abstract with integrate by
 reading "integrate" as marginalize-over-an-axis; that is a different operation from the
@@ -55,7 +62,8 @@ antiderivative and the pairing above is the right one.)
 **Mechanism.** Coarse-graining is a quotient: a many-to-one map that discards a fiber. Fine-graining
 is a section: one-to-many, requiring a choice of representative, which is exactly where the supplied
 information enters. The factor directions the toolkit builds (mean over scenes and other factors)
-are quotients, so they live on the coarse side. The beat-to-beat derivative of a factor readout
+are one-axis quotients; dictionary width (feature splitting) is the all-axis quotient, and the RG
+framing lives more naturally on it. The beat-to-beat derivative of a factor readout
 along a passage loses the absolute level the same way a derivative loses its constant; integrating
 it back needs the initial value supplied.
 
