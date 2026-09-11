@@ -48,6 +48,15 @@ is a draft 4-domain × 2-framing grid for the dialectic relation.
 | 5 | `scripts/stage5_*` | narrative factors (era, voice) as directions: lens, composition, order | both lenses work (1.3/3 vs 2.1 random), era+voice composes (2.0/9), order gap 0.5; replicates on Qwen 0.5B and Pythia 1.4B |
 | 6 | `scripts/stage6_factors.py` | N factors: era × voice × tense; era × mood; era × theme (3-sentence passages) | three-way composition 2.8/18 (chance 9.5); mood lens 1.28/3 and composes with era 1.9/9; theme lens 1.25/3 but does not steer generation; cross-talk matrices diagonal |
 
+## Remote models via NDIF
+
+`src/lsx/ndif.py` runs traces on NDIF-hosted models (`nnsight`) through a credential-injecting
+egress proxy: the API key header is added by the proxy (the client omits it), and because the proxy
+does not carry WebSocket upgrades, jobs are submitted over HTTPS and polled. Requires Python 3.12
+(`.venv312`). `python scripts/ndif_smoke.py EleutherAI/gpt-j-6b` round-trips in ~4 s. Only
+"pinned" models are available on the free tier (`results/ndif_pinned.txt`); gated ones need an
+HF token injected for `huggingface.co`.
+
 ## Results
 
 See `RESULTS.md` for the running log, including open problems in priority order.

@@ -1,0 +1,6 @@
+PINNED EleutherAI/gpt-j-6b RUNNING
+PINNED meta-llama/Llama-3.1-8B RUNNING
+PINNED google/gemma-2-9b-it RUNNING
+PINNED meta-llama/Llama-3.1-70B RUNNING
+PINNED meta-llama/Llama-3.1-405B RUNNING
+PINNED meta-llama/Llama-3.1-70B-Instruct RUNNING
