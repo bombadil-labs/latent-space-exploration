@@ -903,6 +903,64 @@ aggregate regime labels rest on a 1–1 tie; one layer pair, one scale, one mode
 only the two patched directions; **no random-direction null yet**, which with more prompts and a
 layer sweep is the cheapest next control.
 
+## 2026-09-11 (hour 20) — Generative relation lens at forty domains: better than random, not source-specific
+
+**Setup** (agent run, terminated by a rate limit after the sweep finished; analysis by the
+integrator). `scripts/stage4b_relation_v2.py`, `results/stage4b_qwen1.5b_v2_relation.json`.
+Qwen2.5-1.5B. Twelve held-out domains (the original eight plus four generated), six role pairs
+(four easy, two hard), operator fit on the other 39 domains at layer 16 and patched at layer 16:
+`dir_T + λ·pred` vs `dir_T` alone. Controls: random direction of the same norm (×2) and the
+operator applied to the wrong source role, rescaled. Readout: extra log-prob gain on the target
+span beyond the role-only patch. ‖pred‖ ≈ 1.3 ‖dir_T‖; cos(pred, true residual) = 0.29.
+
+| λ | relation | wrong source | random | role-only rank |
+|---|---|---|---|---|
+| 0.5 | **+0.18** nats | +0.21 | −0.10 | 1.29 |
+| 1.0 | **+0.04** | +0.14 | −0.47 | 1.29 |
+
+Relation beats random in 46 of 72 (domain, pair) cases at λ = 1. By pair at λ = 1 (relation /
+random): embedded→from_above +1.14 / +0.11; embedded→disturbance +0.77 / −0.19; the four
+from_below/objectified pairs are negative for both.
+
+**Reading.** At forty domains the operator's prediction is now a *helpful* patch on average
+(+0.18 nats vs −0.10 for random at λ = 0.5; at seven domains it was −0.02 vs −0.19). But the
+wrong-source control does as well or better. The benefit comes from the operator's output
+direction, which is largely independent of which source it is fed, not from a source-specific
+mapping. So the forty-domain operator is usable as a patch in the weak sense (it raises the target
+span's likelihood beyond the role direction alone) and not in the strong sense (it does not carry
+source-specific content into generation). The selector half of the strong hypothesis holds
+(hour 16); the generative half is still open, and this is the cleanest statement yet of what is
+missing: source-specificity under patching.
+
+## 2026-09-11 (hour 21) — Continuation-defined absential test: null at n = 8 on the confound-free readouts
+
+**Setup** (agent run, terminated by a rate limit after the data were collected; pre-registered
+design in the script docstring; analysis by the integrator). `prompts/absential_v1.json` (8 items ×
+3 variants, written by Claude: withheld / delivered / neutral, differing in one sentence each),
+`scripts/ndif_absential_continuation.py`, `results/absential_continuation_gemma9b.json`.
+Gemma-2-9B-it, block 20, theme directions from the theme grid.
+
+**Readout A, representational.** Last-token projection onto the withheld theme's direction:
+withheld 0.64, neutral −0.81, delivered 12.0; withheld > neutral in 4 of 8 (sign test p = 1.0);
+last-token cosine 6 of 8 (p = 0.29). The mean-over-span projection is withheld 6.6 vs neutral 1.4
+in 8 of 8 (p = 0.01), but that measure is confounded: withheld and neutral differ exactly in the
+setup sentence, so the span mean reads the setup text itself, not the absence. The confound-free
+readout (last token) is null.
+
+**Readout C, feature-level.** Absential set = 16k-dictionary features active in the model's own
+continuation but not in the passage (≈570 per item). Their pre-activations at the passage's last
+token: withheld −6.97 vs neutral −6.87; fraction within 1 unit of threshold 0.000 vs 0.002. Null.
+
+**Readout B, behavioral** (continuation projections and a lexical check): raw continuations are
+saved in the JSON; the aggregate was not computed before the agent was cut off and is left for a
+cheap follow-up.
+
+**Reading.** With eight authored items, a withheld part leaves no detectable trace at the last
+token or in near-threshold features. Either absences are not represented this way on this model,
+or n = 8 with one author cannot see it. The delivered variant's projection (12.0 vs 0.6) shows the
+directions work; the test is sensitive enough to see presence and did not see absence. Recorded as
+a null, not a falsification: the design is right, the sample is small.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

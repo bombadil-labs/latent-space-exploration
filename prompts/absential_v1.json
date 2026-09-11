@@ -1,0 +1,133 @@
+{
+ "_note": "Continuation-defined absential test. 8 items x 3 variants. Each item shares sentence 1 across all three variants. WITHHELD = sentence 2 sets up a betrayal (or homecoming) that has every reason and opportunity to arrive, and sentence 3 ends the passage BEFORE the turn. DELIVERED = identical to withheld except that sentence 3 delivers the turn. NEUTRAL = identical to withheld except that sentence 2 is replaced by unrelated descriptive detail of comparable length, so the turn is never set up. Neutral voice, era-neutral diction, matched to the style of prompts/narrative_theme_v1.json. Written by Claude (Opus 5) for this experiment; not drawn from any corpus.",
+ "lead": "A passage from a story:",
+ "variants": [
+  "withheld",
+  "delivered",
+  "neutral"
+ ],
+ "themes": {
+  "betrayal": "trust broken by someone close",
+  "sacrifice": "giving up something dear for another",
+  "homecoming": "return to a place or person after long absence"
+ },
+ "lexicon_note": "Pre-registered lexical word lists for readout B, fixed before any generation was run. Matching is case-insensitive substring matching of these stems against the continuation text only (never the passage), normalised to hits per 100 words of continuation.",
+ "lexicon": {
+  "betrayal": [
+   "betray",
+   "traitor",
+   "treacher",
+   "deceit",
+   "deceiv",
+   "decept",
+   "duplicit",
+   "disloyal",
+   "faithless",
+   "perfid",
+   "double-cross",
+   "informer",
+   "conspir",
+   "liar",
+   "lied",
+   "falsehood",
+   "treason",
+   "untrustworthy",
+   "broke his word",
+   "broke her word",
+   "stab",
+   "backstab",
+   "sold him out",
+   "sold her out",
+   "turned against"
+  ],
+  "sacrifice": [
+   "sacrific",
+   "gave up",
+   "give up",
+   "giving up",
+   "selfless",
+   "martyr",
+   "forgo",
+   "forwent",
+   "relinquish",
+   "renounce",
+   "at great cost",
+   "for the sake of",
+   "surrender",
+   "laid down his life",
+   "laid down her life"
+  ],
+  "homecoming": [
+   "homecoming",
+   "came home",
+   "come home",
+   "coming home",
+   "returns home",
+   "return",
+   "returned",
+   "returning",
+   "reunion",
+   "reunit",
+   "welcome",
+   "welcomed",
+   "long absence",
+   "back home",
+   "prodigal",
+   "doorstep",
+   "threshold",
+   "hearth",
+   "embrace",
+   "at last home"
+  ]
+ },
+ "items": {
+  "storehouse": {
+   "theme": "betrayal",
+   "withheld": "The two of them had kept the storehouse together since the year of the flood. Only one other person knew where the second key was kept, and that person owed a debt that a single night's worth of grain would settle. The keeper finished counting the sacks, banked the lamp, and walked home along the wall.",
+   "delivered": "The two of them had kept the storehouse together since the year of the flood. Only one other person knew where the second key was kept, and that person owed a debt that a single night's worth of grain would settle. In the morning the door stood open and the sacks were gone, and the second key lay in the dust where his partner had dropped it.",
+   "neutral": "The two of them had kept the storehouse together since the year of the flood. The roof had been patched twice that season, and the beams gave off a smell of pitch whenever the afternoon turned warm. The keeper finished counting the sacks, banked the lamp, and walked home along the wall."
+  },
+  "letter": {
+   "theme": "betrayal",
+   "withheld": "The letter came in with the week's dispatches and was set aside unopened. It was addressed in the hand of the man who had argued loudest that the council should trust him, and it had been carried by a rider who would not say where he had slept. The clerk stacked it with the rest and turned down the lamp.",
+   "delivered": "The letter came in with the week's dispatches and was set aside unopened. It was addressed in the hand of the man who had argued loudest that the council should trust him, and it had been carried by a rider who would not say where he had slept. When it was opened three weeks later it proved to be a copy, the original having gone to the other side, and by then everything in it had been arranged.",
+   "neutral": "The letter came in with the week's dispatches and was set aside unopened. It was a long envelope of the heavy kind, and someone had pressed a dried leaf against the flap so that its shape showed faintly through the paper. The clerk stacked it with the rest and turned down the lamp."
+  },
+  "watch": {
+   "theme": "betrayal",
+   "withheld": "They set the watch on the north road for the third night running. The one who had chosen the road, and the hour, and which of them would stand farthest from the others, had spent that afternoon alone with the men they were waiting for. The night was cold and nothing moved until the moon went down.",
+   "delivered": "They set the watch on the north road for the third night running. The one who had chosen the road, and the hour, and which of them would stand farthest from the others, had spent that afternoon alone with the men they were waiting for. The riders came instead from the south, along the road nobody was watching, and the one who had chosen it was not at his post.",
+   "neutral": "They set the watch on the north road for the third night running. The road ran straight between two lines of poplars that had been planted in the same year, and their leaves turned over whenever the wind came off the water. The night was cold and nothing moved until the moon went down."
+  },
+  "physician": {
+   "theme": "betrayal",
+   "withheld": "The physician was given the room next to the sick man's and the keys to the cabinet. His own family had been ruined years earlier by a judgment the sick man handed down, and no one left in the house remembered it but him. He measured the doses each evening and wrote the hour down in the book.",
+   "delivered": "The physician was given the room next to the sick man's and the keys to the cabinet. His own family had been ruined years earlier by a judgment the sick man handed down, and no one left in the house remembered it but him. On the ninth evening he measured a dose that was not in the book, and the hour he wrote was not the hour he had come.",
+   "neutral": "The physician was given the room next to the sick man's and the keys to the cabinet. The cabinet had been built by a joiner who signed his work, and the drawers still ran smoothly after all the years of damp. He measured the doses each evening and wrote the hour down in the book."
+  },
+  "witness": {
+   "theme": "betrayal",
+   "withheld": "The hearing was set for the first clear day after the rains. The only witness who could speak for the accused had been offered, quietly and through a third party, a great deal more than his testimony was worth. He arrived early, sat at the back of the room, and waited to be called.",
+   "delivered": "The hearing was set for the first clear day after the rains. The only witness who could speak for the accused had been offered, quietly and through a third party, a great deal more than his testimony was worth. When he was called he said that he had seen nothing at all, and he did not look at the man in the dock.",
+   "neutral": "The hearing was set for the first clear day after the rains. The room had been used for storing seed over the winter and still held a dry, husky smell that the open windows did nothing to shift. He arrived early, sat at the back of the room, and waited to be called."
+  },
+  "orchard": {
+   "theme": "homecoming",
+   "withheld": "The road past the orchard had not changed in the years she was away. Her mother's house stood at the end of it with the shutters open and smoke going up, and from inside came the song she had been taught before she could read. She stopped at the gate to shift the bag on her shoulder.",
+   "delivered": "The road past the orchard had not changed in the years she was away. Her mother's house stood at the end of it with the shutters open and smoke going up, and from inside came the song she had been taught before she could read. She pushed the gate open, and her mother came out onto the step and said her name as though she had only gone as far as the well.",
+   "neutral": "The road past the orchard had not changed in the years she was away. The wall along it had been rebuilt in places with a paler stone, and a line of geese moved ahead of her in no particular hurry. She stopped at the gate to shift the bag on her shoulder."
+  },
+  "quay": {
+   "theme": "homecoming",
+   "withheld": "The ship came in on the evening tide with the lamps already lit along the quay. Among those at the rail was a man who had written the same address on every letter for eleven years and had never once been answered. He watched the ropes go out and the gangway swing into place.",
+   "delivered": "The ship came in on the evening tide with the lamps already lit along the quay. Among those at the rail was a man who had written the same address on every letter for eleven years and had never once been answered. At the foot of the gangway a woman older than he remembered took his face in both hands, and neither of them said anything at all.",
+   "neutral": "The ship came in on the evening tide with the lamps already lit along the quay. The tide had been running heavy all week, and the crates coming up from the hold were stacked three deep along the wet stones. He watched the ropes go out and the gangway swing into place."
+  },
+  "lamp": {
+   "theme": "homecoming",
+   "withheld": "The house had been shut since the spring before last. Word had come that the youngest had been found alive and was making his way back along the coast road, and his room had been aired and the bed made up for a week. The lamp was lit at dusk and set in the front window, as it had been every evening.",
+   "delivered": "The house had been shut since the spring before last. Word had come that the youngest had been found alive and was making his way back along the coast road, and his room had been aired and the bed made up for a week. At dusk the gate sounded, and he came up the path thinner than he had gone, and the lamp was carried out to meet him.",
+   "neutral": "The house had been shut since the spring before last. A pair of swallows had got in under the eaves at some point and built where the gutter turned, and no one had the heart to take the nest down. The lamp was lit at dusk and set in the front window, as it had been every evening."
+  }
+ }
+}

@@ -50,7 +50,7 @@ rotate    : Schema × Role × Role → Op     rotate(S,r,r')(x) = A x + b -- the
 patched by `scripts/stage4_relation.py`. At seven domains it beat a matched null narrowly (role_rank
 3.01 vs 3.5, hour 3) and was null as a patch (−0.02 nats vs −0.19 random, hour 5). At forty
 domains (hour 16) it reaches role_rank **2.21** vs nulls 3.49/3.53: the operator is real and
-fittable given data. Its use as a patch at forty domains is the open test (§5).
+fittable given data. As a *patch* at forty domains (hour 20) its prediction helps (+0.18 nats vs −0.10 random) but no more than the operator fed the wrong source: the output direction is useful, source-specificity is not demonstrated (§5).
 
 ### 2.2 `abstract` / `concretize` (deterritorialize / reterritorialize)
 
@@ -112,9 +112,9 @@ absential : Schema × Passage × Scale → Dir    -- the Dir of a Role the Schem
 **Defined; the decoder-geometry realization is falsified.** `scripts/absential_ring.py` and
 `scripts/ndif_absential_probe.py` (hour 18): inactive features adjacent in decoder space to the
 live set are the dictionary's long tail, do not track theme, and are *more* disruptive than
-matched controls when patched (KL 0.063 vs 0.008; lower-KL in 1/12). Decoder adjacency is the wrong
-adjacency. The signature stands; the next realization is continuation-defined (features that fire
-on the model's own continuation but not on the passage).
+matched controls when patched (KL 0.063 vs 0.008; lower-KL in 1/12). The continuation-defined
+realization (`scripts/ndif_absential_continuation.py`, hour 21) is null at n = 8 on the
+confound-free readouts. The signature stands; no realization has yet shown an absence doing work.
 
 ### 2.7 `cohere`
 
@@ -167,8 +167,9 @@ The exclusions are the design.
 
 - **`rotate`** was under-determined at seven domains (it lost to a constant, hour 3, and was null
   as a patch, hour 5). At forty domains (hour 16) it is determined as a selector (2.21 vs 3.5
-  null). Still open: whether the forty-domain operator works as a *patch*, and the composition law
-  L9. This was a data problem, as stated, and the data fixed the selector half.
+  null). As a patch (hour 20) it is helpful but not source-specific. Still open: source-specificity
+  under patching, and the composition law L9. The data fixed the selector half, not yet the
+  generative half.
 - **`cohere`** has no observable until generation is steerable at passage scale. Its signature is
   written; its Gauge does not exist.
 - **`absential`** is defined (§2.6); its first realization (decoder adjacency) is falsified (hour 18); the

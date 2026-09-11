@@ -1,0 +1,2404 @@
+{
+ "design": "Continuation-defined absential test on Gemma-2-9B-it (NDIF, block 20).\n\nHour 18 falsified the first realization of VISION.md's `absential` operator (\"absence = inactive SAE\nfeatures adjacent in *decoder space* to the live set\"): those features are the dictionary's long\ntail, do not track theme, and are statistically indistinguishable from the ring of an arbitrary set\nof the same size. This script tests the realization that note ends by proposing: define absence from\nthe model's own behaviour, not from geometry.\n\n================================  PRE-REGISTERED DESIGN  ================================\nWritten down in full before any NDIF job was submitted. Nothing below was revised after seeing a\nnumber; deviations, if any, are listed in results/notes/absential_continuation.md.\n\nAn absential is an absence that does causal work: a part the story sets up and withholds, whose\nrepresentation is nevertheless active and shapes what comes next.\n\n1. PASSAGES  `prompts/absential_v1.json` (8 items x 3 variants, written by Claude for this test,\n   era-neutral three-sentence passages in the style of prompts/narrative_theme_v1.json).\n     withheld  - sentence 2 sets up a betrayal (5 items) or a homecoming (3 items) that has every\n                 reason and opportunity to arrive; sentence 3 ends the passage BEFORE the turn.\n     delivered - identical to withheld except sentence 3 delivers the turn.\n     neutral   - identical to withheld except sentence 2 is replaced by unrelated descriptive\n                 detail of comparable length, so the turn is never set up.\n   Sentence 1 is shared by all three. withheld vs delivered differ only in sentence 3;\n   withheld vs neutral differ only in sentence 2.\n\n2. DIRECTIONS  From the existing Gemma theme stacks\n   results/stacks_gemma_2_9b_it_narrative_theme_v1.npz (36 passages, keys scene/era/theme, values\n   [42, 3584]), block 20. d(level) = mean over that theme's 12 passages - grand mean over all 36,\n   unit-normalised. Nothing is held out: the test passages are new text that had no part in fitting\n   the directions. \"Target\" = the item's own withheld theme; the other two themes are controls.\n\n3. READOUT A (representational).  Block-20 per-token residuals of each of the 24 passages.\n   Project (a) the last-token residual and (b) the mean-over-span residual (BOS dropped) onto the\n   target direction. Reported both raw and norm-normalised (cosine), since the variants differ in\n   length and residual norm.\n     A1  withheld > neutral, on the target direction, paired within item.\n     A2  withheld >= delivered at the LAST TOKEN (the absence is \"present\" before it is stated).\n     A3 (control)  the withheld - neutral gap is larger on the target direction than on the other\n         two theme directions.\n\n4. READOUT B (behavioural).  Greedy 40-token continuation of each passage, no patch. Score each\n   continuation by (i) the projection of its mean block-20 residual (continuation tokens only) onto\n   the target direction, and (ii) the pre-registered lexical word lists stored in\n   prompts/absential_v1.json (substring stem match, hits per 100 words of continuation text only).\n     B1  withheld continuations carry the target theme more than neutral continuations do, on the\n         projection readout.\n     B2  the same on the lexical readout.\n     B3 (control)  the effect is smaller on the two non-target theme lexicons / directions.\n\n5. READOUT C (feature-level).  Gemma Scope JumpReLU, layer 20, width 16k, average_l0_47.\n   pre = x @ W_enc + b_enc ; act = pre * (pre > threshold).\n   The continuation-defined absential set of a withheld passage:\n       S(p) = {f : f fires on some token of p's own greedy continuation, and on NO token of p}.\n   Compare the WITHHELD passage's last-token pre-activations on S(p) against the NEUTRAL passage's\n   last-token pre-activations on the same S(p).\n     C1  mean pre-activation on S(p) is higher (closer to threshold) for withheld than for neutral.\n     C2 (control)  the same comparison on a size-matched random set of features that are inactive\n         on both passages shows no such gap.\n\nNDIF budget: 24 (passage residuals) + 24 (continuations) + 24 (passage+continuation residuals) = 72\njobs, one sequence per job (Gemma's 256k vocab). All three phases are checkpointed to <out>.partial.\n=========================================================================================\n\nPOST-HOC ADDENDUM (readout B', phase 4). Added AFTER seeing phase 2, and labelled as post-hoc\neverywhere it is reported. Gemma-2-9B-it is instruction-tuned, so its raw greedy continuation of a\nbare passage is meta-commentary about the passage (\"**Questions:** 1. What is the main conflict...\")\nrather than a continuation of the story. That makes the pre-registered readout B a measurement of\nthe model's *analysis*, not of what it writes next. B' repeats readout B with the chat-templated\ninstruction used in hour 13 (\"Write the next three sentences of this story passage, continuing in\nthe same voice\"), 60 tokens greedy, for the withheld and neutral variants only (16 further jobs,\n88 total). The per-step block-20 residual is saved in the same job, so B' costs no extra traces.\nThe pre-registered readout B is reported unchanged alongside it.\n\nUsage:\n  python scripts/ndif_absential_continuation.py --out results/absential_continuation_gemma9b.json\n",
+ "args": {
+  "passages": "/home/user/latent-space-exploration/.claude/worktrees/agent-a8ac5321216fb9aa7/prompts/absential_v1.json",
+  "stacks": "/home/user/latent-space-exploration/results/stacks_gemma_2_9b_it_narrative_theme_v1.npz",
+  "sae": "/home/user/latent-space-exploration/cache/hf/hub/models--google--gemma-scope-9b-it-res/snapshots/e86af97a5b6fbbccca28ab654f2fda1b0768f770/layer_20/width_16k/average_l0_47/params.npz",
+  "model": "google/gemma-2-9b-it",
+  "layer": 20,
+  "gen_tokens": 40,
+  "out": "results/absential_continuation_gemma9b.json",
+  "skip_c": false,
+  "chat_variants": "withheld,neutral",
+  "chat_tokens": 60
+ },
+ "summary": {
+  "model": "google/gemma-2-9b-it",
+  "layer": 20,
+  "n_items": 8,
+  "gen_tokens": 40,
+  "items": [
+   {
+    "name": "storehouse",
+    "theme": "betrayal"
+   },
+   {
+    "name": "letter",
+    "theme": "betrayal"
+   },
+   {
+    "name": "watch",
+    "theme": "betrayal"
+   },
+   {
+    "name": "physician",
+    "theme": "betrayal"
+   },
+   {
+    "name": "witness",
+    "theme": "betrayal"
+   },
+   {
+    "name": "orchard",
+    "theme": "homecoming"
+   },
+   {
+    "name": "quay",
+    "theme": "homecoming"
+   },
+   {
+    "name": "lamp",
+    "theme": "homecoming"
+   }
+  ],
+  "last_proj": {
+   "target": {
+    "withheld": 0.6370066851377487,
+    "delivered": 12.042920470237732,
+    "neutral": -0.808668240904808,
+    "withheld_minus_neutral": 1.4456749260425568,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -11.405913785099983,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "betrayal": {
+    "withheld": -6.38223922252655,
+    "delivered": -0.4830641448497772,
+    "neutral": -7.360113590955734,
+    "withheld_minus_neutral": 0.977874368429184,
+    "withheld_gt_neutral_n": 5,
+    "withheld_minus_neutral_p": 0.7265625,
+    "withheld_minus_delivered": -5.899175077676773,
+    "withheld_gt_delivered_n": 3,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "sacrifice": {
+    "withheld": 5.937541246414185,
+    "delivered": -6.127321362495422,
+    "neutral": 7.639772951602936,
+    "withheld_minus_neutral": -1.7022317051887512,
+    "withheld_gt_neutral_n": 2,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": 12.064862608909607,
+    "withheld_gt_delivered_n": 6,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "homecoming": {
+    "withheld": -0.58491350710392,
+    "delivered": 6.30448791384697,
+    "neutral": -1.4395550638437271,
+    "withheld_minus_neutral": 0.8546415567398071,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -6.88940142095089,
+    "withheld_gt_delivered_n": 2,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "control_target_vs_other": {
+    "target_gap": 1.4456749260425568,
+    "other_gap": -0.6576953530311584,
+    "diff": 2.103370279073715,
+    "n_target_gt_other": 4,
+    "p": 1.0,
+    "per_item": {
+     "storehouse": {
+      "target": 3.0729103088378906,
+      "other": -1.2717006206512451
+     },
+     "letter": {
+      "target": 1.9190998077392578,
+      "other": -0.7374439239501953
+     },
+     "watch": {
+      "target": -0.2479076385498047,
+      "other": 0.05539512634277344
+     },
+     "physician": {
+      "target": -0.05370903015136719,
+      "other": 0.006164073944091797
+     },
+     "witness": {
+      "target": 1.9645109176635742,
+      "other": -0.8667176961898804
+     },
+     "orchard": {
+      "target": -0.3794790506362915,
+      "other": 0.2921872138977051
+     },
+     "quay": {
+      "target": 7.361553072929382,
+      "other": -3.7921388149261475
+     },
+     "lamp": {
+      "target": -2.0715789794921875,
+      "other": 1.0526918172836304
+     }
+    }
+   }
+  },
+  "last_cos": {
+   "target": {
+    "withheld": 0.0018265771795995533,
+    "delivered": 0.0422535035177134,
+    "neutral": -0.004330621508415788,
+    "withheld_minus_neutral": 0.006157198688015342,
+    "withheld_gt_neutral_n": 6,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": -0.040426926338113844,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "betrayal": {
+    "withheld": -0.02362805773736909,
+    "delivered": -0.002304670459125191,
+    "neutral": -0.02733062207698822,
+    "withheld_minus_neutral": 0.00370256433961913,
+    "withheld_gt_neutral_n": 6,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": -0.0213233872782439,
+    "withheld_gt_delivered_n": 3,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "sacrifice": {
+    "withheld": 0.021349495626054704,
+    "delivered": -0.02146521012764424,
+    "neutral": 0.028196024475619197,
+    "withheld_minus_neutral": -0.006846528849564493,
+    "withheld_gt_neutral_n": 2,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": 0.042814705753698945,
+    "withheld_gt_delivered_n": 6,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "homecoming": {
+    "withheld": -0.001555133261717856,
+    "delivered": 0.022579721524380147,
+    "neutral": -0.005178489431273192,
+    "withheld_minus_neutral": 0.0036233561695553362,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -0.024134854786098003,
+    "withheld_gt_delivered_n": 2,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "control_target_vs_other": {
+    "target_gap": 0.006157198688015342,
+    "other_gap": -0.002838903514202684,
+    "diff": 0.008996102202218026,
+    "n_target_gt_other": 6,
+    "p": 0.2890625,
+    "per_item": {
+     "storehouse": {
+      "target": 0.012083059176802635,
+      "other": -0.005012736655771732
+     },
+     "letter": {
+      "target": 0.0065692574717104435,
+      "other": -0.002554807811975479
+     },
+     "watch": {
+      "target": 0.0020804554224014282,
+      "other": -0.0010187546722590923
+     },
+     "physician": {
+      "target": 0.0008248239755630493,
+      "other": -0.00036634132266044617
+     },
+     "witness": {
+      "target": 0.006108265370130539,
+      "other": -0.002735985442996025
+     },
+     "orchard": {
+      "target": -0.001421692781150341,
+      "other": 0.0011115074157714844
+     },
+     "quay": {
+      "target": 0.027759813237935305,
+      "other": -0.014478425960987806
+     },
+     "lamp": {
+      "target": -0.004746392369270325,
+      "other": 0.0023443163372576237
+     }
+    }
+   }
+  },
+  "mean_proj": {
+   "target": {
+    "withheld": 6.636124283075333,
+    "delivered": 8.98108221590519,
+    "neutral": 1.3607477992773056,
+    "withheld_minus_neutral": 5.275376483798027,
+    "withheld_gt_neutral_n": 8,
+    "withheld_minus_neutral_p": 0.0078125,
+    "withheld_minus_delivered": -2.344957932829857,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "betrayal": {
+    "withheld": -3.8116396963596344,
+    "delivered": -3.413932427763939,
+    "neutral": -7.238094344735146,
+    "withheld_minus_neutral": 3.426454648375511,
+    "withheld_gt_neutral_n": 7,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": -0.3977072685956955,
+    "withheld_gt_delivered_n": 2,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "sacrifice": {
+    "withheld": -5.00905504822731,
+    "delivered": -7.204868942499161,
+    "neutral": -1.5606800615787506,
+    "withheld_minus_neutral": -3.4483749866485596,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": 2.1958138942718506,
+    "withheld_gt_delivered_n": 7,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "homecoming": {
+    "withheld": 7.909269526600838,
+    "delivered": 9.708251744508743,
+    "neutral": 7.343621835112572,
+    "withheld_minus_neutral": 0.565647691488266,
+    "withheld_gt_neutral_n": 3,
+    "withheld_minus_neutral_p": 0.7265625,
+    "withheld_minus_delivered": -1.7989822179079056,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "control_target_vs_other": {
+    "target_gap": 5.275376483798027,
+    "other_gap": -2.3658245652914047,
+    "diff": 7.641201049089432,
+    "n_target_gt_other": 8,
+    "p": 0.0078125,
+    "per_item": {
+     "storehouse": {
+      "target": 2.699117422103882,
+      "other": -1.120481789112091
+     },
+     "letter": {
+      "target": 8.407344341278076,
+      "other": -3.5003693103790283
+     },
+     "watch": {
+      "target": 4.802807807922363,
+      "other": -1.8385292291641235
+     },
+     "physician": {
+      "target": 1.558831810951233,
+      "other": -0.6375680565834045
+     },
+     "witness": {
+      "target": 5.529959201812744,
+      "other": -2.245660662651062
+     },
+     "orchard": {
+      "target": 5.735353469848633,
+      "other": -2.8641562461853027
+     },
+     "quay": {
+      "target": 6.793251037597656,
+      "other": -3.0917117595672607
+     },
+     "lamp": {
+      "target": 6.676346778869629,
+      "other": -3.628119468688965
+     }
+    }
+   }
+  },
+  "mean_cos": {
+   "target": {
+    "withheld": 0.030288327601738274,
+    "delivered": 0.04188006465847138,
+    "neutral": 0.005977544584311545,
+    "withheld_minus_neutral": 0.02431078301742673,
+    "withheld_gt_neutral_n": 8,
+    "withheld_minus_neutral_p": 0.0078125,
+    "withheld_minus_delivered": -0.011591737056733109,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "betrayal": {
+    "withheld": -0.01738814532291144,
+    "delivered": -0.0158012385800248,
+    "neutral": -0.03303460811730474,
+    "withheld_minus_neutral": 0.0156464627943933,
+    "withheld_gt_neutral_n": 7,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": -0.0015869067428866401,
+    "withheld_gt_delivered_n": 2,
+    "withheld_minus_delivered_p": 0.2890625
+   },
+   "sacrifice": {
+    "withheld": -0.02301649170112796,
+    "delivered": -0.03377861445187591,
+    "neutral": -0.00741279601061251,
+    "withheld_minus_neutral": -0.015603695690515451,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": 0.010762122750747949,
+    "withheld_gt_delivered_n": 7,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "homecoming": {
+    "withheld": 0.0362410971429199,
+    "delivered": 0.045350469401455484,
+    "neutral": 0.033796052121033426,
+    "withheld_minus_neutral": 0.0024450450218864717,
+    "withheld_gt_neutral_n": 3,
+    "withheld_minus_neutral_p": 0.7265625,
+    "withheld_minus_delivered": -0.009109372258535586,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 0.0703125
+   },
+   "control_target_vs_other": {
+    "target_gap": 0.02431078301742673,
+    "other_gap": -0.010911485445831204,
+    "diff": 0.03522226846325793,
+    "n_target_gt_other": 8,
+    "p": 0.0078125,
+    "per_item": {
+     "storehouse": {
+      "target": 0.011598454788327217,
+      "other": -0.004812485625734553
+     },
+     "letter": {
+      "target": 0.03955717943608761,
+      "other": -0.016461885534226894
+     },
+     "watch": {
+      "target": 0.02331535518169403,
+      "other": -0.008935196558013558
+     },
+     "physician": {
+      "target": 0.007042768411338329,
+      "other": -0.002880437590647489
+     },
+     "witness": {
+      "target": 0.024343677796423435,
+      "other": -0.009886039071716368
+     },
+     "orchard": {
+      "target": 0.02592809498310089,
+      "other": -0.012976499274373055
+     },
+     "quay": {
+      "target": 0.03389830142259598,
+      "other": -0.01576627790927887
+     },
+     "lamp": {
+      "target": 0.028802432119846344,
+      "other": -0.015573062002658844
+     }
+    }
+   }
+  },
+  "cont_proj": {
+   "target": {
+    "withheld": 7.092388793826103,
+    "delivered": 6.3087635934352875,
+    "neutral": 5.218483343720436,
+    "withheld_minus_neutral": 1.8739054501056671,
+    "withheld_gt_neutral_n": 6,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": 0.7836252003908157,
+    "withheld_gt_delivered_n": 5,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "betrayal": {
+    "withheld": 1.4901392459869385,
+    "delivered": 1.649752601981163,
+    "neutral": -0.7269080579280853,
+    "withheld_minus_neutral": 2.217047303915024,
+    "withheld_gt_neutral_n": 7,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": -0.15961335599422455,
+    "withheld_gt_delivered_n": 4,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "sacrifice": {
+    "withheld": -8.825815975666046,
+    "delivered": -6.499501496553421,
+    "neutral": -7.60674649477005,
+    "withheld_minus_neutral": -1.219069480895996,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -2.326314479112625,
+    "withheld_gt_delivered_n": 3,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "homecoming": {
+    "withheld": 7.318208009004593,
+    "delivered": 4.9438066482543945,
+    "neutral": 7.929290130734444,
+    "withheld_minus_neutral": -0.6110821217298508,
+    "withheld_gt_neutral_n": 3,
+    "withheld_minus_neutral_p": 0.7265625,
+    "withheld_minus_delivered": 2.3744013607501984,
+    "withheld_gt_delivered_n": 5,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "control_target_vs_other": {
+    "target_gap": 1.8739054501056671,
+    "other_gap": -0.7435048744082451,
+    "diff": 2.617410324513912,
+    "n_target_gt_other": 6,
+    "p": 0.2890625,
+    "per_item": {
+     "storehouse": {
+      "target": 0.5699158906936646,
+      "other": -0.18168210983276367
+     },
+     "letter": {
+      "target": 10.002148628234863,
+      "other": -4.10993492603302
+     },
+     "watch": {
+      "target": 1.407077431678772,
+      "other": -0.5588901042938232
+     },
+     "physician": {
+      "target": 2.695610284805298,
+      "other": -1.1579588055610657
+     },
+     "witness": {
+      "target": 0.421276330947876,
+      "other": -0.2111663818359375
+     },
+     "orchard": {
+      "target": 4.340442657470703,
+      "other": -2.1367316246032715
+     },
+     "quay": {
+      "target": -2.1573486328125,
+      "other": 1.276806116104126
+     },
+     "lamp": {
+      "target": -2.28787899017334,
+      "other": 1.131518840789795
+     }
+    }
+   }
+  },
+  "cont_cos": {
+   "target": {
+    "withheld": 0.029470926558133215,
+    "delivered": 0.025417393713723868,
+    "neutral": 0.02214558700507041,
+    "withheld_minus_neutral": 0.007325339553062804,
+    "withheld_gt_neutral_n": 6,
+    "withheld_minus_neutral_p": 0.2890625,
+    "withheld_minus_delivered": 0.004053532844409347,
+    "withheld_gt_delivered_n": 5,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "betrayal": {
+    "withheld": 0.005645875062327832,
+    "delivered": 0.006478533265180886,
+    "neutral": -0.0031540809286525473,
+    "withheld_minus_neutral": 0.00879995599098038,
+    "withheld_gt_neutral_n": 7,
+    "withheld_minus_neutral_p": 0.0703125,
+    "withheld_minus_delivered": -0.0008326582028530538,
+    "withheld_gt_delivered_n": 4,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "sacrifice": {
+    "withheld": -0.03646774648223072,
+    "delivered": -0.026193061552476138,
+    "neutral": -0.031085151014849544,
+    "withheld_minus_neutral": -0.005382595467381179,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -0.010274684929754585,
+    "withheld_gt_delivered_n": 3,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "homecoming": {
+    "withheld": 0.03065072145545855,
+    "delivered": 0.020060677838046104,
+    "neutral": 0.03255125746363774,
+    "withheld_minus_neutral": -0.0019005360081791878,
+    "withheld_gt_neutral_n": 3,
+    "withheld_minus_neutral_p": 0.7265625,
+    "withheld_minus_delivered": 0.010590043617412448,
+    "withheld_gt_delivered_n": 5,
+    "withheld_minus_delivered_p": 0.7265625
+   },
+   "control_target_vs_other": {
+    "target_gap": 0.007325339553062804,
+    "other_gap": -0.002904257518821396,
+    "diff": 0.0102295970718842,
+    "n_target_gt_other": 6,
+    "p": 0.2890625,
+    "per_item": {
+     "storehouse": {
+      "target": 0.0030391383916139603,
+      "other": -0.0011078640818595886
+     },
+     "letter": {
+      "target": 0.040216480498202145,
+      "other": -0.016519490163773298
+     },
+     "watch": {
+      "target": 0.004950945731252432,
+      "other": -0.0019793962128460407
+     },
+     "physician": {
+      "target": 0.009369935840368271,
+      "other": -0.004042892251163721
+     },
+     "witness": {
+      "target": 0.0016390690580010414,
+      "other": -0.0008223745971918106
+     },
+     "orchard": {
+      "target": 0.02162819728255272,
+      "other": -0.010835771448910236
+     },
+     "quay": {
+      "target": -0.011683855205774307,
+      "other": 0.006826326251029968
+     },
+     "lamp": {
+      "target": -0.010557195171713829,
+      "other": 0.00524740235414356
+     }
+    }
+   }
+  },
+  "lex": {
+   "target": {
+    "withheld": 0.8620689655172413,
+    "delivered": 0.9240591397849462,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.8620689655172413,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -0.06199017426770492,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "betrayal": {
+    "withheld": 0.0,
+    "delivered": 0.4032258064516129,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.0,
+    "withheld_gt_neutral_n": 0,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": -0.4032258064516129,
+    "withheld_gt_delivered_n": 0,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "sacrifice": {
+    "withheld": 0.0,
+    "delivered": 0.0,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.0,
+    "withheld_gt_neutral_n": 0,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": 0.0,
+    "withheld_gt_delivered_n": 0,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "homecoming": {
+    "withheld": 0.8620689655172413,
+    "delivered": 0.5208333333333334,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.8620689655172413,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 1.0,
+    "withheld_minus_delivered": 0.34123563218390796,
+    "withheld_gt_delivered_n": 1,
+    "withheld_minus_delivered_p": 1.0
+   },
+   "control_target_vs_other": {
+    "target_gap": 0.8620689655172413,
+    "other_gap": 0.0,
+    "diff": 0.8620689655172413,
+    "n_target_gt_other": 1,
+    "p": 1.0,
+    "per_item": {
+     "storehouse": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "letter": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "watch": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "physician": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "witness": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "orchard": {
+      "target": 6.896551724137931,
+      "other": 0.0
+     },
+     "quay": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "lamp": {
+      "target": 0.0,
+      "other": 0.0
+     }
+    }
+   }
+  },
+  "chat_cont_proj": {
+   "target": {
+    "withheld": 0.18804489076137543,
+    "neutral": 0.6036837100982666,
+    "withheld_minus_neutral": -0.4156388193368912,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0
+   },
+   "betrayal": {
+    "withheld": -6.779709950089455,
+    "neutral": -8.092823028564453,
+    "withheld_minus_neutral": 1.3131130784749985,
+    "withheld_gt_neutral_n": 5,
+    "withheld_minus_neutral_p": 0.7265625
+   },
+   "sacrifice": {
+    "withheld": -3.0252758860588074,
+    "neutral": -4.672152101993561,
+    "withheld_minus_neutral": 1.6468762159347534,
+    "withheld_gt_neutral_n": 5,
+    "withheld_minus_neutral_p": 0.7265625
+   },
+   "homecoming": {
+    "withheld": 8.387797445058823,
+    "neutral": 11.036530613899231,
+    "withheld_minus_neutral": -2.6487331688404083,
+    "withheld_gt_neutral_n": 2,
+    "withheld_minus_neutral_p": 0.2890625
+   },
+   "control_target_vs_other": {
+    "target_gap": -0.4156388193368912,
+    "other_gap": 0.36344747245311737,
+    "diff": -0.7790862917900085,
+    "n_target_gt_other": 4,
+    "p": 1.0,
+    "per_item": {
+     "storehouse": {
+      "target": 5.173942565917969,
+      "other": -2.022355079650879
+     },
+     "letter": {
+      "target": -0.34221911430358887,
+      "other": -0.05269217491149902
+     },
+     "watch": {
+      "target": 0.1355600357055664,
+      "other": 0.07722878456115723
+     },
+     "physician": {
+      "target": -7.859148740768433,
+      "other": 3.3402308225631714
+     },
+     "witness": {
+      "target": 10.12479817867279,
+      "other": -4.172701358795166
+     },
+     "orchard": {
+      "target": 0.5016498565673828,
+      "other": -0.032538414001464844
+     },
+     "quay": {
+      "target": -3.657604217529297,
+      "other": 1.7759487628936768
+     },
+     "lamp": {
+      "target": -7.4020891189575195,
+      "other": 3.9944584369659424
+     }
+    }
+   }
+  },
+  "chat_cont_cos": {
+   "target": {
+    "withheld": 0.0009867351618595421,
+    "neutral": 0.002929067937657237,
+    "withheld_minus_neutral": -0.001942332775797695,
+    "withheld_gt_neutral_n": 2,
+    "withheld_minus_neutral_p": 0.2890625
+   },
+   "betrayal": {
+    "withheld": -0.03208064957289025,
+    "neutral": -0.038125233026221395,
+    "withheld_minus_neutral": 0.006044583453331143,
+    "withheld_gt_neutral_n": 4,
+    "withheld_minus_neutral_p": 1.0
+   },
+   "sacrifice": {
+    "withheld": -0.014220679353456944,
+    "neutral": -0.021637782570905983,
+    "withheld_minus_neutral": 0.007417103217449039,
+    "withheld_gt_neutral_n": 5,
+    "withheld_minus_neutral_p": 0.7265625
+   },
+   "homecoming": {
+    "withheld": 0.039598664618097246,
+    "neutral": 0.051633244613185525,
+    "withheld_minus_neutral": -0.01203457999508828,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 0.0703125
+   },
+   "control_target_vs_other": {
+    "target_gap": -0.001942332775797695,
+    "other_gap": 0.0016847197257447988,
+    "diff": -0.0036270525015424937,
+    "n_target_gt_other": 3,
+    "p": 0.7265625,
+    "per_item": {
+     "storehouse": {
+      "target": 0.023336827754974365,
+      "other": -0.009118036599829793
+     },
+     "letter": {
+      "target": -0.00017030350863933563,
+      "other": -0.0008656308054924011
+     },
+     "watch": {
+      "target": -0.00023978203535079956,
+      "other": 0.0007098615169525146
+     },
+     "physician": {
+      "target": -0.037796271964907646,
+      "other": 0.01606337004341185
+     },
+     "witness": {
+      "target": 0.04827231587842107,
+      "other": -0.019891945412382483
+     },
+     "orchard": {
+      "target": -0.0005251169204711914,
+      "other": 0.001503586769104004
+     },
+     "quay": {
+      "target": -0.013050958514213562,
+      "other": 0.005990575533360243
+     },
+     "lamp": {
+      "target": -0.03536537289619446,
+      "other": 0.019085976760834455
+     }
+    }
+   }
+  },
+  "chat_lex": {
+   "target": {
+    "withheld": 0.2777777777777778,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.2777777777777778,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 1.0
+   },
+   "betrayal": {
+    "withheld": 0.2777777777777778,
+    "neutral": 0.5955757231990925,
+    "withheld_minus_neutral": -0.3177979454213147,
+    "withheld_gt_neutral_n": 0,
+    "withheld_minus_neutral_p": 0.5
+   },
+   "sacrifice": {
+    "withheld": 0.29069767441860467,
+    "neutral": 0.0,
+    "withheld_minus_neutral": 0.29069767441860467,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 1.0
+   },
+   "homecoming": {
+    "withheld": 0.2777777777777778,
+    "neutral": 0.5784574468085106,
+    "withheld_minus_neutral": -0.30067966903073284,
+    "withheld_gt_neutral_n": 1,
+    "withheld_minus_neutral_p": 1.0
+   },
+   "control_target_vs_other": {
+    "target_gap": 0.2777777777777778,
+    "other_gap": -0.3027788589056103,
+    "diff": 0.5805566366833881,
+    "n_target_gt_other": 4,
+    "p": 0.125,
+    "per_item": {
+     "storehouse": {
+      "target": 0.0,
+      "other": -1.0638297872340425
+     },
+     "letter": {
+      "target": 0.0,
+      "other": -0.08720930232558133
+     },
+     "watch": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "physician": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "witness": {
+      "target": 0.0,
+      "other": 0.0
+     },
+     "orchard": {
+      "target": 2.2222222222222223,
+      "other": -0.05167958656330751
+     },
+     "quay": {
+      "target": 0.0,
+      "other": -1.2195121951219512
+     },
+     "lamp": {
+      "target": 0.0,
+      "other": 0.0
+     }
+    }
+   }
+  },
+  "by_theme_group": {
+   "betrayal": {
+    "n": 5,
+    "last_proj": {
+     "withheld": -3.6511012077331544,
+     "delivered": 6.072562599182129,
+     "neutral": -4.982082080841065
+    },
+    "last_cos": {
+     "withheld": -0.013688449282199144,
+     "delivered": 0.020904146041721104,
+     "neutral": -0.019221621565520763
+    },
+    "mean_proj": {
+     "withheld": -0.33943800926208495,
+     "delivered": 1.124304223060608,
+     "neutral": -4.9390501260757445
+    },
+    "mean_cos": {
+     "withheld": -0.001559327356517315,
+     "delivered": 0.005317854904569685,
+     "neutral": -0.02273081447929144
+    },
+    "cont_proj": {
+     "withheld": 4.219755053520203,
+     "delivered": 3.405196714401245,
+     "neutral": 1.200549340248108
+    },
+    "cont_cos": {
+     "withheld": 0.016859277617186308,
+     "delivered": 0.013497149851173163,
+     "neutral": 0.005016163713298738
+    },
+    "lex": {
+     "withheld": 0.0,
+     "delivered": 0.6451612903225806,
+     "neutral": 0.0
+    },
+    "chat_cont_proj": {
+     "withheld": -5.978814148902893,
+     "neutral": -7.425400733947754
+    },
+    "chat_cont_cos": {
+     "withheld": -0.028164813946932554,
+     "neutral": -0.03484537117183208
+    },
+    "chat_lex": {
+     "withheld": 0.0,
+     "neutral": 0.0
+    }
+   },
+   "homecoming": {
+    "n": 3,
+    "last_proj": {
+     "withheld": 7.78385317325592,
+     "delivered": 21.99351692199707,
+     "neutral": 6.147021492322286
+    },
+    "last_cos": {
+     "withheld": 0.027684954615930717,
+     "delivered": 0.07783576597770055,
+     "neutral": 0.020487711920092504
+    },
+    "mean_proj": {
+     "withheld": 18.262061436971027,
+     "delivered": 22.075712203979492,
+     "neutral": 11.860411008199057
+    },
+    "mean_cos": {
+     "withheld": 0.08336775253216426,
+     "delivered": 0.10281708091497421,
+     "neutral": 0.05382480969031652
+    },
+    "cont_proj": {
+     "withheld": 11.880111694335938,
+     "delivered": 11.148041725158691,
+     "neutral": 11.915040016174316
+    },
+    "cont_cos": {
+     "withheld": 0.050490341459711395,
+     "delivered": 0.045284466817975044,
+     "neutral": 0.050694625824689865
+    },
+    "lex": {
+     "withheld": 2.2988505747126435,
+     "delivered": 1.388888888888889,
+     "neutral": 0.0
+    },
+    "chat_cont_proj": {
+     "withheld": 10.466143290201822,
+     "neutral": 13.985491116841635
+    },
+    "chat_cont_cos": {
+     "withheld": 0.0495726503431797,
+     "neutral": 0.06588646645347278
+    },
+    "chat_lex": {
+     "withheld": 0.7407407407407408,
+     "neutral": 0.0
+    }
+   }
+  },
+  "readout_c": {
+   "mean_n_absential": 590.5,
+   "mean_pre_withheld": -7.1306135058403015,
+   "mean_pre_neutral": -7.223648369312286,
+   "delta": 0.09303486347198486,
+   "n_positive": 7,
+   "p": 0.0703125,
+   "ctrl_delta": -0.014675021171569824,
+   "ctrl_n_positive": 4,
+   "ctrl_p": 1.0,
+   "mean_gap_withheld": -14.771323204040527,
+   "mean_gap_neutral": -14.864357829093933
+  }
+ },
+ "per_item": {
+  "storehouse": {
+   "theme": "betrayal",
+   "withheld": {
+    "n_tokens": 73,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -2.7647924423217773,
+     "sacrifice": 7.819238662719727,
+     "homecoming": -5.318617820739746
+    },
+    "last_cos": {
+     "betrayal": -0.01026500016450882,
+     "sacrifice": 0.029030928388237953,
+     "homecoming": -0.019746731966733932
+    },
+    "mean_proj": {
+     "betrayal": -3.01747727394104,
+     "sacrifice": 3.1315841674804688,
+     "homecoming": -0.5896515846252441
+    },
+    "mean_cos": {
+     "betrayal": -0.013792652636766434,
+     "sacrifice": 0.014314226806163788,
+     "homecoming": -0.0026952512562274933
+    },
+    "cont_proj": {
+     "betrayal": 2.5540149211883545,
+     "sacrifice": -12.627036094665527,
+     "homecoming": 10.129732131958008
+    },
+    "cont_cos": {
+     "betrayal": 0.010774386115372181,
+     "sacrifice": -0.05326850712299347,
+     "homecoming": 0.04273336008191109
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**Questions:**\n\n1. **What is the significance of the year of the flood?**\n    * It could mark a significant event in the story's world, perhaps a time of",
+    "chat_continuation": "The moon was full, casting long, skeletal shadows from the crumbling stones.  He could hear the distant murmur of the river, a constant reminder of the world that had been lost.  Tonight, he would sleep soundly, for the storehouse was safe, and his hunger would be sated.",
+    "chat_cont_proj": {
+     "betrayal": -8.539285659790039,
+     "sacrifice": -0.0778660774230957,
+     "homecoming": 6.961524963378906
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.039321914315223694,
+     "sacrifice": -0.00035855965688824654,
+     "homecoming": 0.03205660358071327
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 82,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": 16.240419387817383,
+     "sacrifice": -10.877862930297852,
+     "homecoming": -2.595996618270874
+    },
+    "last_cos": {
+     "betrayal": 0.054809778928756714,
+     "sacrifice": -0.036711692810058594,
+     "homecoming": -0.008761227130889893
+    },
+    "mean_proj": {
+     "betrayal": -0.31180429458618164,
+     "sacrifice": -0.6653623580932617,
+     "homecoming": 0.8937482833862305
+    },
+    "mean_cos": {
+     "betrayal": -0.0014038999797776341,
+     "sacrifice": -0.002995796501636505,
+     "homecoming": 0.00402410514652729
+    },
+    "cont_proj": {
+     "betrayal": 1.5044770240783691,
+     "sacrifice": -2.9004034996032715,
+     "homecoming": 1.5866084098815918
+    },
+    "cont_cos": {
+     "betrayal": 0.005952007602900267,
+     "sacrifice": -0.011474568396806717,
+     "homecoming": 0.006276935804635286
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**Questions:**\n\n1. **What is the main conflict in this passage?**\n2. **Who are the likely suspects in this theft?**\n3. **What clues suggest that"
+   },
+   "neutral": {
+    "n_tokens": 67,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -5.837702751159668,
+     "sacrifice": 9.703371047973633,
+     "homecoming": -4.659348964691162
+    },
+    "last_cos": {
+     "betrayal": -0.022348059341311455,
+     "sacrifice": 0.03714672103524208,
+     "homecoming": -0.017837051302194595
+    },
+    "mean_proj": {
+     "betrayal": -5.716594696044922,
+     "sacrifice": 4.986946105957031,
+     "homecoming": -0.2040499448776245
+    },
+    "mean_cos": {
+     "betrayal": -0.02539110742509365,
+     "sacrifice": 0.02215026505291462,
+     "homecoming": -0.0009063182515092194
+    },
+    "cont_proj": {
+     "betrayal": 1.98409903049469,
+     "sacrifice": -15.403575897216797,
+     "homecoming": 13.269636154174805
+    },
+    "cont_cos": {
+     "betrayal": 0.007735247723758221,
+     "sacrifice": -0.06005268543958664,
+     "homecoming": 0.051733266562223434
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of story is this?**\n\nThis passage suggests a story that is:\n\n* **Fantasy or speculative fiction:** The mention of \"the year of the flood\" implies a significant",
+    "chat_continuation": "The moon was a sliver tonight, barely illuminating the cobblestones.  He could hear the distant murmur of the river, a constant reminder of the world that had been lost.  His wife would be waiting, a warm hearth and a pot of stew promising solace from the chill. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -13.713228225708008,
+     "sacrifice": -3.7630562782287598,
+     "homecoming": 14.691425323486328
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.06265874207019806,
+     "sacrifice": -0.017194228246808052,
+     "homecoming": 0.06712834537029266
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 2.127659574468085
+    }
+   }
+  },
+  "letter": {
+   "theme": "betrayal",
+   "withheld": {
+    "n_tokens": 74,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 3.0,
+    "last_proj": {
+     "betrayal": 0.7100214958190918,
+     "sacrifice": 18.613178253173828,
+     "homecoming": -18.540645599365234
+    },
+    "last_cos": {
+     "betrayal": 0.0023863776586949825,
+     "sacrifice": 0.06255877017974854,
+     "homecoming": -0.062314990907907486
+    },
+    "mean_proj": {
+     "betrayal": 5.030445575714111,
+     "sacrifice": -11.971765518188477,
+     "homecoming": 7.500101089477539
+    },
+    "mean_cos": {
+     "betrayal": 0.023559847846627235,
+     "sacrifice": -0.056069184094667435,
+     "homecoming": 0.03512635827064514
+    },
+    "cont_proj": {
+     "betrayal": 9.659566879272461,
+     "sacrifice": -9.514507293701172,
+     "homecoming": 1.394932508468628
+    },
+    "cont_cos": {
+     "betrayal": 0.038818325847387314,
+     "sacrifice": -0.0382353849709034,
+     "homecoming": 0.005605732090771198
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What can we infer about the council and the man who wrote the letter?**\n\nHere's what we can infer:\n\n* **The council is likely distrustful:** The fact that",
+    "chat_continuation": "The shadows in the room deepened, swallowing the ink-stained paper and the secrets it held.  A low wind rattled the windowpanes, whispering tales of distant storms and forgotten promises.  Sleep, when it came, was fitful and haunted by the rustle of unseen wings. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -3.8395307064056396,
+     "sacrifice": -3.6754536628723145,
+     "homecoming": 6.644382476806641
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.01777895912528038,
+     "sacrifice": -0.017019199207425117,
+     "homecoming": 0.030766833573579788
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 2.3255813953488373,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 94,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 16.0,
+    "last_proj": {
+     "betrayal": 10.474742889404297,
+     "sacrifice": -4.355602741241455,
+     "homecoming": -4.242559432983398
+    },
+    "last_cos": {
+     "betrayal": 0.0369691327214241,
+     "sacrifice": -0.015372487716376781,
+     "homecoming": -0.014973517507314682
+    },
+    "mean_proj": {
+     "betrayal": 5.468830108642578,
+     "sacrifice": -14.219043731689453,
+     "homecoming": 9.315960884094238
+    },
+    "mean_cos": {
+     "betrayal": 0.026062816381454468,
+     "sacrifice": -0.06776373088359833,
+     "homecoming": 0.04439709708094597
+    },
+    "cont_proj": {
+     "betrayal": 2.4767754077911377,
+     "sacrifice": -6.056879043579102,
+     "homecoming": 3.84958815574646
+    },
+    "cont_cos": {
+     "betrayal": 0.01009100116789341,
+     "sacrifice": -0.02467723749577999,
+     "homecoming": 0.015684183686971664
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What can we infer about the letter's contents?**\n\nHere are some inferences we can make:\n\n* **The letter contained important information:** It was carried by a rider who wouldn"
+   },
+   "neutral": {
+    "n_tokens": 67,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -1.209078311920166,
+     "sacrifice": 16.514476776123047,
+     "homecoming": -14.967056274414062
+    },
+    "last_cos": {
+     "betrayal": -0.004182879813015461,
+     "sacrifice": 0.05713283270597458,
+     "homecoming": -0.05177943781018257
+    },
+    "mean_proj": {
+     "betrayal": -3.376898765563965,
+     "sacrifice": -5.602017879486084,
+     "homecoming": 8.131092071533203
+    },
+    "mean_cos": {
+     "betrayal": -0.015997331589460373,
+     "sacrifice": -0.02653835527598858,
+     "homecoming": 0.038519300520420074
+    },
+    "cont_proj": {
+     "betrayal": -0.34258174896240234,
+     "sacrifice": -5.076957702636719,
+     "homecoming": 5.177252769470215
+    },
+    "cont_cos": {
+     "betrayal": -0.0013981546508148313,
+     "sacrifice": -0.0207202285528183,
+     "homecoming": 0.021129556000232697
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What can we infer about the letter?**\n\nHere are some inferences we can make based on the passage:\n\n* **The letter is important:** It's described as \"long\"",
+    "chat_continuation": "He was tired, the day's work a blur of numbers and signatures.  Tomorrow, he'd deal with the strange letter, he thought, tucking the stack under his arm.  But tomorrow was a long way off, and sleep was a welcome reprieve. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -3.497311592102051,
+     "sacrifice": 7.327336311340332,
+     "homecoming": -4.253023147583008
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.017608655616641045,
+     "sacrifice": 0.036892492324113846,
+     "homecoming": -0.021413596346974373
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 2.5
+    }
+   }
+  },
+  "watch": {
+   "theme": "betrayal",
+   "withheld": {
+    "n_tokens": 70,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -17.464290618896484,
+     "sacrifice": 4.240423202514648,
+     "homecoming": 9.990314483642578
+    },
+    "last_cos": {
+     "betrayal": -0.0625172033905983,
+     "sacrifice": 0.015179512090981007,
+     "homecoming": 0.035762492567300797
+    },
+    "mean_proj": {
+     "betrayal": -4.018555641174316,
+     "sacrifice": 2.059981346130371,
+     "homecoming": 1.2521109580993652
+    },
+    "mean_cos": {
+     "betrayal": -0.018880654126405716,
+     "sacrifice": 0.009678550995886326,
+     "homecoming": 0.0058828783221542835
+    },
+    "cont_proj": {
+     "betrayal": -1.0566767454147339,
+     "sacrifice": -2.437811851501465,
+     "homecoming": 3.2054495811462402
+    },
+    "cont_cos": {
+     "betrayal": -0.0043821739964187145,
+     "sacrifice": -0.010109919123351574,
+     "homecoming": 0.013293410651385784
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**Questions:**\n\n1. **What is the main action taking place in this passage?**\n2. **What is the significance of the watch being set on the north road for the third",
+    "chat_continuation": "Then, flicker of light appeared on the horizon, growing steadily brighter.  It was a lantern, carried by a lone figure, walking with a measured pace.  The watcher closest to the road shifted his hand, a silent signal to his companions. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -15.264649391174316,
+     "sacrifice": -7.548634052276611,
+     "homecoming": 19.596908569335938
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.07271680235862732,
+     "sacrifice": -0.035959720611572266,
+     "homecoming": 0.09335455298423767
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 85,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 16.0,
+    "last_proj": {
+     "betrayal": -0.9430551528930664,
+     "sacrifice": -5.696629047393799,
+     "homecoming": 6.259678840637207
+    },
+    "last_cos": {
+     "betrayal": -0.003143311943858862,
+     "sacrifice": -0.018987523391842842,
+     "homecoming": 0.020864233374595642
+    },
+    "mean_proj": {
+     "betrayal": -2.1811065673828125,
+     "sacrifice": -0.49575304985046387,
+     "homecoming": 2.2374825477600098
+    },
+    "mean_cos": {
+     "betrayal": -0.010291894897818565,
+     "sacrifice": -0.0023392888251692057,
+     "homecoming": 0.010557914152741432
+    },
+    "cont_proj": {
+     "betrayal": 2.5503978729248047,
+     "sacrifice": -1.0428307056427002,
+     "homecoming": -1.0500450134277344
+    },
+    "cont_cos": {
+     "betrayal": 0.009962965734302998,
+     "sacrifice": -0.004073751624673605,
+     "homecoming": -0.004101933911442757
+    },
+    "lex": {
+     "betrayal": 3.225806451612903,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nThis passage is full of intrigue and suspense. Here's a breakdown of what makes it so effective:\n\n* **Established Routine:** The phrase \"They set the watch on the north road for"
+   },
+   "neutral": {
+    "n_tokens": 66,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -17.21638298034668,
+     "sacrifice": 6.812024116516113,
+     "homecoming": 7.307923316955566
+    },
+    "last_cos": {
+     "betrayal": -0.06459765881299973,
+     "sacrifice": 0.025559423491358757,
+     "homecoming": 0.02742009051144123
+    },
+    "mean_proj": {
+     "betrayal": -8.82136344909668,
+     "sacrifice": -3.597277879714966,
+     "homecoming": 10.58642864227295
+    },
+    "mean_cos": {
+     "betrayal": -0.04219600930809975,
+     "sacrifice": -0.017207177355885506,
+     "homecoming": 0.05063899978995323
+    },
+    "cont_proj": {
+     "betrayal": -2.463754177093506,
+     "sacrifice": -2.926276206970215,
+     "homecoming": 4.811694145202637
+    },
+    "cont_cos": {
+     "betrayal": -0.009333119727671146,
+     "sacrifice": -0.01108523178845644,
+     "homecoming": 0.01822751574218273
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of mood does this passage create?**\n\nThe passage creates a **suspenseful and eerie** mood. \n\nHere's why:\n\n* **Repetition:** \"",
+    "chat_continuation": "Then, a flicker of light appeared in the distance, a tiny spark that grew larger as it approached.  It was a single rider, cloaked in black, his face hidden by a wide-brimmed hat.  He rode with a slow, deliberate pace, his eyes fixed on the",
+    "chat_cont_proj": {
+     "betrayal": -15.400209426879883,
+     "sacrifice": -15.159119606018066,
+     "homecoming": 27.052936553955078
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.07247702032327652,
+     "sacrifice": -0.07134239375591278,
+     "homecoming": 0.12731750309467316
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  },
+  "physician": {
+   "theme": "betrayal",
+   "withheld": {
+    "n_tokens": 71,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": 9.992938995361328,
+     "sacrifice": 11.447416305541992,
+     "homecoming": -19.109298706054688
+    },
+    "last_cos": {
+     "betrayal": 0.0357402041554451,
+     "sacrifice": 0.04094220697879791,
+     "homecoming": -0.06834527850151062
+    },
+    "mean_proj": {
+     "betrayal": 2.6038336753845215,
+     "sacrifice": -0.7553784847259521,
+     "homecoming": -1.3706218004226685
+    },
+    "mean_cos": {
+     "betrayal": 0.011692536994814873,
+     "sacrifice": -0.003392033278942108,
+     "homecoming": -0.0061547886580228806
+    },
+    "cont_proj": {
+     "betrayal": 6.532196998596191,
+     "sacrifice": -6.7409820556640625,
+     "homecoming": 1.2395524978637695
+    },
+    "cont_cos": {
+     "betrayal": 0.02570159174501896,
+     "sacrifice": -0.026523077860474586,
+     "homecoming": 0.0048771449364721775
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nThis passage creates a sense of:\n\n* **Suspense:** The physician's past connection to the sick man and the secret he holds creates a sense of anticipation and uncertainty. What will he do",
+    "chat_continuation": "He watched the sick man closely, noting the subtle changes in his breathing, the way his hand trembled when he reached for his glass of water.  A flicker of satisfaction, almost imperceptible, would cross the physician's face whenever the man coughed a little harder, his breaths coming a little shallower",
+    "chat_cont_proj": {
+     "betrayal": -3.900261640548706,
+     "sacrifice": 2.1451849937438965,
+     "homecoming": 1.074463129043579
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.018777308985590935,
+     "sacrifice": 0.01032771822065115,
+     "homecoming": 0.0051728649996221066
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 84,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 3.0,
+    "last_proj": {
+     "betrayal": 6.613173484802246,
+     "sacrifice": 6.978005886077881,
+     "homecoming": -12.069247245788574
+    },
+    "last_cos": {
+     "betrayal": 0.022334882989525795,
+     "sacrifice": 0.023567043244838715,
+     "homecoming": -0.040761854499578476
+    },
+    "mean_proj": {
+     "betrayal": 2.0536184310913086,
+     "sacrifice": -1.5980799198150635,
+     "homecoming": -0.11341571807861328
+    },
+    "mean_cos": {
+     "betrayal": 0.009509112685918808,
+     "sacrifice": -0.007399778347462416,
+     "homecoming": -0.0005251622060313821
+    },
+    "cont_proj": {
+     "betrayal": 8.163782119750977,
+     "sacrifice": -11.009284019470215,
+     "homecoming": 4.044149398803711
+    },
+    "cont_cos": {
+     "betrayal": 0.03225043788552284,
+     "sacrifice": -0.043491389602422714,
+     "homecoming": 0.01597612351179123
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nThis passage is full of intrigue and suspense. Here's why:\n\n* **Hidden Motive:** The physician's past connection to the sick man, the ruined family, and the unspoken grudge"
+   },
+   "neutral": {
+    "n_tokens": 69,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 3.0,
+    "last_proj": {
+     "betrayal": 10.046648025512695,
+     "sacrifice": 12.341303825378418,
+     "homecoming": -20.015514373779297
+    },
+    "last_cos": {
+     "betrayal": 0.03491538017988205,
+     "sacrifice": 0.04289005696773529,
+     "homecoming": -0.0695604458451271
+    },
+    "mean_proj": {
+     "betrayal": 1.0450018644332886,
+     "sacrifice": -0.23473358154296875,
+     "homecoming": -0.6161305904388428
+    },
+    "mean_cos": {
+     "betrayal": 0.004649768583476543,
+     "sacrifice": -0.0010444544022902846,
+     "homecoming": -0.0027414923533797264
+    },
+    "cont_proj": {
+     "betrayal": 3.8365867137908936,
+     "sacrifice": -2.641482353210449,
+     "homecoming": -0.5440295934677124
+    },
+    "cont_cos": {
+     "betrayal": 0.016331655904650688,
+     "sacrifice": -0.011244312860071659,
+     "homecoming": -0.0023158355616033077
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": " He was a man of routine, and the routine was a comfort to him.\n\n**What can you tell about the physician from this passage?**\n\nHere's what we can infer about the",
+    "chat_continuation": "The book was bound in worn leather, its pages filled with fadedidery handwriting and faded ink.  He wondered who had kept it before him, what ailments they had treated, what stories lay hidden within its yellowed pages.  Each night, the silence of the room pressed in on him,",
+    "chat_cont_proj": {
+     "betrayal": 3.9588871002197266,
+     "sacrifice": -7.738957405090332,
+     "homecoming": 4.278143882751465
+    },
+    "chat_cont_cos": {
+     "betrayal": 0.01901896297931671,
+     "sacrifice": -0.03717886656522751,
+     "homecoming": 0.020552709698677063
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  },
+  "witness": {
+   "theme": "betrayal",
+   "withheld": {
+    "n_tokens": 68,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -8.72938346862793,
+     "sacrifice": 2.167388439178467,
+     "homecoming": 4.947380065917969
+    },
+    "last_cos": {
+     "betrayal": -0.033786624670028687,
+     "sacrifice": 0.008388764224946499,
+     "homecoming": 0.019148578867316246
+    },
+    "mean_proj": {
+     "betrayal": -2.295436382293701,
+     "sacrifice": 0.16064882278442383,
+     "homecoming": 1.696033239364624
+    },
+    "mean_cos": {
+     "betrayal": -0.010375714860856533,
+     "sacrifice": 0.000726156635209918,
+     "homecoming": 0.007666322868317366
+    },
+    "cont_proj": {
+     "betrayal": 3.4096732139587402,
+     "sacrifice": -10.033087730407715,
+     "homecoming": 6.935662269592285
+    },
+    "cont_cos": {
+     "betrayal": 0.0133842583745718,
+     "sacrifice": -0.0393836684525013,
+     "homecoming": 0.027225099503993988
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of story is this likely to be?**\n\nThis passage suggests a story that is likely to be:\n\n* **A crime story or thriller:** The mention of a hearing,",
+    "chat_continuation": "His hands trembled, not from fear, but from the weight of the money tucked into his coat pocket.  He could feel the eyes of the townspeople on him, their gazes like icy needles pricking at his skin.  He knew, with a certainty that chilled him to the bone,",
+    "chat_cont_proj": {
+     "betrayal": 1.6496566534042358,
+     "sacrifice": -2.8559985160827637,
+     "homecoming": 1.4266705513000488
+    },
+    "chat_cont_cos": {
+     "betrayal": 0.007770915050059557,
+     "sacrifice": -0.013453539460897446,
+     "homecoming": 0.0067205107770860195
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 76,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 3.0,
+    "last_proj": {
+     "betrayal": -2.022467613220215,
+     "sacrifice": 4.690042018890381,
+     "homecoming": -2.8965229988098145
+    },
+    "last_cos": {
+     "betrayal": -0.006449752487242222,
+     "sacrifice": 0.014956783503293991,
+     "homecoming": -0.009237159974873066
+    },
+    "mean_proj": {
+     "betrayal": 0.591983437538147,
+     "sacrifice": 0.4324929714202881,
+     "homecoming": -0.8948986530303955
+    },
+    "mean_cos": {
+     "betrayal": 0.002713140333071351,
+     "sacrifice": 0.0019821738824248314,
+     "homecoming": -0.004101441707462072
+    },
+    "cont_proj": {
+     "betrayal": 2.3305511474609375,
+     "sacrifice": 0.4604935646057129,
+     "homecoming": -2.3239729404449463
+    },
+    "cont_cos": {
+     "betrayal": 0.009229336865246296,
+     "sacrifice": 0.0018236245959997177,
+     "homecoming": -0.009203286841511726
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**Questions:**\n\n1. **What is the main conflict in this passage?**\n2. **What are the implications of the witness refusing to testify?**\n3. **What does"
+   },
+   "neutral": {
+    "n_tokens": 66,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 3.0,
+    "last_proj": {
+     "betrayal": -10.693894386291504,
+     "sacrifice": 6.471712589263916,
+     "homecoming": 2.3764913082122803
+    },
+    "last_cos": {
+     "betrayal": -0.039894890040159225,
+     "sacrifice": 0.0241435207426548,
+     "homecoming": 0.008865793235599995
+    },
+    "mean_proj": {
+     "betrayal": -7.825395584106445,
+     "sacrifice": 1.0776019096374512,
+     "homecoming": 5.270401477813721
+    },
+    "mean_cos": {
+     "betrayal": -0.03471939265727997,
+     "sacrifice": 0.004781059455126524,
+     "homecoming": 0.023383498191833496
+    },
+    "cont_proj": {
+     "betrayal": 2.9883968830108643,
+     "sacrifice": -7.649740219116211,
+     "homecoming": 4.974647521972656
+    },
+    "cont_cos": {
+     "betrayal": 0.011745189316570759,
+     "sacrifice": -0.030065499246120453,
+     "homecoming": 0.019551679491996765
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of story is this likely to be?**\n\nHere are some possibilities and why:\n\n* **Mystery/Thriller:** The \"hearing\" suggests a serious accusation or legal matter.",
+    "chat_continuation": "His hands were clammy, and he kept twisting the worn leather of his satchel.  He could hear the murmur of voices growing louder as more people arrived, a low hum of anticipation and anxiety.  He wished he could disappear, melt into the rough wooden floorboards and become invisible. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -8.475141525268555,
+     "sacrifice": 2.349785804748535,
+     "homecoming": 4.566288948059082
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.04050140082836151,
+     "sacrifice": 0.011229266412556171,
+     "homecoming": 0.02182159572839737
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  },
+  "orchard": {
+   "theme": "homecoming",
+   "withheld": {
+    "n_tokens": 70,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -19.377025604248047,
+     "sacrifice": 15.072297096252441,
+     "homecoming": 1.0763682126998901
+    },
+    "last_cos": {
+     "betrayal": -0.07164854556322098,
+     "sacrifice": 0.05573136731982231,
+     "homecoming": 0.003979981876909733
+    },
+    "mean_proj": {
+     "betrayal": -9.969104766845703,
+     "sacrifice": -12.722809791564941,
+     "homecoming": 20.321247100830078
+    },
+    "mean_cos": {
+     "betrayal": -0.04446744546294212,
+     "sacrifice": -0.05675041303038597,
+     "homecoming": 0.09064343571662903
+    },
+    "cont_proj": {
+     "betrayal": -2.3825483322143555,
+     "sacrifice": -12.426116943359375,
+     "homecoming": 13.91678524017334
+    },
+    "cont_cos": {
+     "betrayal": -0.010080854408442974,
+     "sacrifice": -0.05257642641663551,
+     "homecoming": 0.05888362601399422
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 6.896551724137931
+    },
+    "continuation": "\n\n**What can we infer about the narrator?**\n\nHere are some inferences we can make about the narrator:\n\n* **She is returning home:** The phrase \"years she was away\" and",
+    "chat_continuation": "The scent of woodsmoke and baking bread drifted out, a familiar comfort that tugged at her heartstrings.  A wave of longing, both sweet and bittersweet, washed over her, bringing tears to her eyes.  She took a deep breath, steeling herself for the reunion that awaited. ",
+    "chat_cont_proj": {
+     "betrayal": -8.795802116394043,
+     "sacrifice": -8.046101570129395,
+     "homecoming": 14.860441207885742
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.04040667787194252,
+     "sacrifice": -0.036962658166885376,
+     "homecoming": 0.06826677173376083
+    },
+    "chat_lex": {
+     "betrayal": 2.2222222222222223,
+     "sacrifice": 0.0,
+     "homecoming": 2.2222222222222223
+    }
+   },
+   "delivered": {
+    "n_tokens": 87,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 16.0,
+    "last_proj": {
+     "betrayal": -2.573206663131714,
+     "sacrifice": -19.62010955810547,
+     "homecoming": 21.015178680419922
+    },
+    "last_cos": {
+     "betrayal": -0.009081132709980011,
+     "sacrifice": -0.06924155354499817,
+     "homecoming": 0.07416490465402603
+    },
+    "mean_proj": {
+     "betrayal": -9.16778564453125,
+     "sacrifice": -15.93608283996582,
+     "homecoming": 22.776933670043945
+    },
+    "mean_cos": {
+     "betrayal": -0.042814962565898895,
+     "sacrifice": -0.07442394644021988,
+     "homecoming": 0.10637176781892776
+    },
+    "cont_proj": {
+     "betrayal": 1.8614075183868408,
+     "sacrifice": -8.984400749206543,
+     "homecoming": 7.171892166137695
+    },
+    "cont_cos": {
+     "betrayal": 0.007524499669671059,
+     "sacrifice": -0.036318279802799225,
+     "homecoming": 0.028991447761654854
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nWhat literary devices are used in this passage?\n\nHere are some literary devices used in the passage, along with explanations:\n\n* **Nostalgia:** The entire passage evokes a sense of longing for"
+   },
+   "neutral": {
+    "n_tokens": 63,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 16.0,
+    "last_proj": {
+     "betrayal": -20.538955688476562,
+     "sacrifice": 15.649852752685547,
+     "homecoming": 1.4558472633361816
+    },
+    "last_cos": {
+     "betrayal": -0.07620631903409958,
+     "sacrifice": 0.058066125959157944,
+     "homecoming": 0.005401674658060074
+    },
+    "mean_proj": {
+     "betrayal": -11.262861251831055,
+     "sacrifice": -5.700740814208984,
+     "homecoming": 14.585893630981445
+    },
+    "mean_cos": {
+     "betrayal": -0.0499715618789196,
+     "sacrifice": -0.025293298065662384,
+     "homecoming": 0.06471534073352814
+    },
+    "cont_proj": {
+     "betrayal": -3.7361273765563965,
+     "sacrifice": -6.799074649810791,
+     "homecoming": 9.576342582702637
+    },
+    "cont_cos": {
+     "betrayal": -0.014534884132444859,
+     "sacrifice": -0.026450853794813156,
+     "homecoming": 0.0372554287314415
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of mood does this passage create?**\n\nThe passage creates a **nostalgic and peaceful** mood. \n\nHere's why:\n\n* **\"The road past",
+    "chat_continuation": "The rusted hinges groaned as she pushed it open, a sound that echoed in the stillness of the afternoon.  A faint scent of apples, sweet and sharp, drifted on the breeze.  She took a deep breath, feeling a familiar ache in her chest. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -11.557336807250977,
+     "sacrifice": -5.219490051269531,
+     "homecoming": 14.35879135131836
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.05537032708525658,
+     "sacrifice": -0.025006182491779327,
+     "homecoming": 0.06879188865423203
+    },
+    "chat_lex": {
+     "betrayal": 2.3255813953488373,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  },
+  "quay": {
+   "theme": "homecoming",
+   "withheld": {
+    "n_tokens": 65,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -9.633285522460938,
+     "sacrifice": -1.0738673210144043,
+     "homecoming": 8.805232048034668
+    },
+    "last_cos": {
+     "betrayal": -0.03591376915574074,
+     "sacrifice": -0.004003475420176983,
+     "homecoming": 0.03282671049237251
+    },
+    "mean_proj": {
+     "betrayal": -6.6307053565979,
+     "sacrifice": -11.202995300292969,
+     "homecoming": 16.161911010742188
+    },
+    "mean_cos": {
+     "betrayal": -0.031103774905204773,
+     "sacrifice": -0.052551791071891785,
+     "homecoming": 0.0758134201169014
+    },
+    "cont_proj": {
+     "betrayal": -5.588741779327393,
+     "sacrifice": -10.245803833007812,
+     "homecoming": 14.397621154785156
+    },
+    "cont_cos": {
+     "betrayal": -0.02397117391228676,
+     "sacrifice": -0.043946195393800735,
+     "homecoming": 0.061754126101732254
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": " He watched the passengers disembark, each one a story waiting to be told.\n\n**What kind of story is this likely to be?**\n\nThis passage suggests a story that is likely to be",
+    "chat_continuation": "His heart hammered a rhythm against his ribs, a drumbeat of hope against the steady thrum of the ship's engines.  He clutched the worn envelope in his hand, the paper thin and creased from countless unfoldings and refoldings.  This time, he thought, this time",
+    "chat_cont_proj": {
+     "betrayal": -6.743098258972168,
+     "sacrifice": -3.141007900238037,
+     "homecoming": 8.46999740600586
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.03339562565088272,
+     "sacrifice": -0.015556042082607746,
+     "homecoming": 0.04194820299744606
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 80,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -14.517404556274414,
+     "sacrifice": -17.087844848632812,
+     "homecoming": 28.20287322998047
+    },
+    "last_cos": {
+     "betrayal": -0.04971553385257721,
+     "sacrifice": -0.05851812660694122,
+     "homecoming": 0.09658206254243851
+    },
+    "mean_proj": {
+     "betrayal": -6.521073341369629,
+     "sacrifice": -14.831381797790527,
+     "homecoming": 19.576126098632812
+    },
+    "mean_cos": {
+     "betrayal": -0.030622532591223717,
+     "sacrifice": -0.06964719295501709,
+     "homecoming": 0.09192820638418198
+    },
+    "cont_proj": {
+     "betrayal": -1.5214520692825317,
+     "sacrifice": -13.245691299438477,
+     "homecoming": 14.013538360595703
+    },
+    "cont_cos": {
+     "betrayal": -0.006169464904814959,
+     "sacrifice": -0.05371107533574104,
+     "homecoming": 0.05682468041777611
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\n**What kind of story is this likely to be?**\n\nThis passage suggests a story that is likely to be:\n\n* **Romantic:** The focus on a long-held, unrequ"
+   },
+   "neutral": {
+    "n_tokens": 64,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 16.0,
+    "last_proj": {
+     "betrayal": -9.88591194152832,
+     "sacrifice": 6.763036727905273,
+     "homecoming": 1.4436789751052856
+    },
+    "last_cos": {
+     "betrayal": -0.03469670191407204,
+     "sacrifice": 0.02373630926012993,
+     "homecoming": 0.005066897254437208
+    },
+    "mean_proj": {
+     "betrayal": -11.817085266113281,
+     "sacrifice": 0.1668081283569336,
+     "homecoming": 9.368659973144531
+    },
+    "mean_cos": {
+     "betrayal": -0.05286930501461029,
+     "sacrifice": 0.0007462948560714722,
+     "homecoming": 0.04191511869430542
+    },
+    "cont_proj": {
+     "betrayal": -7.525444030761719,
+     "sacrifice": -10.862713813781738,
+     "homecoming": 16.554969787597656
+    },
+    "cont_cos": {
+     "betrayal": -0.03338293358683586,
+     "sacrifice": -0.04818708822131157,
+     "homecoming": 0.07343798130750656
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": " He watched the first man step off the ship, his face pale and drawn, his eyes red-rimmed.\n\nWhat kind of story is this?\n\nThis passage suggests a story that is likely",
+    "chat_continuation": "A familiar scent of salt and brine, him, mingled with the sweet, cloying aroma of exotic spices.  He knew hear the shouts of the dockworkers, their voices echoing across the brick buildings lining the harbor.  It was good to be home. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -5.303139686584473,
+     "sacrifice": -8.132863998413086,
+     "homecoming": 12.127601623535156
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.024049952626228333,
+     "sacrifice": -0.03688286617398262,
+     "homecoming": 0.05499916151165962
+    },
+    "chat_lex": {
+     "betrayal": 2.4390243902439024,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  },
+  "lamp": {
+   "theme": "homecoming",
+   "withheld": {
+    "n_tokens": 74,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -3.7920966148376465,
+     "sacrifice": -10.785744667053223,
+     "homecoming": 13.469959259033203
+    },
+    "last_cos": {
+     "betrayal": -0.013019900768995285,
+     "sacrifice": -0.0370321087539196,
+     "homecoming": 0.0462481714785099
+    },
+    "mean_proj": {
+     "betrayal": -12.196117401123047,
+     "sacrifice": -8.771705627441406,
+     "homecoming": 18.30302619934082
+    },
+    "mean_cos": {
+     "betrayal": -0.05573730543255806,
+     "sacrifice": -0.04008744657039642,
+     "homecoming": 0.08364640176296234
+    },
+    "cont_proj": {
+     "betrayal": -1.2063711881637573,
+     "sacrifice": -6.58118200302124,
+     "homecoming": 7.325928688049316
+    },
+    "cont_cos": {
+     "betrayal": -0.005077359266579151,
+     "sacrifice": -0.02769879251718521,
+     "homecoming": 0.030833272263407707
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nWhat can you infer about the family from this passage?\n\nHere are some inferences we can make:\n\n* **They are hopeful:** The fact that they aired the room, made the bed,",
+    "chat_continuation": "The old woman sat by the fire, her hands clasped tightly in her lap.  She watched the flames dance, their flickering light casting long shadows on the walls.  She waited. \n\n\n",
+    "chat_cont_proj": {
+     "betrayal": -8.804708480834961,
+     "sacrifice": -1.0023303031921387,
+     "homecoming": 8.067991256713867
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.042018823325634,
+     "sacrifice": -0.004783433862030506,
+     "homecoming": 0.038502976298332214
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   },
+   "delivered": {
+    "n_tokens": 82,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -17.136714935302734,
+     "sacrifice": -3.048569679260254,
+     "homecoming": 16.76249885559082
+    },
+    "last_cos": {
+     "betrayal": -0.06416142731904984,
+     "sacrifice": -0.011414123699069023,
+     "homecoming": 0.06276033073663712
+    },
+    "mean_proj": {
+     "betrayal": -17.244121551513672,
+     "sacrifice": -10.325740814208984,
+     "homecoming": 23.87407684326172
+    },
+    "mean_cos": {
+     "betrayal": -0.07956168800592422,
+     "sacrifice": -0.04764135554432869,
+     "homecoming": 0.1101512685418129
+    },
+    "cont_proj": {
+     "betrayal": -4.1679182052612305,
+     "sacrifice": -9.217016220092773,
+     "homecoming": 12.258694648742676
+    },
+    "cont_cos": {
+     "betrayal": -0.017012517899274826,
+     "sacrifice": -0.037621814757585526,
+     "homecoming": 0.05003727227449417
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 4.166666666666667
+    },
+    "continuation": "\n\n**Questions:**\n\n1. **What is the main idea of this passage?**\n2. **What details suggest that the family has been expecting the youngest son's return?**\n"
+   },
+   "neutral": {
+    "n_tokens": 70,
+    "n_cont_tokens": 40,
+    "prefix_match": true,
+    "prefix_resid_maxdiff": 2.0,
+    "last_proj": {
+     "betrayal": -3.545630693435669,
+     "sacrifice": -13.137594223022461,
+     "homecoming": 15.54153823852539
+    },
+    "last_cos": {
+     "betrayal": -0.011633847840130329,
+     "sacrifice": -0.043106794357299805,
+     "homecoming": 0.05099456384778023
+    },
+    "mean_proj": {
+     "betrayal": -10.129557609558105,
+     "sacrifice": -3.582026481628418,
+     "homecoming": 11.626679420471191
+    },
+    "mean_cos": {
+     "betrayal": -0.04778192564845085,
+     "sacrifice": -0.016896702349185944,
+     "homecoming": 0.054843969643116
+    },
+    "cont_proj": {
+     "betrayal": -0.5564397573471069,
+     "sacrifice": -9.49415111541748,
+     "homecoming": 9.613807678222656
+    },
+    "cont_cos": {
+     "betrayal": -0.0023956482764333487,
+     "sacrifice": -0.040875308215618134,
+     "homecoming": 0.041390467435121536
+    },
+    "lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    },
+    "continuation": "\n\nWhat can you infer about the people who lived in the house?\n\nHere are some inferences you can make:\n\n* **They are likely gone:** The house has been shut up for a long",
+    "chat_continuation": "The light cast long, thin shadows across the overgrown lawn, stretching towards the rusted swing set in the corner.  A faint scent of honeysuckle drifted on the breeze, a memory of summer days long gone.  Inside somewhere, deep inside the house, a floorboard creaked, a lonely sigh",
+    "chat_cont_proj": {
+     "betrayal": -10.755104064941406,
+     "sacrifice": -7.040851593017578,
+     "homecoming": 15.470080375671387
+    },
+    "chat_cont_cos": {
+     "betrayal": -0.051354728639125824,
+     "sacrifice": -0.033619482070207596,
+     "homecoming": 0.07386834919452667
+    },
+    "chat_lex": {
+     "betrayal": 0.0,
+     "sacrifice": 0.0,
+     "homecoming": 0.0
+    }
+   }
+  }
+ },
+ "readout_c": {
+  "storehouse": {
+   "n_absential": 569,
+   "n_active_passage": 1725,
+   "n_active_cont": 816,
+   "pre_withheld": -6.968416213989258,
+   "pre_neutral": -6.867654323577881,
+   "gap_withheld": -14.648001670837402,
+   "gap_neutral": -14.547239303588867,
+   "frac_within_1_withheld": 0.0,
+   "frac_within_1_neutral": 0.0017574692442882249,
+   "ctrl_pre_withheld": -8.354887962341309,
+   "ctrl_pre_neutral": -8.100719451904297,
+   "pre_withheld_meanpos": -7.806687355041504,
+   "pre_neutral_meanpos": -7.956575870513916
+  },
+  "letter": {
+   "n_absential": 579,
+   "n_active_passage": 1638,
+   "n_active_cont": 844,
+   "pre_withheld": -7.65836238861084,
+   "pre_neutral": -7.770929336547852,
+   "gap_withheld": -15.306195259094238,
+   "gap_neutral": -15.418761253356934,
+   "frac_within_1_withheld": 0.0034542314335060447,
+   "frac_within_1_neutral": 0.0017271157167530224,
+   "ctrl_pre_withheld": -9.767592430114746,
+   "ctrl_pre_neutral": -9.859404563903809,
+   "pre_withheld_meanpos": -7.474772930145264,
+   "pre_neutral_meanpos": -7.613214492797852
+  },
+  "watch": {
+   "n_absential": 510,
+   "n_active_passage": 1548,
+   "n_active_cont": 800,
+   "pre_withheld": -7.307806491851807,
+   "pre_neutral": -7.327946186065674,
+   "gap_withheld": -14.942913055419922,
+   "gap_neutral": -14.963053703308105,
+   "frac_within_1_withheld": 0.0,
+   "frac_within_1_neutral": 0.0,
+   "ctrl_pre_withheld": -7.949345111846924,
+   "ctrl_pre_neutral": -7.723330974578857,
+   "pre_withheld_meanpos": -7.553774833679199,
+   "pre_neutral_meanpos": -7.792859077453613
+  },
+  "physician": {
+   "n_absential": 598,
+   "n_active_passage": 1630,
+   "n_active_cont": 899,
+   "pre_withheld": -6.9843621253967285,
+   "pre_neutral": -7.109748840332031,
+   "gap_withheld": -14.595352172851562,
+   "gap_neutral": -14.720739364624023,
+   "frac_within_1_withheld": 0.0033444816053511705,
+   "frac_within_1_neutral": 0.0,
+   "ctrl_pre_withheld": -8.735649108886719,
+   "ctrl_pre_neutral": -8.481656074523926,
+   "pre_withheld_meanpos": -7.198324680328369,
+   "pre_neutral_meanpos": -7.387784481048584
+  },
+  "witness": {
+   "n_absential": 596,
+   "n_active_passage": 1529,
+   "n_active_cont": 795,
+   "pre_withheld": -7.151401519775391,
+   "pre_neutral": -7.200220108032227,
+   "gap_withheld": -14.764328956604004,
+   "gap_neutral": -14.813145637512207,
+   "frac_within_1_withheld": 0.0,
+   "frac_within_1_neutral": 0.003355704697986577,
+   "ctrl_pre_withheld": -8.438417434692383,
+   "ctrl_pre_neutral": -8.659002304077148,
+   "pre_withheld_meanpos": -7.945154190063477,
+   "pre_neutral_meanpos": -8.044182777404785
+  },
+  "orchard": {
+   "n_absential": 615,
+   "n_active_passage": 1503,
+   "n_active_cont": 864,
+   "pre_withheld": -7.337000370025635,
+   "pre_neutral": -7.512876510620117,
+   "gap_withheld": -14.975455284118652,
+   "gap_neutral": -15.151330947875977,
+   "frac_within_1_withheld": 0.0,
+   "frac_within_1_neutral": 0.0,
+   "ctrl_pre_withheld": -8.260473251342773,
+   "ctrl_pre_neutral": -8.533679008483887,
+   "pre_withheld_meanpos": -7.787537574768066,
+   "pre_neutral_meanpos": -7.916720867156982
+  },
+  "quay": {
+   "n_absential": 637,
+   "n_active_passage": 1454,
+   "n_active_cont": 964,
+   "pre_withheld": -6.451467990875244,
+   "pre_neutral": -6.703220844268799,
+   "gap_withheld": -14.074117660522461,
+   "gap_neutral": -14.325871467590332,
+   "frac_within_1_withheld": 0.0,
+   "frac_within_1_neutral": 0.0031397174254317113,
+   "ctrl_pre_withheld": -8.490357398986816,
+   "ctrl_pre_neutral": -8.435102462768555,
+   "pre_withheld_meanpos": -7.512383937835693,
+   "pre_neutral_meanpos": -7.873501777648926
+  },
+  "lamp": {
+   "n_absential": 620,
+   "n_active_passage": 1555,
+   "n_active_cont": 885,
+   "pre_withheld": -7.18609094619751,
+   "pre_neutral": -7.296590805053711,
+   "gap_withheld": -14.864221572875977,
+   "gap_neutral": -14.97472095489502,
+   "frac_within_1_withheld": 0.004838709677419355,
+   "frac_within_1_neutral": 0.0064516129032258064,
+   "ctrl_pre_withheld": -8.89339542388916,
+   "ctrl_pre_neutral": -8.979823112487793,
+   "pre_withheld_meanpos": -7.607832431793213,
+   "pre_neutral_meanpos": -7.45728874206543
+  }
+ }
+}
