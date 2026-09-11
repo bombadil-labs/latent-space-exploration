@@ -24,7 +24,7 @@ d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, fl
 **Standing caveats.** Grids authored by Claude, reviewed by Claude (32 holonic domains), or authored by GPT (h23: factor and theme results replicate); no human-written grid yet; selector-level evidence dominates; generation-level evidence qualitative and model-dependent; layers chosen mid-stack by convention with sweeps only for the role lens and relation lens.
 
 **Reoriented plan.**
-1. **Writeup** (`WRITEUP.md`): rewrite around the nine standing claims, the four negatives, and the two partials; add the figures from h17; one table per model family. Lead with the calculus results; tell the original hypothesis as the arc (shape → roles → relation → data).
+1. ~~**Writeup** rewrite~~ done (second draft, post-checkpoint); figures and per-family tables still to embed.
 2. **Source-specificity** of the relation operator under patching: fit on paired residuals with a rotation constraint, or more domains; the test is relation vs wrong-source, not relation vs random.
 3. ~~Third-party factor grids~~ GPT-authored era×voice and era×theme replicate (h23). Remaining: a human-written grid, and a holonic domain set from a second author.
 4. **Scale the steering-competence curve**: Llama-3.1-70B-Instruct when the license clears; same scripts.
