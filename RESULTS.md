@@ -541,6 +541,37 @@ directions from a contrastive pair rather than a mean (sharper); or treating the
 beat-level directions applied at different positions rather than one direction everywhere, which is
 the relation-operator idea from stage 3 brought back at the plot level.
 
+## 2026-09-11 (hour 11) — Pushing on the theme boundary: multi-layer patches don't move it
+
+**Multi-layer, re-imposed.** Same theme grid; the (factor, level) direction is estimated at each of
+layers 12, 16, 20, 24 and added at all four (scale 0.5 each) so that later blocks cannot erode it.
+`results/stage6_qwen1.5b_theme_multilayer.json`.
+
+| | single layer 20, scale 1 | four layers, scale 0.5 each |
+|---|---|---|
+| theme lens, rank/3 | 1.25 | 1.19 |
+| era lens, rank/3 | 1.36 | 1.25 |
+| era + theme composed, rank/9 | 2.22 | 2.17 |
+| cross-talk theme→era / era→theme | 0.17 / 0.12 | 0.19 / 0.11 |
+
+Within noise of the single-layer numbers. The selector was already near its ceiling; re-imposition
+does not raise it.
+
+**Generation with repetition penalty (1.3) under the four-layer patch.** With the repetition
+collapse suppressed, the base model's other failure mode appears: it drifts into quiz/exam format
+("What is going to happen next? Options: …"), which is a property of Qwen2.5-base's pretraining mix,
+not of the patch. Inside the prose that survives, traces are faint and factor-appropriate:
++sacrifice → hunger, starving, "no food for them", "they ate some of their own meat";
++homecoming → "carrying his pack… walking for days", "waiting for it… hope of rescue… what they'd
+found out about him"; +betrayal → nothing consistent. `results/stage6_theme_gens_multi.log`.
+
+**Reading.** The theme boundary from hour 10 stands. Neither erosion (fixed by multi-layer
+re-imposition) nor degenerate decoding (fixed by the penalty) was the obstacle; the obstacle is
+that a 1.5B base model does not have a "write a passage about sacrifice" capability for a single
+direction to unlock, whereas it does have "write in a 1920s setting" and "write like a child".
+Steering can only select among competences the model already has. The next real move is a model
+with the competence (instruction-tuned or larger), not a better patch.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -554,8 +585,9 @@ the relation-operator idea from stage 3 brought back at the plot level.
 4e. ~~Mood~~ done: semantic factor, lens 1.28/3, composes with era 1.89/9, diagonal cross-talk; needs
    last-token/late-layer/×2–3 patch to show in generation.
 4f. ~~Theme over multi-sentence spans~~ done: selector 1.25/3, composes 2.2/9, generation ≈ base.
-4g. Push past the theme boundary: multi-layer re-imposed patches; contrastive directions; an
-   instruction-tuned or larger model (nnsight/NDIF for 70B); beat-level directions at positions.
+4g. ~~Multi-layer re-imposed patches~~ no change. Remaining: an instruction-tuned or larger model
+   (Qwen2.5-1.5B-Instruct is a cheap first try; nnsight/NDIF for 70B if reachable); beat-level
+   directions at positions.
 4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
