@@ -21,12 +21,12 @@ d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, fl
 
 **Partial / open.** Generative relation lens: helpful but not source-specific at 40 domains (h20). Continuation-defined absence: null at n=8 (h21). Selector saturates early; the model with the sharpest selector is not the one that steers (h13).
 
-**Standing caveats.** Grids authored (8 domains, all factor grids) or reviewed (32 domains) by Claude; selector-level evidence dominates; generation-level evidence qualitative and model-dependent; layers chosen mid-stack by convention with sweeps only for the role lens and relation lens.
+**Standing caveats.** Grids authored by Claude, reviewed by Claude (32 holonic domains), or authored by GPT (h23: factor and theme results replicate); no human-written grid yet; selector-level evidence dominates; generation-level evidence qualitative and model-dependent; layers chosen mid-stack by convention with sweeps only for the role lens and relation lens.
 
 **Reoriented plan.**
 1. **Writeup** (`WRITEUP.md`): rewrite around the nine standing claims, the four negatives, and the two partials; add the figures from h17; one table per model family. Lead with the calculus results; tell the original hypothesis as the arc (shape → roles → relation → data).
 2. **Source-specificity** of the relation operator under patching: fit on paired residuals with a rotation constraint, or more domains; the test is relation vs wrong-source, not relation vs random.
-3. **Third-party grids**: at least one factor grid and one holonic domain set not written or reviewed by Claude, to retire the single-author caveat.
+3. ~~Third-party factor grids~~ GPT-authored era×voice and era×theme replicate (h23). Remaining: a human-written grid, and a holonic domain set from a second author.
 4. **Scale the steering-competence curve**: Llama-3.1-70B-Instruct when the license clears; same scripts.
 5. **Absence, third realization**: larger n, or a withheld part defined by the model's own surprise rather than by an author.
 6. **Abstraction ladder**: more widths/layers, a broad reference corpus, feature labels if reachable, the fixed-point test with the corrected expectation (fixed points may be trivial; look in the flow).
@@ -1023,6 +1023,36 @@ one layer pair.
 regardless of order**, and that is real. "Factors do not commute under generation" is true but
 not about factors: any two matched-norm patches diverge under greedy decoding from token ~15,
 boundedly. The predictions written before this run (RESULTS hour 22 conversation) held.
+
+## 2026-09-11 (hour 23) — External-author replication: GPT-written grids reproduce the factor results
+
+**Setup.** Two grids written by GPT from a spec (no Claude-written spans shown; scenes disjoint from
+every Claude grid): `prompts/narrative_factors_gpt_v1.json` (river rescue, accusation at a table,
+wound dressed, bargain struck × 3 eras × 3 voices) and `prompts/narrative_theme_gpt_v1.json`
+(inheritance divided, boat launched, sick animal, contest entered × 3 eras × 3 themes, three
+sentences each). Same scripts, same layers, same leave-one-scene-out protocol, Qwen2.5-1.5B.
+`results/gpt_grids_run.log`, `results/stage6_qwen1.5b_*_gpt_*.json`, `results/stage7_qwen1.5b_shift_gpt.json`.
+
+| measure | Claude grids | GPT grids |
+|---|---|---|
+| era lens (era × voice), rank/3 | 1.28 | 1.31 |
+| voice lens, rank/3 | 1.31 | 1.39 |
+| era + voice composed, rank/9 | 2.03 | 2.33 |
+| cross-talk era→voice / voice→era | 0.14 / 0.16 | 0.14 / 0.13 |
+| theme lens, rank/3 | 1.25 | 1.25 |
+| era + theme composed, rank/9 | 2.22 | **1.56** |
+| cross-talk era→theme / theme→era | 0.12 / 0.17 | **0.07 / 0.14** |
+| era shift: address moved / theme kept (unpatched theme) | 0.89 / 0.81 (0.78) | **0.94 / 0.86 (0.86)** |
+| voice decodability at layer 12 | 0.92 | 0.75 |
+| theme decodability at layer 20 | 0.78 | 0.86 |
+
+**Reading.** Every claim from hours 6, 10, and 14 reproduces on text I did not write or review.
+The theme results are stronger on GPT's passages (composition 1.56 vs 2.22; theme kept at 0.86,
+exactly the unpatched readout), plausibly because GPT's themes are carried across all three
+sentences as the spec demanded. Voice is less lexically extreme in GPT's writing (decodability
+0.75 vs 0.92) and the voice lens is correspondingly a little weaker, which is the right direction
+for a less exaggerated register. The single-author caveat is now a single-*species* caveat: two
+model authors agree; no human-written grid yet.
 
 ## Open problems (ordered)
 

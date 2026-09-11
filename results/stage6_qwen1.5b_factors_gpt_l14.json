@@ -1,0 +1,1574 @@
+[
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.3615875005853598,
+  "frac_voice": 0.19862344568394238
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.3917057301415598,
+  "frac_voice": 0.04381340254040088
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.3506332896540242,
+  "frac_voice": 0.08931440390178971
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.11319091029912767,
+  "frac_voice": 0.4797792192279628
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.49411965165245764,
+  "frac_voice": 0.042643115271037195
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.37316012847858454,
+  "frac_voice": 0.39458726242154557
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.011793538288438028,
+  "frac_voice": 0.3342749210601113
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.06185318302935384,
+  "frac_voice": 0.3190148970427516
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.0017864551949144832,
+  "frac_voice": 0.7201751358896136
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.040122610746620054,
+  "frac_voice": 0.2898098189857594
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.022721067265967024,
+  "frac_voice": 0.6131680066890208
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.39313351912283656,
+  "frac_voice": 0.21805443559487342
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 7
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "river rescue",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.3914197703180423,
+  "frac_voice": 0.2879040075140816
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.14062895731212233,
+  "frac_voice": 0.41949156725124565
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7079507476786001,
+  "frac_voice": 0.1302862202429774
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.1674051057710136,
+  "frac_voice": 0.48395334721961947
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.14819294092043775,
+  "frac_voice": 0.0719888063888278
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.5358891498497003,
+  "frac_voice": 0.22084986734012793
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.5170385361128562,
+  "frac_voice": 0.18226539539551234
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.7867449371687876,
+  "frac_voice": 0.12284635026619453
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.06542942163356923,
+  "frac_voice": 0.7999941054702273
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.16993079846023773,
+  "frac_voice": 0.23540141111291543
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.0882155271862177,
+  "frac_voice": 0.850295831290886
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.05447723028826069,
+  "frac_voice": 0.5949247774509735
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "accusation at a table",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7558494502917675,
+  "frac_voice": 0.08567221305632837
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.4194055548451848,
+  "frac_voice": 0.307929922276252
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.26466756970315974,
+  "frac_voice": 0.42104809261182813
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.4524067674598898,
+  "frac_voice": 0.02704123969476832
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7568437484688433,
+  "frac_voice": 0.15660894831220992
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.008601762715148821,
+  "frac_voice": 0.3031299068349356
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.08330857178329634,
+  "frac_voice": 0.27762848317620803
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.007076865722907205,
+  "frac_voice": 0.05001386932771737
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.08553909334605361,
+  "frac_voice": 0.37195420492594866
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.42873902476462195,
+  "frac_voice": 0.38336966499028563
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.01591136690076461,
+  "frac_voice": 0.6643786004779046
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "wound dressed",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.026275119426381978,
+  "frac_voice": 0.6339654338457292
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 5
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 6
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "wound dressed",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.6969678836511758,
+  "frac_voice": 0.17407954593863156
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2465372286177482,
+  "frac_voice": 0.14610911769136786
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.6236337198887376,
+  "frac_voice": 0.04826935444531201
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.41972110083202363,
+  "frac_voice": 0.07264455623322251
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7080515215196723,
+  "frac_voice": 0.03182380321458731
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.7311850126615939,
+  "frac_voice": 0.002619845525385721
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.2217373030961184,
+  "frac_voice": 0.20674375492585648
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.10145505016470348,
+  "frac_voice": 0.2448705755945986
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.20712896714336085,
+  "frac_voice": 0.7036444180800897
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.22684454995480088,
+  "frac_voice": 0.3055109226813166
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "factor",
+  "frac_era": 0.20277854692195135,
+  "frac_voice": 0.7464805790457857
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "B",
+  "factor": "voice",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "X",
+  "factor": "voice",
+  "cond": "rand",
+  "frac_era": 0.04042002283783005,
+  "frac_voice": 0.41846878651652203
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "bargain struck",
+  "test": "D",
+  "rank": 1
+ }
+]

@@ -1,0 +1,1574 @@
+[
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8866099673408652,
+  "frac_theme": 0.010589645737776853
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.33344142079916866,
+  "frac_theme": 0.4046625309661118
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7280882962756924,
+  "frac_theme": 0.13973032790572473
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.5228295306481944,
+  "frac_theme": 0.1450237035948679
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7995581847750196,
+  "frac_theme": 0.06597015117328948
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.16669856356893198,
+  "frac_theme": 0.1940485278580318
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.29228548364754403,
+  "frac_theme": 0.6014657123803792
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.6636402330883973,
+  "frac_theme": 0.0047943697370496354
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.15882427330463067,
+  "frac_theme": 0.6567406691771638
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.5420755747126661,
+  "frac_theme": 0.09776327496716582
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.16472146122340725,
+  "frac_theme": 0.7479524360290037
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.10425325480856504,
+  "frac_theme": 0.27398411033626663
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "inheritance divided",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8353286901396861,
+  "frac_theme": 0.046180520003614195
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.5973781530295245,
+  "frac_theme": 0.1586489548158405
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8221375662239049,
+  "frac_theme": 0.09972809705208822
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.26562744052553944,
+  "frac_theme": 0.5012648007400722
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7797115297063155,
+  "frac_theme": 0.08651663888310628
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.20895253470668282,
+  "frac_theme": 0.20024054851244422
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24569116918124886,
+  "frac_theme": 0.4749622507750814
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.24883134599179194,
+  "frac_theme": 0.4243309986259342
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.029722693630376468,
+  "frac_theme": 0.9106450589088438
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.1950833856500428,
+  "frac_theme": 0.5239539664099095
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.047392183935392164,
+  "frac_theme": 0.7802630160459892
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.7088879834996062,
+  "frac_theme": 0.09499905495930251
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "boat launched",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7874705945451839,
+  "frac_theme": 0.038262520086542885
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.10428730713424414,
+  "frac_theme": 0.39916956999579245
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.6255354732930258,
+  "frac_theme": 0.14036760558008068
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.012207428054459105,
+  "frac_theme": 0.447721591604956
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.7147630964916278,
+  "frac_theme": 0.08704613208900658
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.4323393837437989,
+  "frac_theme": 0.46332271857667084
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.03638592238779867,
+  "frac_theme": 0.6910822036441141
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.07192366051108216,
+  "frac_theme": 0.014394700603824228
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.06291459610073795,
+  "frac_theme": 0.8701872932785758
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.7578171250016322,
+  "frac_theme": 0.11738989901631165
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.03953081388977349,
+  "frac_theme": 0.8664358495446377
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.23040601648291784,
+  "frac_theme": 0.718305392489767
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "sick animal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8277049537177804,
+  "frac_theme": 0.043429479658604324
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.10430623067988637,
+  "frac_theme": 0.23139009768251156
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.8994435850548065,
+  "frac_theme": 0.09111257688648117
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.1846342555936787,
+  "frac_theme": 0.33232618338367964
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.9481105696868605,
+  "frac_theme": 0.0016252283297632192
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.5330643155973827,
+  "frac_theme": 0.32530179649017205
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.27909132962895905,
+  "frac_theme": 0.5651326463081461
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.27227472034443956,
+  "frac_theme": 0.04479890851581756
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.10210223162243956,
+  "frac_theme": 0.19661998334303088
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.5569872515974091,
+  "frac_theme": 0.02287932489056516
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.2361230257891289,
+  "frac_theme": 0.6888399551185673
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.33185409721266057,
+  "frac_theme": 0.17968073566937393
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 3
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 4
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "contest entered",
+  "test": "D",
+  "rank": 1
+ }
+]
