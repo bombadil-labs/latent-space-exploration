@@ -46,6 +46,8 @@ def fit_affine(S: np.ndarray, O: np.ndarray, layer: int, src: str, dst: str,
         M = np.linalg.solve(K, O)                            # [n, d];  A = Sb^T M
         b = np.ones(n) @ M
         op = AffineOp(None, b, layer, src, dst, S_tr=S, M=M)   # dual form; never build the d x d matrix
+        if n_spin <= 0:
+            return op
         R = O - op(S)
         if n > 1:
             U, sv, Vt = np.linalg.svd(R - R.mean(0), full_matrices=False)
@@ -61,6 +63,8 @@ def fit_affine(S: np.ndarray, O: np.ndarray, layer: int, src: str, dst: str,
         W = np.eye(d) + ((U * sv[:k]) @ Vt).T
         b = np.ones(n) @ M
     op = AffineOp(W, b, layer, src, dst)
+    if n_spin <= 0:
+        return op
     R = O - op(S)
     if n > 1:
         U, sv, Vt = np.linalg.svd(R - R.mean(0), full_matrices=False)
@@ -96,7 +100,7 @@ def holdout_eval(S: np.ndarray, O: np.ndarray, groups: np.ndarray, layer: int, s
         S_tr, O_tr = S[tr], O[tr]
         if null_seed is not None:   # break the src->dst pairing among TRAINING rows only; held-out rows untouched
             O_tr = O_tr[np.random.default_rng(null_seed * 7919 + layer).permutation(len(O_tr))]
-        op = fit_affine(S_tr, O_tr, layer, src, dst, **fit_kw)
+        op = fit_affine(S_tr, O_tr, layer, src, dst, n_spin=0, **fit_kw)   # no spin basis needed for evaluation
         pred = op(S[te])
         mean_o = O_tr.mean(0)
         offset = (O_tr - S_tr).mean(0)               # king-queen baseline: one shared translation
