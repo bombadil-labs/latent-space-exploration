@@ -34,7 +34,7 @@ def batch_logprob(texts, vec=None):
     backend = ProxyAuthBackend(model.to_model_key())
     with model.trace({"input_ids": ids, "attention_mask": am}, backend=backend) as tracer:
         if v is not None:
-            B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0].dtype)
+            B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0].device, B[l].output[0].dtype)
         lp = torch.log_softmax(model.lm_head.output[:, :-1, :].float(), dim=-1)
         picked = lp.gather(-1, tgt.unsqueeze(-1).to(lp.device)).squeeze(-1)
         out = (picked * mask.to(lp.device)).sum(-1).save()
