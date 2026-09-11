@@ -1,0 +1,1786 @@
+{
+ "summary": {
+  "n_passages": 12,
+  "k": 8,
+  "tau": 0.4,
+  "frac": 0.15,
+  "layer": 20,
+  "model": "google/gemma-2-9b-it",
+  "dlogprob_per_token_ring": -0.02712447961846572,
+  "kl_ring": 0.06281296059023589,
+  "top5_overlap_ring": 4.5,
+  "mean_generality_ring": 0.12413194444444443,
+  "mean_maxcos_ring": 0.7154789424190918,
+  "mean_coherence_ring": 0.05310799553990364,
+  "dlogprob_per_token_ctrl": -0.03694660162053779,
+  "kl_ctrl": 0.00824206051765941,
+  "top5_overlap_ctrl": 4.833333333333333,
+  "mean_generality_ctrl": 0.12456597222222221,
+  "mean_maxcos_ctrl": 0.19799720697725812,
+  "mean_coherence_ctrl": 0.0001700072862149682,
+  "dlogprob_per_token_ctrl2": -0.03719174035457709,
+  "kl_ctrl2": 0.021794475188168388,
+  "top5_overlap_ctrl2": 4.5,
+  "mean_generality_ctrl2": 0.1271701388888889,
+  "mean_maxcos_ctrl2": 0.1851811403563867,
+  "mean_coherence_ctrl2": 0.0726903723552823,
+  "n_ring_better_logprob_than_ctrl": 6,
+  "n_ring_lower_kl_than_ctrl": 1,
+  "n_ring_better_logprob_than_ctrl2": 6,
+  "n_ring_lower_kl_than_ctrl2": 3
+ },
+ "passages": {
+  "debt/medieval/betrayal": {
+   "passage": "debt/medieval/betrayal",
+   "resid_norm": 278.50885009765625,
+   "ring_features": [
+    10660,
+    13111,
+    6554,
+    12740,
+    13571,
+    13763,
+    130,
+    14889
+   ],
+   "ring_maxcos": [
+    0.7205933332443237,
+    0.7021394371986389,
+    0.698509693145752,
+    0.6759330034255981,
+    0.6705306768417358,
+    0.6675930023193359,
+    0.6604633331298828,
+    0.6581851840019226
+   ],
+   "ring_generality": [
+    0.0,
+    0.0,
+    0.0,
+    0.1388888888888889,
+    0.0,
+    0.0,
+    0.125,
+    0.0
+   ],
+   "ctrl_features": [
+    13948,
+    10462,
+    8355,
+    3988,
+    5029,
+    666,
+    1102,
+    261
+   ],
+   "ctrl_maxcos": [
+    0.11779946088790894,
+    0.20336505770683289,
+    0.193339541554451,
+    0.1924230307340622,
+    0.13442671298980713,
+    0.1717972308397293,
+    0.16208535432815552,
+    0.19784855842590332
+   ],
+   "ctrl_generality": [
+    0.0,
+    0.0,
+    0.0,
+    0.1527777777777778,
+    0.0,
+    0.0,
+    0.125,
+    0.0
+   ],
+   "ctrl2_features": [
+    7870,
+    5308,
+    16019,
+    12836,
+    14198,
+    14987,
+    9627,
+    13525
+   ],
+   "ctrl2_maxcos": [
+    0.2927091121673584,
+    0.12056230753660202,
+    0.3194122612476349,
+    0.14788559079170227,
+    0.11479900777339935,
+    0.16563071310520172,
+    0.1522856205701828,
+    0.28378021717071533
+   ],
+   "ctrl2_generality": [
+    0.0,
+    0.0,
+    0.013888888888888888,
+    0.027777777777777776,
+    0.041666666666666664,
+    0.08333333333333333,
+    0.013888888888888888,
+    0.08333333333333333
+   ],
+   "coherence": {
+    "ring": 0.0728871151804924,
+    "ctrl": 0.00022894995345268399,
+    "ctrl2": 0.06347506493330002
+   },
+   "n_span_tokens": 81,
+   "logprob_base": -263.125,
+   "logprob_ring": -262.6875,
+   "dlogprob_ring": 0.4375,
+   "dlogprob_per_token_ring": 0.005401234567901234,
+   "kl_ring": 0.029544692486524582,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    " The",
+    " They",
+    " There"
+   ],
+   "logprob_ctrl": -256.5,
+   "dlogprob_ctrl": 6.625,
+   "dlogprob_per_token_ctrl": 0.08179012345679013,
+   "kl_ctrl": 0.0054634809494018555,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " ",
+    " The",
+    " They",
+    "  "
+   ],
+   "logprob_ctrl2": -263.0625,
+   "dlogprob_ctrl2": 0.0625,
+   "dlogprob_per_token_ctrl2": 0.0007716049382716049,
+   "kl_ctrl2": 0.011102454736828804,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    " They",
+    " The",
+    "  "
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    " The",
+    " They",
+    "  "
+   ],
+   "gen_base": "\n\n**What is the story likely about?**\n\nThis passage suggests a story about:\n\n* **Betrayal and family conflict:** The miller's brother, who swore loyalty at their father'",
+   "gen_ring": "\n\n**Questions:**\n\n1. **What is the main conflict in this passage?**\n2. **What are the possible motivations for the miller's brother's actions?**\n3",
+   "gen_ctrl": "\n\n**Questions:**\n\n1. **What is the main conflict in this passage?**\n2. **What are the possible motivations behind the miller's brother's actions?**\n3",
+   "gen_ctrl2": "\n\n**Questions:**\n\n1. **What is the main conflict in this passage?**\n2. **What are the possible motivations of the miller and his brother?**\n3. **What"
+  },
+  "debt/1920s/sacrifice": {
+   "passage": "debt/1920s/sacrifice",
+   "resid_norm": 285.3766784667969,
+   "ring_features": [
+    9755,
+    5152,
+    5756,
+    11787,
+    10660,
+    15104,
+    13111,
+    14394
+   ],
+   "ring_maxcos": [
+    0.7673405408859253,
+    0.7576367855072021,
+    0.7258136868476868,
+    0.7217048406600952,
+    0.7205933332443237,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.680935263633728
+   ],
+   "ring_generality": [
+    0.3472222222222222,
+    0.09722222222222222,
+    0.18055555555555555,
+    0.18055555555555555,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.0
+   ],
+   "ctrl_features": [
+    11475,
+    9386,
+    15267,
+    9865,
+    14479,
+    15951,
+    1439,
+    1185
+   ],
+   "ctrl_maxcos": [
+    0.1336030513048172,
+    0.1755101978778839,
+    0.15144267678260803,
+    0.3634279668331146,
+    0.29027020931243896,
+    0.17530640959739685,
+    0.11218751966953278,
+    0.1476612091064453
+   ],
+   "ctrl_generality": [
+    0.3333333333333333,
+    0.1111111111111111,
+    0.16666666666666666,
+    0.19444444444444445,
+    0.0,
+    0.20833333333333334,
+    0.013888888888888888,
+    0.013888888888888888
+   ],
+   "ctrl2_features": [
+    6871,
+    11865,
+    7711,
+    8885,
+    3652,
+    2668,
+    13468,
+    11056
+   ],
+   "ctrl2_maxcos": [
+    0.16984693706035614,
+    0.10701335966587067,
+    0.1431260108947754,
+    0.14584818482398987,
+    0.1279904544353485,
+    0.1886029690504074,
+    0.186865895986557,
+    0.3425801992416382
+   ],
+   "ctrl2_generality": [
+    0.09722222222222222,
+    0.18055555555555555,
+    0.19444444444444445,
+    0.1388888888888889,
+    0.25,
+    0.013888888888888888,
+    0.0,
+    0.05555555555555555
+   ],
+   "coherence": {
+    "ring": 0.04002448543906212,
+    "ctrl": -0.00796663761138916,
+    "ctrl2": 0.08268533647060394
+   },
+   "n_span_tokens": 68,
+   "logprob_base": -257.125,
+   "logprob_ring": -263.5,
+   "dlogprob_ring": -6.375,
+   "dlogprob_per_token_ring": -0.09375,
+   "kl_ring": 0.0043815854005515575,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    "\n\n",
+    " He",
+    " ",
+    " That",
+    " It"
+   ],
+   "logprob_ctrl": -253.6875,
+   "dlogprob_ctrl": 3.4375,
+   "dlogprob_per_token_ctrl": 0.050551470588235295,
+   "kl_ctrl": 0.01521231234073639,
+   "top5_overlap_ctrl": 4,
+   "top5_ctrl": [
+    "\n\n",
+    " He",
+    " ",
+    "  ",
+    " His"
+   ],
+   "logprob_ctrl2": -251.0,
+   "dlogprob_ctrl2": 6.125,
+   "dlogprob_per_token_ctrl2": 0.0900735294117647,
+   "kl_ctrl2": 0.010510334745049477,
+   "top5_overlap_ctrl2": 3,
+   "top5_ctrl2": [
+    "\n\n",
+    " He",
+    " ",
+    " His",
+    "\n\n\n"
+   ],
+   "top5_base": [
+    "\n\n",
+    " He",
+    " ",
+    " It",
+    "  "
+   ],
+   "gen_base": "\n\n**What can you infer about Frank's character based on this passage?**\n\nHere are some inferences we can make about Frank:\n\n* **Selfless:** Frank prioritizes his nephew'",
+   "gen_ring": "\n\n**What can you infer about Frank's character based on this passage?**\n\nHere are some inferences you can make about Frank:\n\n* **Selfless:** He prioritizes his nephew'",
+   "gen_ctrl": "\n\n**What can you infer about Frank?**\n\nHere are some inferences you can make about Frank:\n\n* **He is responsible:** He prioritizes his family's needs over his own,",
+   "gen_ctrl2": "\n\nWhat can you infer about Frank's character based on this passage?\n\nHere are some inferences you can make about Frank:\n\n* **Selfless:** He prioritizes his sister's son"
+  },
+  "debt/farfuture/homecoming": {
+   "passage": "debt/farfuture/homecoming",
+   "resid_norm": 297.5582580566406,
+   "ring_features": [
+    8272,
+    5152,
+    16312,
+    10660,
+    5319,
+    15104,
+    7322,
+    13111
+   ],
+   "ring_maxcos": [
+    0.7973468899726868,
+    0.7576367855072021,
+    0.7217048406600952,
+    0.7205933332443237,
+    0.7142874002456665,
+    0.7041927576065063,
+    0.7024769186973572,
+    0.7021394371986389
+   ],
+   "ring_generality": [
+    0.0,
+    0.09722222222222222,
+    0.625,
+    0.0,
+    0.5138888888888888,
+    0.19444444444444445,
+    0.06944444444444445,
+    0.0
+   ],
+   "ctrl_features": [
+    8118,
+    2783,
+    15563,
+    9615,
+    14158,
+    15730,
+    9750,
+    11795
+   ],
+   "ctrl_maxcos": [
+    0.21972869336605072,
+    0.23644371330738068,
+    0.1618114411830902,
+    0.1043466106057167,
+    0.19971470534801483,
+    0.2825368344783783,
+    0.16042976081371307,
+    0.21308916807174683
+   ],
+   "ctrl_generality": [
+    0.013888888888888888,
+    0.09722222222222222,
+    0.625,
+    0.0,
+    0.5138888888888888,
+    0.18055555555555555,
+    0.05555555555555555,
+    0.0
+   ],
+   "ctrl2_features": [
+    15940,
+    12108,
+    484,
+    11154,
+    4594,
+    14710,
+    9962,
+    0
+   ],
+   "ctrl2_maxcos": [
+    0.20883356034755707,
+    0.23244702816009521,
+    0.2249278873205185,
+    0.19316768646240234,
+    0.25584954023361206,
+    0.20710885524749756,
+    0.21777217090129852,
+    0.20911157131195068
+   ],
+   "ctrl2_generality": [
+    0.1527777777777778,
+    0.4861111111111111,
+    0.125,
+    0.013888888888888888,
+    0.013888888888888888,
+    0.6527777777777778,
+    0.18055555555555555,
+    0.0
+   ],
+   "coherence": {
+    "ring": 0.032565969973802567,
+    "ctrl": -0.0015752656618133187,
+    "ctrl2": 0.08181079477071762
+   },
+   "n_span_tokens": 73,
+   "logprob_base": -339.125,
+   "logprob_ring": -338.546875,
+   "dlogprob_ring": 0.578125,
+   "dlogprob_per_token_ring": 0.007919520547945206,
+   "kl_ring": 0.04895111918449402,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " Her"
+   ],
+   "logprob_ctrl": -353.0,
+   "dlogprob_ctrl": -13.875,
+   "dlogprob_per_token_ctrl": -0.19006849315068494,
+   "kl_ctrl": 0.0012324345298111439,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "logprob_ctrl2": -344.484375,
+   "dlogprob_ctrl2": -5.359375,
+   "dlogprob_per_token_ctrl2": -0.07341609589041095,
+   "kl_ctrl2": 0.003940274007618427,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "gen_base": "\n\n**Questions:**\n\n1. **What is the \"oxygen levy\"?**\n2. **What does it mean that the credit came from a ship that had \"just docked\"?**\n3",
+   "gen_ring": "\n\n**Questions:**\n\n1. **What is the \"oxygen levy\"?**\n2. **What does it mean that the \"credit came from a ship that had just docked\"?**\n3",
+   "gen_ctrl": "\n\n**What kind of story is this?**\n\nThis passage suggests a story that blends elements of:\n\n* **Science Fiction:** The setting involves a space station, oxygen levies, deep-survey",
+   "gen_ctrl2": "\n\n**Questions:**\n\n1. **What is the \"oxygen levy\"?**\n2. **What does it mean that the credit came from a ship that had just docked?**\n3."
+  },
+  "message/1920s/betrayal": {
+   "passage": "message/1920s/betrayal",
+   "resid_norm": 294.0379333496094,
+   "ring_features": [
+    7090,
+    5152,
+    3557,
+    10660,
+    4470,
+    15104,
+    13111,
+    13791
+   ],
+   "ring_maxcos": [
+    0.8209724426269531,
+    0.7576367855072021,
+    0.7461591362953186,
+    0.7205933332443237,
+    0.7142874002456665,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.6946701407432556
+   ],
+   "ring_generality": [
+    0.20833333333333334,
+    0.09722222222222222,
+    0.041666666666666664,
+    0.0,
+    0.4861111111111111,
+    0.19444444444444445,
+    0.0,
+    0.6805555555555556
+   ],
+   "ctrl_features": [
+    15648,
+    2036,
+    2066,
+    7020,
+    8261,
+    10738,
+    14221,
+    8558
+   ],
+   "ctrl_maxcos": [
+    0.11717548966407776,
+    0.23420225083827972,
+    0.2793464660644531,
+    0.15032511949539185,
+    0.24718333780765533,
+    0.21523365378379822,
+    0.15917736291885376,
+    0.3006587326526642
+   ],
+   "ctrl_generality": [
+    0.2222222222222222,
+    0.09722222222222222,
+    0.05555555555555555,
+    0.0,
+    0.4861111111111111,
+    0.20833333333333334,
+    0.0,
+    0.6666666666666666
+   ],
+   "ctrl2_features": [
+    15135,
+    7496,
+    15670,
+    6137,
+    8391,
+    16379,
+    16207,
+    11338
+   ],
+   "ctrl2_maxcos": [
+    0.1551649272441864,
+    0.19879446923732758,
+    0.14037291705608368,
+    0.1712062507867813,
+    0.1655580699443817,
+    0.16203252971172333,
+    0.21358607709407806,
+    0.11607618629932404
+   ],
+   "ctrl2_generality": [
+    0.16666666666666666,
+    0.1388888888888889,
+    0.09722222222222222,
+    0.4027777777777778,
+    0.25,
+    0.4027777777777778,
+    0.18055555555555555,
+    0.041666666666666664
+   ],
+   "coherence": {
+    "ring": 0.06699200719594955,
+    "ctrl": 0.005033118184655905,
+    "ctrl2": 0.07042404264211655
+   },
+   "n_span_tokens": 76,
+   "logprob_base": -289.78125,
+   "logprob_ring": -290.65625,
+   "dlogprob_ring": -0.875,
+   "dlogprob_per_token_ring": -0.011513157894736841,
+   "kl_ring": 0.05630359426140785,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "logprob_ctrl": -291.6875,
+   "dlogprob_ctrl": -1.90625,
+   "dlogprob_per_token_ctrl": -0.025082236842105265,
+   "kl_ctrl": 0.0017931684851646423,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "logprob_ctrl2": -287.28125,
+   "dlogprob_ctrl2": 2.5,
+   "dlogprob_per_token_ctrl2": 0.03289473684210526,
+   "kl_ctrl2": 0.003613527864217758,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " The"
+   ],
+   "gen_base": "\n\n**What kind of story is this likely to be?**\n\nThis passage suggests a story about:\n\n* **Journalism:** The setting (newsroom), the telegram about a story, and",
+   "gen_ring": "\n\n**What is the main conflict in this passage?**\n\nThe main conflict is **Ellen's loyalty to her work and her belief in the story versus the sudden and unexpected decision of her employer",
+   "gen_ctrl": "\n\nWhat is the main conflict in this passage?\n\nThe main conflict is **Ellen's loyalty to her job and her beliefs versus the sudden and unexpected betrayal by her employer.** \n\nHere'",
+   "gen_ctrl2": "\n\n**What is the main conflict in this passage?**\n\nThe main conflict is **Ellen's professional integrity versus her employer's sudden and unexplained decision to suppress her year-long work.**"
+  },
+  "message/farfuture/sacrifice": {
+   "passage": "message/farfuture/sacrifice",
+   "resid_norm": 299.2141418457031,
+   "ring_features": [
+    16312,
+    15104,
+    13111,
+    14541,
+    16179,
+    14394,
+    11944,
+    13571
+   ],
+   "ring_maxcos": [
+    0.7217048406600952,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.6933863759040833,
+    0.686528205871582,
+    0.680935263633728,
+    0.6759330034255981,
+    0.6705306768417358
+   ],
+   "ring_generality": [
+    0.625,
+    0.19444444444444445,
+    0.0,
+    0.041666666666666664,
+    0.3055555555555556,
+    0.0,
+    0.1111111111111111,
+    0.0
+   ],
+   "ctrl_features": [
+    12247,
+    6535,
+    1104,
+    14107,
+    2648,
+    7180,
+    3685,
+    14465
+   ],
+   "ctrl_maxcos": [
+    0.1052011102437973,
+    0.22656066715717316,
+    0.10313733667135239,
+    0.33976009488105774,
+    0.16697385907173157,
+    0.13292983174324036,
+    0.11550601571798325,
+    0.20502032339572906
+   ],
+   "ctrl_generality": [
+    0.625,
+    0.18055555555555555,
+    0.0,
+    0.027777777777777776,
+    0.3194444444444444,
+    0.0,
+    0.125,
+    0.0
+   ],
+   "ctrl2_features": [
+    10832,
+    5488,
+    7121,
+    4920,
+    13995,
+    15198,
+    1202,
+    3396
+   ],
+   "ctrl2_maxcos": [
+    0.1431751251220703,
+    0.17854337394237518,
+    0.16720463335514069,
+    0.2078261822462082,
+    0.1706492304801941,
+    0.1999223828315735,
+    0.22600917518138885,
+    0.15717270970344543
+   ],
+   "ctrl2_generality": [
+    0.1388888888888889,
+    0.0,
+    0.2361111111111111,
+    0.05555555555555555,
+    0.05555555555555555,
+    0.16666666666666666,
+    0.2777777777777778,
+    0.3194444444444444
+   ],
+   "coherence": {
+    "ring": 0.02398337610065937,
+    "ctrl": -0.0018432651413604617,
+    "ctrl2": 0.06172587350010872
+   },
+   "n_span_tokens": 67,
+   "logprob_base": -354.6875,
+   "logprob_ring": -356.78125,
+   "dlogprob_ring": -2.09375,
+   "dlogprob_per_token_ring": -0.03125,
+   "kl_ring": 0.01479160413146019,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " He",
+    " ",
+    "\n\n\n",
+    "  "
+   ],
+   "logprob_ctrl": -348.65625,
+   "dlogprob_ctrl": 6.03125,
+   "dlogprob_per_token_ctrl": 0.09001865671641791,
+   "kl_ctrl": 0.0018947661155834794,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " He",
+    " ",
+    "\n\n\n",
+    "  "
+   ],
+   "logprob_ctrl2": -356.1875,
+   "dlogprob_ctrl2": -1.5,
+   "dlogprob_per_token_ctrl2": -0.022388059701492536,
+   "kl_ctrl2": 0.002987812738865614,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " He",
+    " ",
+    "\n\n\n",
+    "  "
+   ],
+   "top5_base": [
+    "\n\n",
+    " He",
+    " ",
+    "\n\n\n",
+    "  "
+   ],
+   "gen_base": "\n\n**What kind of story is this?**\n\nThis passage suggests a story that is likely:\n\n* **Science Fiction:** The mention of \"station-midnight,\" \"encrypted channel,\" and \"",
+   "gen_ring": "\n\n**What kind of story is this?**\n\nThis passage suggests a story that could be classified as:\n\n* **Science Fiction:** The mention of \"station-midnight,\" \"encrypted channel,\"",
+   "gen_ctrl": "\n\n**What is the moral dilemma Reyes faces?**\n\nReyes faces a classic moral dilemma: **duty vs. personal integrity**. \n\nHere's the breakdown:\n\n* **Duty:**",
+   "gen_ctrl2": "\n\n**What kind of story is this?**\n\nThis passage suggests a story that is likely:\n\n* **Science Fiction:** The mention of \"station-midnight\" and \"encrypted channel\" points"
+  },
+  "message/medieval/homecoming": {
+   "passage": "message/medieval/homecoming",
+   "resid_norm": 295.28558349609375,
+   "ring_features": [
+    1040,
+    10660,
+    15104,
+    13111,
+    14394,
+    13763,
+    14763,
+    130
+   ],
+   "ring_maxcos": [
+    0.8898046016693115,
+    0.7205933332443237,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.680935263633728,
+    0.6675930023193359,
+    0.6610990762710571,
+    0.6604633331298828
+   ],
+   "ring_generality": [
+    0.0,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.0,
+    0.0,
+    0.5277777777777778,
+    0.125
+   ],
+   "ctrl_features": [
+    14907,
+    11936,
+    450,
+    9199,
+    1991,
+    1154,
+    11992,
+    13607
+   ],
+   "ctrl_maxcos": [
+    0.12296539545059204,
+    0.26947373151779175,
+    0.13343600928783417,
+    0.18396703898906708,
+    0.19134292006492615,
+    0.21084049344062805,
+    0.2861635088920593,
+    0.2917533218860626
+   ],
+   "ctrl_generality": [
+    0.0,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.0,
+    0.013888888888888888,
+    0.5138888888888888,
+    0.1111111111111111
+   ],
+   "ctrl2_features": [
+    5705,
+    3449,
+    2788,
+    13311,
+    11489,
+    15508,
+    7488,
+    13421
+   ],
+   "ctrl2_maxcos": [
+    0.1264979988336563,
+    0.19884446263313293,
+    0.18518134951591492,
+    0.1878659576177597,
+    0.1406097114086151,
+    0.18772678077220917,
+    0.13074888288974762,
+    0.30096253752708435
+   ],
+   "ctrl2_generality": [
+    0.09722222222222222,
+    0.0,
+    0.1388888888888889,
+    0.09722222222222222,
+    0.25,
+    0.2638888888888889,
+    0.027777777777777776,
+    0.013888888888888888
+   ],
+   "coherence": {
+    "ring": 0.05283349007368088,
+    "ctrl": -0.0006920695304870605,
+    "ctrl2": 0.06014778092503548
+   },
+   "n_span_tokens": 82,
+   "logprob_base": -316.8125,
+   "logprob_ring": -322.78125,
+   "dlogprob_ring": -5.96875,
+   "dlogprob_per_token_ring": -0.07278963414634146,
+   "kl_ring": 0.03288690000772476,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " She",
+    " ",
+    " That",
+    " All"
+   ],
+   "logprob_ctrl": -324.28125,
+   "dlogprob_ctrl": -7.46875,
+   "dlogprob_per_token_ctrl": -0.09108231707317073,
+   "kl_ctrl": 0.010515578091144562,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " She",
+    " ",
+    " That",
+    " All"
+   ],
+   "logprob_ctrl2": -315.09375,
+   "dlogprob_ctrl2": 1.71875,
+   "dlogprob_per_token_ctrl2": 0.020960365853658538,
+   "kl_ctrl2": 0.007012927904725075,
+   "top5_overlap_ctrl2": 4,
+   "top5_ctrl2": [
+    " She",
+    "\n\n",
+    " ",
+    " All",
+    "  "
+   ],
+   "top5_base": [
+    "\n\n",
+    " She",
+    " ",
+    " That",
+    " All"
+   ],
+   "gen_base": "\n\n**What kind of story is this?**\n\nThis passage suggests a story of **family reunion and possibly romance**. \n\nHere's why:\n\n* **Long separation:** The daughter has",
+   "gen_ring": "\n\n**What is the tone of this passage?**\n\nThe tone of the passage is **joyful and hopeful**. \n\nHere's why:\n\n* **Anticipation:** The lady'",
+   "gen_ctrl": "\n\n**What is the tone of this passage?**\n\nThe tone of the passage is **joyful anticipation mixed with nervous excitement**. \n\nHere's why:\n\n* **Joyful anticipation",
+   "gen_ctrl2": "\n\n**What kind of story is this likely to be?**\n\nThis passage suggests a story of:\n\n* **Family drama:** The focus on the letter, the daughter's return, and"
+  },
+  "door/farfuture/betrayal": {
+   "passage": "door/farfuture/betrayal",
+   "resid_norm": 301.4400634765625,
+   "ring_features": [
+    7090,
+    9755,
+    3557,
+    5756,
+    10660,
+    13111,
+    3570,
+    14394
+   ],
+   "ring_maxcos": [
+    0.8209724426269531,
+    0.7673405408859253,
+    0.7461591362953186,
+    0.7258136868476868,
+    0.7205933332443237,
+    0.7021394371986389,
+    0.6895913481712341,
+    0.680935263633728
+   ],
+   "ring_generality": [
+    0.20833333333333334,
+    0.3472222222222222,
+    0.041666666666666664,
+    0.18055555555555555,
+    0.0,
+    0.0,
+    0.013888888888888888,
+    0.0
+   ],
+   "ctrl_features": [
+    5594,
+    10956,
+    7231,
+    11162,
+    16184,
+    7183,
+    9840,
+    13684
+   ],
+   "ctrl_maxcos": [
+    0.20455273985862732,
+    0.2571605443954468,
+    0.25541630387306213,
+    0.30043429136276245,
+    0.18127787113189697,
+    0.1657949984073639,
+    0.12369585782289505,
+    0.13049697875976562
+   ],
+   "ctrl_generality": [
+    0.2222222222222222,
+    0.3472222222222222,
+    0.041666666666666664,
+    0.18055555555555555,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ctrl2_features": [
+    15258,
+    4170,
+    13250,
+    15698,
+    1197,
+    3128,
+    7557,
+    1521
+   ],
+   "ctrl2_maxcos": [
+    0.14272534847259521,
+    0.166263610124588,
+    0.1524079144001007,
+    0.161909818649292,
+    0.1627684235572815,
+    0.10158005356788635,
+    0.1593378484249115,
+    0.27009326219558716
+   ],
+   "ctrl2_generality": [
+    0.05555555555555555,
+    0.0,
+    0.027777777777777776,
+    0.2638888888888889,
+    0.013888888888888888,
+    0.013888888888888888,
+    0.25,
+    0.125
+   ],
+   "coherence": {
+    "ring": 0.06252292543649673,
+    "ctrl": -0.003020218340680003,
+    "ctrl2": 0.06561551988124847
+   },
+   "n_span_tokens": 65,
+   "logprob_base": -319.3515625,
+   "logprob_ring": -313.57421875,
+   "dlogprob_ring": 5.77734375,
+   "dlogprob_per_token_ring": 0.08888221153846154,
+   "kl_ring": 0.014129291288554668,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " He",
+    " ",
+    " \"",
+    " The"
+   ],
+   "logprob_ctrl": -327.7578125,
+   "dlogprob_ctrl": -8.40625,
+   "dlogprob_per_token_ctrl": -0.1293269230769231,
+   "kl_ctrl": 0.007371104322373867,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " He",
+    " ",
+    " The",
+    " \""
+   ],
+   "logprob_ctrl2": -325.8515625,
+   "dlogprob_ctrl2": -6.5,
+   "dlogprob_per_token_ctrl2": -0.1,
+   "kl_ctrl2": 0.03737042099237442,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " He",
+    " ",
+    " The",
+    " \""
+   ],
+   "top5_base": [
+    "\n\n",
+    " He",
+    " ",
+    " The",
+    " \""
+   ]
+  },
+  "door/medieval/sacrifice": {
+   "passage": "door/medieval/sacrifice",
+   "resid_norm": 289.7243957519531,
+   "ring_features": [
+    15671,
+    10660,
+    15104,
+    13111,
+    13791,
+    14394,
+    13763,
+    130
+   ],
+   "ring_maxcos": [
+    0.8209724426269531,
+    0.7205933332443237,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.6946701407432556,
+    0.680935263633728,
+    0.6675930023193359,
+    0.6604633331298828
+   ],
+   "ring_generality": [
+    0.06944444444444445,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.6805555555555556,
+    0.0,
+    0.0,
+    0.125
+   ],
+   "ctrl_features": [
+    5492,
+    15223,
+    3254,
+    5317,
+    12238,
+    5245,
+    11960,
+    356
+   ],
+   "ctrl_maxcos": [
+    0.27309104800224304,
+    0.28544995188713074,
+    0.16121381521224976,
+    0.22541096806526184,
+    0.27710363268852234,
+    0.12580981850624084,
+    0.12325361371040344,
+    0.20287160575389862
+   ],
+   "ctrl_generality": [
+    0.05555555555555555,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.6666666666666666,
+    0.0,
+    0.0,
+    0.1388888888888889
+   ],
+   "ctrl2_features": [
+    10239,
+    6460,
+    13862,
+    10603,
+    13723,
+    2615,
+    3653,
+    9293
+   ],
+   "ctrl2_maxcos": [
+    0.19299404323101044,
+    0.15722167491912842,
+    0.2288956195116043,
+    0.28998255729675293,
+    0.36503496766090393,
+    0.1616591513156891,
+    0.21619875729084015,
+    0.12785908579826355
+   ],
+   "ctrl2_generality": [
+    0.125,
+    0.05555555555555555,
+    0.2916666666666667,
+    0.1527777777777778,
+    0.027777777777777776,
+    0.05555555555555555,
+    0.2361111111111111,
+    0.16666666666666666
+   ],
+   "coherence": {
+    "ring": 0.09000665694475174,
+    "ctrl": -0.0008386033005081117,
+    "ctrl2": 0.0823565348982811
+   },
+   "n_span_tokens": 78,
+   "logprob_base": -324.9375,
+   "logprob_ring": -331.625,
+   "dlogprob_ring": -6.6875,
+   "dlogprob_per_token_ring": -0.08573717948717949,
+   "kl_ring": 0.03489503636956215,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    " He",
+    " The",
+    "\n\n\n"
+   ],
+   "logprob_ctrl": -326.875,
+   "dlogprob_ctrl": -1.9375,
+   "dlogprob_per_token_ctrl": -0.024839743589743588,
+   "kl_ctrl": 0.015447739511728287,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " ",
+    " He",
+    " The",
+    "\n\n\n"
+   ],
+   "logprob_ctrl2": -325.8125,
+   "dlogprob_ctrl2": -0.875,
+   "dlogprob_per_token_ctrl2": -0.011217948717948718,
+   "kl_ctrl2": 0.10831470042467117,
+   "top5_overlap_ctrl2": 4,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    " He",
+    " The",
+    "  "
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    " He",
+    "\n\n\n",
+    " The"
+   ]
+  },
+  "door/1920s/homecoming": {
+   "passage": "door/1920s/homecoming",
+   "resid_norm": 290.8347473144531,
+   "ring_features": [
+    1040,
+    15671,
+    15662,
+    3557,
+    10660,
+    15104,
+    13111,
+    13143
+   ],
+   "ring_maxcos": [
+    0.8898046016693115,
+    0.8209724426269531,
+    0.7524290680885315,
+    0.7517653107643127,
+    0.7205933332443237,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.6933863759040833
+   ],
+   "ring_generality": [
+    0.0,
+    0.06944444444444445,
+    0.0,
+    0.041666666666666664,
+    0.0,
+    0.19444444444444445,
+    0.0,
+    0.05555555555555555
+   ],
+   "ctrl_features": [
+    1405,
+    13811,
+    2018,
+    11470,
+    14331,
+    2495,
+    15177,
+    1944
+   ],
+   "ctrl_maxcos": [
+    0.33142924308776855,
+    0.1592646688222885,
+    0.14503805339336395,
+    0.1954125612974167,
+    0.30012762546539307,
+    0.24473485350608826,
+    0.21250680088996887,
+    0.1743699610233307
+   ],
+   "ctrl_generality": [
+    0.013888888888888888,
+    0.05555555555555555,
+    0.0,
+    0.027777777777777776,
+    0.013888888888888888,
+    0.19444444444444445,
+    0.013888888888888888,
+    0.041666666666666664
+   ],
+   "ctrl2_features": [
+    13584,
+    111,
+    15308,
+    11655,
+    1614,
+    7013,
+    2018,
+    15923
+   ],
+   "ctrl2_maxcos": [
+    0.0828823447227478,
+    0.1823199838399887,
+    0.15544545650482178,
+    0.06704355031251907,
+    0.14946606755256653,
+    0.11340836435556412,
+    0.14503805339336395,
+    0.17426685988903046
+   ],
+   "ctrl2_generality": [
+    0.013888888888888888,
+    0.2222222222222222,
+    0.027777777777777776,
+    0.0,
+    0.125,
+    0.013888888888888888,
+    0.0,
+    0.05555555555555555
+   ],
+   "coherence": {
+    "ring": 0.04362235590815544,
+    "ctrl": 0.003947888035327196,
+    "ctrl2": 0.06104634329676628
+   },
+   "n_span_tokens": 77,
+   "logprob_base": -273.0625,
+   "logprob_ring": -278.125,
+   "dlogprob_ring": -5.0625,
+   "dlogprob_per_token_ring": -0.06574675324675325,
+   "kl_ring": 0.12318038940429688,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    " He",
+    "\n\n",
+    " They",
+    " ",
+    " Some"
+   ],
+   "logprob_ctrl": -274.0,
+   "dlogprob_ctrl": -0.9375,
+   "dlogprob_per_token_ctrl": -0.012175324675324676,
+   "kl_ctrl": 0.010414186865091324,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " He",
+    " ",
+    " They",
+    "\n\n\n"
+   ],
+   "logprob_ctrl2": -275.96875,
+   "dlogprob_ctrl2": -2.90625,
+   "dlogprob_per_token_ctrl2": -0.037743506493506496,
+   "kl_ctrl2": 0.007341004442423582,
+   "top5_overlap_ctrl2": 4,
+   "top5_ctrl2": [
+    "\n\n",
+    " He",
+    " ",
+    " They",
+    " Some"
+   ],
+   "top5_base": [
+    "\n\n",
+    " He",
+    " ",
+    " They",
+    "\n\n\n"
+   ]
+  },
+  "meal/medieval/betrayal": {
+   "passage": "meal/medieval/betrayal",
+   "resid_norm": 291.55523681640625,
+   "ring_features": [
+    15671,
+    9755,
+    3557,
+    5756,
+    10660,
+    13111,
+    3251,
+    6893
+   ],
+   "ring_maxcos": [
+    0.8209724426269531,
+    0.7673405408859253,
+    0.7517653107643127,
+    0.7258136868476868,
+    0.7205933332443237,
+    0.7021394371986389,
+    0.7007112503051758,
+    0.6946731805801392
+   ],
+   "ring_generality": [
+    0.06944444444444445,
+    0.3472222222222222,
+    0.041666666666666664,
+    0.18055555555555555,
+    0.0,
+    0.0,
+    0.041666666666666664,
+    0.013888888888888888
+   ],
+   "ctrl_features": [
+    6728,
+    11406,
+    2737,
+    3625,
+    15233,
+    6130,
+    1721,
+    112
+   ],
+   "ctrl_maxcos": [
+    0.28217819333076477,
+    0.17896386981010437,
+    0.15919716656208038,
+    0.13004057109355927,
+    0.2324889451265335,
+    0.21720662713050842,
+    0.139264315366745,
+    0.29108384251594543
+   ],
+   "ctrl_generality": [
+    0.05555555555555555,
+    0.3333333333333333,
+    0.041666666666666664,
+    0.19444444444444445,
+    0.0,
+    0.013888888888888888,
+    0.027777777777777776,
+    0.013888888888888888
+   ],
+   "ctrl2_features": [
+    12078,
+    984,
+    12973,
+    2465,
+    14686,
+    3846,
+    6969,
+    11502
+   ],
+   "ctrl2_maxcos": [
+    0.1934366524219513,
+    0.14970996975898743,
+    0.2752358019351959,
+    0.13394886255264282,
+    0.17067664861679077,
+    0.19719666242599487,
+    0.1667298823595047,
+    0.117863230407238
+   ],
+   "ctrl2_generality": [
+    0.041666666666666664,
+    0.027777777777777776,
+    0.041666666666666664,
+    0.013888888888888888,
+    0.06944444444444445,
+    0.09722222222222222,
+    0.20833333333333334,
+    0.18055555555555555
+   ],
+   "coherence": {
+    "ring": 0.07488404214382172,
+    "ctrl": 0.0008516311645507812,
+    "ctrl2": 0.08695367723703384
+   },
+   "n_span_tokens": 67,
+   "logprob_base": -254.25,
+   "logprob_ring": -255.28125,
+   "dlogprob_ring": -1.03125,
+   "dlogprob_per_token_ring": -0.015391791044776119,
+   "kl_ring": 0.024678759276866913,
+   "top5_overlap_ring": 5,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    " The",
+    "\n\n\n",
+    "  "
+   ],
+   "logprob_ctrl": -258.0625,
+   "dlogprob_ctrl": -3.8125,
+   "dlogprob_per_token_ctrl": -0.05690298507462686,
+   "kl_ctrl": 0.00715882983058691,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    " The",
+    "  "
+   ],
+   "logprob_ctrl2": -267.84375,
+   "dlogprob_ctrl2": -13.59375,
+   "dlogprob_per_token_ctrl2": -0.20289179104477612,
+   "kl_ctrl2": 0.001990633551031351,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    " The",
+    "  "
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    " The",
+    "\n\n\n",
+    "  "
+   ]
+  },
+  "meal/1920s/sacrifice": {
+   "passage": "meal/1920s/sacrifice",
+   "resid_norm": 301.37841796875,
+   "ring_features": [
+    10660,
+    4729,
+    2863,
+    13111,
+    5699,
+    4711,
+    14394,
+    13571
+   ],
+   "ring_maxcos": [
+    0.7205933332443237,
+    0.7166582942008972,
+    0.7092418670654297,
+    0.7021394371986389,
+    0.6920349597930908,
+    0.6861768364906311,
+    0.680935263633728,
+    0.6705306768417358
+   ],
+   "ring_generality": [
+    0.0,
+    0.0,
+    0.2916666666666667,
+    0.0,
+    0.7083333333333334,
+    0.041666666666666664,
+    0.0,
+    0.0
+   ],
+   "ctrl_features": [
+    12061,
+    3278,
+    7428,
+    5744,
+    14075,
+    2666,
+    3362,
+    9377
+   ],
+   "ctrl_maxcos": [
+    0.17310592532157898,
+    0.135466068983078,
+    0.1904783993959427,
+    0.1307687610387802,
+    0.23676826059818268,
+    0.21696721017360687,
+    0.13783200085163116,
+    0.1375417709350586
+   ],
+   "ctrl_generality": [
+    0.0,
+    0.0,
+    0.2916666666666667,
+    0.0,
+    0.7083333333333334,
+    0.05555555555555555,
+    0.0,
+    0.0
+   ],
+   "ctrl2_features": [
+    5524,
+    14417,
+    7504,
+    9641,
+    14144,
+    2810,
+    6459,
+    10485
+   ],
+   "ctrl2_maxcos": [
+    0.17251448333263397,
+    0.11381084471940994,
+    0.21917696297168732,
+    0.16778825223445892,
+    0.2103859931230545,
+    0.15117241442203522,
+    0.20023036003112793,
+    0.18642836809158325
+   ],
+   "ctrl2_generality": [
+    0.19444444444444445,
+    0.0,
+    0.4722222222222222,
+    0.06944444444444445,
+    0.06944444444444445,
+    0.0,
+    0.20833333333333334,
+    0.013888888888888888
+   ],
+   "coherence": {
+    "ring": 0.020186441019177437,
+    "ctrl": -0.0038048711139708757,
+    "ctrl2": 0.0831778421998024
+   },
+   "n_span_tokens": 62,
+   "logprob_base": -258.15625,
+   "logprob_ring": -255.15625,
+   "dlogprob_ring": 3.0,
+   "dlogprob_per_token_ring": 0.04838709677419355,
+   "kl_ring": 0.3465389013290405,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    " The",
+    "\n\n",
+    " ",
+    " She",
+    "  "
+   ],
+   "logprob_ctrl": -263.84375,
+   "dlogprob_ctrl": -5.6875,
+   "dlogprob_per_token_ctrl": -0.09173387096774194,
+   "kl_ctrl": 0.00886708963662386,
+   "top5_overlap_ctrl": 5,
+   "top5_ctrl": [
+    " The",
+    "\n\n",
+    " ",
+    " She",
+    " Rose"
+   ],
+   "logprob_ctrl2": -256.09375,
+   "dlogprob_ctrl2": 2.0625,
+   "dlogprob_per_token_ctrl2": 0.03326612903225806,
+   "kl_ctrl2": 0.061059899628162384,
+   "top5_overlap_ctrl2": 5,
+   "top5_ctrl2": [
+    " The",
+    "\n\n",
+    " Rose",
+    " ",
+    " She"
+   ],
+   "top5_base": [
+    " The",
+    "\n\n",
+    " She",
+    " ",
+    " Rose"
+   ]
+  },
+  "meal/farfuture/homecoming": {
+   "passage": "meal/farfuture/homecoming",
+   "resid_norm": 308.1195373535156,
+   "ring_features": [
+    10660,
+    2863,
+    15104,
+    13111,
+    11047,
+    14394,
+    15013,
+    13763
+   ],
+   "ring_maxcos": [
+    0.7205933332443237,
+    0.7092418670654297,
+    0.7041927576065063,
+    0.7021394371986389,
+    0.6861768364906311,
+    0.680935263633728,
+    0.6748924255371094,
+    0.6675930023193359
+   ],
+   "ring_generality": [
+    0.0,
+    0.2916666666666667,
+    0.19444444444444445,
+    0.0,
+    0.6805555555555556,
+    0.0,
+    0.19444444444444445,
+    0.0
+   ],
+   "ctrl_features": [
+    3399,
+    2391,
+    13800,
+    8209,
+    7929,
+    7657,
+    208,
+    7214
+   ],
+   "ctrl_maxcos": [
+    0.12561918795108795,
+    0.18879695236682892,
+    0.24156472086906433,
+    0.12081073224544525,
+    0.29848408699035645,
+    0.1675180345773697,
+    0.35973912477493286,
+    0.17100010812282562
+   ],
+   "ctrl_generality": [
+    0.0,
+    0.2916666666666667,
+    0.19444444444444445,
+    0.0,
+    0.6666666666666666,
+    0.0,
+    0.20833333333333334,
+    0.0
+   ],
+   "ctrl2_features": [
+    5486,
+    216,
+    5170,
+    9164,
+    5306,
+    6391,
+    10638,
+    9308
+   ],
+   "ctrl2_maxcos": [
+    0.1647704392671585,
+    0.21131108701229095,
+    0.26580414175987244,
+    0.19711017608642578,
+    0.2295202612876892,
+    0.2875889837741852,
+    0.19387204945087433,
+    0.284415066242218
+   ],
+   "ctrl2_generality": [
+    0.4027777777777778,
+    0.5277777777777778,
+    0.06944444444444445,
+    0.16666666666666666,
+    0.0,
+    0.027777777777777776,
+    0.3333333333333333,
+    0.013888888888888888
+   ],
+   "coherence": {
+    "ring": 0.05678708106279373,
+    "ctrl": 0.011719430796802044,
+    "ctrl2": 0.07286565750837326
+   },
+   "n_span_tokens": 66,
+   "logprob_base": -299.5,
+   "logprob_ring": -306.09375,
+   "dlogprob_ring": -6.59375,
+   "dlogprob_per_token_ring": -0.09990530303030302,
+   "kl_ring": 0.023473653942346573,
+   "top5_overlap_ring": 4,
+   "top5_ring": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    " She",
+    " The"
+   ],
+   "logprob_ctrl": -302.4375,
+   "dlogprob_ctrl": -2.9375,
+   "dlogprob_per_token_ctrl": -0.04450757575757576,
+   "kl_ctrl": 0.01353403553366661,
+   "top5_overlap_ctrl": 4,
+   "top5_ctrl": [
+    "\n\n",
+    "\n\n\n",
+    " ",
+    "  ",
+    " The"
+   ],
+   "logprob_ctrl2": -311.15625,
+   "dlogprob_ctrl2": -11.65625,
+   "dlogprob_per_token_ctrl2": -0.17660984848484848,
+   "kl_ctrl2": 0.006289711222052574,
+   "top5_overlap_ctrl2": 4,
+   "top5_ctrl2": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    "\n\n\n\n"
+   ],
+   "top5_base": [
+    "\n\n",
+    " ",
+    "\n\n\n",
+    "  ",
+    " She"
+   ]
+  }
+ }
+}
