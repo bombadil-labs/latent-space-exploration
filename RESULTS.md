@@ -824,6 +824,45 @@ is the calculus operator doing what §2.3 of `docs/ALGEBRA.md` says it should.
 **Caveats.** One 1.5B model; directions from nine mean-pooled vectors per fold; noisy per-token
 cosines; a naive sentence split drops 2 of 36 passages from the per-sentence analysis.
 
+## 2026-09-11 (hour 18) — Absential ring by decoder geometry: falsified as "implied but absent content"
+
+**Setup** (agent run; `scripts/absential_ring.py`, `scripts/ndif_absential_probe.py`,
+`results/absential_census.json`, `results/absential_probe_gemma9b.json`,
+`results/notes/absential.md`). Gemma Scope 16k, layer 20, Gemma-2-9B-it. Active set A = features
+firing on any non-BOS token; formatting features (generality > 0.9) excluded. Ring R = inactive
+features whose decoder direction has cosine ≥ 0.40 to some active content feature. The inactive
+max-cosine distribution is smooth with no shoulder, so τ = 0.40 is the 97.5th percentile, a choice
+rather than a discovery.
+
+**Census (72 passages).** Theme grid: |A| = 1809, |R| = 386; mood grid: 1144 / 258. The ring is
+the dictionary's long tail: mean generality 0.09, 70% rare, 38% never fire on any reference.
+Two negatives: a ring built from a size-matched *random* active set has the same size and an
+identical generality profile, so census statistics cannot tell a real ring from an arbitrary one;
+and ring composition does not track theme (within-vs-across Jaccard +0.002; no feature is in the
+ring of every passage of one theme and none of the others). The top-cosine ring members are
+near-duplicates of function-word features (*the*, *his*, *of*), not thematic near-misses.
+
+**Probe (12 passages, 72 NDIF jobs).** Top-8 ring decoders summed, renormalized to 0.15 × the
+residual norm, added at block 20 at every position. Controls: generality-matched inactive non-ring
+features (`ctrl`), and generality- and coherence-matched (`ctrl2`, since the ring's directions are
+mutually similar and their sum does not cancel).
+
+| | ring | ctrl | ctrl2 |
+|---|---|---|---|
+| Δ log-prob of own span (nats/token) | −0.027 | −0.037 | −0.037 |
+| KL at final position, mean | **0.063** | 0.008 | 0.022 |
+| ring has lower KL than control | — | 1/12 (sign p = 0.006) | 3/12 (p = 0.15) |
+
+**Reading.** The hypothesis that decoder-adjacent inactive features are the model's own implied
+but absent content, and that perturbing along them is less disruptive than random, is
+**falsified**: fit is a wash, and the ring is *more* disruptive, 7.6× the matched control's KL.
+The defensible residue is narrow: at matched norm and generality, directions adjacent to the live
+set carry more leverage on the next-token distribution, most parsimoniously because they amplify
+already-active near-duplicate features. Decoder geometry is the wrong adjacency for Deacon's
+absence. **What would move this:** define the ring from features that fire on the model's own
+*continuation* of the passage rather than from geometry, which is the withheld-betrayal test named
+in VISION.md and comes with semantics attached.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

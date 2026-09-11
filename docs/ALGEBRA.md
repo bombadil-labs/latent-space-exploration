@@ -109,9 +109,12 @@ absential : Schema × Passage × Scale → Dir    -- the Dir of a Role the Schem
                                                  span occupies, and that is active anyway
 ```
 
-**Defined; causal test pending.** No script in `scripts/` implements it. The recipe (inactive SAE
-features with high decoder similarity to the live set, tested by ablation) is stated in `VISION.md`.
-No result is claimed here.
+**Defined; the decoder-geometry realization is falsified.** `scripts/absential_ring.py` and
+`scripts/ndif_absential_probe.py` (hour 18): inactive features adjacent in decoder space to the
+live set are the dictionary's long tail, do not track theme, and are *more* disruptive than
+matched controls when patched (KL 0.063 vs 0.008; lower-KL in 1/12). Decoder adjacency is the wrong
+adjacency. The signature stands; the next realization is continuation-defined (features that fire
+on the model's own continuation but not on the passage).
 
 ### 2.7 `cohere`
 
@@ -168,7 +171,8 @@ The exclusions are the design.
   L9. This was a data problem, as stated, and the data fixed the selector half.
 - **`cohere`** has no observable until generation is steerable at passage scale. Its signature is
   written; its Gauge does not exist.
-- **`absential`** is defined (§2.6); its causal test is pending, and no result is claimed.
+- **`absential`** is defined (§2.6); its first realization (decoder adjacency) is falsified (hour 18); the
+  continuation-defined realization is the open test.
 
 ## 6. Mapping table
 
@@ -185,5 +189,5 @@ The exclusions are the design.
 | compose | `Op × Op → Op`; `Dir × Dir → Dir` | `stage5_factors.py`, `stage6_factors.py` | hours 6, 8, 10 | measured |
 | select (the lens) | `Dir × Passage* × Scale → rank` | `stage4.py`, `stage5_factors.py`, `stage6_factors.py`, `ndif_factors.py` | hours 4, 6–13 | measured |
 | recompose (address shift) | `translate(dir_e2 − dir_e1)` | `stage7_shift.py`, `ndif_shift.py` | hour 14 | measured |
-| absential | `Schema × Passage × Scale → Dir` | — | — | defined, test pending |
+| absential | `Schema × Passage × Scale → Dir` | `absential_ring.py`, `ndif_absential_probe.py` | hour 18 | defined; decoder-geometry realization falsified |
 | cohere | `Passage × Dir* × Scale → Passage` | — | — | not yet realizable |
