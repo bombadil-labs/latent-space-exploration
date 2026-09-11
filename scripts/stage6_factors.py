@@ -10,7 +10,8 @@ from lsx import LM
 from lsx.model import Patch
 from lsx.steer import add_vector
 ap = argparse.ArgumentParser(); ap.add_argument("grid"); ap.add_argument("stacks"); ap.add_argument("--model", default="Qwen/Qwen2.5-1.5B")
-ap.add_argument("--layer", type=int, default=14); ap.add_argument("--scale", type=float, default=1.0); ap.add_argument("--out", default=None); ap.add_argument("--skip-model", action="store_true")
+ap.add_argument("--layer", type=int, default=14); ap.add_argument("--scale", type=float, default=1.0)
+ap.add_argument("--layers", default=None, help="comma list: patch ALL these layers (directions estimated per layer), --scale each"); ap.add_argument("--out", default=None); ap.add_argument("--skip-model", action="store_true")
 a = ap.parse_args()
 g = json.load(open(a.grid)); z = np.load(a.stacks); X = {k: z[k] for k in z.files}
 F = g["factors"]; names = list(F); S = g["scenes"]; lead = g["lead"]; spans = g["spans"]
@@ -32,6 +33,7 @@ for l in range(0, L, 4):
     print(f"  layer {l:2d}: " + "  ".join(f"{n} {acc[n]/tot:.2f}" for n in names))
 if a.skip_model: raise SystemExit
 lm = LM.from_pretrained(a.model); rng = np.random.default_rng(0); l = a.layer; res = []
+LAYERS = [int(x) for x in a.layers.split(",")] if a.layers else [l]
 def decompose(gd):  # gd: combo -> gain ; returns fraction of variance per factor main effect
     G = np.array([gd[c] for c in combos]); gm = G.mean(); tot = ((G - gm) ** 2).sum() + 1e-12; out = {}
     for i, n in enumerate(names):
@@ -39,23 +41,30 @@ def decompose(gd):  # gd: combo -> gain ; returns fraction of variance per facto
         out[n] = float(sum((means[c[i]] - gm) ** 2 for c in combos) / tot)
     return out
 for s in S:
-    D, mu = dirs(l, [x for x in S if x != s])
+    DL = {ll: dirs(ll, [x for x in S if x != s]) for ll in LAYERS}; D, mu = DL[l] if l in DL else DL[LAYERS[0]]
     base = {c: lm.logprob(lead, f" {spans[key(s, c)]}") for c in combos}
-    gains = lambda vec: {c: lm.logprob(lead, f" {spans[key(s, c)]}", [Patch(l, add_vector(vec, a.scale))]) - base[c] for c in combos}
+    def gains(vec, n=None, lvl=None):
+        # vec is the layer-`l` direction; for multi-layer patching use each layer's own estimate of the same (factor, level)
+        if len(LAYERS) == 1 or n is None:
+            patches = [Patch(ll, add_vector(vec, a.scale)) for ll in LAYERS]
+        else:
+            patches = [Patch(ll, add_vector(DL[ll][0][n][lvl], a.scale)) for ll in LAYERS]
+        return {c: lm.logprob(lead, f" {spans[key(s, c)]}", patches) - base[c] for c in combos}
     rank = lambda gd, t, cands: 1 + sum(gd[c] > gd[t] for c in cands if c != t)
     for i, n in enumerate(names):
         for lvl in F[n]:
             r = rng.normal(size=D[n][lvl].shape); r *= np.linalg.norm(D[n][lvl]) / np.linalg.norm(r)
             for cond, vec in (("factor", D[n][lvl]), ("rand", r)):
-                gd = gains(vec); dec = decompose(gd)
+                gd = gains(vec, n if cond == "factor" else None, lvl); dec = decompose(gd)
                 for c in combos:
                     if c[i] == lvl:
                         res.append(dict(scene=s, test="B", factor=n, cond=cond, rank=rank(gd, c, [cc for cc in combos if all(cc[j] == c[j] for j in range(len(names)) if j != i)])))
                 res.append(dict(scene=s, test="X", factor=n, cond=cond, **{f"frac_{m}": dec[m] for m in names}))
     for c in combos:
-        gd = gains(sum(D[n][c[i]] for i, n in enumerate(names))); res.append(dict(scene=s, test="D", rank=rank(gd, c, combos)))
+        patches = [Patch(ll, add_vector(sum(DL[ll][0][n][c[i]] for i, n in enumerate(names)), a.scale)) for ll in LAYERS]
+        gd = {cc: lm.logprob(lead, f" {spans[key(s, cc)]}", patches) - base[cc] for cc in combos}; res.append(dict(scene=s, test="D", rank=rank(gd, c, combos)))
     print("scene", s, "done")
-print(f"\n=== summary layer={l} scale={a.scale} ===")
+print(f"\n=== summary layers={LAYERS} scale={a.scale} ===")
 for n in names:
     k = len(F[n]); f = lambda c: np.mean([x["rank"] for x in res if x["test"] == "B" and x["factor"] == n and x["cond"] == c])
     print(f"(B) {n:6s} lens: rank/{k} factor-dir {f('factor'):.2f}  random {f('rand'):.2f}   (chance {(k+1)/2:.1f})")
