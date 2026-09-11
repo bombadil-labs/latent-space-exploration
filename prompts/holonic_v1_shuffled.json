@@ -1,0 +1,103 @@
+{
+ "_note": "Holonic (subject/object) transition schema, 6 roles, 8 domains x 2 framings. 'holonic' framing: each span fills a role in the transition. 'flat' framing: same domain, same connective template, spans are unrelated true statements with no transition between them. Written by Claude as a starting point; the user should rewrite once back. Roles: embedded = the thing one IS (subject, cannot be seen); disturbance = what makes embeddedness fail; objectified = the same thing once it can be held and seen; new_subject = the larger frame one now IS; from_below = how the move looks from the prior stage; from_above = how it looks from the later stage. | shuffled: holonic spans permuted across slots (different derangement per domain), roles labeled by slot.",
+ "roles": [
+  "embedded",
+  "disturbance",
+  "objectified",
+  "new_subject",
+  "from_below",
+  "from_above"
+ ],
+ "prompts": {
+  "physics/holonic": "In physics there was a stage where [[embedded: a particle simply had a position and a momentum, and the physicist was inside that picture without seeing it as a picture]]. Then [[disturbance: measurements at small scales refused to give both quantities together]]. Afterward [[objectified: the classical trajectory became one description among others, something to be chosen and examined]]. What now holds it is [[new_subject: a state vector from which trajectories are derived only as limits]]. Seen from the earlier stage, [[from_below: this looks like the loss of reality, as if nature has become vague]]. Seen from the later stage, [[from_above: the earlier picture was a special case that was never wrong, only partial]].",
+  "psychology/holonic": "In child development there is a stage where [[embedded: the child is its impulses, wanting is doing, and the impulse cannot be seen because the child is looking through it]]. Then [[disturbance: the impulses begin to conflict, and getting one thing means losing another]]. Afterward [[objectified: an impulse becomes something the child has, notices, and can decline to act on]]. What now holds it is [[new_subject: a self with durable wishes that persist across momentary desires]]. Seen from the earlier stage, [[from_below: this looks like being made to give things up for no reason]]. Seen from the later stage, [[from_above: the impulses are still there, they are just no longer in charge]].",
+  "music/holonic": "In a tonal piece there is a stage where [[embedded: the home key is simply where the music lives, and the listener does not hear it as a key at all]]. Then [[disturbance: a chromatic chord pulls toward a distant region and the ground shifts]]. Afterward [[objectified: the home key becomes one region among several, a place the music can leave and return to]]. What now holds it is [[new_subject: a tonal plan in which keys are related to one another by distance]]. Seen from the earlier stage, [[from_below: this sounds like wandering, as if the music has lost its way]]. Seen from the later stage, [[from_above: the home key was always defined by what it was not, and the departure made that audible]].",
+  "law/holonic": "In contract law there was a stage where [[embedded: the written words simply were the agreement, and a judge read them without seeing reading as an act]]. Then [[disturbance: cases arose where the words, applied literally, produced results no party had wanted]]. Afterward [[objectified: the text became one source of meaning, to be weighed against purpose and circumstance]]. What now holds it is [[new_subject: a theory of interpretation in which text and intent constrain each other]]. Seen from the earlier stage, [[from_below: this looks like judges rewriting deals to suit themselves]]. Seen from the later stage, [[from_above: the literal reading was itself an interpretive choice that no one had noticed making]].",
+  "software/holonic": "In a growing codebase there is a stage where [[embedded: the whole program is one process, and the developer thinks in function calls without seeing the process as a boundary]]. Then [[disturbance: one part needs to scale or fail independently of the rest, and the single process cannot allow it]]. Afterward [[objectified: the process becomes a unit that can be drawn, named, and deployed separately]]. What now holds it is [[new_subject: a system of services in which processes are related by contracts and messages]]. Seen from the earlier stage, [[from_below: this looks like needless complexity, a function call replaced by a network]]. Seen from the later stage, [[from_above: the monolith was already a distributed system with only one node]].",
+  "biology/holonic": "In the history of life there was a stage where [[embedded: a bacterium simply was a self-contained cell, metabolism and membrane as one unit with no inside view of itself as a part]]. Then [[disturbance: one cell engulfed another and neither died]]. Afterward [[objectified: the engulfed cell became an organelle, a component the host could regulate and depend on]]. What now holds it is [[new_subject: a eukaryotic cell whose identity includes what used to be a separate organism]]. Seen from the earlier stage, [[from_below: this looks like capture, a loss of independence]]. Seen from the later stage, [[from_above: the free-living cell had been a whole that was also always a possible part]].",
+  "mathematics/holonic": "In arithmetic there is a stage where [[embedded: numbers are simply the counting numbers, and a student uses them without seeing them as a system with rules]]. Then [[disturbance: a subtraction demands a result that counting cannot supply]]. Afterward [[objectified: the counting numbers become one number system, with a definite structure and definite gaps]]. What now holds it is [[new_subject: the integers, in which the old numbers sit as a substructure]]. Seen from the earlier stage, [[from_below: negative numbers look like a trick, quantities that cannot be]]. Seen from the later stage, [[from_above: the counting numbers were always half of something, and the other half had been implicit in every subtraction]].",
+  "narrative/holonic": "In a story there is a stage where [[embedded: the hero lives inside the village's values and does not experience them as values, only as how things are]]. Then [[disturbance: a stranger arrives whose way of living works, and it contradicts the village]]. Afterward [[objectified: the village's way becomes one way among others, visible, chosen or refused]]. What now holds it is [[new_subject: a hero who carries the village as a part of a self that is no longer only the village]]. Seen from the earlier stage, [[from_below: this looks like betrayal, the hero abandoning home]]. Seen from the later stage, [[from_above: the village was never left, it was finally seen]].",
+  "physics/flat": "In physics there was a period where [[embedded: a photon travels at the speed of light in a vacuum regardless of the motion of its source]]. Then [[disturbance: the electron has a rest mass of about half a million electron volts]]. Afterward [[objectified: the proton is made of three valence quarks bound together by gluons]]. What is also true is [[new_subject: sound travels faster in water than in air by roughly a factor of four]]. Seen in the laboratory, [[from_below: a pendulum's period depends on its length and not on its mass]]. Seen in the sky, [[from_above: the Sun converts hydrogen to helium in its core through fusion]].",
+  "psychology/flat": "In child development there is a period where [[embedded: infants typically begin to walk unaided at around twelve months of age]]. Then [[disturbance: object permanence is usually established before the first birthday]]. Afterward [[objectified: vocabulary often reaches several hundred words by the second birthday]]. What is also true is [[new_subject: adolescence brings a rapid increase in prefrontal cortex connectivity]]. Seen in the clinic, [[from_below: sleep needs decline gradually from infancy through the teenage years]]. Seen in the school, [[from_above: handedness is generally stable by the age of four or five]].",
+  "music/flat": "In a tonal piece there is a period where [[embedded: a major scale has seven notes with a fixed pattern of whole and half steps]]. Then [[disturbance: the standard concert pitch tunes the A above middle C to 440 hertz]]. Afterward [[objectified: a string quartet consists of two violins, a viola, and a cello]]. What is also true is [[new_subject: a sonata typically opens with an exposition that presents two themes]]. Seen from the stage, [[from_below: a conductor's downbeat marks the first beat of each measure]]. Seen from the score, [[from_above: a fermata indicates that a note should be held longer than written]].",
+  "law/flat": "In contract law there was a period where [[embedded: a valid contract requires an offer, an acceptance, and consideration from both sides]]. Then [[disturbance: the statute of limitations for most tort claims runs for a few years]]. Afterward [[objectified: appellate courts review questions of law without deference to the trial court]]. What is also true is [[new_subject: a will generally must be signed in the presence of two witnesses]]. Seen from the bench, [[from_below: the burden of proof in a civil case is the balance of probabilities]]. Seen from the bar, [[from_above: attorney-client privilege survives the death of the client]].",
+  "software/flat": "In a growing codebase there is a period where [[embedded: a hash table gives constant-time lookup on average for a well-distributed key set]]. Then [[disturbance: TCP guarantees ordered delivery of bytes but not message boundaries]]. Afterward [[objectified: a garbage collector reclaims memory that is no longer reachable from any root]]. What is also true is [[new_subject: a database index speeds reads at the cost of slower writes]]. Seen from the terminal, [[from_below: an environment variable is inherited by child processes at launch]]. Seen from the browser, [[from_above: a cookie is sent with every request to the domain that set it]].",
+  "biology/flat": "In the history of life there was a period where [[embedded: a bacterium divides by binary fission into two genetically identical daughter cells]]. Then [[disturbance: ribosomes assemble proteins by reading messenger RNA three bases at a time]]. Afterward [[objectified: mitochondria carry their own small circular genome separate from the nucleus]]. What is also true is [[new_subject: the human body contains roughly thirty trillion cells of its own]]. Seen under a microscope, [[from_below: a red blood cell has no nucleus and lives about four months]]. Seen across a lifespan, [[from_above: the skin replaces its outer layer about once a month]].",
+  "mathematics/flat": "In arithmetic there is a period where [[embedded: a prime number has exactly two positive divisors, one and itself]]. Then [[disturbance: the sum of the angles of a triangle in the plane is one hundred eighty degrees]]. Afterward [[objectified: the square root of two cannot be written as a ratio of two whole numbers]]. What is also true is [[new_subject: multiplication of whole numbers is commutative and associative]]. Seen on the number line, [[from_below: between any two fractions there is always another fraction]]. Seen in the table, [[from_above: the factorial of five is one hundred twenty]].",
+  "narrative/flat": "In a story there is a period where [[embedded: the hero is introduced in the first chapter along with the setting]]. Then [[disturbance: the villain is usually given a motive that the reader can understand]]. Afterward [[objectified: a subplot often involves a secondary character's romance]]. What is also true is [[new_subject: a chapter break commonly falls at a moment of suspense]]. Seen from the reader's chair, [[from_below: first-person narration limits what the reader can know]]. Seen from the editor's desk, [[from_above: most novels run between seventy and one hundred twenty thousand words]].",
+  "physics/shuffled": "In physics there was a stage where [[embedded: the earlier picture was a special case that was never wrong, only partial]]. Then [[disturbance: the classical trajectory became one description among others, something to be chosen and examined]]. Afterward [[objectified: a particle simply had a position and a momentum, and the physicist was inside that picture without seeing it as a picture]]. What now holds it is [[new_subject: this looks like the loss of reality, as if nature has become vague]]. Seen from the earlier stage, [[from_below: measurements at small scales refused to give both quantities together]]. Seen from the later stage, [[from_above: a state vector from which trajectories are derived only as limits]].",
+  "psychology/shuffled": "In child development there is a stage where [[embedded: the impulses are still there, they are just no longer in charge]]. Then [[disturbance: the child is its impulses, wanting is doing, and the impulse cannot be seen because the child is looking through it]]. Afterward [[objectified: this looks like being made to give things up for no reason]]. What now holds it is [[new_subject: the impulses begin to conflict, and getting one thing means losing another]]. Seen from the earlier stage, [[from_below: a self with durable wishes that persist across momentary desires]]. Seen from the later stage, [[from_above: an impulse becomes something the child has, notices, and can decline to act on]].",
+  "music/shuffled": "In a tonal piece there is a stage where [[embedded: a tonal plan in which keys are related to one another by distance]]. Then [[disturbance: the home key becomes one region among several, a place the music can leave and return to]]. Afterward [[objectified: the home key was always defined by what it was not, and the departure made that audible]]. What now holds it is [[new_subject: this sounds like wandering, as if the music has lost its way]]. Seen from the earlier stage, [[from_below: a chromatic chord pulls toward a distant region and the ground shifts]]. Seen from the later stage, [[from_above: the home key is simply where the music lives, and the listener does not hear it as a key at all]].",
+  "law/shuffled": "In contract law there was a stage where [[embedded: a theory of interpretation in which text and intent constrain each other]]. Then [[disturbance: the written words simply were the agreement, and a judge read them without seeing reading as an act]]. Afterward [[objectified: the literal reading was itself an interpretive choice that no one had noticed making]]. What now holds it is [[new_subject: the text became one source of meaning, to be weighed against purpose and circumstance]]. Seen from the earlier stage, [[from_below: cases arose where the words, applied literally, produced results no party had wanted]]. Seen from the later stage, [[from_above: this looks like judges rewriting deals to suit themselves]].",
+  "software/shuffled": "In a growing codebase there is a stage where [[embedded: the monolith was already a distributed system with only one node]]. Then [[disturbance: the process becomes a unit that can be drawn, named, and deployed separately]]. Afterward [[objectified: one part needs to scale or fail independently of the rest, and the single process cannot allow it]]. What now holds it is [[new_subject: the whole program is one process, and the developer thinks in function calls without seeing the process as a boundary]]. Seen from the earlier stage, [[from_below: a system of services in which processes are related by contracts and messages]]. Seen from the later stage, [[from_above: this looks like needless complexity, a function call replaced by a network]].",
+  "biology/shuffled": "In the history of life there was a stage where [[embedded: one cell engulfed another and neither died]]. Then [[disturbance: a bacterium simply was a self-contained cell, metabolism and membrane as one unit with no inside view of itself as a part]]. Afterward [[objectified: a eukaryotic cell whose identity includes what used to be a separate organism]]. What now holds it is [[new_subject: the engulfed cell became an organelle, a component the host could regulate and depend on]]. Seen from the earlier stage, [[from_below: the free-living cell had been a whole that was also always a possible part]]. Seen from the later stage, [[from_above: this looks like capture, a loss of independence]].",
+  "mathematics/shuffled": "In arithmetic there is a stage where [[embedded: the counting numbers were always half of something, and the other half had been implicit in every subtraction]]. Then [[disturbance: the counting numbers become one number system, with a definite structure and definite gaps]]. Afterward [[objectified: the integers, in which the old numbers sit as a substructure]]. What now holds it is [[new_subject: negative numbers look like a trick, quantities that cannot be]]. Seen from the earlier stage, [[from_below: a subtraction demands a result that counting cannot supply]]. Seen from the later stage, [[from_above: numbers are simply the counting numbers, and a student uses them without seeing them as a system with rules]].",
+  "narrative/shuffled": "In a story there is a stage where [[embedded: this looks like betrayal, the hero abandoning home]]. Then [[disturbance: a hero who carries the village as a part of a self that is no longer only the village]]. Afterward [[objectified: the hero lives inside the village's values and does not experience them as values, only as how things are]]. What now holds it is [[new_subject: the village was never left, it was finally seen]]. Seen from the earlier stage, [[from_below: a stranger arrives whose way of living works, and it contradicts the village]]. Seen from the later stage, [[from_above: the village's way becomes one way among others, visible, chosen or refused]]."
+ },
+ "shuffle_perms": {
+  "physics": [
+   5,
+   2,
+   0,
+   4,
+   1,
+   3
+  ],
+  "psychology": [
+   5,
+   0,
+   4,
+   1,
+   3,
+   2
+  ],
+  "music": [
+   3,
+   2,
+   5,
+   4,
+   1,
+   0
+  ],
+  "law": [
+   3,
+   0,
+   5,
+   2,
+   1,
+   4
+  ],
+  "software": [
+   5,
+   2,
+   1,
+   0,
+   3,
+   4
+  ],
+  "biology": [
+   1,
+   0,
+   3,
+   2,
+   5,
+   4
+  ],
+  "mathematics": [
+   5,
+   2,
+   3,
+   4,
+   1,
+   0
+  ],
+  "narrative": [
+   4,
+   3,
+   0,
+   5,
+   1,
+   2
+  ]
+ }
+}

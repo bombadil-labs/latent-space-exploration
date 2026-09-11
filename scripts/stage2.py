@@ -30,19 +30,21 @@ if not a.no_center:
     stacks = compare.subtract_grand_mean(stacks)
 keys = list(stacks); dom = {k: k.split("/")[0] for k in keys}; fr = {k: k.split("/")[1] for k in keys}
 def bucket(x, y):
-    if dom[x] == dom[y]: return "A" if fr[x] != fr[y] else None
-    if fr[x] == fr[y]: return "H" if fr[x] == "holonic" else "F"
-    return "X"
-pairs = {b: [] for b in "HFAX"}
+    """Label = framings (sorted) + whether the domain is shared. e.g. 'holonic~holonic diffdom' is the hypothesis,
+    'flat~flat diffdom' the template control, 'shuffled~shuffled diffdom' the slot-position control."""
+    f = "~".join(sorted((fr[x], fr[y])))
+    return f + (" samedom" if dom[x] == dom[y] else " diffdom")
+pairs = {}
 for x, y in itertools.combinations(keys, 2):
-    b = bucket(x, y)
-    if b: pairs[b].append((x, y))
+    pairs.setdefault(bucket(x, y), []).append((x, y))
+pairs = dict(sorted(pairs.items(), key=lambda kv: (kv[0].endswith("samedom"), kv[0])))
 L = next(iter(stacks.values())).shape[0]
 layers = list(range(0, L, a.step))
 res = {b: {"obs": [], "z": []} for b in pairs}
 print(f"model={a.model} metric={a.metric} nperm={a.nperm} centered={not a.no_center} roles={len(roles)}")
-print(f"pairs: " + ", ".join(f"{b}={len(p)}" for b, p in pairs.items()))
-print("layer |   H obs    H z |   F obs    F z |   A obs    A z |   X obs    X z")
+short = {b: f"B{i}" for i, b in enumerate(pairs)}
+for b, p in pairs.items(): print(f"  {short[b]} = {b} (n={len(p)})")
+print("layer | " + " | ".join(f"{short[b]:>4} obs {short[b]:>4} z" for b in pairs))
 for l in layers:
     row = []
     for b, prs in pairs.items():
@@ -51,7 +53,7 @@ for l in layers:
             obs, m, s = compare.permutation_null(stacks[x][l], stacks[y][l], fn, a.nperm, seed=l * 1000 + i)
             o.append(obs); z.append((obs - m) / s)
         res[b]["obs"].append(float(np.mean(o))); res[b]["z"].append(float(np.mean(z)))
-        row.append(f"{np.mean(o):7.3f} {np.mean(z):6.2f}")
+        row.append(f"{np.mean(o):8.3f} {np.mean(z):6.2f}")
     print(f"{l:5d} | " + " | ".join(row))
 if a.out:
     json.dump({"model": a.model, "metric": a.metric, "layers": layers, "buckets": res, "n_pairs": {b: len(p) for b, p in pairs.items()}}, open(a.out, "w"), indent=1)

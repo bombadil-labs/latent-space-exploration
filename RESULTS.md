@@ -74,11 +74,68 @@ test; the offset baseline benefits from being the lowest-variance estimator. Nex
 domain (paraphrases) so the affine fit has data; readout by patching the predicted vector into the
 residual stream and generating (stage 4), which is the only test that matters for the "lens".
 
+## 2026-09-11 (hour 2) — Shuffled-holonic control: the stage-2 "shape" is mostly slot position
+
+**Setup.** For each holonic prompt, keep the connective template and all six spans, but permute
+spans across slots with a different derangement per domain (`scripts/make_shuffled.py`, perms
+saved in `prompts/holonic_v1_shuffled.json`). Stacks can then be labeled by SLOT (position in the
+template) or, using the saved permutation, by CONTENT (which original role the span was). Because
+each domain uses a different derangement, position and content are decorrelated across domains.
+
+**Qwen2.5-1.5B, RSA, cross-domain, layer 20 (peak).**
+
+| pairing | RSA | z |
+|---|---|---|
+| holonic~holonic (content and slot aligned) | 0.60 | 2.0 |
+| shuffled~shuffled labeled by SLOT | **0.52** | 1.9 |
+| shuffled~shuffled labeled by CONTENT | **0.05** | 0.2 |
+| holonic~shuffled labeled by CONTENT | 0.05 | 0.2 |
+| prompt vs its own scrambled twin, by CONTENT | 0.34 (1.00 at layer 0) | |
+
+Full sweep: `results/stage2_qwen1.5b_rsa_content.json`, `results/stage2_qwen1.5b_rsa_shuffled.json`.
+
+**Reading.** Almost all of the cross-domain agreement measured in stage 2 is explained by *which
+slot of the template a span sits in*. Relabel by content and the agreement is at chance from layer
+8 onward. The same span's vector, compared with itself moved to another slot, drifts from identical
+(layer 0) to RSA 0.34 by layer 20: the residual stream increasingly encodes discourse position and
+decreasingly encodes what the span says, at least in the mean-pooled, grand-mean-centered view.
+The earlier holonic-vs-flat gap is therefore not evidence for a content-level relational shape; the
+flat prompts also used slightly different connectives, so that gap partly measured template.
+**This is a negative result for the stage-2 claim as stated**, and the reason is mechanistic and
+clean: a 6-point RSA over pooled spans is a position detector.
+
+**Stage 3 re-run under the same control (shared-offset transfer, mean role_rank, chance 3.5).**
+
+| data | labels | offset, all layers | offset, best layer | identity |
+|---|---|---|---|---|
+| holonic | content = slot | 2.35 | 2.01 | 4.0 |
+| shuffled | CONTENT (position scrambled) | **2.87** | 2.40 | 4.0 |
+| shuffled | SLOT (content scrambled) | 3.34 | 2.86 | 4.0 |
+| flat | slot | 3.58 | 3.03 | 4.0 |
+
+**Reading.** The directional test sees what the shape test could not. With position scrambled and
+roles labeled by content, a single offset learned on seven domains still moves the eighth domain's
+source role toward the correct target role (2.9 vs 3.5 chance), and does so *better* than the
+slot-labeled version (3.3) or flat prompts (3.6). Content-role relations exist in the residual
+stream as transferable directions, at modest strength; position and content add when aligned
+(2.35). "Best layer" is selected on held-out performance and is optimistic; the all-layers mean is
+the honest number.
+
+**What this changes.** The claim to carry forward is not "prompts sharing a relation produce the
+same shape" but "role-to-role relations are shared directions across domains, and they are small
+compared with discourse-position structure." Stage 2 needs a measurement that is not dominated by
+position: (a) many paraphrases per domain with each content role rotated through every slot, so
+position averages out; (b) projecting out slot directions (estimated from the shuffled set, where
+slot is known and content is decorrelated) before RSA; (c) token-level clouds rather than 6 pooled
+points. Stage 4 readout can proceed on the content-offset directions, which are the real finding.
+
 ## Open problems (ordered)
 
-1. Shuffled-holonic control for stage 2 (permute spans across slots within a prompt).
-2. Paraphrases: 3–4 prompts per domain per framing, so stage 3 has ~30 examples per relation.
-3. Stage 4 readout: patch `src + offset` at the best layer over the src span and generate; compare
-   to base generation and to patching a random direction of equal norm.
-4. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
-5. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.
+1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
+2. Project out slot directions (fit on shuffled set where slot is known) and re-run stage-2 RSA by content.
+3. Paraphrases: 3–4 prompts per domain, content roles rotated through slots, so position averages out
+   and stage 3 has ~30 examples per relation.
+4. Stage 4 readout: patch `src + content-offset` at a late layer over the src span and generate;
+   compare to base generation and to a random direction of equal norm.
+5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
+6. A second model family (Pythia or Llama-3.2-1B) to rule out Qwen-specific artifacts.

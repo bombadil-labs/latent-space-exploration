@@ -14,8 +14,8 @@ substrate for a narrative calculus: decompose a story into factors, transform th
 | stage | module | question | status |
 |---|---|---|---|
 | 1 | `lsx.model`, `lsx.extract` | capture residuals, pool by role, patch | working on Qwen2.5-0.5B |
-| 2 | `lsx.compare` | does the same shape appear across domains, above baseline? | yes on Qwen 0.5B/1.5B, z≈2 vs ≈1 for controls, peaks mid-late layers (see RESULTS.md) |
-| 3 | `lsx.operate` | can an affine map carry the relation to a held-out domain? | a shared offset transfers (role rank 2.0 vs 3.5 chance); rank-4 affine is worse at n=7 |
+| 2 | `lsx.compare` | does the same shape appear across domains, above baseline? | **mostly slot position, not content**: shuffled control kills the by-content signal (RESULTS.md) |
+| 3 | `lsx.operate` | can an affine map carry the relation to a held-out domain? | content-role offsets transfer across domains even with position scrambled (rank 2.9 vs 3.5 chance); affine worse at n=7 |
 | 4 | `lsx.steer` | patch a target activation in and read it out by generation | patching works, no real experiment yet |
 
 ## Setup

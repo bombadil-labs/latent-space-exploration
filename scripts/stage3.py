@@ -13,10 +13,15 @@ from lsx import operate, compare
 ap = argparse.ArgumentParser(); ap.add_argument("stacks"); ap.add_argument("--pairs", default=None)
 ap.add_argument("--rank", type=int, default=4); ap.add_argument("--ridge", type=float, default=1.0)
 ap.add_argument("--step", type=int, default=2); ap.add_argument("--framing", default="holonic"); ap.add_argument("--out", default=None)
+ap.add_argument("--content-relabel", default=None, help="grid json with shuffle_perms; reorders --framing shuffled stacks so index = content role")
 a = ap.parse_args()
 z = np.load(a.stacks); roles = list(z["roles"]); stacks = {k: z[k] for k in z.files if k != "roles"}
 stacks = compare.subtract_grand_mean(stacks)
 keys = [k for k in stacks if k.endswith("/" + a.framing)]
+if a.content_relabel:
+    perms = json.load(open(a.content_relabel))["shuffle_perms"]
+    for k in keys:
+        inv = np.argsort(np.array(perms[k.split("/")[0]])); stacks[k] = stacks[k][:, inv]
 groups = np.array([k.split("/")[0] for k in keys])
 L = next(iter(stacks.values())).shape[0]
 pairs = [tuple(p.split(":")) for p in a.pairs.split(",")] if a.pairs else list(itertools.permutations(roles, 2))
