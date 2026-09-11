@@ -863,6 +863,46 @@ absence. **What would move this:** define the ring from features that fire on th
 *continuation* of the passage rather than from geometry, which is the withheld-betrayal test named
 in VISION.md and comes with semantics attached.
 
+## 2026-09-11 (hour 19) — Commutator trajectories: factor patches do not commute under generation, but divergence is bounded and one factor dominates by depth
+
+**Setup** (agent run; `scripts/ndif_commutator.py`, `results/commutator_gemma9b.json`,
+`results/notes/commutator.md`). Gemma-2-9B-it via NDIF. Pairs (era, theme) and (era, voice), all
+3 × 3 level combinations, two neutral prompts, greedy 60-token generations under base, A alone,
+B alone, AB (A at block 14 + B at block 20) and BA (B at 14 + A at 20), patch re-applied every
+step. Divergence measured two ways: token-level (first differing token, Hamming) and readout-level
+(per-token block-20 re-reads of both texts projected onto the two factor directions, difference in
+units of the base continuation's sigma). Regime rule pre-registered in the script's docstring and
+committed before the run: commute / drain / crystalline / structured / noise, in that order.
+
+**Findings.**
+- **Order matters under generation.** 32 of 36 cases produce token-different continuations; the
+  median first divergence is token 16.5 (era × theme) and 11 (era × voice) of 60; mean Hamming
+  0.59 / 0.64. Hour 6's selector-level "order barely matters" (rank gap 0.5) does **not** survive
+  the trajectory test: near-commutativity is a gauge-level law, not an engine-level one.
+- **But divergence is bounded.** Mean readout-difference curve 1.1–1.2σ, late window 1.3–1.5σ;
+  nothing runs away. Regime counts (18 cases per pair): era × theme noise 8, crystalline 4,
+  structured 4, commute 1, drain 1; era × voice noise 8, crystalline 4, structured 3, commute 3.
+  "Noise" here means unstructured within the plane of the two patched directions.
+- **One factor dominates the surface text regardless of layer order**, and the dominance follows
+  depth. Token overlap with the single-patch continuations: era-only 0.48 / 0.44 vs theme-only
+  0.20 / 0.18 (era × theme); voice-only 0.35 / 0.32 vs era-only 0.15 / 0.19 (era × voice). So
+  **voice > era > theme**, matching lexical > mid-stack > late/distributed, and not a
+  "block-14 wins" artefact since it holds under both orderings.
+- Drain is real but rare: one case (1920s × sacrifice) keeps 73% of base tokens under AB vs 42%
+  under BA.
+
+**Reading.** This is groovy-commutator's instrument applied to activations, and it sharpens L2 of
+`docs/ALGEBRA.md`: directions commute as *gauges* (the selector's order gap is half a rank) and do
+not commute as *engine inputs* (the generated text differs from token ~11–16 on). The divergence
+is bounded and its magnitude is set by the shallower factor. That is a better statement of "small
+holonomy" than the one from hour 6: the holonomy is small in readout space and large in token
+space, and the two are different objects.
+
+**Caveats.** Greedy decoding amplifies sub-threshold logit differences; two prompts, so half the
+aggregate regime labels rest on a 1–1 tie; one layer pair, one scale, one model; readout axes are
+only the two patched directions; **no random-direction null yet**, which with more prompts and a
+layer sweep is the cheapest next control.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -884,3 +924,4 @@ in VISION.md and comes with semantics attached.
 4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
+7. Commutator trajectories (hour 19): add a random-direction null, more prompts, a layer sweep.
