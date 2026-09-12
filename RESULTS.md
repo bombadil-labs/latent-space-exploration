@@ -1314,6 +1314,25 @@ Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.
 
 **Fix applied** (commit `fe31abb`): a tuple-or-tensor `resid()` helper, mid-rank tie handling, a no-patch arm, and right padding. Piece 2 of the scale-vs-tuning spec must re-run the 70B pair's battery from scratch (no valid Llama-70B selector numbers exist), require factor, random and no-patch in every battery, and assert that the number of moved candidates equals the batch size. Files: `results/notes/random_control_diagnosis.md`, corrected `scripts/ndif_factors.py`. Cost: ~180k agent tokens.
 
+## 2026-09-12 (hour 37) — First valid Llama-70B selector numbers: instruction tuning sharpens era, not theme (agent)
+
+**Setup.** The fixed battery (hour 36) re-run on the matched pair Llama-3.1-70B and 70B-Instruct — same pretraining, tokenizer, depth and width, differing only in post-training, so the comparison isolates tuning from scale. No valid 70B selector numbers existed before this. Both stacks re-extracted. Layer 26 (the spec's depth) and layer 14 (Gemma's absolute depth, since hour 33's depth confound reopened when hour 34 was withdrawn). Rank of 3, chance 2.0.
+
+| model @ layer | era factor / random | theme factor / random | composed of 9 |
+|---|---|---|---|
+| 70B @ 26 | 1.50 / 1.86 | 1.06 / 1.85 | 2.33 |
+| 70B-Instruct @ 26 | 1.06 / 1.88 | 1.06 / 1.96 | 1.47 |
+| 70B @ 14 | 1.53 / 2.12 | 1.33 / 1.82 | 2.89 |
+| 70B-Instruct @ 14 | 1.17 / 2.29 | 1.39 / 1.75 | 1.58 |
+
+**Plumbing verified.** No-patch reads exactly 2.00 in all four runs, and all eight cross-talk rows are diagonal-dominant (own-factor share 0.36–0.73), not hour 34's flat 0.25/0.25 fingerprint. A positive-control assertion was added to `ndif_factors.py`; its first threshold (every candidate must change) proved too strict, firing on occasional single-candidate bf16 ties, so it now tests the actual hour-36 signature (at most one candidate changed) and logs partial misses as warnings.
+
+**Reading.** Instruction tuning sharpens the **era** selector at both layers (1.50 → 1.06 at layer 26, 1.53 → 1.17 at layer 14), and depth does not explain that gap. **Theme** is roughly tuning-invariant (1.06–1.39 either way), and the two layers are too close together to rule depth out for it. So the factors dissociate under tuning, which is the dissociation the scale-vs-tuning spec predicted, though at the selector level rather than in generation. Decodability 0.889 / 0.917 holds, as does the spec's base-vs-tuned clause; the theme-rank band and random floor at layer 26 are missed in the direction of a *stronger* effect.
+
+**Note against hour 33.** The 70B's generation-level cap (0.43 era-as-target at 3× re-imposed, against Gemma's 0.84) sits alongside a 70B-Instruct era selector of 1.06, which is as sharp as any we have measured. Sharp selector, weak engine: another instance of the gauge/engine split, now at fixed size.
+
+Files: `results/scale_vs_tuning_selector_70b*_fixed.json`, `results/notes/scale_vs_tuning_70b_fixed.md`, assertion in `scripts/ndif_factors.py`. Cost: ~170k agent tokens, under an hour of NDIF.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1336,7 +1355,7 @@ Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
-8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**. The apparent control collapse was OUR BUG (hour 36: batch-row patching plus tie-ranking); hour 34's selector numbers are withdrawn, the fix is in, and the Llama lens is real (8B: era 1.22, theme 1.33, random 2.11, no-patch 2.00). Next: re-run the 70B pair battery with the fixed script, then piece 2; re-check hour 8's tense control (1.44).
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**. The apparent control collapse was OUR BUG (hour 36: batch-row patching plus tie-ranking); hour 34's selector numbers are withdrawn, the fix is in, and the Llama lens is real (8B: era 1.22, theme 1.33, random 2.11, no-patch 2.00). ~~Re-run the 70B pair battery~~ done (hour 37): tuning sharpens era (1.50→1.06), theme is tuning-invariant; sharp selector alongside hour 33's weak engine. Next: piece 2 (generation arms) with a generation-level layer sweep; re-check hour 8's tense control (1.44); correct the stale `results/ndif_pinned.txt`.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
    ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. ~~v3 grid~~ done (hour 35): the clock survives (variance 0.51, cos 0.94 to the v2 direction), but a lexical floor of 0.72 remains at layer 0 that no text grid can remove. Next: measure the clock as a gain over that floor with depth, and the Gemma gate on v3;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
