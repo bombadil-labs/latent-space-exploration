@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 32 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 33 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -54,8 +54,10 @@ four that fell, and two that are partial.
 Llama-3.1-70B-Instruct and Gemma-2-9B-it the shifted continuation stays in its original era (0.14
 and 0.27 read as target; none gains the target era's vocabulary). At three times the norm,
 re-imposed at every decoding step, Gemma's continuations read as the target era in 0.84 of cases
-and 0.30 use its vocabulary, with prose intact. The gauge/engine boundary is a magnitude, not a
-wall; the 70B has only been tested at matched norm. Subject-relative timescales in the
+and 0.30 use its vocabulary, with prose intact. The same treatment on Llama-3.1-70B-Instruct
+reaches only 0.43, below Gemma's two-times value. The gauge/engine boundary is a magnitude, but
+the magnitude is not a constant of the method: a bigger engine is not a more steerable one, and
+whether that is size, tuning, or patch depth is the open question. Subject-relative timescales in the
 time-translation grid. Pooled distance structure as a content shape. Absence as decoder-adjacent inactive
 features. The five-regime commutator taxonomy under greedy decoding. "Factors don't commute under
 generation" as a fact about factors: any two matched-norm patches diverge the same way.

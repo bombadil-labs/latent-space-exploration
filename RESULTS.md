@@ -1247,6 +1247,23 @@ briefs should point agents at the resumable fetch.
 
 **Consequence.** Three logged "negatives" are withdrawn as untested, and one standing positive (the shared clock) is now qualified by a lexical confound. Any Gemma re-run needs a v3 grid whose state texts do not restate the interval. Files: `scripts/subject_clocks_{build,report}.py`, `scripts/subject_clocks.py`, `prompts/subject_clocks_v1.json`, `results/subject_clocks_measures.json`, `results/notes/subject_clocks.md`, 8 figures. Cost: ~160k agent tokens, 35 min wall.
 
+## 2026-09-12 (hour 33) — The 70B does not cross the generation boundary the 9B crosses (agent)
+
+**Question.** Hour 29 found that the era shift moves generated text on Gemma-2-9B-it at 3× norm re-imposed at every decoding step (0.84 era-as-target, lexical 0.30). Does Llama-3.1-70B-Instruct cross the same threshold? Patch block 26, read 40, chat-templated, greedy, 72 generations per scale. Prediction in the script docstring: yes at 3.0, with a lower lexical rate than Gemma because the larger model's prior resists.
+
+| model | scale | era → target | leaves e1 | theme kept | lexical → target | jobs lost |
+|---|---|---|---|---|---|---|
+| Llama-70B-Instruct (hour 27) | 1.0 | 0.14 | 0.21 | 0.54 | 0.00 | 0/144 |
+| Llama-70B-Instruct | 2.0 | 0.28 | 0.39 | 0.54 | 0.17 | 0/72 |
+| Llama-70B-Instruct | 3.0 | 0.43 | 0.54 | 0.53 | 0.25 | 0/72 |
+| Gemma-9B-it (hour 29) | 1.0 | 0.27 | 0.48 | 0.60 | 0.00 | 5/72 |
+| Gemma-9B-it (hour 29) | 2.0 | 0.58 | 0.76 | 0.54 | 0.18 | 13/72 |
+| Gemma-9B-it (hour 29) | 3.0 | 0.84 | 0.91 | 0.53 | 0.30 | 17/72 |
+
+**Grades.** The crossing prediction is refuted: at 3× the 70B reaches 0.43, below Gemma's *scale-2* value of 0.58, and never crosses 0.5. The lexical comparison held (0.25 vs 0.30), and by more than expected in proportion: the 70B's vocabulary resists more than its era readout does, so readout and surface text do not move in lockstep. Prose stayed fluent at both scales; the cost is vocabulary bleed. Zero job losses across 144 generations, against Gemma's rising loss rate at the same scales.
+
+**Reading.** The magnitude threshold found in hour 29 is not a constant of the method: the same patch at the same relative depth and the same multiple of norm moves a 9B and not a 70B. Either the larger model's prior is harder to displace, or its era competence lives elsewhere. **Confound the agent flagged:** patch 26 / read 40 of 80 blocks is the same *depth fraction* as Gemma's 14 / 20 of 42, not the same absolute depth or the same mechanism; a layer sweep on the 70B is the missing control. This also sharpens what the scale-vs-tuning spec must test: bigger is not more steerable, so the 9B-instruct advantage of claim 7 may be tuning rather than size. Files: `results/recompose_sweep_70b_{2.0,3.0}.json`, `results/notes/recompose_sweep_70b.md`. Cost: ~115k agent tokens, ~2 h NDIF.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1269,8 +1286,7 @@ briefs should point agents at the resumable fetch.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
-8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed
-   moves generated text (0.84) on 9B. Next: the same sweep on 70B; the norm threshold as a function of depth.
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. Next: a layer sweep on the 70B (the depth-fraction confound), and `docs/specs/scale_vs_tuning_v1.md` piece 1.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
    ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. Next: a v3 grid whose state texts never name the interval, then re-run the shared clock and the Gemma gate;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
