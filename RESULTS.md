@@ -65,8 +65,18 @@ gain over that floor rather than try to remove it.
    change to the repo's credibility.
 3. **Piece 2 of `docs/specs/scale_vs_tuning_v1.md`**: the generation arms on the 70B pair at 3×
    re-imposed, with a *generation-level* layer sweep, which is the control h33 needs and h36 removed.
-4. **Re-check h8's `tense` random control** (1.44, closer to its treatment than it should be), and
-   correct `results/ndif_pinned.txt`.
+4. **An audit the instruments document turned up, ordered by risk.**
+   (a) **h31 may carry the h36 bug.** `ndif_time_translation_extract.py` batched six passages per
+   job through `tracer.invoke` using the `output[0]` idiom. If that read batch row 0 rather than
+   indexing per passage, five of every six extracted vectors are wrong and h31 must be withdrawn.
+   The record is silent on whether it was re-checked after h36. Check this first.
+   (b) **Six NDIF scripts still use the `output[0][:]` idiom**; only `ndif_factors.py` was fixed.
+   (c) **Local selector scripts** (`stage5_factors.py`, `stage6_factors.py`,
+   `time_translation_selector.py`) still rank 1-on-ties and have no no-patch arm — the exact pair
+   of properties that produced the h34 artifact. Every local selector number rests on them.
+   (d) **The abstraction ladder (h15, h26) has no null anywhere.**
+   (e) h8's `tense` random control (1.44) unre-run; `results/ndif_pinned.txt` still lists 405B as
+   running.
 Deferred unchanged: cohere, commutator regimes, Shadow Walker adapter. Dropped: subject clocks.
 
 ## CHECKPOINT 1 — 2026-09-11, after 22 stages

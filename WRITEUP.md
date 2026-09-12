@@ -201,8 +201,10 @@ may live in the flow rather than at its attractors.
   and non-transferring to model-supplied change.
 - **Four instruments** were found broken and replaced. They are documented in full in
   `docs/INSTRUMENTS.md`, because what they have in common matters more than any one of them: each
-  produced a plausible number rather than an obvious error, and three of the four were caught by a
-  control or baseline rather than by reading the code.
+  produced a *plausible* number rather than an obvious error — 1.22 was simultaneously an artifact
+  and the true era rank on the 8B — and they were caught four different ways: two by a control or
+  baseline, one by a planner doing the arithmetic before any data was collected, one by rereading
+  a metric's definition.
 
 ## Limitations
 
