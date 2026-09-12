@@ -1,0 +1,1574 @@
+[
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.2500000596046448,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.2499999850988388,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24999991059303284,
+  "frac_theme": 0.24999995529651642
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24999992549419403,
+  "frac_theme": 0.24999992549419403
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "debt",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25000008940696716,
+  "frac_theme": 0.25000008940696716
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24999994039535522,
+  "frac_theme": 0.24999994039535522
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2499999850988388
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24999995529651642,
+  "frac_theme": 0.2499999850988388
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 2
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "message",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 3
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.2499999850988388,
+  "frac_theme": 0.24999995529651642
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000596046448,
+  "frac_theme": 0.2500000596046448
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.24999995529651642,
+  "frac_theme": 0.24999995529651642
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.2499999701976776
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "door",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.24999995529651642,
+  "frac_theme": 0.24999995529651642
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "factor",
+  "frac_era": 0.2500000596046448,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "era",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "era",
+  "cond": "rand",
+  "frac_era": 0.2499999701976776,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.24999994039535522,
+  "frac_theme": 0.24999992549419403
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.24999992549419403,
+  "frac_theme": 0.24999992549419403
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.24999994039535522,
+  "frac_theme": 0.2499999850988388
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "factor",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "factor",
+  "frac_era": 0.25,
+  "frac_theme": 0.25
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "B",
+  "factor": "theme",
+  "cond": "rand",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "X",
+  "factor": "theme",
+  "cond": "rand",
+  "frac_era": 0.2500000298023224,
+  "frac_theme": 0.2500000298023224
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 2
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 1
+ },
+ {
+  "scene": "meal",
+  "test": "D",
+  "rank": 1
+ }
+]
