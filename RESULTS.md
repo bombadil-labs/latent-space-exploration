@@ -1203,6 +1203,22 @@ briefs should point agents at the resumable fetch.
 
 **Consequence for the algebra.** L3 stands as stated (gauge results do not transfer at matched norm) but its boundary is now quantified: the engine needs roughly 3× the gauge-level norm, applied throughout decoding, to write the address. L4 crosses into generation under those conditions. Files: `scripts/ndif_recompose_sweep.py`, `results/recompose_sweep_*.json`, `results/notes/recompose_sweep.md`. Cost: ~125k agent tokens.
 
+## 2026-09-12 (hour 30) — Vocabulary-matched time grid: the shared clock is not the shared vocabulary (agent, finished by hand after a container restart)
+
+**Question.** Hour 28's shared clock might be the erasure/geological vocabulary that all far-interval passages shared. Rewrite the Δt ≥ 100 y states so no content word appears for more than two subjects (checker: `scripts/time_translation_vocab_check.py`, zero violations in v2 vs up to five subjects per word in v1) and rerun everything unchanged. Prediction, written first: shared variance drops below 0.4; the 1 My selector worsens past 3.0 but beats random.
+
+| layer 14 | v1 | v2 |
+|---|---|---|
+| shared variance fraction | 0.533 | 0.545 |
+| Spearman(‖shared‖, log Δt) | 0.47 | 0.68 |
+| ‖shared_exp‖/‖shared_ctrl‖ at 1 ky / 10 ky / 1 My | 2.6 / 2.6 / 2.9 | 3.2 / 3.1 / 3.1 |
+| cos(shared_v1, shared_v2), far Δt | | 0.86–0.90 |
+| selector gain rank of 9, Δt ≥ 1 y: clock / random | 3.88 / 5.65 | 3.62 / 4.83 |
+| at 1 ky / 10 ky / 1 My: clock | 3.12 / 3.25 / 1.62 | 1.38 / 2.75 / 3.25 |
+| τ(s) | 1 day, all | 1 day, all |
+
+**Grades.** "Shared fraction < 0.4" fell: it rose. "1 My > 3.0 but < random" held (3.25 vs 4.38), but the effect moved to 1 ky rather than shrinking, and the overall selector improved. **Reading.** The clock survives the removal of its suspected lexical cause, points the same way (cos ≈ 0.9), and is more monotone in log Δt than before. Hour 28's confound is closed; the shared clock stands as a computed, phrase-independent direction. Subject-relative timescales remain absent. The v1 vs v2 random controls differ (5.65 vs 4.83), so the random baseline is noisy at n = 8 per Δt. Files: `prompts/time_translation_v2.json`, `scripts/time_translation_vocab_check.py`, `scripts/_build_v2_states.py`, `results/time_translation_v2_*.json`, `results/time_translation_v1_v2_shared_cos.json`, `results/notes/time_translation_v2.md`, five figures. Cost: ~150k agent tokens; the agent's final write-up was lost to a container restart and written from its saved outputs.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1228,5 +1244,5 @@ briefs should point agents at the resumable fetch.
 8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed
    moves generated text (0.84) on 9B. Next: the same sweep on 70B; the norm threshold as a function of depth.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
-   Next: vocabulary-matched far-Δt passages (kill the erasure confound); residual curves on Gemma-9B;
+   ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. Next: residual curves on Gemma-9B;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.

@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 29 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 30 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -40,7 +40,8 @@ four that fell, and two that are partial.
 10. A parameterized translation exists: advancing a described subject by an interval from a day
     to a million years produces a shared clock direction, computed from the state rather than the
     interval phrase (2.8× the phrase-only displacement), that works as a selector (rank 3.9 of 9
-    vs 5.7 random). Its subject-relative part, a mayfly's day against a mountain's million years,
+    vs 5.7 random) and survives rewriting the far-interval passages so no content word is shared
+    across subjects (3.6 vs 4.8; the direction itself unchanged, cosine 0.9). Its subject-relative part, a mayfly's day against a mountain's million years,
     did not appear.
 
 **Fell, then recovered at a price.** The era shift under generation at matched norm: on
@@ -179,8 +180,7 @@ reference set. The relation operator's source-specificity under patching is open
 The gauge/engine boundary is now the central fact, confirmed at 70B: every representational law
 holds, and none of them writes text. The next experiments should test whether anything crosses it:
 the same 3× re-imposed sweep on the 70B, and the threshold norm as a function of patch depth. On time
-translation: a vocabulary-matched far-interval grid to remove the erasure confound, and the same
-grid on Gemma-9B. Still open: a human-written grid; absence defined by the model's own surprise;
+translation: the same grid on Gemma-9B, and a grid built to make subject timescales visible. Still open: a human-written grid; absence defined by the model's own surprise;
 feature labels for the abstraction ladder.
 
 ## Reproducibility
