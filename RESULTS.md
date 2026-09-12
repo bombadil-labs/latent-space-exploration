@@ -1264,6 +1264,20 @@ briefs should point agents at the resumable fetch.
 
 **Reading.** The magnitude threshold found in hour 29 is not a constant of the method: the same patch at the same relative depth and the same multiple of norm moves a 9B and not a 70B. Either the larger model's prior is harder to displace, or its era competence lives elsewhere. **Confound the agent flagged:** patch 26 / read 40 of 80 blocks is the same *depth fraction* as Gemma's 14 / 20 of 42, not the same absolute depth or the same mechanism; a layer sweep on the 70B is the missing control. This also sharpens what the scale-vs-tuning spec must test: bigger is not more steerable, so the 9B-instruct advantage of claim 7 may be tuning rather than size. Files: `results/recompose_sweep_70b_{2.0,3.0}.json`, `results/notes/recompose_sweep_70b.md`. Cost: ~115k agent tokens, ~2 h NDIF.
 
+## 2026-09-12 (hour 34) — 405B is unreachable, and the random-direction control collapses on every Llama (agent, spec `docs/specs/scale_vs_tuning_v1.md`)
+
+**Piece 1** of the scale-vs-tuning spec: smoke tests on four Llamas with a numeric 405B go/no-go, theme-grid extraction on Llama-3.1-8B / 70B / 70B-Instruct, the selector battery, plus a cheap layer sweep aimed at hour 33's depth-fraction confound. Piece 2 (generation arms) not run.
+
+**405B: no-go, and permanently so for this key.** `ndif_smoke.py` fails deterministically, 3 of 3 attempts in ~0.2 s: "Model is not pinned and hotswapping is not supported for this API key". A hard server refusal, not a timeout, and it contradicts our own `results/ndif_pinned.txt`, whose "PINNED RUNNING" entry for 405B is stale. **Consequence:** the spec's Outcome B escape clause, "or sufficient scale substitutes for tuning", cannot be tested at all. If piece 2 lands in Outcome B, the tuning claim stands at 70B as the largest reachable base model, full stop.
+
+**Smoke latencies** (all fine): 8B 4.1 s, 70B 3.7 s, 70B-Instruct 3.8 s end to end. **Extraction:** 36 of 36 spans on each model, zero losses (8B 228 s, 70B 782 s, 70B-Instruct 720 s).
+
+**Selector battery, and a new anomaly.** Theme decodability 0.89 / 0.89 / 0.92 on 8B / 70B / 70B-Instruct against Gemma 0.94 and GPT-J 0.83, so roughly invariant to size and tuning. Theme lens rank 1.22 / 1.11 / 1.06 of 3, all far under chance (2.0). **But the random-direction control lands just as low, 1.14–1.28, on all three models, where hour 13 found it near chance (~2.0) on Gemma and GPT-J.** On these models the lens is therefore not shown to be specific to the semantic direction at all. This is unresolved and it is a blocker: every selector-level claim on a Llama is suspect until it is explained, and if the same bug can occur elsewhere, the control in earlier hours needs re-checking too. Prediction P1's rank clause mostly held (70B-Instruct at 1.06 is just under the predicted band); its "random ≥ 1.9" clause is refuted on all three.
+
+**Layer sweep (extra).** Selector at layer 14 (Gemma's absolute depth) vs 26 (fraction-matched) on both 70Bs: era and theme lens ranks differ by at most ~0.15. So hour 33's cap at 0.43 is not explained by picking the wrong depth for the *selector* signal, though it does not identify the right depth either. A generation-level layer sweep is the real test and belongs to piece 2.
+
+**Next, in order.** (1) Diagnose the random-control collapse before spending anything on piece 2. (2) Correct `results/ndif_pinned.txt`. (3) Piece 2 with a generation-level layer sweep on the 70B pair, 405B dropped. Files: `results/scale_vs_tuning_selector_*.json`, `results/notes/scale_vs_tuning_p1.md`. Cost: ~130k agent tokens, ~45 min NDIF.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1286,7 +1300,7 @@ briefs should point agents at the resumable fetch.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
-8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. Next: a layer sweep on the 70B (the depth-fraction confound), and `docs/specs/scale_vs_tuning_v1.md` piece 1.
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**, and **the random-direction control collapses on every Llama (1.14–1.28 vs ~2.0 on Gemma/GPT-J)** — diagnose that before piece 2.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
    ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. Next: a v3 grid whose state texts never name the interval, then re-run the shared clock and the Gemma gate;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
