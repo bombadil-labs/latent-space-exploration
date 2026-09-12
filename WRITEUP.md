@@ -80,7 +80,9 @@ results across two models (stages 28, 30, 31): the probe was a high-dimensional 
 sitting at its own noise floor. One Llama selector battery (stage 34): the patch wrote into batch
 row zero of a padded tensor, pinning every rank at 1.22 for any direction. A set of discrimination
 numbers (stages 28–35): with the interval phrase removed so the model cannot copy the answer, 0.961
-falls to 0.522. See `docs/INSTRUMENTS.md`.
+falls to 0.522. Stage 31's numbers, though not its conclusion (stage 39): a batched extractor read
+363 of 480 passages' spans out of left-padding, with the padding correlated with the variable under
+study; re-extracted cleanly the result is stronger, not weaker. See `docs/INSTRUMENTS.md`.
 
 ## Method
 
@@ -199,12 +201,15 @@ may live in the flow rather than at its attractors.
 - **Parameterized time translation** closed at stage 38 as a register detector rather than a
   clock: real gain over a lexical floor (0.297, z 7.6), but order-invariant under word-shuffling
   and non-transferring to model-supplied change.
-- **Four instruments** were found broken and replaced. They are documented in full in
+- **Five instruments** were found broken and replaced. They are documented in full in
   `docs/INSTRUMENTS.md`, because what they have in common matters more than any one of them: each
   produced a *plausible* number rather than an obvious error — 1.22 was simultaneously an artifact
-  and the true era rank on the 8B — and they were caught four different ways: two by a control or
-  baseline, one by a planner doing the arithmetic before any data was collected, one by rereading
-  a metric's definition.
+  and the true era rank on the 8B — and they were caught five different ways: two by a control or
+  baseline, one by a planner doing the arithmetic before any data was collected, one by rereading a
+  metric's definition, and the fifth by an audit that went looking for a bug it did not find and
+  found a different one with the same blast radius (a batched extractor reading 76% of its spans out
+  of left-padding). Four of the five were found in the last two days, which says more about how long
+  the first three sat undetected than about the rate of error.
 
 ## Limitations
 
