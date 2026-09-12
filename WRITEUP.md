@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 36 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 38 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
