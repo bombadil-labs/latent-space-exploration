@@ -1,0 +1,110 @@
+{
+ "0": {
+  "per_subject": {
+   "street": {
+    "within_spearman": 0.9288097886540598,
+    "shared_spearman": 0.9692992213570633,
+    "within_mae": 0.9,
+    "shared_mae": 0.36666666666666664
+   },
+   "mountain": {
+    "within_spearman": 0.8456062291434926,
+    "shared_spearman": 0.8438264738598441,
+    "within_mae": 1.2666666666666666,
+    "shared_mae": 1.2666666666666666
+   },
+   "orchard": {
+    "within_spearman": 0.8456062291434926,
+    "shared_spearman": 0.9377085650723024,
+    "within_mae": 1.1666666666666667,
+    "shared_mae": 0.8
+   },
+   "mayfly": {
+    "within_spearman": 0.9003337041156839,
+    "shared_spearman": 0.8923248053392657,
+    "within_mae": 0.9333333333333333,
+    "shared_mae": 0.9666666666666667
+   },
+   "asteroid": {
+    "within_spearman": 0.5724137931034482,
+    "shared_spearman": 0.6569521690767518,
+    "within_mae": 2.2,
+    "shared_mae": 1.4333333333333333
+   },
+   "river": {
+    "within_spearman": 0.8380422691879865,
+    "shared_spearman": 0.9688542825361511,
+    "within_mae": 1.0,
+    "shared_mae": 0.43333333333333335
+   },
+   "real_population": {
+    "within_spearman": 0.7459399332591767,
+    "shared_spearman": 0.7397107897664069,
+    "within_mae": 1.5,
+    "shared_mae": 0.9
+   },
+   "fictional_population": {
+    "within_spearman": 0.6137931034482758,
+    "shared_spearman": 0.6520578420467185,
+    "within_mae": 1.6333333333333333,
+    "shared_mae": 1.2
+   }
+  },
+  "within_mean": 0.786318131256952,
+  "shared_mean": 0.832591768631813
+ },
+ "14": {
+  "per_subject": {
+   "street": {
+    "within_spearman": 0.9884315906562846,
+    "shared_spearman": 0.9951056729699664,
+    "within_mae": 0.26666666666666666,
+    "shared_mae": 0.3
+   },
+   "mountain": {
+    "within_spearman": 0.9265850945494992,
+    "shared_spearman": 0.9928809788654058,
+    "within_mae": 0.7,
+    "shared_mae": 0.7333333333333333
+   },
+   "orchard": {
+    "within_spearman": 0.9661846496106783,
+    "shared_spearman": 0.9937708565072301,
+    "within_mae": 0.5,
+    "shared_mae": 0.36666666666666664
+   },
+   "mayfly": {
+    "within_spearman": 0.9692992213570633,
+    "shared_spearman": 0.9884315906562846,
+    "within_mae": 0.43333333333333335,
+    "shared_mae": 0.9
+   },
+   "asteroid": {
+    "within_spearman": 0.8567296996662958,
+    "shared_spearman": 0.9608453837597328,
+    "within_mae": 1.3,
+    "shared_mae": 0.9666666666666667
+   },
+   "river": {
+    "within_spearman": 0.9670745272525025,
+    "shared_spearman": 0.9982202447163513,
+    "within_mae": 0.4666666666666667,
+    "shared_mae": 0.16666666666666666
+   },
+   "real_population": {
+    "within_spearman": 0.8678531701890988,
+    "shared_spearman": 0.8749721913236929,
+    "within_mae": 0.8333333333333334,
+    "shared_mae": 0.6333333333333333
+   },
+   "fictional_population": {
+    "within_spearman": 0.9546162402669631,
+    "shared_spearman": 0.9946607341490543,
+    "within_mae": 0.5666666666666667,
+    "shared_mae": 0.1
+   }
+  },
+  "within_mean": 0.9370967741935482,
+  "shared_mean": 0.9748609566184647
+ }
+}
