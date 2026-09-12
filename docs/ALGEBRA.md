@@ -180,7 +180,7 @@ The exclusions are the design.
 | VISION.md operator | signature | script | RESULTS.md stage | status |
 |---|---|---|---|---|
 | transform: translate | `Dir × Scale → Op` | `stage4.py`, `stage5_factors.py`, `stage6_factors.py` | hours 4, 6–10 | measured |
-| transform: translate (parameterized) | `Param × Scale → Op` | `scripts/time_translation{,_selector}.py` | hour 28 | measured as selector: shared clock direction, rank 3.88/9 vs 5.65 random for Δt ≥ 1 y, surviving vocabulary matching (hour 30: 3.62 vs 4.83, cos 0.9 to the unmatched direction); subject-relative timescale not found |
+| transform: translate (parameterized) | `Param × Scale → Op` | `scripts/time_translation{,_selector}.py` | hour 28 | measured as selector: shared clock direction, rank 3.88/9 vs 5.65 random for Δt ≥ 1 y, surviving vocabulary matching (hour 30: 3.62 vs 4.83, cos 0.9 to the unmatched direction); subject-relative timescale untested until hour 32 (the earlier probe was at its noise floor) and still unshown; the grid lets the interval be read lexically at layer 0, so the clock's cleanliness is open |
 | transform: scale | `ℝ × Scale → Op` | `stage4.py`, `stage5_generate.py` | hour 4 (range 0.5–2×) | measured |
 | transform: rotate | `Schema × Role × Role → Op` | `stage3.py`, `stage4_relation.py` | hours 3, 5, 16 | measured as selector (2.21 vs 3.5 at 40 domains); patch untested at scale |
 | abstract | `Passage × Scale(w) → Passage` | `sae_ladder.py` | hour 15 | measured (first rung) |

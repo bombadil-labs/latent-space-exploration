@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 31 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 32 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -42,7 +42,12 @@ four that fell, and two that are partial.
     interval phrase (2.8× the phrase-only displacement), that works as a selector (rank 3.9 of 9
     vs 5.7 random) and survives rewriting the far-interval passages so no content word is shared
     across subjects (3.6 vs 4.8; the direction itself unchanged, cosine 0.9). The clock's variance
-    share and geometry replicate on Gemma-2-9B-it; the subject-relative part is absent there too. Its subject-relative part, a mayfly's day against a mountain's million years,
+    share and geometry replicate on Gemma-2-9B-it. **Caveat added at stage 32:** in that grid the
+    state texts restate the interval, so the interval is lexically recoverable at layer 0
+    (discrimination 1.00 there). The clock is real but its cleanliness is not established, and the
+    companion claim that subject-relative timescales are absent is withdrawn: the probe that
+    reported it was sitting at its own noise floor (residual-to-floor ratio 1.1–1.4, nothing above
+    1.8; the same pipeline on Gaussian noise returns 0.95). Its subject-relative part, a mayfly's day against a mountain's million years,
     did not appear.
 
 **Fell, then recovered at a price.** The era shift under generation at matched norm: on
@@ -164,8 +169,10 @@ may live in the flow rather than at its attractors.
   the delivered variant reads at 12 vs 0.6, so the instrument sees presence. Null, not falsified.
 - **Commutator regimes.** No level combination agrees across four prompts; permutation p = 0.16
   and 0.57.
-- **Two metrics** were found broken and replaced: a cross-talk rank that averaged to its chance
-  value by construction, and best-layer selection.
+- **Three metrics** were found broken and replaced: a cross-talk rank that averaged to its chance
+  value by construction, best-layer selection, and a high-dimensional residual norm whose noise
+  floor swallowed the effect it was meant to detect (stage 32), which had produced three
+  now-withdrawn negative results across two models.
 
 ## Limitations
 
@@ -181,7 +188,8 @@ reference set. The relation operator's source-specificity under patching is open
 The gauge/engine boundary is now the central fact, confirmed at 70B: every representational law
 holds, and none of them writes text. The next experiments should test whether anything crosses it:
 the same 3× re-imposed sweep on the 70B, and the threshold norm as a function of patch depth. On time
-translation: the same grid on Gemma-9B, and a grid built to make subject timescales visible. Still open: a human-written grid; absence defined by the model's own surprise;
+translation: a grid whose state texts never name the interval, to remove the lexical route, then
+the shared clock re-measured against it. Still open: a human-written grid; absence defined by the model's own surprise;
 feature labels for the abstraction ladder.
 
 ## Reproducibility
