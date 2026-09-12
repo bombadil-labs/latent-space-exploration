@@ -220,7 +220,7 @@ needed is absent).
 |---|---|
 | **Hour 31**: "the shared clock replicates on Gemma-9B" — shared variance 0.478, Spearman 0.683, adjacent/distant cos 0.87/0.61, phrase-only ratio 1.67 | **WITHDRAWN** — 363 of 480 extracted vectors had their pooled spans read from padding or from shifted positions (§a). Superseded by the corrected re-run below. |
 | **Hour 31**: "subject clocks absent at 9B (0 of 8, all layers)" | already withdrawn at hour 32 (noise floor); now also rests on corrupted vectors |
-| `WRITEUP.md`'s "the clock is model-invariant" (Qwen + Gemma) | **qualified**: its Gemma leg is the hour-31 number |
+| `WRITEUP.md`'s "the clock is model-invariant" (Qwen + Gemma) | **stands, on replaced numbers**: its Gemma leg must be re-quoted from `results/time_translation_gemma_auditfix_measures.json` (0.501 / 0.767 / 0.89–0.57 / 2.50), not from hour 31 |
 | Hours 13, 14, 18, 19, 22, 27, 29 (the six `output[0][:]` scripts) | **stand** — batch 1 throughout (§b); scripts hardened, no numbers change |
 | All local selector batteries (hours 4–11, 23, 28–32) | **stand** — the representative re-run reproduces every logged number to two decimals and the new no-patch arm reads exactly chance (§c) |
 | Hour 8's tense control caveat (random 1.44) | **qualified, not withdrawn** — no-patch is exactly 1.50, so the low random arm is not an instrument failure (§c) |
@@ -232,3 +232,10 @@ needed is absent).
 - `scripts/ndif_{generate,shift,commutator,recompose_gen,recompose_sweep,absential_probe}.py` — `resid()` helper at every patch site
 - `scripts/{stage5_factors,stage6_factors,time_translation_selector}.py` — mid-rank ties + no-patch arm
 - `results/ndif_pinned.txt` — corrected
+- `results/stacks_gemma_2_9b_it_time_translation_v2_auditfix.npz`, `results/time_translation_gemma_auditfix_measures.json`, `results/h31_{reextract,measure}_fixed.log`, `results/figures/time_translation_gemma_auditfix_*.png` — the corrected hour-31 grid and measurements
+- `results/stage6_qwen1.5b_three_l14_auditfix.json`, `results/stage6_three_auditfix.log` — the (c) re-run
+- `docs/INSTRUMENTS.md` — new §4b (the padding bug) and the audit list updated
+
+**Wall time:** ~70 min (18 s for the decisive (a) test, 854 s re-extraction + ~1 min re-measure,
+46 min for the (c) battery, the rest reading and writing). No downloads; NDIF used for
+google/gemma-2-9b-it only.
