@@ -22,6 +22,9 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
   rank-1-on-ties pinned every measured rank at 11/9 = 1.22 for *any* direction. That was the whole
   reported band (1.00–1.28), treatment and control alike. The layer-sweep conclusion went with it,
   so **h33's depth-fraction confound is open again**.
+- **Hour 31's numbers** (not its conclusion). Withdrawn at h39: nnsight left-pads batched texts and
+  the extractor indexed spans from the unpadded text, so 363 of 480 passages read their spans out of
+  the padding, with the padding correlated with Δt. Corrected numbers are in h39 and are stronger.
 - **Hour 28–35 discrimination numbers are inflated by copying.** At h38, with the interval phrase
   removed so the model cannot copy Δt from the prompt, h35's 0.961 at layer 14 falls to 0.522.
 
@@ -65,18 +68,11 @@ gain over that floor rather than try to remove it.
    change to the repo's credibility.
 3. **Piece 2 of `docs/specs/scale_vs_tuning_v1.md`**: the generation arms on the 70B pair at 3×
    re-imposed, with a *generation-level* layer sweep, which is the control h33 needs and h36 removed.
-4. **An audit the instruments document turned up, ordered by risk.**
-   (a) **h31 may carry the h36 bug.** `ndif_time_translation_extract.py` batched six passages per
-   job through `tracer.invoke` using the `output[0]` idiom. If that read batch row 0 rather than
-   indexing per passage, five of every six extracted vectors are wrong and h31 must be withdrawn.
-   The record is silent on whether it was re-checked after h36. Check this first.
-   (b) **Six NDIF scripts still use the `output[0][:]` idiom**; only `ndif_factors.py` was fixed.
-   (c) **Local selector scripts** (`stage5_factors.py`, `stage6_factors.py`,
-   `time_translation_selector.py`) still rank 1-on-ties and have no no-patch arm — the exact pair
-   of properties that produced the h34 artifact. Every local selector number rests on them.
-   (d) **The abstraction ladder (h15, h26) has no null anywhere.**
-   (e) h8's `tense` random control (1.44) unre-run; `results/ndif_pinned.txt` still lists 405B as
-   running.
+4. ~~**An audit of five unchecked instrument risks**~~ done (h39). h31 fell to a *padding* bug (76%
+   of passages corrupted) and its numbers are replaced; its conclusion survives. The six remaining
+   `output[0]` scripts were safe as run; local tie-ranking never fired and no local claim changed;
+   h8's tense flag is cleared. **Remaining from it:** the abstraction ladder (h15, h26) still has no
+   null anywhere — three are now specified and cost one CPU session.
 Deferred unchanged: cohere, commutator regimes, Shadow Walker adapter. Dropped: subject clocks.
 
 ## CHECKPOINT 1 — 2026-09-11, after 22 stages
@@ -1423,6 +1419,58 @@ Files: `results/scale_vs_tuning_selector_70b*_fixed.json`, `results/notes/scale_
 **Verdict.** The kill condition is not met: there is real gain over the lexical floor, far above noise. But the gain survives word-shuffling, so it is order-invariant, and it does not transfer to the case where the model must supply the change itself. That is a **computed register detector**, not a clock: the model reads "how much change is described here" from a bag of words, more accurately than the embeddings alone allow, and does not build a representation of elapsed time. The Gemma gate is **no-go** (it required S2, S3 and S4). This is the finding the planner predicted and it is the end of the line; the standing result is the shared-direction geometry of hours 28–35, now correctly named.
 
 Files: `scripts/clock_gain*.py`, `prompts/clock_gain_v1.json`, `results/clock_gain_v1_*.json`, `results/notes/clock_depth_gain.md`, two figures. Cost: ~220k agent tokens, ~43 min compute.
+
+## 2026-09-12 (hour 39) — Instrument audit: a padding bug corrupted 76% of hour 31; its numbers are replaced, its conclusion survives (agent)
+
+Five unchecked risks surfaced by writing `docs/INSTRUMENTS.md`, worked hardest-first.
+
+**(a) Hour 31 does not carry the hour-36 batch-row bug — and falls for a different reason.**
+`tracer.invoke` does scope per passage (nnsight 0.7's `Batcher.narrow` slices the batch dimension),
+confirmed on NDIF: position-stable last-token vectors match a batch-of-one extraction at cosine
+0.99996 while cross-passage cosines sit at 0.73–0.76. **But the same test exposed a padding bug of
+the same blast radius.** nnsight left-pads the six batched texts, and the script indexed spans
+*absolutely* from the unpadded text, so every passage that was not the longest in its job read its
+spans out of the padding. Batched-vs-single cosine for a 30-token-padded passage: 0.287 on the
+interval span, 0.794 on the state span, against 0.999997 for the unpadded one. **363 of 480
+passages corrupted (76%), and 232 had their entire interval span inside the pad block.** Worse, the
+padding correlates with Δt, because jobs are consecutive grid items. Fixed with end-relative indices
+plus a padding-side assertion, re-extracted (854 s) and re-measured:
+
+| Gemma-9B, layer 20 | hour 31 (withdrawn) | corrected |
+|---|---|---|
+| shared variance fraction | 0.478 | 0.501 |
+| Spearman(‖shared‖, log Δt) | 0.683 | 0.767 |
+| adjacent / distant cos | 0.87 / 0.61 | 0.89 / 0.57 |
+| phrase-control ratio | 1.67 | 2.50 (layer 31: 1.72 → 3.31) |
+
+Every logged hour-31 number is replaced. The conclusion — the shared clock replicates on Gemma-9B —
+survives on clean vectors, and is slightly stronger. Note the corrected phrase ratio of 2.50 is much
+closer to Qwen's ~3.1, so the "weaker on Gemma" remark in hour 31 was an artifact of the bug.
+
+**(b) The six remaining `output[0][:]` scripts are safe as run.** `ndif_generate`, `ndif_shift`,
+`ndif_commutator`, `ndif_recompose_gen`, `ndif_recompose_sweep`, `ndif_absential_probe`, covering
+hours 13, 14, 18, 19, 22, 27, 29: one prompt per job throughout, so the idiom never bit. All ported
+to the `resid()` helper anyway; no numbers change. The two recompose scripts batch six invokes like
+hour 31 and escaped its padding bug only because they pool right-aligned `[..., -k:, :]` — luck, now
+documented.
+
+**(c) Local tie-ranking never fired.** Mid-rank ties and a no-patch arm added to `stage5_factors`,
+`stage6_factors` and `time_translation_selector`; hour 8's three-factor battery re-run (46 min):
+era 1.25, voice 1.24, tense 1.03, composed 2.81 of 18, cross-talk matrix — identical to two decimals,
+with no-patch reading exactly chance (2.00 / 2.00 / 1.50 / 9.50). **No logged local claim changes.**
+Hour 8's flagged `tense` random control of 1.44 sits beside a no-patch of 1.50, so it is a
+fluctuation, not an instrument failure; that flag is cleared.
+
+**(d) The abstraction ladder's missing nulls, specified but not run:** a merge-test null against the
+two dictionaries' *different marginal* generality distributions (not 50%); a size-matched
+random-feature control on the width effect; matched-count and label-permutation nulls on the flow.
+Cost: one CPU-only session, no NDIF, since corpus residuals are cached.
+
+**(e)** `results/ndif_pinned.txt` rewritten from the live status endpoint: base 405B has no running
+deployment (warm, unpinned); five pinned running models listed with provenance.
+
+Files: `results/notes/instrument_audit.md`, `docs/INSTRUMENTS.md` §4b, fixes across eight scripts.
+Cost: ~235k agent tokens, ~70 min wall.
 
 ## Open problems (ordered)
 
