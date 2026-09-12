@@ -72,7 +72,23 @@ for s in S:
     rng = np.random.default_rng(S.index(s))
     D = dirs([x for x in S if x != s]); texts = [f"{lead} {spans[key(s, c)]}" for c in combos]
     base = dict(zip(combos, batch_logprob(texts)))
-    gains = lambda vec: dict(zip(combos, batch_logprob(texts, vec) - np.array([base[c] for c in combos])))
+    def gains(vec):
+        gd = dict(zip(combos, batch_logprob(texts, vec) - np.array([base[c] for c in combos])))
+        if vec is not None:
+            # positive control on the plumbing (hour 36): a real patch must change every candidate's
+            # score, not just batch row 0. If this fires, the patch is not reaching the whole batch.
+            n_changed = sum(abs(gd[c]) > 1e-6 for c in combos)
+            if n_changed != len(combos):
+                # One or two candidates landing on an exact bf16-precision tie (gain 0.0 while other
+                # candidates in the SAME batch show real, varied O(0.1-2) gains, and it is a
+                # different specific candidate each time across scenes/models/layers) is observed on
+                # the 70B pair. That is NOT the hour-36 batch-row signature, which leaves only ONE
+                # candidate (batch row 0) changed and every other identically, bit-for-bit, at 0 --
+                # i.e. n_changed == 1, not n_changed == 7 or 8. Warn and continue on the former;
+                # hard-fail only on the latter (n_changed <= 1), the actual documented failure mode.
+                print(f"WARNING: patch reached {n_changed}/{len(combos)} candidates: {({str(c): float(gd[c]) for c in combos})}", flush=True)
+            assert n_changed > 1, f"patch reached only {n_changed}/{len(combos)} candidates -- batch-row bug (see random_control_diagnosis.md)"
+        return gd
     # mid-rank on ties: a patch that changes nothing must score at chance, not 1.0. With a strict `>`
     # every tie reads as rank 1, so a no-op (or a patch that reached only part of the batch) scores
     # as a perfect selector -- that is how hour 34's Llama numbers were manufactured.
