@@ -1,17 +1,19 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 38 logged stages. Every number below is in `RESULTS.md` with
-its control and file reference; the calculus these results support is written out in
-`docs/ALGEBRA.md`.*
+*Fourth draft, after 38 logged stages. Every number below is in `RESULTS.md` with its control and
+file reference; Checkpoint 2 at the top of that file lists what was withdrawn and when. The calculus
+these results support is in `docs/ALGEBRA.md`. The four measurement instruments this project found
+broken, and what they invalidated, are in `docs/INSTRUMENTS.md` — read that first if you are
+assessing whether the positive results below can be trusted.*
 
 ## Summary
 
-We asked whether the structure a prompt describes, a relation among parts or a narrative property
-such as setting, register, mood, or theme, exists in a language model's residual stream as a
-geometric object that can be measured, moved to a new domain, composed with other such objects,
-and used to steer generation. Across Qwen2.5 (0.5B, 1.5B, 1.5B-Instruct), Pythia-1.4B, GPT-J-6B,
-and Gemma-2-9B-it, with every claim paired to a matched null, we found nine things that stand,
-four that fell, and two that are partial.
+We asked whether the structure a prompt describes — a relation among parts, or a narrative property
+such as setting, register, mood, or theme — exists in a language model's residual stream as a
+geometric object that can be measured, carried to a new domain, composed with others, and used to
+steer generation. Across nine models in five families (Qwen2.5 0.5B/1.5B/1.5B-Instruct,
+Pythia-1.4B, GPT-J-6B, Gemma-2-9B-it, Llama-3.1-8B/70B/70B-Instruct), with every claim paired to a
+matched null, eleven things stand, six fell, and two are partial.
 
 **Stand.**
 
@@ -23,51 +25,62 @@ four that fell, and two that are partial.
    domains, a working selector (rank 2.21 of 6 vs 3.5 null; peak at layer 16 of 28).
 4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each is a lens on
    unseen scenes (1.1–1.4 of 3 vs ~2.0 random), three compose in one patch (2.8 of 18, chance 9.5),
-   and their cross-talk matrix is diagonal. Replicated on three model families and on grids
-   written by a second model author.
+   and their cross-talk matrix is diagonal. Replicated on four model families and on grids written
+   by a second model author.
 5. Factors differ in kind, and the model's depth shows it: voice and tense are lexical, era is
    computed by layer 12, mood is integrated at the last token, theme is distributed and peaks
    mid-passage.
-6. Recomposition works at the gauge level: an era shift moves a passage's address (0.89–0.94 of
-   cases) and keeps its theme (0.81–0.94, equal to the unpatched readout), on two models and two
-   authors' grids. It does not cross into generation (see Fell).
-7. Steering selects among competences the engine already has: theme steers generation only on a
-   9B instruction-tuned model, and tuned models carry refusal as an unlisted factor.
-8. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
+6. Recomposition works as a readout: an era shift moves a passage's address (0.89–0.94 of cases)
+   and keeps its theme (0.81–0.94, equal to the unpatched readout), on two models and two authors'
+   grids.
+7. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
    dictionary keeps more general features (mean generality 0.18 vs 0.06; 12 of 15 merges go up).
-9. Under generation the shallower factor dominates the surface text regardless of patch order
+8. Under generation the shallower factor dominates the surface text regardless of patch order
    (voice > era > theme), at two layer pairs.
-10. A parameterized translation exists: advancing a described subject by an interval from a day
-    to a million years produces a shared clock direction, computed from the state rather than the
-    interval phrase (2.8× the phrase-only displacement), that works as a selector (rank 3.9 of 9
-    vs 5.7 random) and survives rewriting the far-interval passages so no content word is shared
-    across subjects (3.6 vs 4.8; the direction itself unchanged, cosine 0.9). The clock's variance
-    share and geometry replicate on Gemma-2-9B-it. **Caveat added at stages 32 and 35:** in that grid the
-    state texts restate the interval, so the interval is lexically recoverable at layer 0
-    (discrimination 1.00 there). Rewriting every state text to name no duration keeps the clock
-    almost unchanged (variance 0.51, cosine 0.94 to the original direction) but leaves layer-0
-    discrimination at 0.72, because far-interval prose uses a different register from near-interval
-    prose. The clock is real; a lexical floor no text grid can remove sits under it. The
-    companion claim that subject-relative timescales are absent is withdrawn: the probe that
-    reported it was sitting at its own noise floor (residual-to-floor ratio 1.1–1.4, nothing above
-    1.8; the same pipeline on Gaussian noise returns 0.95). Its subject-relative part, a mayfly's day against a mountain's million years,
-    did not appear.
+9. **Gauges compose; engines do not — and the boundary between them is a magnitude.** At matched
+   norm an era shift moves the readout but never the generated text (0.14 on Llama-70B-Instruct,
+   0.27 on Gemma-9B, and on neither does a single continuation gain target-era vocabulary). At
+   three times the norm, re-imposed at every decoding step, Gemma's continuations read as the
+   target era in 0.84 of cases and 0.30 use its vocabulary, with prose intact.
+10. **The magnitude is not a constant of the method.** The same treatment on Llama-3.1-70B-Instruct
+    reaches only 0.43, below Gemma's two-times value. A bigger engine is not a more steerable one.
+11. **Instruction tuning sharpens some factors and not others.** On the matched pair Llama-3.1-70B
+    and 70B-Instruct — identical pretraining, size and tokenizer — the era selector goes 1.50 to
+    1.06 at two different depths, while theme is tuning-invariant (1.06–1.39 either way). That same
+    70B-Instruct has the sharpest era selector we have measured and the weak engine of claim 10:
+    sharp gauge, weak engine, at fixed size. This is what "steering selects among competences the
+    engine already has" reduces to once scale and tuning are separated, and it is the reason the
+    earlier version of that claim, which credited scale, has been rewritten.
 
-**Fell, then recovered at a price.** The era shift under generation at matched norm: on
-Llama-3.1-70B-Instruct and Gemma-2-9B-it the shifted continuation stays in its original era (0.14
-and 0.27 read as target; none gains the target era's vocabulary). At three times the norm,
-re-imposed at every decoding step, Gemma's continuations read as the target era in 0.84 of cases
-and 0.30 use its vocabulary, with prose intact. The same treatment on Llama-3.1-70B-Instruct
-reaches only 0.43, below Gemma's two-times value. The gauge/engine boundary is a magnitude, but
-the magnitude is not a constant of the method: a bigger engine is not a more steerable one, and
-whether that is size, tuning, or patch depth is the open question. Subject-relative timescales in the
-time-translation grid. Pooled distance structure as a content shape. Absence as decoder-adjacent inactive
-features. The five-regime commutator taxonomy under greedy decoding. "Factors don't commute under
-generation" as a fact about factors: any two matched-norm patches diverge the same way.
+**Fell.**
 
-**Partial.** The relation operator as a generative patch: helpful (+0.18 nats vs −0.10 random)
-but no better than the same operator fed the wrong source, so source-specificity is undemonstrated.
-A continuation-defined test for absence: null at n = 8, sensitive to presence, blind to absence.
+- **Pooled distance structure as a content shape.** A six-point distance structure over pooled
+  spans is a position detector.
+- **Parameterized time translation.** Five stages and roughly a million agent tokens. A shared
+  direction does track the interval between a described state and the same subject after Δt, and
+  replicates across models. Against a lexical floor of 0.728 the model recovers real gain (0.297 at
+  layer 24, permutation z 7.6), so it is not only vocabulary. But the gain survives shuffling the
+  words of the passage (structural residue 0.076, label-swap z 1.21) and does not transfer to the
+  case where the model must supply the change itself (ρ 0.150, cosine 0.078). It is a **computed
+  register detector** — how much change a passage describes, read order-invariantly, more
+  accurately than the embeddings alone allow — not a representation of elapsed time.
+- **Absence as decoder-adjacent inactive features.**
+- **The five-regime commutator taxonomy** under greedy decoding.
+- **"Factors don't commute under generation" as a fact about factors:** any two matched-norm
+  patches diverge the same way.
+- **Steering as a scale effect** (superseded by claim 11, not refuted: it was never tested against
+  tuning until stage 37).
+
+**Partial.** The relation operator as a generative patch: helpful (+0.18 nats vs −0.10 random) but
+no better than the same operator fed the wrong source, so source-specificity is undemonstrated. A
+continuation-defined test for absence: null at n = 8, sensitive to presence, blind to absence.
+
+**Withdrawn, with the instrument that caused each.** Three "subject-relative timescales are absent"
+results across two models (stages 28, 30, 31): the probe was a high-dimensional residual norm
+sitting at its own noise floor. One Llama selector battery (stage 34): the patch wrote into batch
+row zero of a padded tensor, pinning every rank at 1.22 for any direction. A set of discrimination
+numbers (stages 28–35): with the interval phrase removed so the model cannot copy the answer, 0.961
+falls to 0.522. See `docs/INSTRUMENTS.md`.
 
 ## Method
 
@@ -123,11 +136,12 @@ Theme is distributed, read from the mean, at chance in the first 15% of a passag
 the midpoint, with a single positive-then-negative beat-to-beat derivative shared by all three
 themes (h6, h8, h9, h17).
 
-Recomposition is the primitive the calculus needs, and it is demonstrated: an era shift, one
-additive patch while the model reads a passage, moves the era readout to the target in 89% (Qwen
-1.5B) and 88% (Gemma 9B) of cases while the theme readout stays at exactly its unpatched value,
-0.81 and 0.94 (h14). On grids written by GPT rather than by us, the same test gives 0.94 moved and
-0.86 kept (h23).
+Recomposition is the primitive the calculus needs, and as a readout it is demonstrated: an era
+shift, one additive patch while the model reads a passage, moves the era readout to the target in
+89% (Qwen 1.5B) and 88% (Gemma 9B) of cases while the theme readout stays at exactly its unpatched
+value, 0.81 and 0.94 (h14). On grids written by GPT rather than by us, the same test gives 0.94
+moved and 0.86 kept (h23). Whether it survives into generated text is claim 9's question, and the
+answer is: only at three times the norm, only on some engines (h27, h29, h33).
 
 Three models across two families give the same numbers within a few hundredths on every
 selector-level quantity (h7). The model with the sharpest selector is not the model that steers:
@@ -140,8 +154,16 @@ theme directions do nothing visible; multi-layer re-imposition and a repetition 
 change that. On the 1.5B instruct model, homecoming and betrayal become legible and the homecoming
 direction, inside the chat template, triggers a canned refusal. On Gemma-2-9B-it the theme
 directions write on theme with prose quality intact: *"everything she had built her life upon was
-now a lie"*; *"she hadn't expected to hear from him again, not after all these years."* Steering
-selects among competences the engine already has (h10–h13).
+now a lie"*; *"she hadn't expected to hear from him again, not after all these years."* (h10–h13.)
+
+Two later results decide what that pattern means. Raising the patch to three times its norm and
+re-imposing it at every decoding step carries an era shift into Gemma's generated text (0.84 read
+as target, 0.30 gaining target-era vocabulary), so the barrier is a magnitude rather than a kind
+(h29). But the same treatment on Llama-3.1-70B-Instruct stops at 0.43, below Gemma's two-times
+value, so the magnitude is a property of the engine, not of the method (h33). And on the matched
+pair Llama-70B and 70B-Instruct the era selector sharpens under tuning, 1.50 to 1.06 at two
+depths, while theme does not move (h37). Size is not the variable it looked like: the model with
+the sharpest gauge we have measured is also the one whose engine resists it most.
 
 The commutator experiment sharpened this. Applying two factor patches in the two orders produces
 token-different continuations from token ~15 on, but so do two random directions of matched norm,
@@ -174,32 +196,41 @@ may live in the flow rather than at its attractors.
   the delivered variant reads at 12 vs 0.6, so the instrument sees presence. Null, not falsified.
 - **Commutator regimes.** No level combination agrees across four prompts; permutation p = 0.16
   and 0.57.
-- **Four instruments** were found broken and replaced: a cross-talk rank that averaged to its
-  chance value by construction; best-layer selection; a high-dimensional residual norm whose noise
-  floor swallowed the effect it was meant to detect (stage 32), which had produced three
-  now-withdrawn negative results across two models; and a remote patching harness that wrote into
-  one row of a padded batch instead of the hidden states, which combined with rank-1-on-ties to
-  pin every measured rank at 1.22 regardless of the direction applied (stage 36). The last was
-  caught because a control came out equal to its treatment; the corresponding no-patch baseline,
-  which would have caught it immediately, had never been run and is now mandatory.
+- **Parameterized time translation** closed at stage 38 as a register detector rather than a
+  clock: real gain over a lexical floor (0.297, z 7.6), but order-invariant under word-shuffling
+  and non-transferring to model-supplied change.
+- **Four instruments** were found broken and replaced. They are documented in full in
+  `docs/INSTRUMENTS.md`, because what they have in common matters more than any one of them: each
+  produced a plausible number rather than an obvious error, and three of the four were caught by a
+  control or baseline rather than by reading the code.
 
 ## Limitations
 
-Grids were written by Claude, reviewed by Claude (32 holonic domains), or written by GPT; no
-human-written grid yet. Sentence-scale spans for most factors, three-sentence passages for theme.
-Most positive results are selector-level; generator-level evidence is qualitative and appears only
-at 9B-instruct. Layers are mid-stack by convention, with sweeps for the role lens, the relation
-lens, and the commutator only. Generality of features is measured against a narrative-only
-reference set. The relation operator's source-specificity under patching is open.
+Grids were written by Claude, reviewed by Claude (32 holonic domains), or written by GPT; **no
+human-written grid yet**, which is the first thing a reviewer should press on. Sentence-scale spans
+for most factors, three-sentence passages for theme. Most positive results are selector-level;
+generation-level evidence is quantitative only for era, and only on two models. Layers are mid-stack
+by convention, with sweeps for the role lens, the relation lens, the commutator, and the 70B
+selector. Generality of features is measured against a narrative-only reference set. The relation
+operator's source-specificity under patching is open. One depth control is missing: stage 33's cap
+at 0.43 was to be explained by a layer sweep, and the selector-level sweep that was run went down
+with the stage-34 retraction, so a generation-level sweep is still owed. Stage 8's `tense` random
+control reads 1.44, closer to its treatment than it should be, and has not been re-checked.
+Llama-3.1-405B is not reachable with this key, so no base model above 70B has been tested.
 
 ## Next
 
-The gauge/engine boundary is now the central fact, confirmed at 70B: every representational law
-holds, and none of them writes text. The next experiments should test whether anything crosses it:
-the same 3× re-imposed sweep on the 70B, and the threshold norm as a function of patch depth. On time
-translation: measure the clock as a gain over the layer-0 lexical floor as a function of depth,
-since the floor cannot be removed by rewriting. Still open: a human-written grid; absence defined by the model's own surprise;
-feature labels for the abstraction ladder.
+The gauge/engine boundary is the central fact, and it is now quantified rather than asserted: the
+readout-level laws hold everywhere, generation needs roughly three times the norm re-imposed
+throughout decoding, and even that fails on the larger engine. The next experiment is the
+generation arms of `docs/specs/scale_vs_tuning_v1.md` on the matched 70B pair, with the
+generation-level layer sweep that stage 33 needs, which decides whether claim 11's tuning effect
+appears in text as well as in readouts.
+
+Before more experiments, though, the binding constraint is authorship: every grid in this repo was
+written by a language model. A human-written grid is the cheapest single change to what these
+results are worth. After that: absence defined by the model's own surprise rather than by an
+author, and feature labels for the abstraction ladder.
 
 ## Reproducibility
 
