@@ -1,0 +1,2391 @@
+{
+ "meta": {
+  "model": "meta-llama/Llama-3.1-70B-Instruct",
+  "grid": "prompts/narrative_theme_v1.json",
+  "stacks": "results/stacks_llama_3.1_70b_instruct_narrative_theme_v1.npz",
+  "n_blocks": 80,
+  "d": 8192,
+  "patch_layer": 26,
+  "read_layer": 40,
+  "scale": 1.0,
+  "tokens": 48,
+  "prompt_format": "chat",
+  "instruction": "Continue this story passage. Write the next two or three sentences of the story itself, in the same voice. Output only the continuation, with no commentary, heading or preamble.",
+  "era_words": {
+   "medieval": [
+    "sword",
+    "abbey",
+    "lord",
+    "horse",
+    "monk",
+    "tithe",
+    "steward",
+    "castle",
+    "knight",
+    "priest"
+   ],
+   "1920s": [
+    "telegram",
+    "automobile",
+    "jazz",
+    "radio",
+    "motorcar",
+    "gramophone",
+    "cable",
+    "tram",
+    "cigarette",
+    "typewriter"
+   ],
+   "farfuture": [
+    "starship",
+    "orbit",
+    "drone",
+    "habitat",
+    "colony",
+    "reactor",
+    "airlock",
+    "module",
+    "relay",
+    "cryo"
+   ]
+  }
+ },
+ "summary": {
+  "base": {
+   "n": 36,
+   "era_moved": null,
+   "era_stayed": 0.8611111111111112,
+   "era_other": 0.1388888888888889,
+   "theme_kept": 0.6111111111111112,
+   "lex_n": 9,
+   "lex_moved": null,
+   "lex_stayed": 1.0
+  },
+  "shift": {
+   "n": 72,
+   "era_moved": 0.1388888888888889,
+   "era_stayed": 0.7916666666666666,
+   "era_other": 0.06944444444444445,
+   "theme_kept": 0.5416666666666666,
+   "lex_n": 14,
+   "lex_moved": 0.0,
+   "lex_stayed": 1.0
+  },
+  "rand": {
+   "n": 36,
+   "era_moved": 0.0,
+   "era_stayed": 0.8055555555555556,
+   "era_other": 0.19444444444444445,
+   "theme_kept": 0.5555555555555556,
+   "lex_n": 9,
+   "lex_moved": 0.0,
+   "lex_stayed": 1.0
+  }
+ },
+ "rows": [
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The miller's wife stood by the door, her eyes fixed on the brother who had once been a part of their family, her hands clenched into fists at her sides as if to keep from reaching out. The steward, a man",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The miller's wife stood by the door, her eyes fixed on the brother who had once been a part of their family, her hands clenched into fists at her sides as if to keep from reaching out. The steward, a man",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The miller's wife stood by the door, her eyes fixed on the brother who had once been her confidant, her hands clenched into fists at her sides as if to keep from reaching out. The steward, a man with",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The miller's hands shook as he handed over the grain, the weight of his brother's betrayal settling heavy in his chest. His brother's eyes, once bright with laughter and shared secrets, now seemed dull and foreign, a stranger's",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His wife's eyes narrowed, her hands moving swiftly as she stirred the thin soup that would be their supper, but she said nothing, for she knew the weight of the steward's displeasure and the cost of a neighbor's gratitude. The",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His wife's eyes narrowed as she stirred the porridge, her hands moving with a practiced ease that belied the worry etched on her face. \"We'll have to find another way to plow come spring,\" she said, her",
+   "era_read": "1920s",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His wife, Elara, looked up from the hearth, her eyes narrowing as she took in the lines of worry etched on his face, and nodded silently, as if she already knew. The fire crackled, casting shadows on",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His wife's eyes narrowed, her hands moving with a practiced ease as she kneaded the evening's bread, but she said nothing, the only sound the soft thud of her fists against the dough. The fire crackled, casting shadows",
+   "era_read": "1920s",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The steward's eyes narrowed, for the miller's son was a man he had mourned, and yet here he stood, his face creased by the same lines of laughter and toil that had been etched there before he marched",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The steward's eyes narrowed, for the miller's son was a stranger to him, and yet the way he moved among the familiar stones and timbers was that of a man who had grown up with the rhythm of the mill. The",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The steward's eyes narrowed, unsure what to make of the apparition before him, but the miller's son just smiled and handed him a warm loaf, its crust fragrant with the same yeast his mother had always used. The steward",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 2,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The steward's eyes narrowed, unsure what to make of the apparition before him, but the miller's son just smiled and handed him a warm loaf, its crust fragrant with the scent of fresh yeast and memories. The steward took",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 2,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "He locked the door, flipped the sign to \"Closed,\" and stood for a moment in the empty aisles, the fluorescent lights humming overhead like a dirge. The shelves, once full of promise and possibility, now seemed barren and for",
+   "era_read": "1920s",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "He locked the door, flipped the sign to \"Closed\" and stood for a moment, his eyes tracing the familiar lines of the storefront, the faded sign creaking in the breeze. The smell of fresh-cut wood and varnish still",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "He locked the door behind him, the familiar creak of the old wooden sign that read \"Frank's Hardware\" a hollow comfort as he turned the key, and began the short walk to the town square, where Walt Harmon would be waiting",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "He locked the door behind him, the familiar jingle of the bell above it now a hollow echo, and walked the empty aisles, his footsteps the only sound in the sudden stillness. The shelves, once stacked high with the promise",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His sister, Edna, looked at him with a mixture of gratitude and suspicion, but said nothing as she took the wad of cash from his hand. The boy, Jimmy, was out in the backyard, oblivious to the sacrifice that",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His sister, Edna, looked up from her sewing, her eyes narrowing as she took in the defeated slump of his shoulders, and Frank knew she didn't believe him. She set her needle aside and waited for him to tell her the",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His sister, Alice, looked at him with a mixture of gratitude and suspicion, but said nothing, knowing better than to question the sacrifices Frank made for her family. The boy, James, was oblivious to the cost of his education, too",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His sister, Edna, looked at him with a mixture of gratitude and suspicion, but said nothing as she took the envelope of cash from his hand. The boy, Jimmy, was oblivious to the sacrifice, too caught up in his own",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His eyes, still the same piercing blue, scanned the familiar space as if searching for something, or someone, and for a moment Frank thought he saw a flicker of the boy he once knew. The stranger's gaze settled on the old",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "Frank's eyes narrowed, his mind racing with the questions he'd been too proud to ask all these years, but his son's gaze held a quiet warning, a reminder of the unspoken rules that had driven them apart. The old man",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His eyes, a deeper shade of his father's, searched the familiar space as if seeking ghosts, and for a moment, the lines on his face seemed to deepen, as if the weight of years bore down on him. Frank, his",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "Frank's eyes narrowed, the lines around them deepening as he searched his son's face for the boy he once knew, but the man standing before him was a stranger in more than just his tailored coat. The silence between them was heavy",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "She watched the credits drain from her account, the numbers dwindling like the last wisps of air in a breached compartment. The station's AI, an androgynous voice that had once been a comfort, now seemed to mock her",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "She watched the credits drain from her account, the numbers dwindling like the last wisps of air in a breached compartment. The station's AI, an androgynous voice that had once been a comfort, now seemed to whisper the",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "She watched the credits drain from her account, the numbers dwindling like the last wisps of air from a punctured suit, and wondered if Vex's promise had been a lie from the start. The outer ring's residents were already",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "She watched the credits drain from her account, the numbers dwindling like the last wisps of air in a punctured suit, and wondered if Vex had ever meant a word of it. The comms screen flickered, a message",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "Her eyes felt dry and gritty as she worked, the familiar rhythms of the life support console a hollow comfort. The soft beeps and gentle hums seemed to mock her, reminders of the fragile balance she had just disrupted. In the corner",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "Her eyes felt dry and gritty as she worked, the familiar rhythms of the life support systems a hollow comfort now that her own escape had slipped through her fingers. The soft beeps and whirs of the consoles seemed to mock her, a",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "Her hands moved with practiced ease, checking the seals and valves that kept the station's air from seeping into the void, but her mind was elsewhere, replaying the argument she had with her brother, Jaren, who had promised to",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "Her hands moved on autopilot, sorting cargo manifests and checking the seals on the storage bays, but her mind was already on the long list of things she'd have to do to make up for the lost passage. She'd have to",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "Tamsin's fingers hesitated over the console, her mind reeling with the implications of her mother's return, as she stammered out a reply about the tomatoes being a staple crop, still thriving under the care of the station",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "Tamsin's fingers trembled as she worked the console, her eyes fixed on the grainy image of her mother's face, the lines etched around her eyes and mouth a testament to the long, hard years in the void.",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "Tamsin's hands shook as she replied, her voice barely above a whisper, and her mother's laughter crackled through the speakers, a sound that was both familiar and strange after so long. The station's corridors seemed to narrow and",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "debt",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "Tamsin's hands shook as she replied, her voice barely above a whisper, and her mother's laughter crackled through the speakers, a sound that was both familiar and foreign after two decades of silence. The pilot's voice was worn",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "Her eyes scanned the rest of the list, the names of her children, her brother, and the handful of loyal retainers who had stood by her family through the long years of strife, and she felt a cold dread creeping up her spine",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "Her eyes scanned the rest of the list, the names blurring together as her mind reeled with the implications, but one name stood out, a name that made her heart sink like a stone in the moat. She felt a cold",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "Her eyes scanned the rest of the list, the names of her children, her brother, and the handful of loyal servants who had stood by them through the long years of exile and hardship. The lady's mind was numb, but her hands",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "Her eyes scanned the rest of the list, the names blurring together as her mind struggled to comprehend the scale of the purge. The captain of the guard, the head of the council, even the young apprentice who had been tasked with polishing",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The moon was high when she rode out, the castle's gates creaking shut behind her, and the rider's bewildered face fading into the darkness. The night air was cool and damp, filled with the scent of wet earth and",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The moon was high when she rode through the gates, the castle's torches dwindling to embers behind her, and the darkness swallowed her whole. The rider, still warm from the fire, had not expected her to take his master",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "She rode through the dark, the trees looming like specters on either side of the winding road, and the rider's horse, sensing her tension, pricked its ears and lengthened its stride. The moon was new, and the only",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The darkness swallowed her whole as she rode, the only sound the soft thud of hooves on the dewy grass, and the creak of worn leather beneath her. The stars above seemed to twinkle with a cold, unforg",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "She stood at the window, watching the stars wheel overhead, her mind racing with memories of the child she had last seen as a bride, and the woman she must have become. The fire in the hearth had burned down to embers",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "She stood at the window, watching the stars wheel overhead, her mind racing with memories of the child she had last seen as a girl, and the woman she must have become. The fire in the hearth had burned down to embers",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "She spent the dark hours pacing the empty rooms, the creaking floorboards beneath her feet echoing through the silence, and when the first light of dawn crept over the hills, she was already dressed and waiting by the window. The",
+   "era_read": "1920s",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "She spent the dark hours pacing the cold stone floor, the flickering torches casting eerie shadows on the walls as she rehearsed the words she would say, the questions she would ask, and the memories she would share. The fire had",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "Ellen's eyes stung as she read the words, the fluorescent lights overhead seeming to hum in sync with the numbness spreading through her chest. She felt a presence behind her and turned to see her editor, Joe, his face a",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "Ellen's eyes scanned the message again, the words blurring together as her mind struggled to comprehend the betrayal. The fluorescent lights overhead seemed to hum louder, casting an unforgiving glare on the empty desks and the few straggl",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "Ellen's eyes narrowed as she read the words, her mind racing with the implications of the betrayal, the months of research and interviews and late nights reduced to nothing more than a discarded draft. The fluorescent lights overhead seemed to hum with a",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "Ellen's eyes stung as she read the words, the fluorescent lights overhead seeming to flicker in time with the numbness spreading through her chest. She felt a presence behind her and turned to see her editor, Jack, his face",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The editor's nephew, a smug young man with a talent for doing as little as possible, took the story from her and smiled, his eyes gleaming with a sense of undeserved triumph. Ellen turned away, her stomach churning",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The editor's nephew, a smug young man with a penchant for cigars, took the story from her and gave her a condescending smile as he read through the words she had poured her heart and soul into. Ellen felt a familiar knot",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The editor's nephew, a smug-faced young man with a talent for doing as little work as possible, took the story from her with a smirk, and Ellen felt a familiar burn of resentment in her chest. As she watched him walk",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The editor's nephew, a smug-faced young man who had never set foot in the field, smiled as he took the rewritten copy, his eyes scanning the words that would make his career. Ellen turned away, her stomach churning with",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "As the train rumbled through the familiar landscape, memories she'd long suppressed began to resurface, like the faint scent of smoke from a fire thought to be extinguished. The rhythmic clickety-clack of the tracks seemed to echo",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "As the train rumbled through the familiar landscape, memories she'd long suppressed began to resurface: the smell of the diner's coffee, the sound of the river at dawn, and the feel of the dusty main street beneath her feet.",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "As the train rumbled through the familiar landscape, memories long buried began to resurface, and Ellen felt the weight of years of unresolved emotions bearing down upon her. The rhythmic clickety-clack of the tracks seemed to echo the beat",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The rhythmic clickety-clack of the tracks and the whistle's mournful cry at each station brought back memories she'd long suppressed, of summers spent exploring dusty main streets and winters huddled by the fire, listening to her father's",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His mind racing, Reyes tried to call Dr. Okafor on the comms system, but her personal line was dead, and the lab's AI, EVE, reported that her quarters were sealed and unresponsive. The venting sequence",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His mind racing, Reyes tried to raise Dr. Okafor on the comms, but her personal channel was dark, and the automated response from her lab said she was in a high-priority meeting with the station's director. The",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His mind racing, Reyes tried to think of any reason why Dr. Okafor would give such an order, but nothing made sense - he had been working on a top-priority project for the Council, and his research was on the",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His mind racing, Reyes thought of the countless late nights he'd spent in this very sector, pouring over Ilse's research and learning from her, and he couldn't fathom why she would want him dead. He glanced around the room",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The console beeped softly as the message was received, and a moment later, the station's intercom crackled to life, the voice of the duty officer, Lieutenant Commander Patel, echoing through the deserted corridors. \"Reyes, report",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The console beeped softly as the message was received, and a moment later, the station's intercom crackled to life, the voice of the duty officer echoing through the deserted corridors. \"Reyes, report to Command for debrief",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The words on the screen seemed to blur as he leaned back in his chair, the weight of his decision settling heavy on his shoulders. Outside, the dim hum of the station's life support systems and the faint hiss of the air recycling units",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The cursor blinked steadily on the screen as he waited for a response, the fluorescent lights overhead casting an unforgiving glare on the empty room. The silence that followed was oppressive, punctuated only by the soft hum of the computer and the",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The ship's name, Celestial Horizon, was etched in faded letters across the hull, and Reyes felt a shiver run down his spine as he read the words his grandmother had spoken of so many times. The vessel's return was",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The light of the flare danced across the viewport, a tiny, distant star that grew larger and brighter with each passing moment, until Reyes could make out the ship's hull, a dark shape eclipsing the stars behind it. He felt a",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The light of the flare danced across the ice-encrusted hulls of the docked ships, casting an otherworldly glow over the station's skeletal framework, and Reyes felt a shiver run down his spine as he strained to",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "message",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The light of the flare danced across the ice of the outer planets, a tiny, distant spark that seemed to grow larger by the minute, until Reyes could make out the ship itself, a dark shape against the stars. He felt a sh",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His face was a mask of stone, but his eyes betrayed a flicker of sorrow as he gazed out at the traitor, who did not meet his gaze. The enemy commander, a tall, dark-haired man with a scar above",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His eyes narrowed as the traitor's gaze met his, a fleeting moment of recognition before the captain's face turned away, his back straight in the saddle as he rode off with the enemy. The lord's hand tightened on the stone par",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His face was a mask of stone, but his eyes betrayed a flicker of pain as he turned away from the sight, his gaze drifting out to the city, where the enemy now roamed freely. The sound of shattering glass and",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His eyes narrowed as the traitor's face turned towards the city, a fleeting glance that might have been a warning or a farewell, and the lord's grip on the stone parapet tightened. The enemy commander's voice carried on the",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His eyes were fixed on the torches of the enemy, a hundred yards off, as the hammering of the smith echoed through the night air, and the sound of his own labored breathing was the only other noise he could hear.",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His eyes had grown dim by the time the new bar was in place, and the men who relieved him had to pry his fingers loose, one by one, from the splintered wood. They carried him to the infirmary,",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His eyes were fixed on the torches of the enemy, a ragged line of fire that seemed to stretch on forever, as the clang of hammer on anvil echoed through the night air. The sergeant's shoulder throbbed with a",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His eyes had been open when the relief team arrived, but they were empty, and the weight of his body was all that kept the gate from swinging open to the enemy. The smith's apprentice, a boy of twelve winters, was the",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "As the gate creaked open, the brother slid from his horse, his face gaunt and weary, and the two men clasped each other in a tight, wordless embrace, the torchlight casting eerie shadows on the walls behind",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "As the gate creaked open, the brother's eyes, worn from years of hardship, met the lord's, and for a moment they stood there, the weight of a decade's silence between them. The brother's gaze then shifted",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "As the gates creaked open, a murmur of weary cheers rose from the defenders, and the lord's brother, his face gaunt and weathered, dismounted and clasped his brother's hand in a firm grip. The",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "As the gate creaked open, the brother's horse stumbled forward, its legs trembling with exhaustion, and the lord caught him by the arm, holding him upright as he slid from the saddle. The brother's face was gaunt and",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 2,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The owner, Vinnie, was already gone, but the smell of smoke and bootlegged gin lingered, a bitter reminder of the night's events. Sal's eyes scanned the room, taking in the overturned tables and shattered glasses,",
+   "era_read": "1920s",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The owner, a man named Vinnie, was already gone, spirited away by Sal's boys before the first officer had set foot inside. The police found nothing but empty bottles, scattered cards, and the faint scent of bootlegged gin",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The owner, a man named Vinnie, was already gone, spirited away by Sal's people before the first officer set foot inside. The police found nothing but empty bottles and the faint scent of smoke, and they left as quickly as they",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The owner, a man named Vinnie, was already gone, but the police found a note on the bar with a single sentence scrawled in red ink: \"Tell Sal I'll be in touch.\" The officers looked at each other",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The officers moved swiftly, their flashlights casting eerie shadows on the walls as they swept the room, but their eyes lingered on Sal, the lone figure sipping his drink with an air of nonchalance. One of them, a",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The officers moved with a practiced air, their eyes scanning the room as if searching for something more than the obvious signs of a speakeasy. Sal raised his glass in a silent toast, his eyes locked on the leader, a man he",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The officers, their faces stern and their eyes scanning the room, moved swiftly to surround him, but Sal merely raised his glass in a silent toast, his eyes locked on the leader of the group. The leader, a grizzled old",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The officers moved with practiced ease, their eyes scanning the room for signs of resistance, but Sal just raised his glass in a lazy toast as they approached. The leader, a gruff, no-nonsense type with a thick mustache,",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "They sat at the small table by the alley window, the dim light casting long shadows across their faces, and for a moment they just sipped their whiskey, the only sound the distant hum of the city. Then Vinnie set his glass",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "They sat at a small table in the dimly lit room, the only sound the soft clinking of ice in their glasses, as they sipped their whiskey in silence, the weight of years and unspoken questions hanging heavy in the air",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His brother's eyes, once bright as the stars on a clear summer night, now seemed dull and worn, like the stones that lined the riverbed after a long drought. The whiskey burned in their glasses, untouched, as they sat in",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His brother's eyes, once bright as the city lights, now seemed to hold a thousand midnights, and the lines on his face told a story Sal wasn't sure he wanted to hear. The whiskey burned in their glasses, untouched",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His eyes met those of the young ensign who had been at the helm, her face pale and her hands shaking as she worked to keep the ship on course. The captain's gaze lingered for a moment, a silent apology for the",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His eyes met those of the young ensign who had been at the helm when the mutiny began, and for a moment they shared a spark of defiance, but the ensign's gaze faltered and dropped to the console. The captain",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His eyes fell upon the navigation charts spread out before him, the familiar lines and symbols blurring together as his mind struggled to comprehend the treachery unfolding around him. The mutineers, a mix of seasoned sailors and young recruits,",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His eyes met those of the young ensign who had been manning the helm, her face pale and her hands shaking as she tried to keep her eyes on the navigation charts in front of her. The captain's gaze lingered on her",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The silence that followed was oppressive, punctuated only by the steady hiss of the reactor's dying breath and the muffled voices of his crewmates, their words indistinguishable but their fear and desperation clear. Lieutenant Commander Patel's voice cut",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 1
+   },
+   "lex_era": "farfuture"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The sudden silence was a heavy weight on the bridge, and for a moment, no one spoke, the only sound the steady beep of the reactor's power-down sequence. Then Lieutenant Commander Patel's voice, tight with emotion, called out,",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 1
+   },
+   "lex_era": "farfuture"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The silence that followed was oppressive, punctuated only by the steady hiss of steam and the creaking of twisted metal. Lieutenant Commander Patel's voice, tight with worry, called out to him, but there was no response. The others",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The silence that followed was oppressive, punctuated only by the steady hiss of the reactor's dying breath and the muffled voices of his crewmates on the other side of the bulkhead, their words indistinguishable but their worry and fear",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 1
+   },
+   "lex_era": "farfuture"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The crew, still reeling from the revelation, hesitated before one of the younger engineers, a soft-spoken woman named Elara, spoke up, her voice barely above a whisper, \"They've been sealed, ma'am, just",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The crew, still reeling from the revelation, hesitated before one of them finally spoke up, telling her that the quarters had been left untouched, a shrine to the chief's memory. She nodded, her eyes dry, and made her",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The crew, who had grown up hearing stories of the chief's legendary temper and unwavering dedication, exchanged uneasy glances as they led her to the quarters, which had indeed been left untouched, a shrine to the man who had once",
+   "era_read": "farfuture",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "door",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The crew, who had grown accustomed to the space being used for storage, exchanged uneasy glances as they led her to the small cabin that had been left untouched, the bed made, the personal items still arranged just as Chief Ando had",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The lord's face was a mask of stone as he read the words, but his eyes betrayed a flicker of pain and anger. He called for his captains to gather in the great hall, their faces somber as they sensed the weight",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The lord's face turned to stone as he read the words, his mind racing with the memories of their laughter and the oaths they had sworn. He called for his captains, his voice low and even, and they gathered around him with",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The lord's face was a mask of stone as he read the document, the words burning into his mind like a branding iron. He called for his generals, his voice low and even, and they gathered around the map spread out on the",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The lord's face was a mask of stone as he read the terms, but his eyes betrayed a flicker of pain, a wound that would not be so easily hidden from those who knew him. His steward, a man who had served",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 2,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The lord's eyes met hers, a fleeting glance of gratitude and shared understanding, before he turned to the men, his voice booming as he raised his cup in a toast to their bravery and the coming victory. The hall erupted in cheers,",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The lord's eyes met hers, a fleeting glance of gratitude and shared understanding, before he turned back to the men, his voice booming out in laughter and jest. The lady's gaze lingered, her eyes tracing the lines of weariness",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The gesture was not lost on the men, who nodded in quiet respect as the lord took his first bite, the sound of clinking metal and murmured conversation filling the cold, dimly lit hall. Outside, the wind howled like",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "Her gesture was not lost on the men, who exchanged quiet glances and nodded in respect, their faces lit by the flickering torches that lined the great hall. The lord's eyes met hers, a fleeting moment of gratitude and understanding",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His son's eyes, once bright as the summer sun, now seemed to hold a deep and abiding sorrow, and the lines etched on his face told the tale of trials and hardships endured. The lord's wife, the boy's",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His son's eyes, once bright as the summer sun, now seemed to hold a deep and abiding sorrow, and the lines etched on his face told the tale of trials and hardships endured. The lord's wife, the boy's",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "His son's eyes, once bright as the summer sun, now seemed to hold a deep weariness, and the lines etched on his face told a story of trials and hardships that the lord could hardly bear to imagine. The room fell",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 1,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "medieval"
+  },
+  {
+   "scene": "meal",
+   "e1": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His son's eyes were sunken, his skin sallow, and his once-sharp jawline now gaunt, but the fire in his gaze remained, burning brighter than the candles that lit the hall. The room fell silent, the",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The creditors' letters started arriving on Tuesday, and by Wednesday she had a solicitor, a stern woman with a kind face who listened to Rose's story and promised to make the forgers pay. On Thursday, Rose went to the shop",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The creditors' letters began to arrive, addressed to her, and Rose sorted them into a neat pile, her hands shaking with a mix of anger and fear. She thought of all the late nights and early mornings, the endless cups of coffee",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "She sold the china at the market on Tuesday, and with the coins in her pocket, she walked to the town square, where the bailiffs were already nailing up the notice of sale on the shop door. The sign creaked",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "The creditors' men arrived on Tuesday, their faces a blur of apologetic smiles and clipboards, and Rose watched them take the display cases and the stock, the smell of fresh bread and coffee lingering in the air as they stripped the",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "As they ate, the older boarder, a quiet man named Jenkins, asked the younger one, Thomas, about his chances of getting the position, and Thomas launched into a nervous but optimistic speech about his qualifications and the company's needs.",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "As they pushed their plates away, the older boarder, a quiet man named Jenkins, caught her eye and nodded in appreciation, but the younger one, eager to make a good impression, barely noticed the meager meal. Rose smiled to",
+   "era_read": "1920s",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "As they ate, the older boarder, a gruff but kind man, asked the younger one about his prospects, and Rose listened intently, her eyes fixed on the young man's hopeful face. The fire crackled in the hear",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "As they ate, the older boarder, a gruff but kind man named Jenkins, asked the younger one, Thomas, about his chances, and Thomas launched into a nervous but optimistic speech about the position and his qualifications. Rose listened,",
+   "era_read": "medieval",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "His eyes widened as he took in the spread before him, the same dishes she'd made for years, the same silverware and glasses, and for a moment, it was as if no time had passed at all. He sat down,",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "His eyes widened as he took in the spread before him, the same dishes she'd made for years, the same silverware and glasses, and for a moment, it was as if no time had passed at all. He sat down,",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "His eyes widened as he took in the spread before him, the same dishes she had always made, the same silverware and plates, and for a moment, it was as if no time had passed at all. He sat down, and",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "farfuture",
+   "cont": "His eyes widened as he took in the spread before him, the same dishes she'd made for every family dinner since he was a boy, and for a moment, the lines on his face seemed to soften. He took a bite of the",
+   "era_read": "1920s",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "base",
+   "e2": "-",
+   "cont": "She felt a shiver run down her spine as she realized the ambassador's true intentions, and the weight of the war's fate now rested on her shoulders. The commander's eyes scanned the compartment, searching for any other hidden messages or clues",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "She felt a shiver run down her spine as she realized the ambassador's true intentions, and the weight of the war's fate now rested on her shoulders. The commander's eyes scanned the compartment, searching for any other hidden messages or clues",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "She felt a shiver run down her spine as she realized the ambassador's true intentions, and the weight of the responsibility that now rested on her shoulders. The codes, meant to secure the fleet's safety, were now in the hands of",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "She felt a shiver run down her spine as she realized the ambassador's true intentions, and the weight of the responsibility that now rested on her shoulders. The codes, once shared, could not be unshared, and she knew that the",
+   "era_read": "medieval",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "base",
+   "e2": "-",
+   "cont": "The medic's silence was a small price to pay for the commander's trust, and he repaid it by quietly supplementing her own meager rations with protein-rich paste from the ship's lab stores. As the months dragged on,",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "The medic's silence was a small price to pay for the commander's trust, and he repaid it by quietly supplementing her own meager rations with protein-rich paste from the ship's lab stores. As the months dragged on,",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "The medic's eyes would sometimes meet hers across the cramped mess, a flicker of understanding passing between them, but his lips remained sealed. As the weeks turned into months, the commander's cheeks hollowed and her eyes took on a sun",
+   "era_read": "medieval",
+   "theme_read": "betrayal",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "The medic's silence was a small price to pay for the commander's trust, and he repaid it by quietly supplementing her meager rations with extra vitamins and protein powder from his own stores. As the months dragged on, the",
+   "era_read": "farfuture",
+   "theme_read": "sacrifice",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "base",
+   "e2": "-",
+   "cont": "As she cycled through the lock, the hiss of equalizing pressure seemed to echo the pounding of her heart, and when the outer door slid open, she was met with the faint scent of decay and the captain's eyes, sunken",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "rand",
+   "e2": "-",
+   "cont": "As she cycled through the lock, the hiss of equalizing pressure seemed to echo the pounding of her heart, and when the outer door slid open, Captain Ortega stood before her, eyes sunken but bright with a mixture of wonder",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "medieval",
+   "cont": "As she stepped out into the chill of the docking bay, the captain's eyes met hers, and for a moment they simply stared, the years of grief and longing hanging in the air like a challenge. The captain's face was etched",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 0
+   },
+   "lex_era": "none"
+  },
+  {
+   "scene": "meal",
+   "e1": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "e2": "1920s",
+   "cont": "As she stepped into the airlock, the hiss of equalizing pressure seemed to slow time, and for a moment she was back in their small apartment, watching her wife pack a bag for what was supposed to be a routine voyage. The",
+   "era_read": "farfuture",
+   "theme_read": "homecoming",
+   "lex_counts": {
+    "medieval": 0,
+    "1920s": 0,
+    "farfuture": 1
+   },
+   "lex_era": "farfuture"
+  }
+ ]
+}
