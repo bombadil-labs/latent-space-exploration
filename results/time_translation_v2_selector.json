@@ -1,0 +1,1174 @@
+{
+ "_meta": {
+  "model": "Qwen/Qwen2.5-1.5B",
+  "layers": [
+   14
+  ],
+  "paraphrase": 0,
+  "scale": 1.0,
+  "seed": 0,
+  "test_dts": [
+   "1year",
+   "10years",
+   "100years",
+   "1000years",
+   "10000years",
+   "1000000years"
+  ],
+  "chance": 5.0
+ },
+ "rows": [
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 3,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 4,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 4,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 2,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 4,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 5,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 8,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 8,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 8,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "street",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 8,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 8,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 2,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 2,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 5,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 5,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 5,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 5,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 1,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "mountain",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 1,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 3,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 4,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 8,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 8,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 8,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "orchard",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 1,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 5,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 5,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "mayfly",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 5,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 5,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 5,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 8,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 4,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 4,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 4,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 2,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 2,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 6
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "asteroid",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 2,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 2,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 8,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 2,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 3,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 1,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "river",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 4,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 4,
+   "rank_gain": 6
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 5,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 5,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 5,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 6
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 1,
+   "rank_gain": 7
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 1,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 6
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 7,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "real_population",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 7,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1year",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1year",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 9
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1year",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10years",
+   "cond": "clock",
+   "rank_raw": 3,
+   "rank_gain": 5
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10years",
+   "cond": "rand",
+   "rank_raw": 4,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10years",
+   "cond": "none",
+   "rank_raw": 4,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "100years",
+   "cond": "clock",
+   "rank_raw": 1,
+   "rank_gain": 4
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "100years",
+   "cond": "rand",
+   "rank_raw": 3,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "100years",
+   "cond": "none",
+   "rank_raw": 2,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000years",
+   "cond": "clock",
+   "rank_raw": 9,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000years",
+   "cond": "rand",
+   "rank_raw": 9,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000years",
+   "cond": "none",
+   "rank_raw": 9,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10000years",
+   "cond": "clock",
+   "rank_raw": 6,
+   "rank_gain": 3
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10000years",
+   "cond": "rand",
+   "rank_raw": 6,
+   "rank_gain": 8
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "10000years",
+   "cond": "none",
+   "rank_raw": 6,
+   "rank_gain": null
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000000years",
+   "cond": "clock",
+   "rank_raw": 2,
+   "rank_gain": 2
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000000years",
+   "cond": "rand",
+   "rank_raw": 3,
+   "rank_gain": 1
+  },
+  {
+   "layer": 14,
+   "subject": "fictional_population",
+   "dt": "1000000years",
+   "cond": "none",
+   "rank_raw": 5,
+   "rank_gain": null
+  }
+ ]
+}
