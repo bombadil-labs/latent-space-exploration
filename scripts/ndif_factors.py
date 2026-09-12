@@ -14,6 +14,7 @@ F = g["factors"]; names = list(F); S = g["scenes"]; lead = g["lead"]; spans = g[
 combos = list(itertools.product(*[F[n] for n in names])); key = lambda s, c: "/".join([s, *c])
 model = LanguageModel(a.model, device_map="auto", dispatch=False); tok = model.tokenizer
 if tok.pad_token is None: tok.pad_token = tok.eos_token
+tok.padding_side = "right"     # the lead mask below assumes the lead starts at position 0 of every row
 def blocks(m):
     for path in ("model.layers", "transformer.h", "gpt_neox.layers"):
         obj = m
@@ -22,6 +23,13 @@ def blocks(m):
             return obj
         except AttributeError: continue
 B = blocks(model); l = a.layer
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple). Indexing
+    `block.output[0]` therefore silently means "batch row 0" on those models, so a patch written that
+    way lands on the FIRST SEQUENCE OF THE BATCH ONLY -- see results/notes/random_control_diagnosis.md."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
 def dirs(train):
     allv = {c: np.stack([X[key(s, c)][l] for s in train]).mean(0) for c in combos}; mu = np.mean(list(allv.values()), axis=0)
     return {n: {lvl: np.mean([allv[c] for c in combos if c[i] == lvl], axis=0) - mu for lvl in F[n]} for i, n in enumerate(names)}
@@ -39,7 +47,7 @@ def _inner__batch_logprob(texts, vec=None):
     backend = ProxyAuthBackend(model.to_model_key())
     with model.trace({"input_ids": ids, "attention_mask": am}, backend=backend) as tracer:
         if v is not None:
-            B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0].device, B[l].output[0].dtype)
+            h = resid(B[l]); h[:] = h + v.to(h.device, h.dtype)
         logits = model.lm_head.output[:, :-1, :]                                   # native dtype; no full-vocab fp32 copy
         picked = logits.gather(-1, tgt.unsqueeze(-1).to(logits.device)).squeeze(-1).float() - torch.logsumexp(logits, dim=-1).float()
         out = (picked * mask.to(picked.device)).sum(-1).save()
@@ -65,12 +73,18 @@ for s in S:
     D = dirs([x for x in S if x != s]); texts = [f"{lead} {spans[key(s, c)]}" for c in combos]
     base = dict(zip(combos, batch_logprob(texts)))
     gains = lambda vec: dict(zip(combos, batch_logprob(texts, vec) - np.array([base[c] for c in combos])))
-    rank = lambda gd, t, cands: 1 + sum(gd[c] > gd[t] for c in cands if c != t)
+    # mid-rank on ties: a patch that changes nothing must score at chance, not 1.0. With a strict `>`
+    # every tie reads as rank 1, so a no-op (or a patch that reached only part of the batch) scores
+    # as a perfect selector -- that is how hour 34's Llama numbers were manufactured.
+    def rank(gd, t, cands):
+        o = [c for c in cands if c != t]
+        return 1 + sum(gd[c] > gd[t] for c in o) + 0.5 * sum(gd[c] == gd[t] for c in o)
+    null = gains(None)   # no-patch baseline: same code path, second scoring job, no direction added
     for i, n in enumerate(names):
         for lvl in F[n]:
             r = rng.normal(size=D[n][lvl].shape); r *= np.linalg.norm(D[n][lvl]) / np.linalg.norm(r)
-            for cond, vec in (("factor", D[n][lvl]), ("rand", r)):
-                gd = gains(vec); dec = decompose(gd)
+            for cond, vec in (("factor", D[n][lvl]), ("rand", r), ("none", None)):
+                gd = null if vec is None else gains(vec); dec = decompose(gd)
                 for c in combos:
                     if c[i] == lvl:
                         res.append(dict(scene=s, test="B", factor=n, cond=cond, rank=rank(gd, c, [cc for cc in combos if all(cc[j] == c[j] for j in range(len(names)) if j != i)])))
@@ -82,7 +96,7 @@ for s in S:
 print(f"\n=== {a.model} layer={l} scale={a.scale} ===")
 for n in names:
     k = len(F[n]); f = lambda c: np.mean([x["rank"] for x in res if x["test"] == "B" and x["factor"] == n and x["cond"] == c])
-    print(f"(B) {n:6s} lens: rank/{k} factor-dir {f('factor'):.2f}  random {f('rand'):.2f}   (chance {(k+1)/2:.1f})")
+    print(f"(B) {n:6s} lens: rank/{k} factor-dir {f('factor'):.2f}  random {f('rand'):.2f}  no-patch {f('none'):.2f}   (chance {(k+1)/2:.1f})")
 print(f"(D) all {len(names)} factors composed: rank/{len(combos)} {np.mean([x['rank'] for x in res if x['test']=='D']):.2f}   (chance {(len(combos)+1)/2:.1f})")
 print("(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor")
 print("        " + "".join(f"{m:>9s}" for m in names))
