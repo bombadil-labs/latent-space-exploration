@@ -1278,6 +1278,28 @@ briefs should point agents at the resumable fetch.
 
 **Next, in order.** (1) Diagnose the random-control collapse before spending anything on piece 2. (2) Correct `results/ndif_pinned.txt`. (3) Piece 2 with a generation-level layer sweep on the 70B pair, 405B dropped. Files: `results/scale_vs_tuning_selector_*.json`, `results/notes/scale_vs_tuning_p1.md`. Cost: ~130k agent tokens, ~45 min NDIF.
 
+## 2026-09-12 (hour 35) — The shared clock survives removing the interval restatement, but a lexical floor remains (agent)
+
+**Question.** Hour 32 found that in the v2 time grid the state texts restate their interval ("*One day later* the mayfly is dead"), so Δt is recoverable at layer 0 (discrimination Spearman 1.00) before the model computes anything. Build a v3 grid in which no state text names, numbers, or paraphrases its interval, keep v2's far-interval vocabulary matching, and re-measure. Qwen2.5-1.5B, same suite.
+
+**Leak check:** v2 flags 221 of 240 state spans; v3 flags 0 of 240, with the far-Δt vocabulary matching preserved.
+
+| layer 14 | v2 | v3 |
+|---|---|---|
+| shared variance fraction | 0.545 | 0.507 |
+| Spearman(‖shared‖, log Δt) | 0.683 | 0.667 |
+| adjacent / distant cos of shared | 0.881 / 0.587 | 0.889 / 0.634 |
+| phrase-control ratio | 2.99 | 2.70 |
+| cos(shared_v2, shared_v3) at 100 y–1 My | — | 0.938–0.947 |
+| discrimination Spearman at layer 0 (within / shared) | 1.00 / 1.00 | 0.723 / 0.710 |
+| discrimination Spearman at layer 14 | 0.937 / 0.975 | 0.936 / 0.961 |
+
+**Grades.** Three of four predictions held: the shared fraction stayed above 0.35, the Spearman above 0.5, and the direction itself is nearly geometrically unchanged (cos 0.94–0.95 at far Δt). The layer-0 prediction fell: discrimination dropped from 1.00 to 0.72 but not to chance.
+
+**Reading.** The clock is not an artifact of restated intervals; removing every duration expression costs it almost nothing, and the direction found in the clean grid is the same direction. But a lexical floor remains that duration-word removal cannot close: far-interval states necessarily use a different register (denudation, cadastres, broods) from near-interval ones (unchanged, identical), so magnitude of change is readable from a bag of embeddings. That is realistic content rather than a bug, and it means no text-based time grid can drive layer-0 discrimination to chance. Any future version must either accept the floor and measure the *gain* over it with depth, or move to non-lexical manipulations.
+
+Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.py`, `scripts/time_translation_discrimination.py`, `scripts/_build_v3_states.py`, `results/time_translation_v3_measures.json`, `results/notes/time_translation_v3.md`, figures. Cost: ~300k agent tokens (480 hand-written leak-free passages), ~30 min compute.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1302,5 +1324,5 @@ briefs should point agents at the resumable fetch.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
 8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**, and **the random-direction control collapses on every Llama (1.14–1.28 vs ~2.0 on Gemma/GPT-J)** — diagnose that before piece 2.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
-   ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. Next: a v3 grid whose state texts never name the interval, then re-run the shared clock and the Gemma gate;
+   ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. ~~v3 grid~~ done (hour 35): the clock survives (variance 0.51, cos 0.94 to the v2 direction), but a lexical floor of 0.72 remains at layer 0 that no text grid can remove. Next: measure the clock as a gain over that floor with depth, and the Gemma gate on v3;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
