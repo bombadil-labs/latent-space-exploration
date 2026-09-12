@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 30 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 31 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -41,7 +41,8 @@ four that fell, and two that are partial.
     to a million years produces a shared clock direction, computed from the state rather than the
     interval phrase (2.8× the phrase-only displacement), that works as a selector (rank 3.9 of 9
     vs 5.7 random) and survives rewriting the far-interval passages so no content word is shared
-    across subjects (3.6 vs 4.8; the direction itself unchanged, cosine 0.9). Its subject-relative part, a mayfly's day against a mountain's million years,
+    across subjects (3.6 vs 4.8; the direction itself unchanged, cosine 0.9). The clock's variance
+    share and geometry replicate on Gemma-2-9B-it; the subject-relative part is absent there too. Its subject-relative part, a mayfly's day against a mountain's million years,
     did not appear.
 
 **Fell, then recovered at a price.** The era shift under generation at matched norm: on

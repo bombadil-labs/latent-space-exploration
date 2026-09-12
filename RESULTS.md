@@ -1219,6 +1219,20 @@ briefs should point agents at the resumable fetch.
 
 **Grades.** "Shared fraction < 0.4" fell: it rose. "1 My > 3.0 but < random" held (3.25 vs 4.38), but the effect moved to 1 ky rather than shrinking, and the overall selector improved. **Reading.** The clock survives the removal of its suspected lexical cause, points the same way (cos ≈ 0.9), and is more monotone in log Δt than before. Hour 28's confound is closed; the shared clock stands as a computed, phrase-independent direction. Subject-relative timescales remain absent. The v1 vs v2 random controls differ (5.65 vs 4.83), so the random baseline is noisy at n = 8 per Δt. Files: `prompts/time_translation_v2.json`, `scripts/time_translation_vocab_check.py`, `scripts/_build_v2_states.py`, `results/time_translation_v2_*.json`, `results/time_translation_v1_v2_shared_cos.json`, `results/notes/time_translation_v2.md`, five figures. Cost: ~150k agent tokens; the agent's final write-up was lost to a container restart and written from its saved outputs.
 
+## 2026-09-12 (hour 31) — Time grid on Gemma-9B: the shared clock is model-invariant; subject clocks are still absent (agent)
+
+**Question.** Does the subject-relative part of time translation appear at 9B? v2 grid (480 passages) extracted on Gemma-2-9B-it via NDIF at layers 9/20/31, measurements 1–7 unchanged. Prediction, written first: shared fraction 0.4–0.6 and Spearman ≥ 0.6 at layer 20; at least 4 of 8 subjects get τ > 1 day, mayfly/street short, mountain/asteroid long.
+
+| quantity | Qwen-1.5B L14 | Gemma-9B L20 |
+|---|---|---|
+| shared variance fraction | 0.545 | 0.478 |
+| Spearman(‖shared‖, log Δt) | 0.68 | 0.68 |
+| adjacent / distant cos | 0.88 / 0.59 | 0.87 / 0.61 |
+| ‖shared_exp‖/‖shared_ctrl‖ | ~3.1 | 1.67 |
+| τ(s) | 1 day, all 8 | 1 day, all 8, all layers |
+
+**Grades.** Clock replication held on both numbers. Subject timescales fell: 0 of 8, no ordering to grade. **Reading.** The shared clock's variance share, monotonicity, and cosine geometry are the same across a 6× parameter jump and a different family; it is a computed direction, not a small-model artifact. The phrase-only ratio is weaker at 9B (1.67), still above 1 at every Δt. Subject-relative timescales are absent at both scales, which moves the question from model size to the probe: state-span mean pooling under a fixed template may average out exactly the subject-specific change. Files: `scripts/ndif_time_translation_extract.py`, `results/time_translation_gemma_measures.json`, `results/notes/time_translation_gemma.md`, `results/figures/time_translation_gemma_*.png`; `scripts/time_translation.py` gained `--stacks/--out/--suffix`. Cost: ~115k agent tokens, 15 min wall.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1244,5 +1258,5 @@ briefs should point agents at the resumable fetch.
 8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed
    moves generated text (0.84) on 9B. Next: the same sweep on 70B; the norm threshold as a function of depth.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
-   ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. Next: residual curves on Gemma-9B;
+   ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant, subject clocks absent at 9B too. Next:
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
