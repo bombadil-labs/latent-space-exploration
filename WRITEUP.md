@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 35 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 36 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -174,10 +174,14 @@ may live in the flow rather than at its attractors.
   the delivered variant reads at 12 vs 0.6, so the instrument sees presence. Null, not falsified.
 - **Commutator regimes.** No level combination agrees across four prompts; permutation p = 0.16
   and 0.57.
-- **Three metrics** were found broken and replaced: a cross-talk rank that averaged to its chance
-  value by construction, best-layer selection, and a high-dimensional residual norm whose noise
+- **Four instruments** were found broken and replaced: a cross-talk rank that averaged to its
+  chance value by construction; best-layer selection; a high-dimensional residual norm whose noise
   floor swallowed the effect it was meant to detect (stage 32), which had produced three
-  now-withdrawn negative results across two models.
+  now-withdrawn negative results across two models; and a remote patching harness that wrote into
+  one row of a padded batch instead of the hidden states, which combined with rank-1-on-ties to
+  pin every measured rank at 1.22 regardless of the direction applied (stage 36). The last was
+  caught because a control came out equal to its treatment; the corresponding no-patch baseline,
+  which would have caught it immediately, had never been run and is now mandatory.
 
 ## Limitations
 
