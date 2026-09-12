@@ -19,10 +19,15 @@ ap.add_argument("grid", nargs="?", default="prompts/time_translation_v1.json")
 ap.add_argument("--model", default="Qwen/Qwen2.5-1.5B")
 ap.add_argument("--layers", default="0,8,14,20,27")
 ap.add_argument("--stage", default="all", choices=["extract", "measure", "all"])
-ap.add_argument("--stacks", default="results/time_translation_stacks.npz")
-ap.add_argument("--out", default="results/time_translation_measures.json")
+ap.add_argument("--suffix", default="", help="tag inserted into default --stacks/--out/figure names, e.g. 'gemma'")
+ap.add_argument("--stacks", default=None)
+ap.add_argument("--out", default=None)
 ap.add_argument("--figdir", default="results/figures")
 a = ap.parse_args()
+_sfx = f"_{a.suffix}" if a.suffix else ""
+a.stacks = a.stacks or f"results/time_translation{_sfx}_stacks.npz"
+a.out = a.out or f"results/time_translation{_sfx}_measures.json"
+FPFX = f"time_translation{_sfx}"     # figure filename prefix, so a suffixed run doesn't clobber the default figures
 
 G = json.load(open(a.grid))
 S, TP, DT = G["subjects"], G["timepoints"], G["deltas"]
@@ -195,14 +200,14 @@ for li, l in enumerate(LAYERS):
     ax.set_ylabel("||resid(s, dt)||" if li == 0 else "")
 axes[-1].legend(fontsize=6, loc="upper left")
 fig.suptitle("m4: subject residual curves (knee = tau)"); fig.tight_layout()
-fig.savefig(f"{a.figdir}/time_translation_resid_curves.png", dpi=130); plt.close(fig)
+fig.savefig(f"{a.figdir}/{FPFX}_resid_curves.png", dpi=130); plt.close(fig)
 
 fig, ax = plt.subplots(figsize=(5, 3.6))
 for l in LAYERS:
     ax.plot(X, R["m3_clock_geometry"][str(l)]["shared_norms"], marker="o", ms=3, label=f"L{l}")
 ax.set_xticks(X); ax.set_xticklabels(lab, rotation=60, fontsize=7)
 ax.set_ylabel("||shared(dt)||"); ax.set_title("m3: shared clock magnitude vs log dt"); ax.legend(fontsize=7)
-fig.tight_layout(); fig.savefig(f"{a.figdir}/time_translation_shared_norm.png", dpi=130); plt.close(fig)
+fig.tight_layout(); fig.savefig(f"{a.figdir}/{FPFX}_shared_norm.png", dpi=130); plt.close(fig)
 
 fig, axes = plt.subplots(1, nL, figsize=(3.2 * nL, 3.4))
 for li, l in enumerate(LAYERS):
@@ -213,7 +218,7 @@ for li, l in enumerate(LAYERS):
     ax.set_title(f"layer {l}", fontsize=9)
 fig.colorbar(im, ax=axes, shrink=0.8)
 fig.suptitle("m3: cos(shared(dt_i), shared(dt_j))")
-fig.savefig(f"{a.figdir}/time_translation_clock_cos.png", dpi=130); plt.close(fig)
+fig.savefig(f"{a.figdir}/{FPFX}_clock_cos.png", dpi=130); plt.close(fig)
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 3.6))
 L14 = str(14 if 14 in LAYERS else LAYERS[len(LAYERS) // 2])
@@ -227,7 +232,7 @@ for l in LAYERS:
 axes[1].axhline(0.6, ls="--", c="k", lw=0.8)
 axes[1].set_xticks(X); axes[1].set_xticklabels(lab, rotation=60, fontsize=7)
 axes[1].set_ylabel("cos(resid_real, resid_fict)"); axes[1].set_title("m6: real vs fictional"); axes[1].legend(fontsize=7)
-fig.tight_layout(); fig.savefig(f"{a.figdir}/time_translation_real_vs_fictional.png", dpi=130); plt.close(fig)
+fig.tight_layout(); fig.savefig(f"{a.figdir}/{FPFX}_real_vs_fictional.png", dpi=130); plt.close(fig)
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 3.6))
 for l in LAYERS:
@@ -238,7 +243,7 @@ axes[1].set_ylabel("cos(shared_exp, shared_ctrl)")
 for ax in axes:
     ax.set_xticks(X); ax.set_xticklabels(lab, rotation=60, fontsize=7); ax.legend(fontsize=7)
 fig.suptitle("m7: experimental vs phrase-only control"); fig.tight_layout()
-fig.savefig(f"{a.figdir}/time_translation_phrase_control.png", dpi=130); plt.close(fig)
+fig.savefig(f"{a.figdir}/{FPFX}_phrase_control.png", dpi=130); plt.close(fig)
 
 # ---------------------------------------------------------------- console summary
 print("\n=== m1/m2 decomposition: fraction of sum||d||^2 explained by shared(dt) ===")
