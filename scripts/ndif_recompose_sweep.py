@@ -1,4 +1,22 @@
-"""Hour 29: does the era-shift patch cross the Gauge/Engine boundary at a bigger scale, or if it is
+"""Hour 31 addendum (reusing this script unchanged apart from --model already existing): hour 29 found
+that on google/gemma-2-9b-it the re-imposed era-shift patch crosses era-target 0.5 between scale 2.0
+(0.58) and 3.0 (0.84), with the lexical check turning on at the same point (0.00/0.00 -> 0.18 -> 0.30).
+Hour 27 tested meta-llama/Llama-3.1-70B-Instruct only at scale 1.0, re-imposed (patch@26 read@40): era
+read as target 0.14, lexical 0.00 -- near-null, well below Gemma's 0.27 at the same scale. This run
+repeats hour 29's scale sweep on the 70B: reimpose_2.0 and reimpose_3.0, patch@26 read@40, same grid,
+same prompt format, same four readouts, 72 shift generations per scale (36 if NDIF queueing makes 72
+infeasible, recorded as such).
+
+PREDICTION (recorded before running, graded after): the 70B crosses the same threshold as Gemma --
+era-as-target >= 0.5 at scale 3.0 -- but with a LOWER lexical rate than Gemma's 0.30, because hour 27
+already showed the 70B's continuations are near-verbatim re-runs of the unpatched base text with a
+clause repainted (a stronger prior that resists lexical intrusion even where the readout is pushed
+off-target). If era-as-target at 3.0 stays below 0.5 despite Gemma crossing it, that would mean the
+recomposition boundary is not a fixed multiple of the hour-14 patch norm but is model/depth-dependent
+(possible confound: patch@26/read@40 is a fixed *fraction* of 80 blocks, not a fixed absolute depth,
+so "same relative layers" may not mean "same mechanism" across an 80-block vs 42-block model).
+
+Hour 29: does the era-shift patch cross the Gauge/Engine boundary at a bigger scale, or if it is
 re-imposed at every decoding step, on google/gemma-2-9b-it (the model where hour 27 found the largest,
 though still mostly-undirected, effect: era read as target 0.27, lexical check 0.00, scale 1.0,
 patch@14/read@20)?
