@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Third draft, after 28 logged stages. Every number below is in `RESULTS.md` with
+*Third draft, after 29 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -43,9 +43,12 @@ four that fell, and two that are partial.
     vs 5.7 random). Its subject-relative part, a mayfly's day against a mountain's million years,
     did not appear.
 
-**Fell.** The era shift under generation: on Llama-3.1-70B-Instruct and Gemma-2-9B-it the
-shifted continuation stays in its original era (0.14 and 0.27 read as target; not one gains the
-target era's vocabulary), and the 70B does it less than the 9B. Subject-relative timescales in the
+**Fell, then recovered at a price.** The era shift under generation at matched norm: on
+Llama-3.1-70B-Instruct and Gemma-2-9B-it the shifted continuation stays in its original era (0.14
+and 0.27 read as target; none gains the target era's vocabulary). At three times the norm,
+re-imposed at every decoding step, Gemma's continuations read as the target era in 0.84 of cases
+and 0.30 use its vocabulary, with prose intact. The gauge/engine boundary is a magnitude, not a
+wall; the 70B has only been tested at matched norm. Subject-relative timescales in the
 time-translation grid. Pooled distance structure as a content shape. Absence as decoder-adjacent inactive
 features. The five-regime commutator taxonomy under greedy decoding. "Factors don't commute under
 generation" as a fact about factors: any two matched-norm patches diverge the same way.
@@ -175,8 +178,7 @@ reference set. The relation operator's source-specificity under patching is open
 
 The gauge/engine boundary is now the central fact, confirmed at 70B: every representational law
 holds, and none of them writes text. The next experiments should test whether anything crosses it:
-a scale sweep of the era shift at 9B (0.5–3×) with the lexical check as the readout, and
-multi-position re-imposition during decoding rather than a single prefix patch. On time
+the same 3× re-imposed sweep on the 70B, and the threshold norm as a function of patch depth. On time
 translation: a vocabulary-matched far-interval grid to remove the erasure confound, and the same
 grid on Gemma-9B. Still open: a human-written grid; absence defined by the model's own surprise;
 feature labels for the abstraction ladder.

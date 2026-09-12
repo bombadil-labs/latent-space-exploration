@@ -1186,6 +1186,23 @@ briefs should point agents at the resumable fetch.
 
 **Reading.** There is a shared, phrase-independent clock direction that the model computes from the state description, and it works as a selector, strongest at geological Δt. What is missing is the subject-relative part: residual curves are flat, so "the mountain's million years" is not a knee in this grid. **Confound:** the far-Δt passages share an erasure vocabulary across subjects, so the shared clock at 10 ky–1 My may be that vocabulary, and that is where the selector effect lives; the random control is worse than chance (5.65), so part of the gap is avoided disruption. Single model, single author. Files: `prompts/time_translation_v1.json`, `scripts/time_translation{,_selector}.py`, `results/time_translation_{measures,selector}.json`, `results/notes/time_translation.md`, five figures under `results/figures/time_translation_*.png`. Cost: ~170k agent tokens.
 
+## 2026-09-12 (hour 29) — The generation boundary is a magnitude, not a wall: era shift at 3× re-imposed moves generated text (agent)
+
+**Question.** Is hour 27's null under generation a matter of patch magnitude? Sweep scale and compare prefix-only patching with re-imposition at every decoding step, Gemma-2-9B-it via NDIF, same grid, prompts, layers (patch 14, read 20) and readouts as hour 27. Predictions in the script docstring: 2–3× lifts era-as-target above 0.5 at a prose cost; re-imposition at 1× lifts the lexical check off zero.
+
+| condition | scale | n | era → target | leaves e1 | theme kept | lexical → target |
+|---|---|---|---|---|---|---|
+| hour-27 baseline (was re-imposition) | 1.0 | 67 | 0.27 | 0.48 | 0.60 | 0.00 |
+| re-imposition | 0.5 | 67 | 0.21 | 0.37 | 0.61 | 0.00 |
+| re-imposition | 2.0 | 59 | 0.58 | 0.76 | 0.54 | 0.18 |
+| re-imposition | 3.0 | 55 | **0.84** | 0.91 | 0.53 | **0.30** |
+| prefix-only | 1.0 | 72 | 0.24 | 0.43 | 0.61 | 0.00 |
+| prefix-only | 2.0 | 72 | 0.36 | 0.61 | 0.57 | 0.08 |
+
+**Reading.** At 3× with re-imposition the generated text reads as the target era in 0.84 of cases, matching the representational number from hour 14 (0.88), and 0.30 of continuations use target-era vocabulary ("starship", "airlock", "sword"), with theme kept at its baseline. Prose did not degrade at any scale; the cost is vocabulary bleed inside coherent sentences and a rising NDIF job-loss rate (5, 13, 17 of 72 at 0.5×, 2×, 3×; prefix-only lost none). Prediction 1 half-held (threshold crossed, no prose cost). Prediction 2 was mis-premised: hour 27's script already re-imposed at every step (`tracer.all()`), confirmed by a smoke test in which prefix-only reproduces the unpatched output exactly. So re-imposition alone does nothing at 1×; it helps once scale is raised (0.18 vs 0.08 at 2×). Hour 27's inference "not fixed by scale" is overturned for 9B; the 70B was tested at 1× only.
+
+**Consequence for the algebra.** L3 stands as stated (gauge results do not transfer at matched norm) but its boundary is now quantified: the engine needs roughly 3× the gauge-level norm, applied throughout decoding, to write the address. L4 crosses into generation under those conditions. Files: `scripts/ndif_recompose_sweep.py`, `results/recompose_sweep_*.json`, `results/notes/recompose_sweep.md`. Cost: ~125k agent tokens.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1208,7 +1225,8 @@ briefs should point agents at the resumable fetch.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
-8. ~~Generation-level recomposition at 70B~~ done (hour 27): null on both models; L4 is a gauge law.
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed
+   moves generated text (0.84) on 9B. Next: the same sweep on 70B; the norm threshold as a function of depth.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
    Next: vocabulary-matched far-Δt passages (kill the erasure confound); residual curves on Gemma-9B;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
