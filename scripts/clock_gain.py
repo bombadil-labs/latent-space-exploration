@@ -87,6 +87,23 @@ def grid_mae(pred):
     return pi, np.abs(pi - dt_index)
 
 
+def partial_spearman(pred, target, control):
+    """Rank-partial correlation of pred with target, controlling for control.
+
+    Used as the CALIBRATED companion to the spec's G_res (sec 3.3). G_res residualises
+    the target on the floor and refits; because the layer's features overlap the floor's
+    inputs, the two readouts' *errors* are correlated and G_res is biased negative by an
+    amount that depends on that error correlation rather than on information. The partial
+    rank correlation has no such bias: when the layer readout is the floor readout it is
+    exactly 0, which is the identity the sec-3.4.6 calibration check is about.
+    """
+    a, b, c = rankdata(pred), rankdata(target), rankdata(control)
+    c = c - c.mean()
+    a = a - a.mean() - c * (a @ c) / (c @ c + 1e-12)
+    b = b - b.mean() - c * (b @ c) / (c @ c + 1e-12)
+    return float(a @ b / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-12))
+
+
 def zscore(obs, null):
     null = np.asarray(null, float)
     return float((obs - null.mean()) / (null.std() + 1e-12))
@@ -309,7 +326,8 @@ def layer_features(arm, l, zscore_dims=False):
 
 per_layer = {arm: {k: [] for k in
                    ("rho", "rho_null_mean", "rho_z", "mae", "G_res", "G_res_null_mean",
-                    "G_res_z", "R2_res", "drho")} for arm in ("A", "B", "D")}
+                    "G_res_z", "R2_res", "drho", "G_part", "G_part_null_mean", "G_part_z")}
+             for arm in ("A", "B", "D")}
 gain_pred = {}    # (arm, layer) -> residual-gain predictions, real column only
 rho_pred = {}
 t_start = time.time()
@@ -321,7 +339,11 @@ for l in range(NL):
         Q = M.predict_batch(Rres)                  # target = lexical residual
         rho_all = spearman_cols(P, y)
         g_all = spearman_cols(Q, Rres)             # each column scored against its own residual
+        gp_all = np.array([partial_spearman(P[:, j], Y[:, j], PFL[:, j]) for j in range(P.shape[1])])
         d = per_layer[arm]
+        d["G_part"].append(float(gp_all[0]))
+        d["G_part_null_mean"].append(float(gp_all[1:].mean()))
+        d["G_part_z"].append(zscore(gp_all[0], gp_all[1:]))
         d["rho"].append(float(rho_all[0]))
         d["rho_null_mean"].append(float(rho_all[1:].mean()))
         d["rho_z"].append(zscore(rho_all[0], rho_all[1:]))
@@ -336,13 +358,21 @@ for l in range(NL):
             gain_pred[l] = Q[:, 0]
             rho_pred[l] = P[:, 0]
     print(f"  layer {l:2d}  A rho {per_layer['A']['rho'][-1]:+.3f} G_res {per_layer['A']['G_res'][-1]:+.3f}"
-          f" (z {per_layer['A']['G_res_z'][-1]:+.1f})   B G_res {per_layer['B']['G_res'][-1]:+.3f}"
+          f" (z {per_layer['A']['G_res_z'][-1]:+.1f})  G_part {per_layer['A']['G_part'][-1]:+.3f}"
+          f" (z {per_layer['A']['G_part_z'][-1]:+.1f})   B G_res {per_layer['B']['G_res'][-1]:+.3f}"
           f"   [{time.time() - t_start:.0f}s]", flush=True)
 R["per_layer"] = per_layer
 
 GA = np.array(per_layer["A"]["G_res"])
 LSTAR = int(np.argmax(GA))
+GPA = np.array(per_layer["A"]["G_part"])
+LSTAR_P = int(np.argmax(GPA))
 R["L_star"] = LSTAR
+R["L_star_partial"] = LSTAR_P
+R["floor_calibration"] = dict(
+    slope_yhat_on_y=float(np.polyfit(y, PFL[:, 0], 1)[0]),
+    slope_y_on_yhat=float(np.polyfit(PFL[:, 0], y, 1)[0]),
+    corr_resid_y=float(np.corrcoef(r_real, y)[0, 1]))
 
 # robustness: per-dimension z-scoring (sec 3.4.4)
 gz = []
@@ -364,6 +394,10 @@ cal["rho_B0_vs_A0"] = dict(rho_B0=per_layer["B"]["rho"][0], rho_A0=per_layer["A"
                            pass_=abs(per_layer["B"]["rho"][0] - per_layer["A"]["rho"][0]) <= 0.03)
 cal["G_res0"] = {arm: per_layer[arm]["G_res"][0] for arm in ("A", "B", "D")}
 cal["G_res0"]["pass_"] = all(abs(per_layer[arm]["G_res"][0]) <= 0.05 for arm in ("A", "B", "D"))
+cal["G_part0"] = {arm: per_layer[arm]["G_part"][0] for arm in ("A", "B", "D")}
+cal["G_part0"]["pass_"] = all(abs(per_layer[arm]["G_part"][0]) <= 0.05 for arm in ("A", "B", "D"))
+wp = max(abs(np.array(per_layer[arm]["G_part_null_mean"])).max() for arm in ("A", "B", "D"))
+cal["null_mean_G_part"] = dict(worst_abs=float(wp), pass_=bool(wp <= 0.05))
 worst = max(abs(np.array(per_layer[arm]["G_res_null_mean"])).max() for arm in ("A", "B", "D"))
 cal["null_mean_G_res"] = dict(worst_abs=float(worst), pass_=bool(worst <= 0.05))
 # extra: layer-0 arm A really is the static mean embedding (sec 0.1 identity)
@@ -384,7 +418,8 @@ XA = layer_features("A", LSTAR)
 XB = layer_features("B", LSTAR)
 G_struct = per_layer["A"]["rho"][LSTAR] - per_layer["B"]["rho"][LSTAR]
 G_struct_res = per_layer["A"]["G_res"][LSTAR] - per_layer["B"]["G_res"][LSTAR]
-swap_rho, swap_res = [], []
+G_struct_part = per_layer["A"]["G_part"][LSTAR] - per_layer["B"]["G_part"][LSTAR]
+swap_rho, swap_res, swap_part = [], [], []
 rng2 = np.random.default_rng(a.seed + 1)
 for _ in range(a.nperm):
     m = rng2.random(len(CELLS)) < 0.5
@@ -396,9 +431,13 @@ for _ in range(a.nperm):
     Qa, Qb = Ma.predict_batch(Rres[:, :1]), Mb.predict_batch(Rres[:, :1])
     swap_rho.append(spearman(Pa[:, 0], y) - spearman(Pb[:, 0], y))
     swap_res.append(spearman(Qa[:, 0], r_real) - spearman(Qb[:, 0], r_real))
+    swap_part.append(partial_spearman(Pa[:, 0], y, PFL[:, 0]) - partial_spearman(Pb[:, 0], y, PFL[:, 0]))
 R["S2"] = dict(L_star=LSTAR, G_struct=float(G_struct), G_struct_res=float(G_struct_res),
+               G_struct_part=float(G_struct_part),
                z_rho=zscore(G_struct, swap_rho), z_res=zscore(G_struct_res, swap_res),
+               z_part=zscore(G_struct_part, swap_part),
                swap_null_sd_rho=float(np.std(swap_rho)), swap_null_sd_res=float(np.std(swap_res)),
+               swap_null_sd_part=float(np.std(swap_part)),
                pass_=bool(G_struct >= 0.08 and G_struct_res >= 0.10 and zscore(G_struct_res, swap_res) >= 3))
 print("  S2", json.dumps(R["S2"]), flush=True)
 
@@ -481,7 +520,12 @@ R["S1"] = dict(L_star=LSTAR, frac_depth=LSTAR / 28.0, peak=peak, final=float(GA[
                pass_=bool(8 <= LSTAR <= 20 and GA[-1] <= 0.75 * peak),
                flat=bool(GA[3] >= 0.9 * peak))
 maxz = max(per_layer["A"]["G_res_z"])
+R["S1_partial"] = dict(L_star=LSTAR_P, frac_depth=LSTAR_P / 28.0, peak=float(GPA[LSTAR_P]),
+                       final=float(GPA[-1]), final_over_peak=float(GPA[-1] / (GPA[LSTAR_P] + 1e-12)),
+                       early_frac=float(GPA[3] / (GPA[LSTAR_P] + 1e-12)),
+                       pass_=bool(8 <= LSTAR_P <= 20 and GPA[-1] <= 0.75 * GPA[LSTAR_P]))
 R["kill"] = dict(max_G_res_A=peak, max_z=float(maxz),
+                 max_G_part_A=float(GPA.max()), max_G_part_z=float(max(per_layer["A"]["G_part_z"])),
                  kill=bool(peak < 0.10 or maxz < 2),
                  partial_kill=bool(peak >= 0.10 and maxz >= 3 and abs(G_struct) <= 0.03
                                    and not R["S2"]["pass_"]))
@@ -507,7 +551,8 @@ try:
     X = np.arange(NL)
     fig, ax = plt.subplots(1, 2, figsize=(11, 4))
     for arm, c in (("A", "C0"), ("B", "C1"), ("D", "C2")):
-        ax[0].plot(X, per_layer[arm]["G_res"], marker="o", ms=3, color=c, label=f"arm {arm}")
+        ax[0].plot(X, per_layer[arm]["G_res"], marker="o", ms=3, color=c, label=f"arm {arm} G_res")
+        ax[0].plot(X, per_layer[arm]["G_part"], marker="s", ms=3, color=c, ls="--", label=f"arm {arm} G_part")
         nm = np.array(per_layer[arm]["G_res_null_mean"])
         ax[0].plot(X, nm, color=c, ls=":", lw=0.8)
     ax[0].axvline(LSTAR, color="k", ls="--", lw=0.8)
