@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Second draft, after Checkpoint 1 (23 logged stages). Every number below is in `RESULTS.md` with
+*Third draft, after 28 logged stages. Every number below is in `RESULTS.md` with
 its control and file reference; the calculus these results support is written out in
 `docs/ALGEBRA.md`.*
 
@@ -28,16 +28,25 @@ four that fell, and two that are partial.
 5. Factors differ in kind, and the model's depth shows it: voice and tense are lexical, era is
    computed by layer 12, mood is integrated at the last token, theme is distributed and peaks
    mid-passage.
-6. Recomposition works: an era shift moves a passage's address (0.89–0.94 of cases) and keeps
-   its theme (0.81–0.94, equal to the unpatched readout), on two models and two authors' grids.
+6. Recomposition works at the gauge level: an era shift moves a passage's address (0.89–0.94 of
+   cases) and keeps its theme (0.81–0.94, equal to the unpatched readout), on two models and two
+   authors' grids. It does not cross into generation (see Fell).
 7. Steering selects among competences the engine already has: theme steers generation only on a
    9B instruction-tuned model, and tuned models carry refusal as an unlisted factor.
 8. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
    dictionary keeps more general features (mean generality 0.18 vs 0.06; 12 of 15 merges go up).
 9. Under generation the shallower factor dominates the surface text regardless of patch order
    (voice > era > theme), at two layer pairs.
+10. A parameterized translation exists: advancing a described subject by an interval from a day
+    to a million years produces a shared clock direction, computed from the state rather than the
+    interval phrase (2.8× the phrase-only displacement), that works as a selector (rank 3.9 of 9
+    vs 5.7 random). Its subject-relative part, a mayfly's day against a mountain's million years,
+    did not appear.
 
-**Fell.** Pooled distance structure as a content shape. Absence as decoder-adjacent inactive
+**Fell.** The era shift under generation: on Llama-3.1-70B-Instruct and Gemma-2-9B-it the
+shifted continuation stays in its original era (0.14 and 0.27 read as target; not one gains the
+target era's vocabulary), and the 70B does it less than the 9B. Subject-relative timescales in the
+time-translation grid. Pooled distance structure as a content shape. Absence as decoder-adjacent inactive
 features. The five-regime commutator taxonomy under greedy decoding. "Factors don't commute under
 generation" as a fact about factors: any two matched-norm patches diverge the same way.
 
@@ -164,10 +173,13 @@ reference set. The relation operator's source-specificity under patching is open
 
 ## Next
 
-Source-specificity of the relation operator at the selector level, then as a patch (in progress).
-A human-written grid. The 70B steering-competence point when the license clears. Absence at larger
-n, or defined by the model's own surprise. The abstraction ladder with more widths, a broad
-reference corpus, and the fixed-point test with the corrected expectation.
+The gauge/engine boundary is now the central fact, confirmed at 70B: every representational law
+holds, and none of them writes text. The next experiments should test whether anything crosses it:
+a scale sweep of the era shift at 9B (0.5–3×) with the lexical check as the readout, and
+multi-position re-imposition during decoding rather than a single prefix patch. On time
+translation: a vocabulary-matched far-interval grid to remove the erasure confound, and the same
+grid on Gemma-9B. Still open: a human-written grid; absence defined by the model's own surprise;
+feature labels for the abstraction ladder.
 
 ## Reproducibility
 

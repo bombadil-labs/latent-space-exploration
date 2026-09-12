@@ -1148,6 +1148,44 @@ general; merges go up) survives the broad corpus with a smaller effect size.
 lost to hung jobs before it added per-text checkpointing (`scripts/ndif_tokens_resume.py`). Future
 briefs should point agents at the resumable fetch.
 
+## 2026-09-12 (hour 27) — Generation-level recomposition: the era shift does not move generated text, on 70B or 9B (agent)
+
+**Question.** Hour 14 showed the era shift moves the era *readout* (0.88–0.89) while keeping theme. Does the same patch move the era of the *generated continuation*, and does the largest NDIF model do it more cleanly? Pre-registered prediction in `scripts/ndif_recompose_gen.py`: 70B moves more cleanly than 9B.
+
+**Setup.** `prompts/narrative_theme_v1.json`, chat-templated prefix (raw prompts made both instruct models answer comprehension questions; a pilot switched form before measurement). Llama-3.1-70B-Instruct via NDIF, patch at block 26, read at 40 (80 blocks, d = 8192); Gemma-2-9B-it patch 14, read 20. 144 generations each at scale 1.0; nine Gemma generations lost to empty NDIF payloads. The random condition has no target, so the fair control is "leaves e1". Lexical check: does the shifted continuation gain its target era's vocabulary?
+
+| | Llama-70B-Instruct | Gemma-9B-it |
+|---|---|---|
+| era reads as target under shift | 0.14 (n = 72) | 0.27 (n = 67) |
+| leaves e1: base / random / shift | 0.14 / 0.19 / 0.21 | 0.22 / 0.31 / 0.48 |
+| of the leaving, on target | 0.67 | 0.56 |
+| theme kept: base / shift / random | 0.61 / 0.54 / 0.56 | 0.53 / 0.60 / 0.53 |
+| lexical era check, shift → target | 0.00 | 0.00 |
+
+**Reading.** Near-null. Against 0.88 at the representational level, the generated text stays in its original era on both models; not one continuation on either model gained target-era vocabulary. The 70B does it *less* than the 9B, so the prediction is falsified. Theme is "kept" identically under every condition and carries no weight. The scale-1.5 arm was not run (budget), so "not fixed by scale" is inferred, not measured. Two infrastructure fixes reached the 70B: `.cpu()` in the layer stack on the model-parallel host, and per-span checkpointing with `retry_job`.
+
+**Consequence for the algebra.** L4 (address/form separation) is a gauge law only. The engine does not carry the shifted address into text at either scale, which is the same boundary as L3 with a different factor. Files: `scripts/ndif_recompose_gen.py`, `results/recompose_gen_{llama70b,gemma9b}.json`, `results/notes/recompose_gen.md`. Cost: ~230k agent tokens.
+
+## 2026-09-12 (hour 28) — Parameterized time translation: a shared clock exists and selects; subject-relative timescales do not appear (agent)
+
+**Spec and predictions** were written before the run: `docs/specs/time_translation_v1.md`. Eight subjects (street, mountain, orchard, mayfly, asteroid, river, London from 1800, an invented city), t0 plus eight log-spaced Δt from one day to a million years (the spec's tenth interval, "1 month", was dropped to reconcile a count contradiction in the spec), three paraphrases, plus a phrase-only control (interval phrase on the unchanged t0 state). Qwen2.5-1.5B, layers 0/8/14/20/27, state span mean-pooled.
+
+| measurement (layer 14 unless noted) | value |
+|---|---|
+| mean ‖d‖, 1 day → 1 My | 12.7 → 14.8 (flat) |
+| share of Σ‖d‖² explained by shared(Δt) | 0.53 (L0 0.31, L8 0.47, L20 0.56, L27 0.46) |
+| Spearman(‖shared‖, log Δt) | +0.47 (U-shaped, minimum at 100 y) |
+| adjacent-Δt cos / distant-Δt cos of shared | 0.89 / 0.64 |
+| τ(s) by half-max | 1 day for every subject, every layer (degenerate) |
+| orchard ‖d(1 y)‖/‖d(6 mo)‖, cos | 0.86, +0.56 (only subject that shrinks); mountain 1.12, +0.86 |
+| real vs fictional residual cos | 0.36–0.52, never > 0.6; minimum at 1 week |
+| ‖shared_exp‖/‖shared_ctrl‖ | 2.82 (L0 control displacement exactly zero) |
+| selector, LOO clock patch, Δt ≥ 1 y, rank of 9 | 3.88 vs 5.65 random (chance 5.0); L8 4.40 vs 5.96; 1.62 at 1 My |
+
+**Grades.** P1 partial (variance and adjacency hold; monotonicity does not). P2 fell: the knee is undiscriminating, and under a fallback knee the mayfly lands at the slow end. P3 partial: the orchard is the only subject whose displacement shrinks at one year, but the six-month/one-year cosine is 0.56, not below 0.5. P4 fell: the real and fictional populations never align. P5 held on gain ranking. P6 partial: the shared displacement is 2.8× the phrase alone, but the cosine to the phrase direction is flat across depth rather than declining.
+
+**Reading.** There is a shared, phrase-independent clock direction that the model computes from the state description, and it works as a selector, strongest at geological Δt. What is missing is the subject-relative part: residual curves are flat, so "the mountain's million years" is not a knee in this grid. **Confound:** the far-Δt passages share an erasure vocabulary across subjects, so the shared clock at 10 ky–1 My may be that vocabulary, and that is where the selector effect lives; the random control is worse than chance (5.65), so part of the gap is avoided disruption. Single model, single author. Files: `prompts/time_translation_v1.json`, `scripts/time_translation{,_selector}.py`, `results/time_translation_{measures,selector}.json`, `results/notes/time_translation.md`, five figures under `results/figures/time_translation_*.png`. Cost: ~170k agent tokens.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -1170,3 +1208,7 @@ briefs should point agents at the resumable fetch.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null on both models; L4 is a gauge law.
+9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
+   Next: vocabulary-matched far-Δt passages (kill the erasure confound); residual curves on Gemma-9B;
+   a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.
