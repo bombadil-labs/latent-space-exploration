@@ -1,0 +1,3302 @@
+{
+ "_meta": {
+  "model": "Qwen/Qwen2.5-1.5B",
+  "layers": [
+   0,
+   8,
+   14,
+   20,
+   27
+  ],
+  "subjects": [
+   "street",
+   "mountain",
+   "orchard",
+   "mayfly",
+   "asteroid",
+   "river",
+   "real_population",
+   "fictional_population"
+  ],
+  "deltas": [
+   "1day",
+   "1week",
+   "6months",
+   "1year",
+   "10years",
+   "100years",
+   "1000years",
+   "10000years",
+   "1000000years"
+  ],
+  "grid": "prompts/time_translation_v2.json",
+  "n_paraphrases": 3
+ },
+ "m1_m2_decomposition": {
+  "0": {
+   "per_dt": {
+    "1day": {
+     "shared_norm": 0.059034135192632675,
+     "mean_d_norm": 0.10411633178591728,
+     "mean_resid_norm": 0.0862982515245676,
+     "frac_shared": 0.3183484269338034,
+     "resid_norm": {
+      "street": 0.08326780796051025,
+      "mountain": 0.08719056099653244,
+      "orchard": 0.08722443878650665,
+      "mayfly": 0.08908455818891525,
+      "asteroid": 0.08828560262918472,
+      "river": 0.09273213893175125,
+      "real_population": 0.08279971778392792,
+      "fictional_population": 0.07980118691921234
+     },
+     "d_norm": {
+      "street": 0.0963083878159523,
+      "mountain": 0.11637220531702042,
+      "orchard": 0.1114882156252861,
+      "mayfly": 0.0843401551246643,
+      "asteroid": 0.10697630792856216,
+      "river": 0.11656110733747482,
+      "real_population": 0.10260894894599915,
+      "fictional_population": 0.098275326192379
+     },
+     "cos_shared_loo": 0.9794333428144455
+    },
+    "1week": {
+     "shared_norm": 0.06204242631793022,
+     "mean_d_norm": 0.10539724584668875,
+     "mean_resid_norm": 0.08575083501636982,
+     "frac_shared": 0.3428220426723123,
+     "resid_norm": {
+      "street": 0.08903464674949646,
+      "mountain": 0.09369027614593506,
+      "orchard": 0.07889129221439362,
+      "mayfly": 0.0876193568110466,
+      "asteroid": 0.08971713483333588,
+      "river": 0.08563072979450226,
+      "real_population": 0.08342110365629196,
+      "fictional_population": 0.07800213992595673
+     },
+     "d_norm": {
+      "street": 0.10992235690355301,
+      "mountain": 0.12306369841098785,
+      "orchard": 0.08727513253688812,
+      "mayfly": 0.09214934706687927,
+      "asteroid": 0.1130797266960144,
+      "river": 0.10623616725206375,
+      "real_population": 0.11121451109647751,
+      "fictional_population": 0.10023702681064606
+     },
+     "cos_shared_loo": 0.9813789576292038
+    },
+    "6months": {
+     "shared_norm": 0.058162789791822433,
+     "mean_d_norm": 0.10848333593457937,
+     "mean_resid_norm": 0.09188160579651594,
+     "frac_shared": 0.2851883182362491,
+     "resid_norm": {
+      "street": 0.09121749550104141,
+      "mountain": 0.09748002141714096,
+      "orchard": 0.09294189512729645,
+      "mayfly": 0.09607290476560593,
+      "asteroid": 0.08444102108478546,
+      "river": 0.09920118004083633,
+      "real_population": 0.09336826205253601,
+      "fictional_population": 0.08033006638288498
+     },
+     "d_norm": {
+      "street": 0.11013875901699066,
+      "mountain": 0.1254136711359024,
+      "orchard": 0.09568005055189133,
+      "mayfly": 0.10143958777189255,
+      "asteroid": 0.10341360419988632,
+      "river": 0.11286422610282898,
+      "real_population": 0.11939303576946259,
+      "fictional_population": 0.09952375292778015
+     },
+     "cos_shared_loo": 0.9759637340903282
+    },
+    "1year": {
+     "shared_norm": 0.0638231709599495,
+     "mean_d_norm": 0.1081746332347393,
+     "mean_resid_norm": 0.08763606939464808,
+     "frac_shared": 0.3441945270831889,
+     "resid_norm": {
+      "street": 0.07890777289867401,
+      "mountain": 0.09812141209840775,
+      "orchard": 0.06974673271179199,
+      "mayfly": 0.08843235671520233,
+      "asteroid": 0.09807281196117401,
+      "river": 0.09285765141248703,
+      "real_population": 0.08917514979839325,
+      "fictional_population": 0.08577466756105423
+     },
+     "d_norm": {
+      "street": 0.1003655195236206,
+      "mountain": 0.11815283447504044,
+      "orchard": 0.08626620471477509,
+      "mayfly": 0.10717836022377014,
+      "asteroid": 0.1193903461098671,
+      "river": 0.12424924224615097,
+      "real_population": 0.1076759397983551,
+      "fictional_population": 0.10211861878633499
+     },
+     "cos_shared_loo": 0.9812354668974876
+    },
+    "10years": {
+     "shared_norm": 0.05616576969623566,
+     "mean_d_norm": 0.11193825304508209,
+     "mean_resid_norm": 0.09677801467478275,
+     "frac_shared": 0.24892521154807823,
+     "resid_norm": {
+      "street": 0.08007124066352844,
+      "mountain": 0.11450766772031784,
+      "orchard": 0.08308201283216476,
+      "mayfly": 0.10363391786813736,
+      "asteroid": 0.09648796916007996,
+      "river": 0.08831743150949478,
+      "real_population": 0.09375590831041336,
+      "fictional_population": 0.11436796933412552
+     },
+     "d_norm": {
+      "street": 0.10059837996959686,
+      "mountain": 0.1287163496017456,
+      "orchard": 0.09104005992412567,
+      "mayfly": 0.11821381747722626,
+      "asteroid": 0.11389301717281342,
+      "river": 0.1126725897192955,
+      "real_population": 0.10446623712778091,
+      "fictional_population": 0.1259055733680725
+     },
+     "cos_shared_loo": 0.9708419069647789
+    },
+    "100years": {
+     "shared_norm": 0.06147387996315956,
+     "mean_d_norm": 0.11691684648394585,
+     "mean_resid_norm": 0.10095986910164356,
+     "frac_shared": 0.26908541419180565,
+     "resid_norm": {
+      "street": 0.10871629416942596,
+      "mountain": 0.1132410541176796,
+      "orchard": 0.10341283679008484,
+      "mayfly": 0.10363699495792389,
+      "asteroid": 0.08981653302907944,
+      "river": 0.10572616010904312,
+      "real_population": 0.08775657415390015,
+      "fictional_population": 0.0953725054860115
+     },
+     "d_norm": {
+      "street": 0.13502472639083862,
+      "mountain": 0.1429125964641571,
+      "orchard": 0.1215626448392868,
+      "mayfly": 0.1241493970155716,
+      "asteroid": 0.10856285691261292,
+      "river": 0.12801766395568848,
+      "real_population": 0.08702127635478973,
+      "fictional_population": 0.08808360993862152
+     },
+     "cos_shared_loo": 0.9741610884666443
+    },
+    "1000years": {
+     "shared_norm": 0.06910873204469681,
+     "mean_d_norm": 0.12646224442869425,
+     "mean_resid_norm": 0.10611219517886639,
+     "frac_shared": 0.2962674663788807,
+     "resid_norm": {
+      "street": 0.10782071202993393,
+      "mountain": 0.12764546275138855,
+      "orchard": 0.1014496311545372,
+      "mayfly": 0.10042218118906021,
+      "asteroid": 0.10798720270395279,
+      "river": 0.1037047952413559,
+      "real_population": 0.09392911195755005,
+      "fictional_population": 0.10593846440315247
+     },
+     "d_norm": {
+      "street": 0.1351967304944992,
+      "mountain": 0.15205428004264832,
+      "orchard": 0.12695690989494324,
+      "mayfly": 0.12355881184339523,
+      "asteroid": 0.12186874449253082,
+      "river": 0.11932666599750519,
+      "real_population": 0.11832797527313232,
+      "fictional_population": 0.11440783739089966
+     },
+     "cos_shared_loo": 0.9768135622143745
+    },
+    "10000years": {
+     "shared_norm": 0.07146987318992615,
+     "mean_d_norm": 0.12869499623775482,
+     "mean_resid_norm": 0.10760991089046001,
+     "frac_shared": 0.3024523471052818,
+     "resid_norm": {
+      "street": 0.09837862104177475,
+      "mountain": 0.13995514810085297,
+      "orchard": 0.09839192032814026,
+      "mayfly": 0.10630100220441818,
+      "asteroid": 0.09399339556694031,
+      "river": 0.11226940900087357,
+      "real_population": 0.09649824351072311,
+      "fictional_population": 0.11509154736995697
+     },
+     "d_norm": {
+      "street": 0.1303754597902298,
+      "mountain": 0.17009708285331726,
+      "orchard": 0.12007778137922287,
+      "mayfly": 0.13103099167346954,
+      "asteroid": 0.10965295135974884,
+      "river": 0.13790838420391083,
+      "real_population": 0.11554580926895142,
+      "fictional_population": 0.11487150937318802
+     },
+     "cos_shared_loo": 0.9776672944426537
+    },
+    "1000000years": {
+     "shared_norm": 0.07306032627820969,
+     "mean_d_norm": 0.12550546508282423,
+     "mean_resid_norm": 0.10209210775792599,
+     "frac_shared": 0.33654288119850884,
+     "resid_norm": {
+      "street": 0.10708680748939514,
+      "mountain": 0.11286246031522751,
+      "orchard": 0.10856863856315613,
+      "mayfly": 0.09904181212186813,
+      "asteroid": 0.10271172970533371,
+      "river": 0.11332086473703384,
+      "real_population": 0.08705217391252518,
+      "fictional_population": 0.08609237521886826
+     },
+     "d_norm": {
+      "street": 0.13179250061511993,
+      "mountain": 0.1382889300584793,
+      "orchard": 0.13576637208461761,
+      "mayfly": 0.12126640975475311,
+      "asteroid": 0.11767513304948807,
+      "river": 0.13571463525295258,
+      "real_population": 0.11312782764434814,
+      "fictional_population": 0.11041191220283508
+     },
+     "cos_shared_loo": 0.9805203378200531
+    }
+   },
+   "frac_shared_all": 0.3041859345636201
+  },
+  "8": {
+   "per_dt": {
+    "1day": {
+     "shared_norm": 6.3320488929748535,
+     "mean_d_norm": 9.130137145519257,
+     "mean_resid_norm": 6.689924538135529,
+     "frac_shared": 0.46878275350996257,
+     "resid_norm": {
+      "street": 5.627712249755859,
+      "mountain": 7.177810192108154,
+      "orchard": 6.503446102142334,
+      "mayfly": 7.512796401977539,
+      "asteroid": 7.782837867736816,
+      "river": 7.241816997528076,
+      "real_population": 6.2859368324279785,
+      "fictional_population": 5.387039661407471
+     },
+     "d_norm": {
+      "street": 8.125690460205078,
+      "mountain": 11.124656677246094,
+      "orchard": 8.640182495117188,
+      "mayfly": 6.747609615325928,
+      "asteroid": 10.321507453918457,
+      "river": 11.070128440856934,
+      "real_population": 9.003541946411133,
+      "fictional_population": 8.007780075073242
+     },
+     "cos_shared_loo": 0.9894251897931099
+    },
+    "1week": {
+     "shared_norm": 6.192471504211426,
+     "mean_d_norm": 8.925490498542786,
+     "mean_resid_norm": 6.4895331263542175,
+     "frac_shared": 0.47532951694615155,
+     "resid_norm": {
+      "street": 6.509221076965332,
+      "mountain": 7.001725673675537,
+      "orchard": 6.31572961807251,
+      "mayfly": 7.142167568206787,
+      "asteroid": 6.929958820343018,
+      "river": 6.246740341186523,
+      "real_population": 5.842471599578857,
+      "fictional_population": 5.928250312805176
+     },
+     "d_norm": {
+      "street": 9.571113586425781,
+      "mountain": 10.424473762512207,
+      "orchard": 7.104586601257324,
+      "mayfly": 8.020608901977539,
+      "asteroid": 9.450641632080078,
+      "river": 9.759682655334473,
+      "real_population": 8.49347972869873,
+      "fictional_population": 8.579337120056152
+     },
+     "cos_shared_loo": 0.9893683567643166
+    },
+    "6months": {
+     "shared_norm": 6.093952178955078,
+     "mean_d_norm": 9.01176631450653,
+     "mean_resid_norm": 6.655586302280426,
+     "frac_shared": 0.4552351593984125,
+     "resid_norm": {
+      "street": 6.360866546630859,
+      "mountain": 6.771950721740723,
+      "orchard": 6.729188442230225,
+      "mayfly": 7.4084296226501465,
+      "asteroid": 6.855630397796631,
+      "river": 6.685284614562988,
+      "real_population": 6.36558723449707,
+      "fictional_population": 6.067752838134766
+     },
+     "d_norm": {
+      "street": 9.12767505645752,
+      "mountain": 9.852363586425781,
+      "orchard": 8.03542709350586,
+      "mayfly": 8.372864723205566,
+      "asteroid": 9.692587852478027,
+      "river": 9.480293273925781,
+      "real_population": 8.88363265991211,
+      "fictional_population": 8.649286270141602
+     },
+     "cos_shared_loo": 0.9882753491401672
+    },
+    "1year": {
+     "shared_norm": 6.647457122802734,
+     "mean_d_norm": 9.4773188829422,
+     "mean_resid_norm": 6.874675929546356,
+     "frac_shared": 0.481248893048149,
+     "resid_norm": {
+      "street": 6.702340602874756,
+      "mountain": 7.065842151641846,
+      "orchard": 5.723513126373291,
+      "mayfly": 7.467004776000977,
+      "asteroid": 7.321055889129639,
+      "river": 7.7246904373168945,
+      "real_population": 6.591146469116211,
+      "fictional_population": 6.401813983917236
+     },
+     "d_norm": {
+      "street": 9.30521011352539,
+      "mountain": 10.662312507629395,
+      "orchard": 6.855661392211914,
+      "mayfly": 9.644597053527832,
+      "asteroid": 10.092682838439941,
+      "river": 11.918952941894531,
+      "real_population": 8.546605110168457,
+      "fictional_population": 8.792529106140137
+     },
+     "cos_shared_loo": 0.9895669743418694
+    },
+    "10years": {
+     "shared_norm": 6.320152759552002,
+     "mean_d_norm": 9.224058628082275,
+     "mean_resid_norm": 6.82621967792511,
+     "frac_shared": 0.4592587182443183,
+     "resid_norm": {
+      "street": 6.427103042602539,
+      "mountain": 6.55369758605957,
+      "orchard": 6.458985328674316,
+      "mayfly": 8.40849781036377,
+      "asteroid": 7.2139081954956055,
+      "river": 6.741940498352051,
+      "real_population": 6.197322368621826,
+      "fictional_population": 6.608302593231201
+     },
+     "d_norm": {
+      "street": 9.806709289550781,
+      "mountain": 9.669918060302734,
+      "orchard": 8.213237762451172,
+      "mayfly": 10.944252014160156,
+      "asteroid": 9.967961311340332,
+      "river": 10.540986061096191,
+      "real_population": 6.577268600463867,
+      "fictional_population": 8.072135925292969
+     },
+     "cos_shared_loo": 0.9886627495288849
+    },
+    "100years": {
+     "shared_norm": 6.623959064483643,
+     "mean_d_norm": 9.952355086803436,
+     "mean_resid_norm": 7.624484360218048,
+     "frac_shared": 0.4281865545639567,
+     "resid_norm": {
+      "street": 7.71755838394165,
+      "mountain": 7.750421524047852,
+      "orchard": 8.319283485412598,
+      "mayfly": 8.804401397705078,
+      "asteroid": 7.290046215057373,
+      "river": 7.161571025848389,
+      "real_population": 7.536524295806885,
+      "fictional_population": 6.4160685539245605
+     },
+     "d_norm": {
+      "street": 11.269830703735352,
+      "mountain": 10.735285758972168,
+      "orchard": 11.449421882629395,
+      "mayfly": 12.172667503356934,
+      "asteroid": 9.018622398376465,
+      "river": 10.764866828918457,
+      "real_population": 6.882482051849365,
+      "fictional_population": 7.3256635665893555
+     },
+     "cos_shared_loo": 0.987400509417057
+    },
+    "1000years": {
+     "shared_norm": 8.021560668945312,
+     "mean_d_norm": 11.169866681098938,
+     "mean_resid_norm": 7.816324412822723,
+     "frac_shared": 0.5094929028950679,
+     "resid_norm": {
+      "street": 8.2152099609375,
+      "mountain": 7.531370639801025,
+      "orchard": 8.670600891113281,
+      "mayfly": 8.746374130249023,
+      "asteroid": 8.962493896484375,
+      "river": 7.120765209197998,
+      "real_population": 7.10590124130249,
+      "fictional_population": 6.177879333496094
+     },
+     "d_norm": {
+      "street": 13.012601852416992,
+      "mountain": 9.400301933288574,
+      "orchard": 12.254594802856445,
+      "mayfly": 12.557402610778809,
+      "asteroid": 10.027341842651367,
+      "river": 11.275175094604492,
+      "real_population": 10.675115585327148,
+      "fictional_population": 10.156399726867676
+     },
+     "cos_shared_loo": 0.9906722977757454
+    },
+    "10000years": {
+     "shared_norm": 8.550308227539062,
+     "mean_d_norm": 11.674289345741272,
+     "mean_resid_norm": 8.051578342914581,
+     "frac_shared": 0.5273779953183824,
+     "resid_norm": {
+      "street": 8.381245613098145,
+      "mountain": 7.935090065002441,
+      "orchard": 8.356108665466309,
+      "mayfly": 9.662832260131836,
+      "asteroid": 8.149613380432129,
+      "river": 7.843903541564941,
+      "real_population": 7.5949811935424805,
+      "fictional_population": 6.488852024078369
+     },
+     "d_norm": {
+      "street": 13.851761817932129,
+      "mountain": 10.659932136535645,
+      "orchard": 12.727900505065918,
+      "mayfly": 13.254396438598633,
+      "asteroid": 9.501471519470215,
+      "river": 12.54233169555664,
+      "real_population": 11.032713890075684,
+      "fictional_population": 9.823806762695312
+     },
+     "cos_shared_loo": 0.9913199320435524
+    },
+    "1000000years": {
+     "shared_norm": 8.228948593139648,
+     "mean_d_norm": 11.237093567848206,
+     "mean_resid_norm": 7.716459512710571,
+     "frac_shared": 0.5282710776224061,
+     "resid_norm": {
+      "street": 8.750850677490234,
+      "mountain": 7.7328267097473145,
+      "orchard": 8.315857887268066,
+      "mayfly": 7.849346160888672,
+      "asteroid": 8.47097396850586,
+      "river": 8.236083030700684,
+      "real_population": 6.653188705444336,
+      "fictional_population": 5.722548961639404
+     },
+     "d_norm": {
+      "street": 13.536149024963379,
+      "mountain": 10.279011726379395,
+      "orchard": 12.45893669128418,
+      "mayfly": 11.464417457580566,
+      "asteroid": 9.568591117858887,
+      "river": 12.560384750366211,
+      "real_population": 10.107694625854492,
+      "fictional_population": 9.921563148498535
+     },
+     "cos_shared_loo": 0.9913188815116882
+    }
+   },
+   "frac_shared_all": 0.4866420550592363
+  },
+  "14": {
+   "per_dt": {
+    "1day": {
+     "shared_norm": 9.453561782836914,
+     "mean_d_norm": 12.732706189155579,
+     "mean_resid_norm": 8.59679102897644,
+     "frac_shared": 0.5433791232637599,
+     "resid_norm": {
+      "street": 6.952960968017578,
+      "mountain": 8.51210880279541,
+      "orchard": 8.960187911987305,
+      "mayfly": 10.497400283813477,
+      "asteroid": 9.407666206359863,
+      "river": 8.61035442352295,
+      "real_population": 8.791637420654297,
+      "fictional_population": 7.0420122146606445
+     },
+     "d_norm": {
+      "street": 11.264852523803711,
+      "mountain": 14.232032775878906,
+      "orchard": 11.725640296936035,
+      "mayfly": 10.191171646118164,
+      "asteroid": 14.25561809539795,
+      "river": 14.56535816192627,
+      "real_population": 13.595261573791504,
+      "fictional_population": 12.03171443939209
+     },
+     "cos_shared_loo": 0.9921304062008858
+    },
+    "1week": {
+     "shared_norm": 9.1299467086792,
+     "mean_d_norm": 12.414698004722595,
+     "mean_resid_norm": 8.475218415260315,
+     "frac_shared": 0.5353279180096528,
+     "resid_norm": {
+      "street": 8.128342628479004,
+      "mountain": 8.333600044250488,
+      "orchard": 8.540642738342285,
+      "mayfly": 10.214418411254883,
+      "asteroid": 8.731856346130371,
+      "river": 7.912728786468506,
+      "real_population": 8.231014251708984,
+      "fictional_population": 7.709144115447998
+     },
+     "d_norm": {
+      "street": 13.036235809326172,
+      "mountain": 13.505348205566406,
+      "orchard": 9.450240135192871,
+      "mayfly": 12.022314071655273,
+      "asteroid": 13.5306978225708,
+      "river": 13.299694061279297,
+      "real_population": 12.426942825317383,
+      "fictional_population": 12.046111106872559
+     },
+     "cos_shared_loo": 0.9916763454675674
+    },
+    "6months": {
+     "shared_norm": 9.05055046081543,
+     "mean_d_norm": 12.320492029190063,
+     "mean_resid_norm": 8.377391576766968,
+     "frac_shared": 0.5371479911091764,
+     "resid_norm": {
+      "street": 8.038793563842773,
+      "mountain": 7.830733776092529,
+      "orchard": 8.550111770629883,
+      "mayfly": 9.632160186767578,
+      "asteroid": 8.779939651489258,
+      "river": 7.692351341247559,
+      "real_population": 8.76382064819336,
+      "fictional_population": 7.731221675872803
+     },
+     "d_norm": {
+      "street": 12.397085189819336,
+      "mountain": 12.705381393432617,
+      "orchard": 10.838637351989746,
+      "mayfly": 11.637535095214844,
+      "asteroid": 13.84369945526123,
+      "river": 12.47943115234375,
+      "real_population": 12.80170726776123,
+      "fictional_population": 11.860459327697754
+     },
+     "cos_shared_loo": 0.991549514234066
+    },
+    "1year": {
+     "shared_norm": 9.666338920593262,
+     "mean_d_norm": 13.019864201545715,
+     "mean_resid_norm": 8.871885538101196,
+     "frac_shared": 0.5412827143995813,
+     "resid_norm": {
+      "street": 8.62564468383789,
+      "mountain": 8.575154304504395,
+      "orchard": 7.672035217285156,
+      "mayfly": 10.08333683013916,
+      "asteroid": 9.57119369506836,
+      "river": 9.002246856689453,
+      "real_population": 9.0339994430542,
+      "fictional_population": 8.411473274230957
+     },
+     "d_norm": {
+      "street": 13.241506576538086,
+      "mountain": 14.168498039245605,
+      "orchard": 9.354548454284668,
+      "mayfly": 13.828505516052246,
+      "asteroid": 14.220623970031738,
+      "river": 15.413871765136719,
+      "real_population": 11.951194763183594,
+      "fictional_population": 11.980164527893066
+     },
+     "cos_shared_loo": 0.9918179884552956
+    },
+    "10years": {
+     "shared_norm": 8.93396282196045,
+     "mean_d_norm": 12.429104208946228,
+     "mean_resid_norm": 8.793678522109985,
+     "frac_shared": 0.5055127680219855,
+     "resid_norm": {
+      "street": 8.26235294342041,
+      "mountain": 8.464881896972656,
+      "orchard": 8.512289047241211,
+      "mayfly": 10.743975639343262,
+      "asteroid": 9.536989212036133,
+      "river": 7.94326114654541,
+      "real_population": 8.737312316894531,
+      "fictional_population": 8.14836597442627
+     },
+     "d_norm": {
+      "street": 13.381056785583496,
+      "mountain": 13.302529335021973,
+      "orchard": 11.105924606323242,
+      "mayfly": 14.69559097290039,
+      "asteroid": 13.929747581481934,
+      "river": 13.570822715759277,
+      "real_population": 9.218000411987305,
+      "fictional_population": 10.229161262512207
+     },
+     "cos_shared_loo": 0.9906774237751961
+    },
+    "100years": {
+     "shared_norm": 9.511534690856934,
+     "mean_d_norm": 13.664932370185852,
+     "mean_resid_norm": 10.101388454437256,
+     "frac_shared": 0.46834811392275444,
+     "resid_norm": {
+      "street": 9.909375190734863,
+      "mountain": 10.22838306427002,
+      "orchard": 10.857582092285156,
+      "mayfly": 11.322686195373535,
+      "asteroid": 9.759636878967285,
+      "river": 8.935470581054688,
+      "real_population": 10.793638229370117,
+      "fictional_population": 9.004335403442383
+     },
+     "d_norm": {
+      "street": 15.65472412109375,
+      "mountain": 14.858453750610352,
+      "orchard": 15.458419799804688,
+      "mayfly": 16.867448806762695,
+      "asteroid": 12.49158000946045,
+      "river": 14.477154731750488,
+      "real_population": 9.889850616455078,
+      "fictional_population": 9.621827125549316
+     },
+     "cos_shared_loo": 0.9895738214254379
+    },
+    "1000years": {
+     "shared_norm": 11.94250774383545,
+     "mean_d_norm": 15.650067806243896,
+     "mean_resid_norm": 10.195481896400452,
+     "frac_shared": 0.5757190797940509,
+     "resid_norm": {
+      "street": 10.47670841217041,
+      "mountain": 9.939083099365234,
+      "orchard": 11.011507987976074,
+      "mayfly": 11.204512596130371,
+      "asteroid": 11.680096626281738,
+      "river": 8.611417770385742,
+      "real_population": 10.095979690551758,
+      "fictional_population": 8.544548988342285
+     },
+     "d_norm": {
+      "street": 18.231922149658203,
+      "mountain": 13.29417610168457,
+      "orchard": 16.895614624023438,
+      "mayfly": 17.483793258666992,
+      "asteroid": 13.575481414794922,
+      "river": 14.95079231262207,
+      "real_population": 15.824438095092773,
+      "fictional_population": 14.944324493408203
+     },
+     "cos_shared_loo": 0.992887519299984
+    },
+    "10000years": {
+     "shared_norm": 12.333693504333496,
+     "mean_d_norm": 16.15976846218109,
+     "mean_resid_norm": 10.584380984306335,
+     "frac_shared": 0.5738094153213196,
+     "resid_norm": {
+      "street": 10.912752151489258,
+      "mountain": 10.380786895751953,
+      "orchard": 11.023516654968262,
+      "mayfly": 12.246177673339844,
+      "asteroid": 10.955852508544922,
+      "river": 9.161439895629883,
+      "real_population": 10.917760848999023,
+      "fictional_population": 9.076761245727539
+     },
+     "d_norm": {
+      "street": 19.49167823791504,
+      "mountain": 14.318857192993164,
+      "orchard": 17.674741744995117,
+      "mayfly": 17.934907913208008,
+      "asteroid": 13.444374084472656,
+      "river": 16.204870223999023,
+      "real_population": 16.15278434753418,
+      "fictional_population": 14.055933952331543
+     },
+     "cos_shared_loo": 0.992853432893753
+    },
+    "1000000years": {
+     "shared_norm": 11.903060913085938,
+     "mean_d_norm": 15.441417217254639,
+     "mean_resid_norm": 9.947827875614166,
+     "frac_shared": 0.5852545769305151,
+     "resid_norm": {
+      "street": 11.082829475402832,
+      "mountain": 9.160564422607422,
+      "orchard": 10.74215030670166,
+      "mayfly": 10.823455810546875,
+      "asteroid": 11.29415225982666,
+      "river": 9.59053897857666,
+      "real_population": 9.392457008361816,
+      "fictional_population": 7.496474742889404
+     },
+     "d_norm": {
+      "street": 18.816423416137695,
+      "mountain": 13.082649230957031,
+      "orchard": 17.22355842590332,
+      "mayfly": 16.198333740234375,
+      "asteroid": 13.567554473876953,
+      "river": 16.377742767333984,
+      "real_population": 14.717316627502441,
+      "fictional_population": 13.547759056091309
+     },
+     "cos_shared_loo": 0.9931523576378822
+    }
+   },
+   "frac_shared_all": 0.5451940122953587
+  },
+  "20": {
+   "per_dt": {
+    "1day": {
+     "shared_norm": 14.965458869934082,
+     "mean_d_norm": 19.217785716056824,
+     "mean_resid_norm": 12.16094720363617,
+     "frac_shared": 0.598690581578448,
+     "resid_norm": {
+      "street": 10.042508125305176,
+      "mountain": 11.307669639587402,
+      "orchard": 13.147195816040039,
+      "mayfly": 14.926118850708008,
+      "asteroid": 12.70949649810791,
+      "river": 11.784989356994629,
+      "real_population": 12.94406795501709,
+      "fictional_population": 10.425531387329102
+     },
+     "d_norm": {
+      "street": 16.813749313354492,
+      "mountain": 21.226646423339844,
+      "orchard": 18.1682071685791,
+      "mayfly": 15.269511222839355,
+      "asteroid": 20.40049171447754,
+      "river": 21.436649322509766,
+      "real_population": 21.504619598388672,
+      "fictional_population": 18.92241096496582
+     },
+     "cos_shared_loo": 0.9937270283699036
+    },
+    "1week": {
+     "shared_norm": 14.200522422790527,
+     "mean_d_norm": 18.63444423675537,
+     "mean_resid_norm": 12.112123966217041,
+     "frac_shared": 0.5759536673538677,
+     "resid_norm": {
+      "street": 11.952585220336914,
+      "mountain": 10.927559852600098,
+      "orchard": 12.366132736206055,
+      "mayfly": 15.32144832611084,
+      "asteroid": 12.14546012878418,
+      "river": 11.023490905761719,
+      "real_population": 12.116206169128418,
+      "fictional_population": 11.044108390808105
+     },
+     "d_norm": {
+      "street": 20.15790367126465,
+      "mountain": 19.60979652404785,
+      "orchard": 14.500450134277344,
+      "mayfly": 18.3730525970459,
+      "asteroid": 19.26146697998047,
+      "river": 19.509925842285156,
+      "real_population": 19.661849975585938,
+      "fictional_population": 18.001108169555664
+     },
+     "cos_shared_loo": 0.9929338693618774
+    },
+    "6months": {
+     "shared_norm": 13.896979331970215,
+     "mean_d_norm": 18.449750661849976,
+     "mean_resid_norm": 12.121567010879517,
+     "frac_shared": 0.5653070313915411,
+     "resid_norm": {
+      "street": 11.432861328125,
+      "mountain": 10.062895774841309,
+      "orchard": 12.695552825927734,
+      "mayfly": 14.443525314331055,
+      "asteroid": 12.256814956665039,
+      "river": 11.700586318969727,
+      "real_population": 13.17427921295166,
+      "fictional_population": 11.20602035522461
+     },
+     "d_norm": {
+      "street": 18.457273483276367,
+      "mountain": 18.314199447631836,
+      "orchard": 16.290851593017578,
+      "mayfly": 17.808914184570312,
+      "asteroid": 19.608034133911133,
+      "river": 19.08708953857422,
+      "real_population": 20.115283966064453,
+      "fictional_population": 17.916358947753906
+     },
+     "cos_shared_loo": 0.9924476593732834
+    },
+    "1year": {
+     "shared_norm": 14.49714183807373,
+     "mean_d_norm": 19.00770342350006,
+     "mean_resid_norm": 12.454554796218872,
+     "frac_shared": 0.5728338288957346,
+     "resid_norm": {
+      "street": 12.252992630004883,
+      "mountain": 11.010759353637695,
+      "orchard": 10.692883491516113,
+      "mayfly": 14.95164680480957,
+      "asteroid": 13.208030700683594,
+      "river": 12.462265968322754,
+      "real_population": 13.166951179504395,
+      "fictional_population": 11.890908241271973
+     },
+     "d_norm": {
+      "street": 20.47916030883789,
+      "mountain": 19.81318473815918,
+      "orchard": 14.166045188903809,
+      "mayfly": 20.78287124633789,
+      "asteroid": 19.950885772705078,
+      "river": 22.053627014160156,
+      "real_population": 17.61586570739746,
+      "fictional_population": 17.199987411499023
+     },
+     "cos_shared_loo": 0.992782361805439
+    },
+    "10years": {
+     "shared_norm": 13.569129943847656,
+     "mean_d_norm": 18.472561240196228,
+     "mean_resid_norm": 12.72797966003418,
+     "frac_shared": 0.528589717491337,
+     "resid_norm": {
+      "street": 12.939374923706055,
+      "mountain": 11.361072540283203,
+      "orchard": 12.762565612792969,
+      "mayfly": 15.453441619873047,
+      "asteroid": 14.22313404083252,
+      "river": 10.67715835571289,
+      "real_population": 13.006105422973633,
+      "fictional_population": 11.400984764099121
+     },
+     "d_norm": {
+      "street": 21.15045166015625,
+      "mountain": 18.86298179626465,
+      "orchard": 17.017860412597656,
+      "mayfly": 21.247163772583008,
+      "asteroid": 20.636381149291992,
+      "river": 19.984960556030273,
+      "real_population": 14.22259521484375,
+      "fictional_population": 14.658095359802246
+     },
+     "cos_shared_loo": 0.991534560918808
+    },
+    "100years": {
+     "shared_norm": 14.201933860778809,
+     "mean_d_norm": 19.96090841293335,
+     "mean_resid_norm": 14.521959066390991,
+     "frac_shared": 0.4873858504366594,
+     "resid_norm": {
+      "street": 14.308825492858887,
+      "mountain": 13.975177764892578,
+      "orchard": 16.24675941467285,
+      "mayfly": 16.014312744140625,
+      "asteroid": 14.040271759033203,
+      "river": 12.902324676513672,
+      "real_population": 15.215092658996582,
+      "fictional_population": 13.472908020019531
+     },
+     "d_norm": {
+      "street": 23.430177688598633,
+      "mountain": 21.16431999206543,
+      "orchard": 23.343679428100586,
+      "mayfly": 24.20415687561035,
+      "asteroid": 18.309898376464844,
+      "river": 21.52477264404297,
+      "real_population": 14.341127395629883,
+      "fictional_population": 13.369134902954102
+     },
+     "cos_shared_loo": 0.990442268550396
+    },
+    "1000years": {
+     "shared_norm": 17.725650787353516,
+     "mean_d_norm": 23.02196979522705,
+     "mean_resid_norm": 14.82850193977356,
+     "frac_shared": 0.5856101716551863,
+     "resid_norm": {
+      "street": 14.712654113769531,
+      "mountain": 14.08103084564209,
+      "orchard": 16.212594985961914,
+      "mayfly": 16.120277404785156,
+      "asteroid": 17.15692710876465,
+      "river": 12.317795753479004,
+      "real_population": 15.104515075683594,
+      "fictional_population": 12.922220230102539
+     },
+     "d_norm": {
+      "street": 26.237241744995117,
+      "mountain": 19.093271255493164,
+      "orchard": 25.801904678344727,
+      "mayfly": 24.91929054260254,
+      "asteroid": 19.81268310546875,
+      "river": 21.61595916748047,
+      "real_population": 24.483272552490234,
+      "fictional_population": 22.212135314941406
+     },
+     "cos_shared_loo": 0.9931852370500565
+    },
+    "10000years": {
+     "shared_norm": 17.67864418029785,
+     "mean_d_norm": 23.237513303756714,
+     "mean_resid_norm": 15.28022038936615,
+     "frac_shared": 0.569265074791597,
+     "resid_norm": {
+      "street": 15.99143123626709,
+      "mountain": 14.344005584716797,
+      "orchard": 16.207563400268555,
+      "mayfly": 17.9079532623291,
+      "asteroid": 15.727801322937012,
+      "river": 12.37700080871582,
+      "real_population": 16.54537010192871,
+      "fictional_population": 13.140637397766113
+     },
+     "d_norm": {
+      "street": 27.971965789794922,
+      "mountain": 19.66762924194336,
+      "orchard": 25.91583824157715,
+      "mayfly": 25.68779182434082,
+      "asteroid": 19.800037384033203,
+      "river": 22.720355987548828,
+      "real_population": 24.20140266418457,
+      "fictional_population": 19.93508529663086
+     },
+     "cos_shared_loo": 0.9926951825618744
+    },
+    "1000000years": {
+     "shared_norm": 17.454479217529297,
+     "mean_d_norm": 22.527960062026978,
+     "mean_resid_norm": 14.470932722091675,
+     "frac_shared": 0.5881305738865144,
+     "resid_norm": {
+      "street": 16.44828987121582,
+      "mountain": 12.358540534973145,
+      "orchard": 16.037452697753906,
+      "mayfly": 16.304500579833984,
+      "asteroid": 16.4981689453125,
+      "river": 13.109044075012207,
+      "real_population": 13.863611221313477,
+      "fictional_population": 11.14785385131836
+     },
+     "d_norm": {
+      "street": 27.3240909576416,
+      "mountain": 17.83180809020996,
+      "orchard": 26.338476181030273,
+      "mayfly": 24.23981285095215,
+      "asteroid": 18.680971145629883,
+      "river": 23.39082908630371,
+      "real_population": 22.3258056640625,
+      "fictional_population": 20.091886520385742
+     },
+     "cos_shared_loo": 0.9933024272322655
+    }
+   },
+   "frac_shared_all": 0.564999306577749
+  },
+  "27": {
+   "per_dt": {
+    "1day": {
+     "shared_norm": 37.431617736816406,
+     "mean_d_norm": 54.728458404541016,
+     "mean_resid_norm": 40.39865493774414,
+     "frac_shared": 0.45989438097096225,
+     "resid_norm": {
+      "street": 34.75127410888672,
+      "mountain": 39.14579772949219,
+      "orchard": 40.94110870361328,
+      "mayfly": 44.140235900878906,
+      "asteroid": 44.55006790161133,
+      "river": 43.65043640136719,
+      "real_population": 41.21166229248047,
+      "fictional_population": 34.79865646362305
+     },
+     "d_norm": {
+      "street": 50.51750183105469,
+      "mountain": 61.4355354309082,
+      "orchard": 52.657867431640625,
+      "mayfly": 41.240394592285156,
+      "asteroid": 57.67779541015625,
+      "river": 66.04598236083984,
+      "real_population": 57.656715393066406,
+      "fictional_population": 50.59587478637695
+     },
+     "cos_shared_loo": 0.9889049082994461
+    },
+    "1week": {
+     "shared_norm": 35.22223663330078,
+     "mean_d_norm": 52.3254189491272,
+     "mean_resid_norm": 38.94262742996216,
+     "frac_shared": 0.4487307745369544,
+     "resid_norm": {
+      "street": 39.73968505859375,
+      "mountain": 39.490211486816406,
+      "orchard": 37.6686897277832,
+      "mayfly": 44.548439025878906,
+      "asteroid": 41.11368179321289,
+      "river": 35.55629348754883,
+      "real_population": 36.2596549987793,
+      "fictional_population": 37.164363861083984
+     },
+     "d_norm": {
+      "street": 59.44182586669922,
+      "mountain": 59.05351257324219,
+      "orchard": 42.240509033203125,
+      "mayfly": 49.76558303833008,
+      "asteroid": 52.13282775878906,
+      "river": 54.50009536743164,
+      "real_population": 50.690826416015625,
+      "fictional_population": 50.77817153930664
+     },
+     "cos_shared_loo": 0.9882070422172546
+    },
+    "6months": {
+     "shared_norm": 34.336570739746094,
+     "mean_d_norm": 51.82307004928589,
+     "mean_resid_norm": 38.883089542388916,
+     "frac_shared": 0.43709259407059453,
+     "resid_norm": {
+      "street": 38.747440338134766,
+      "mountain": 35.00832748413086,
+      "orchard": 38.68478012084961,
+      "mayfly": 44.75614929199219,
+      "asteroid": 38.07078552246094,
+      "river": 38.807647705078125,
+      "real_population": 39.28988265991211,
+      "fictional_population": 37.699703216552734
+     },
+     "d_norm": {
+      "street": 55.273868560791016,
+      "mountain": 55.25412368774414,
+      "orchard": 45.48550796508789,
+      "mayfly": 49.14598846435547,
+      "asteroid": 52.507232666015625,
+      "river": 55.80195999145508,
+      "real_population": 51.861175537109375,
+      "fictional_population": 49.254703521728516
+     },
+     "cos_shared_loo": 0.9875330626964569
+    },
+    "1year": {
+     "shared_norm": 38.519569396972656,
+     "mean_d_norm": 55.23396635055542,
+     "mean_resid_norm": 40.35682916641235,
+     "frac_shared": 0.4736934850139868,
+     "resid_norm": {
+      "street": 40.709861755371094,
+      "mountain": 38.252281188964844,
+      "orchard": 30.914886474609375,
+      "mayfly": 46.51451873779297,
+      "asteroid": 41.34158706665039,
+      "river": 45.44965744018555,
+      "real_population": 39.83929443359375,
+      "fictional_population": 39.83254623413086
+     },
+     "d_norm": {
+      "street": 62.32246780395508,
+      "mountain": 60.839237213134766,
+      "orchard": 39.48215103149414,
+      "mayfly": 59.859840393066406,
+      "asteroid": 55.2293586730957,
+      "river": 68.68912506103516,
+      "real_population": 45.8293342590332,
+      "fictional_population": 49.620216369628906
+     },
+     "cos_shared_loo": 0.9893944934010506
+    },
+    "10years": {
+     "shared_norm": 33.13212203979492,
+     "mean_d_norm": 50.5712890625,
+     "mean_resid_norm": 38.846699237823486,
+     "frac_shared": 0.4170800605042112,
+     "resid_norm": {
+      "street": 37.49261474609375,
+      "mountain": 32.99884033203125,
+      "orchard": 38.14751052856445,
+      "mayfly": 49.90876770019531,
+      "asteroid": 42.64622497558594,
+      "river": 37.210723876953125,
+      "real_population": 38.53649139404297,
+      "fictional_population": 33.832420349121094
+     },
+     "d_norm": {
+      "street": 55.67369079589844,
+      "mountain": 49.76204299926758,
+      "orchard": 47.743194580078125,
+      "mayfly": 63.356624603271484,
+      "asteroid": 54.27450942993164,
+      "river": 58.13493728637695,
+      "real_population": 36.97990798950195,
+      "fictional_population": 38.64540481567383
+     },
+     "cos_shared_loo": 0.9868010431528091
+    },
+    "100years": {
+     "shared_norm": 37.37955856323242,
+     "mean_d_norm": 58.462666034698486,
+     "mean_resid_norm": 46.67731857299805,
+     "frac_shared": 0.38881197120071587,
+     "resid_norm": {
+      "street": 45.9749641418457,
+      "mountain": 45.418922424316406,
+      "orchard": 51.432640075683594,
+      "mayfly": 55.21376419067383,
+      "asteroid": 43.34434127807617,
+      "river": 45.50522232055664,
+      "real_population": 45.1837272644043,
+      "fictional_population": 41.344966888427734
+     },
+     "d_norm": {
+      "street": 67.27207946777344,
+      "mountain": 63.639862060546875,
+      "orchard": 69.64218139648438,
+      "mayfly": 74.05450439453125,
+      "asteroid": 49.10756301879883,
+      "river": 66.49568176269531,
+      "real_population": 40.07406234741211,
+      "fictional_population": 37.4153938293457
+     },
+     "cos_shared_loo": 0.9856300055980682
+    },
+    "1000years": {
+     "shared_norm": 47.13505935668945,
+     "mean_d_norm": 67.81325435638428,
+     "mean_resid_norm": 49.37557029724121,
+     "frac_shared": 0.4746949294293611,
+     "resid_norm": {
+      "street": 53.233829498291016,
+      "mountain": 44.04830551147461,
+      "orchard": 52.63964080810547,
+      "mayfly": 54.67974853515625,
+      "asteroid": 54.47084045410156,
+      "river": 43.967220306396484,
+      "real_population": 47.53308868408203,
+      "fictional_population": 44.431888580322266
+     },
+     "d_norm": {
+      "street": 81.49386596679688,
+      "mountain": 55.29023361206055,
+      "orchard": 76.78386688232422,
+      "mayfly": 75.14617919921875,
+      "asteroid": 56.144195556640625,
+      "river": 67.60354614257812,
+      "real_population": 68.43292999267578,
+      "fictional_population": 61.6112174987793
+     },
+     "cos_shared_loo": 0.9894026145339012
+    },
+    "10000years": {
+     "shared_norm": 48.373748779296875,
+     "mean_d_norm": 68.81445932388306,
+     "mean_resid_norm": 50.08710432052612,
+     "frac_shared": 0.47884664444759917,
+     "resid_norm": {
+      "street": 58.13165283203125,
+      "mountain": 45.18389892578125,
+      "orchard": 51.80621337890625,
+      "mayfly": 60.30678176879883,
+      "asteroid": 50.10697937011719,
+      "river": 46.34748077392578,
+      "real_population": 48.26016616821289,
+      "fictional_population": 40.55366134643555
+     },
+     "d_norm": {
+      "street": 89.26382446289062,
+      "mountain": 57.64026641845703,
+      "orchard": 78.0366439819336,
+      "mayfly": 79.49681091308594,
+      "asteroid": 53.88504409790039,
+      "river": 71.68071746826172,
+      "real_population": 67.00281524658203,
+      "fictional_population": 53.509552001953125
+     },
+     "cos_shared_loo": 0.9896611794829369
+    },
+    "1000000years": {
+     "shared_norm": 47.46495056152344,
+     "mean_d_norm": 67.10434770584106,
+     "mean_resid_norm": 48.49288845062256,
+     "frac_shared": 0.485614949456568,
+     "resid_norm": {
+      "street": 57.133544921875,
+      "mountain": 40.742950439453125,
+      "orchard": 52.999996185302734,
+      "mayfly": 52.628517150878906,
+      "asteroid": 51.2799186706543,
+      "river": 48.582000732421875,
+      "real_population": 45.586936950683594,
+      "fictional_population": 38.98924255371094
+     },
+     "d_norm": {
+      "street": 85.72599792480469,
+      "mountain": 52.96060562133789,
+      "orchard": 79.845703125,
+      "mayfly": 70.71029663085938,
+      "asteroid": 51.160953521728516,
+      "river": 72.31978607177734,
+      "real_population": 66.30184936523438,
+      "fictional_population": 57.80958938598633
+     },
+     "cos_shared_loo": 0.9899478927254677
+    }
+   },
+   "frac_shared_all": 0.455652177919189
+  }
+ },
+ "m3_clock_geometry": {
+  "0": {
+   "cos_matrix": [
+    [
+     1.0,
+     0.7885338664054871,
+     0.6512933373451233,
+     0.6906306743621826,
+     0.6146490573883057,
+     0.41501376032829285,
+     0.3687875270843506,
+     0.34871363639831543,
+     0.33478280901908875
+    ],
+    [
+     0.7885338664054871,
+     1.0000001192092896,
+     0.7500014305114746,
+     0.6934333443641663,
+     0.6716758608818054,
+     0.5310509204864502,
+     0.45392125844955444,
+     0.4363963007926941,
+     0.39764946699142456
+    ],
+    [
+     0.6512933373451233,
+     0.7500014305114746,
+     1.0000001192092896,
+     0.6298825144767761,
+     0.6402495503425598,
+     0.4992079436779022,
+     0.4361640512943268,
+     0.4502112567424774,
+     0.3882305920124054
+    ],
+    [
+     0.6906306743621826,
+     0.6934333443641663,
+     0.6298825144767761,
+     1.0,
+     0.6884769797325134,
+     0.3615359365940094,
+     0.34298720955848694,
+     0.2958460748195648,
+     0.29373493790626526
+    ],
+    [
+     0.6146490573883057,
+     0.6716758608818054,
+     0.6402495503425598,
+     0.6884769797325134,
+     1.0,
+     0.4748435318470001,
+     0.44815585017204285,
+     0.44360578060150146,
+     0.3768523931503296
+    ],
+    [
+     0.41501376032829285,
+     0.5310509204864502,
+     0.4992079436779022,
+     0.3615359365940094,
+     0.4748435318470001,
+     1.0,
+     0.7980549335479736,
+     0.7409882545471191,
+     0.7250415086746216
+    ],
+    [
+     0.3687875270843506,
+     0.45392125844955444,
+     0.4361640512943268,
+     0.34298720955848694,
+     0.44815585017204285,
+     0.7980549335479736,
+     1.0,
+     0.8794723153114319,
+     0.8168848752975464
+    ],
+    [
+     0.34871363639831543,
+     0.4363963007926941,
+     0.4502112567424774,
+     0.2958460748195648,
+     0.44360578060150146,
+     0.7409882545471191,
+     0.8794723153114319,
+     1.0,
+     0.7936962842941284
+    ],
+    [
+     0.33478280901908875,
+     0.39764946699142456,
+     0.3882305920124054,
+     0.29373493790626526,
+     0.3768523931503296,
+     0.7250415086746216,
+     0.8168848752975464,
+     0.7936962842941284,
+     1.0
+    ]
+   ],
+   "shared_norms": [
+    0.059034135192632675,
+    0.06204242631793022,
+    0.058162789791822433,
+    0.0638231709599495,
+    0.05616576969623566,
+    0.06147387996315956,
+    0.06910873204469681,
+    0.07146987318992615,
+    0.07306032627820969
+   ],
+   "spearman_norm_logdt": 0.6833333333333218,
+   "pearson_norm_logdt": 0.7954161760053998,
+   "mean_cos_adjacent": 0.7253702320158482,
+   "mean_cos_distant": 0.40946693619092306
+  },
+  "8": {
+   "cos_matrix": [
+    [
+     0.9999998807907104,
+     0.8946567177772522,
+     0.7517507672309875,
+     0.7927059531211853,
+     0.6023449301719666,
+     0.44317126274108887,
+     0.4996515214443207,
+     0.5297876000404358,
+     0.4993332028388977
+    ],
+    [
+     0.8946567177772522,
+     1.0,
+     0.81622314453125,
+     0.8602480888366699,
+     0.7027471661567688,
+     0.5196560621261597,
+     0.548730731010437,
+     0.5483943819999695,
+     0.5400488972663879
+    ],
+    [
+     0.7517507672309875,
+     0.81622314453125,
+     1.0,
+     0.799483597278595,
+     0.7872412204742432,
+     0.5385869145393372,
+     0.5020983219146729,
+     0.502281904220581,
+     0.5028913617134094
+    ],
+    [
+     0.7927059531211853,
+     0.8602480888366699,
+     0.799483597278595,
+     1.0,
+     0.7780583500862122,
+     0.624378502368927,
+     0.6349042057991028,
+     0.6155421733856201,
+     0.6283499002456665
+    ],
+    [
+     0.6023449301719666,
+     0.7027471661567688,
+     0.7872412204742432,
+     0.7780583500862122,
+     0.9999998807907104,
+     0.7954590916633606,
+     0.6837475895881653,
+     0.6678075194358826,
+     0.6756284832954407
+    ],
+    [
+     0.44317126274108887,
+     0.5196560621261597,
+     0.5385869145393372,
+     0.624378502368927,
+     0.7954590916633606,
+     0.9999999403953552,
+     0.8525732755661011,
+     0.8080800771713257,
+     0.7920709848403931
+    ],
+    [
+     0.4996515214443207,
+     0.548730731010437,
+     0.5020983219146729,
+     0.6349042057991028,
+     0.6837475895881653,
+     0.8525732755661011,
+     1.0,
+     0.9320380687713623,
+     0.9135521054267883
+    ],
+    [
+     0.5297876000404358,
+     0.5483943819999695,
+     0.502281904220581,
+     0.6155421733856201,
+     0.6678075194358826,
+     0.8080800771713257,
+     0.9320380687713623,
+     1.0,
+     0.9008061289787292
+    ],
+    [
+     0.4993332028388977,
+     0.5400488972663879,
+     0.5028913617134094,
+     0.6283499002456665,
+     0.6756284832954407,
+     0.7920709848403931,
+     0.9135521054267883,
+     0.9008061289787292,
+     1.0
+    ]
+   ],
+   "shared_norms": [
+    6.3320488929748535,
+    6.192471504211426,
+    6.093952178955078,
+    6.647457122802734,
+    6.320152759552002,
+    6.623959064483643,
+    8.021560668945312,
+    8.550308227539062,
+    8.228948593139648
+   ],
+   "spearman_norm_logdt": 0.7999999999999865,
+   "pearson_norm_logdt": 0.8611483592759144,
+   "mean_cos_adjacent": 0.8461622968316078,
+   "mean_cos_distant": 0.5438607156276702
+  },
+  "14": {
+   "cos_matrix": [
+    [
+     1.0,
+     0.9271159172058105,
+     0.8195163607597351,
+     0.8184763193130493,
+     0.6828605532646179,
+     0.5118054151535034,
+     0.5555039048194885,
+     0.5692217946052551,
+     0.5546184778213501
+    ],
+    [
+     0.9271159172058105,
+     1.0,
+     0.8762275576591492,
+     0.8678563833236694,
+     0.7535134553909302,
+     0.5790182948112488,
+     0.5878320336341858,
+     0.5826522707939148,
+     0.5743834376335144
+    ],
+    [
+     0.8195163607597351,
+     0.8762275576591492,
+     1.0000001192092896,
+     0.8395604491233826,
+     0.8087701797485352,
+     0.5672855377197266,
+     0.537178635597229,
+     0.5384194254875183,
+     0.5210113525390625
+    ],
+    [
+     0.8184763193130493,
+     0.8678563833236694,
+     0.8395604491233826,
+     1.0,
+     0.8364589810371399,
+     0.7064677476882935,
+     0.6888843774795532,
+     0.6702256202697754,
+     0.6714630722999573
+    ],
+    [
+     0.6828605532646179,
+     0.7535134553909302,
+     0.8087701797485352,
+     0.8364589810371399,
+     1.0,
+     0.815993070602417,
+     0.7096726298332214,
+     0.696662187576294,
+     0.6726829409599304
+    ],
+    [
+     0.5118054151535034,
+     0.5790182948112488,
+     0.5672855377197266,
+     0.7064677476882935,
+     0.815993070602417,
+     0.9999999403953552,
+     0.8715812563896179,
+     0.823752224445343,
+     0.805834174156189
+    ],
+    [
+     0.5555039048194885,
+     0.5878320336341858,
+     0.537178635597229,
+     0.6888843774795532,
+     0.7096726298332214,
+     0.8715812563896179,
+     1.0,
+     0.9444059729576111,
+     0.937485933303833
+    ],
+    [
+     0.5692217946052551,
+     0.5826522707939148,
+     0.5384194254875183,
+     0.6702256202697754,
+     0.696662187576294,
+     0.823752224445343,
+     0.9444059729576111,
+     1.0,
+     0.9365381002426147
+    ],
+    [
+     0.5546184778213501,
+     0.5743834376335144,
+     0.5210113525390625,
+     0.6714630722999573,
+     0.6726829409599304,
+     0.805834174156189,
+     0.937485933303833,
+     0.9365381002426147,
+     1.0
+    ]
+   ],
+   "shared_norms": [
+    9.453561782836914,
+    9.1299467086792,
+    9.05055046081543,
+    9.666338920593262,
+    8.93396282196045,
+    9.511534690856934,
+    11.94250774383545,
+    12.333693504333496,
+    11.903060913085938
+   ],
+   "spearman_norm_logdt": 0.6833333333333218,
+   "pearson_norm_logdt": 0.8114958739249069,
+   "mean_cos_adjacent": 0.8809851631522179,
+   "mean_cos_distant": 0.5872584819793701
+  },
+  "20": {
+   "cos_matrix": [
+    [
+     0.9999999403953552,
+     0.9414398074150085,
+     0.8464801907539368,
+     0.8134242296218872,
+     0.6965274214744568,
+     0.5034269094467163,
+     0.5620819926261902,
+     0.5907354950904846,
+     0.5653983950614929
+    ],
+    [
+     0.9414398074150085,
+     1.0000001192092896,
+     0.9042525291442871,
+     0.8748506903648376,
+     0.7835353016853333,
+     0.5863292813301086,
+     0.5961548686027527,
+     0.6133928298950195,
+     0.5868123769760132
+    ],
+    [
+     0.8464801907539368,
+     0.9042525291442871,
+     0.9999999403953552,
+     0.8592789769172668,
+     0.8120720386505127,
+     0.5654177665710449,
+     0.5375263094902039,
+     0.5632678866386414,
+     0.5223338007926941
+    ],
+    [
+     0.8134242296218872,
+     0.8748506903648376,
+     0.8592789769172668,
+     1.0,
+     0.8719781041145325,
+     0.735344648361206,
+     0.698943555355072,
+     0.6875267624855042,
+     0.6736599802970886
+    ],
+    [
+     0.6965274214744568,
+     0.7835353016853333,
+     0.8120720386505127,
+     0.8719781041145325,
+     0.9999999403953552,
+     0.8307461738586426,
+     0.7080398797988892,
+     0.7007890343666077,
+     0.6729212999343872
+    ],
+    [
+     0.5034269094467163,
+     0.5863292813301086,
+     0.5654177665710449,
+     0.735344648361206,
+     0.8307461738586426,
+     0.9999999403953552,
+     0.8670528531074524,
+     0.8093737363815308,
+     0.8045216202735901
+    ],
+    [
+     0.5620819926261902,
+     0.5961548686027527,
+     0.5375263094902039,
+     0.698943555355072,
+     0.7080398797988892,
+     0.8670528531074524,
+     0.9999998807907104,
+     0.9485275149345398,
+     0.9415281414985657
+    ],
+    [
+     0.5907354950904846,
+     0.6133928298950195,
+     0.5632678866386414,
+     0.6875267624855042,
+     0.7007890343666077,
+     0.8093737363815308,
+     0.9485275149345398,
+     1.0,
+     0.9400038719177246
+    ],
+    [
+     0.5653983950614929,
+     0.5868123769760132,
+     0.5223338007926941,
+     0.6736599802970886,
+     0.6729212999343872,
+     0.8045216202735901,
+     0.9415281414985657,
+     0.9400038719177246,
+     0.9999998807907104
+    ]
+   ],
+   "shared_norms": [
+    14.965458869934082,
+    14.200522422790527,
+    13.896979331970215,
+    14.49714183807373,
+    13.569129943847656,
+    14.201933860778809,
+    17.725650787353516,
+    17.67864418029785,
+    17.454479217529297
+   ],
+   "spearman_norm_logdt": 0.5333333333333243,
+   "pearson_norm_logdt": 0.7354341359589056,
+   "mean_cos_adjacent": 0.8954099789261818,
+   "mean_cos_distant": 0.5972063740094503
+  },
+  "27": {
+   "cos_matrix": [
+    [
+     1.0,
+     0.9271845817565918,
+     0.8200324773788452,
+     0.8015191555023193,
+     0.6354759335517883,
+     0.45895078778266907,
+     0.5218328833580017,
+     0.5442707538604736,
+     0.5309531092643738
+    ],
+    [
+     0.9271845817565918,
+     0.9999998807907104,
+     0.8914241194725037,
+     0.8630226254463196,
+     0.7526528835296631,
+     0.5466042160987854,
+     0.5454864501953125,
+     0.5641258955001831,
+     0.5495328307151794
+    ],
+    [
+     0.8200324773788452,
+     0.8914241194725037,
+     1.0,
+     0.8402597308158875,
+     0.7599364519119263,
+     0.4866550862789154,
+     0.4524204432964325,
+     0.49532538652420044,
+     0.46088945865631104
+    ],
+    [
+     0.8015191555023193,
+     0.8630226254463196,
+     0.8402597308158875,
+     0.9999999403953552,
+     0.8398780226707458,
+     0.6873860359191895,
+     0.6450945138931274,
+     0.6411831378936768,
+     0.6200593113899231
+    ],
+    [
+     0.6354759335517883,
+     0.7526528835296631,
+     0.7599364519119263,
+     0.8398780226707458,
+     1.0,
+     0.8041808009147644,
+     0.6777401566505432,
+     0.6819373369216919,
+     0.6510833501815796
+    ],
+    [
+     0.45895078778266907,
+     0.5466042160987854,
+     0.4866550862789154,
+     0.6873860359191895,
+     0.8041808009147644,
+     1.0,
+     0.8576061129570007,
+     0.8006442189216614,
+     0.7762287259101868
+    ],
+    [
+     0.5218328833580017,
+     0.5454864501953125,
+     0.4524204432964325,
+     0.6450945138931274,
+     0.6777401566505432,
+     0.8576061129570007,
+     1.0,
+     0.9423145651817322,
+     0.9193878769874573
+    ],
+    [
+     0.5442707538604736,
+     0.5641258955001831,
+     0.49532538652420044,
+     0.6411831378936768,
+     0.6819373369216919,
+     0.8006442189216614,
+     0.9423145651817322,
+     1.0,
+     0.9317888617515564
+    ],
+    [
+     0.5309531092643738,
+     0.5495328307151794,
+     0.46088945865631104,
+     0.6200593113899231,
+     0.6510833501815796,
+     0.7762287259101868,
+     0.9193878769874573,
+     0.9317888617515564,
+     1.0
+    ]
+   ],
+   "shared_norms": [
+    37.431617736816406,
+    35.22223663330078,
+    34.336570739746094,
+    38.519569396972656,
+    33.13212203979492,
+    37.37955856323242,
+    47.13505935668945,
+    48.373748779296875,
+    47.46495056152344
+   ],
+   "spearman_norm_logdt": 0.6333333333333226,
+   "pearson_norm_logdt": 0.785403741691431,
+   "mean_cos_adjacent": 0.8793295994400978,
+   "mean_cos_distant": 0.5478795965512594
+  }
+ },
+ "m4_tau": {
+  "0": {
+   "street": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08326780796051025,
+     0.08903464674949646,
+     0.09121749550104141,
+     0.07890777289867401,
+     0.08007124066352844,
+     0.10871629416942596,
+     0.10782071202993393,
+     0.09837862104177475,
+     0.10708680748939514
+    ]
+   },
+   "mountain": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08719056099653244,
+     0.09369027614593506,
+     0.09748002141714096,
+     0.09812141209840775,
+     0.11450766772031784,
+     0.1132410541176796,
+     0.12764546275138855,
+     0.13995514810085297,
+     0.11286246031522751
+    ]
+   },
+   "orchard": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08722443878650665,
+     0.07889129221439362,
+     0.09294189512729645,
+     0.06974673271179199,
+     0.08308201283216476,
+     0.10341283679008484,
+     0.1014496311545372,
+     0.09839192032814026,
+     0.10856863856315613
+    ]
+   },
+   "mayfly": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08908455818891525,
+     0.0876193568110466,
+     0.09607290476560593,
+     0.08843235671520233,
+     0.10363391786813736,
+     0.10363699495792389,
+     0.10042218118906021,
+     0.10630100220441818,
+     0.09904181212186813
+    ]
+   },
+   "asteroid": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08828560262918472,
+     0.08971713483333588,
+     0.08444102108478546,
+     0.09807281196117401,
+     0.09648796916007996,
+     0.08981653302907944,
+     0.10798720270395279,
+     0.09399339556694031,
+     0.10271172970533371
+    ]
+   },
+   "river": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.09273213893175125,
+     0.08563072979450226,
+     0.09920118004083633,
+     0.09285765141248703,
+     0.08831743150949478,
+     0.10572616010904312,
+     0.1037047952413559,
+     0.11226940900087357,
+     0.11332086473703384
+    ]
+   },
+   "real_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.08279971778392792,
+     0.08342110365629196,
+     0.09336826205253601,
+     0.08917514979839325,
+     0.09375590831041336,
+     0.08775657415390015,
+     0.09392911195755005,
+     0.09649824351072311,
+     0.08705217391252518
+    ]
+   },
+   "fictional_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     0.07980118691921234,
+     0.07800213992595673,
+     0.08033006638288498,
+     0.08577466756105423,
+     0.11436796933412552,
+     0.0953725054860115,
+     0.10593846440315247,
+     0.11509154736995697,
+     0.08609237521886826
+    ]
+   }
+  },
+  "8": {
+   "street": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     5.627712249755859,
+     6.509221076965332,
+     6.360866546630859,
+     6.702340602874756,
+     6.427103042602539,
+     7.71755838394165,
+     8.2152099609375,
+     8.381245613098145,
+     8.750850677490234
+    ]
+   },
+   "mountain": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     7.177810192108154,
+     7.001725673675537,
+     6.771950721740723,
+     7.065842151641846,
+     6.55369758605957,
+     7.750421524047852,
+     7.531370639801025,
+     7.935090065002441,
+     7.7328267097473145
+    ]
+   },
+   "orchard": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     6.503446102142334,
+     6.31572961807251,
+     6.729188442230225,
+     5.723513126373291,
+     6.458985328674316,
+     8.319283485412598,
+     8.670600891113281,
+     8.356108665466309,
+     8.315857887268066
+    ]
+   },
+   "mayfly": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     7.512796401977539,
+     7.142167568206787,
+     7.4084296226501465,
+     7.467004776000977,
+     8.40849781036377,
+     8.804401397705078,
+     8.746374130249023,
+     9.662832260131836,
+     7.849346160888672
+    ]
+   },
+   "asteroid": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     7.782837867736816,
+     6.929958820343018,
+     6.855630397796631,
+     7.321055889129639,
+     7.2139081954956055,
+     7.290046215057373,
+     8.962493896484375,
+     8.149613380432129,
+     8.47097396850586
+    ]
+   },
+   "river": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     7.241816997528076,
+     6.246740341186523,
+     6.685284614562988,
+     7.7246904373168945,
+     6.741940498352051,
+     7.161571025848389,
+     7.120765209197998,
+     7.843903541564941,
+     8.236083030700684
+    ]
+   },
+   "real_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     6.2859368324279785,
+     5.842471599578857,
+     6.36558723449707,
+     6.591146469116211,
+     6.197322368621826,
+     7.536524295806885,
+     7.10590124130249,
+     7.5949811935424805,
+     6.653188705444336
+    ]
+   },
+   "fictional_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     5.387039661407471,
+     5.928250312805176,
+     6.067752838134766,
+     6.401813983917236,
+     6.608302593231201,
+     6.4160685539245605,
+     6.177879333496094,
+     6.488852024078369,
+     5.722548961639404
+    ]
+   }
+  },
+  "14": {
+   "street": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     6.952960968017578,
+     8.128342628479004,
+     8.038793563842773,
+     8.62564468383789,
+     8.26235294342041,
+     9.909375190734863,
+     10.47670841217041,
+     10.912752151489258,
+     11.082829475402832
+    ]
+   },
+   "mountain": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     8.51210880279541,
+     8.333600044250488,
+     7.830733776092529,
+     8.575154304504395,
+     8.464881896972656,
+     10.22838306427002,
+     9.939083099365234,
+     10.380786895751953,
+     9.160564422607422
+    ]
+   },
+   "orchard": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     8.960187911987305,
+     8.540642738342285,
+     8.550111770629883,
+     7.672035217285156,
+     8.512289047241211,
+     10.857582092285156,
+     11.011507987976074,
+     11.023516654968262,
+     10.74215030670166
+    ]
+   },
+   "mayfly": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     10.497400283813477,
+     10.214418411254883,
+     9.632160186767578,
+     10.08333683013916,
+     10.743975639343262,
+     11.322686195373535,
+     11.204512596130371,
+     12.246177673339844,
+     10.823455810546875
+    ]
+   },
+   "asteroid": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     9.407666206359863,
+     8.731856346130371,
+     8.779939651489258,
+     9.57119369506836,
+     9.536989212036133,
+     9.759636878967285,
+     11.680096626281738,
+     10.955852508544922,
+     11.29415225982666
+    ]
+   },
+   "river": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     8.61035442352295,
+     7.912728786468506,
+     7.692351341247559,
+     9.002246856689453,
+     7.94326114654541,
+     8.935470581054688,
+     8.611417770385742,
+     9.161439895629883,
+     9.59053897857666
+    ]
+   },
+   "real_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     8.791637420654297,
+     8.231014251708984,
+     8.76382064819336,
+     9.0339994430542,
+     8.737312316894531,
+     10.793638229370117,
+     10.095979690551758,
+     10.917760848999023,
+     9.392457008361816
+    ]
+   },
+   "fictional_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     7.0420122146606445,
+     7.709144115447998,
+     7.731221675872803,
+     8.411473274230957,
+     8.14836597442627,
+     9.004335403442383,
+     8.544548988342285,
+     9.076761245727539,
+     7.496474742889404
+    ]
+   }
+  },
+  "20": {
+   "street": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     10.042508125305176,
+     11.952585220336914,
+     11.432861328125,
+     12.252992630004883,
+     12.939374923706055,
+     14.308825492858887,
+     14.712654113769531,
+     15.99143123626709,
+     16.44828987121582
+    ]
+   },
+   "mountain": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     11.307669639587402,
+     10.927559852600098,
+     10.062895774841309,
+     11.010759353637695,
+     11.361072540283203,
+     13.975177764892578,
+     14.08103084564209,
+     14.344005584716797,
+     12.358540534973145
+    ]
+   },
+   "orchard": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     13.147195816040039,
+     12.366132736206055,
+     12.695552825927734,
+     10.692883491516113,
+     12.762565612792969,
+     16.24675941467285,
+     16.212594985961914,
+     16.207563400268555,
+     16.037452697753906
+    ]
+   },
+   "mayfly": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     14.926118850708008,
+     15.32144832611084,
+     14.443525314331055,
+     14.95164680480957,
+     15.453441619873047,
+     16.014312744140625,
+     16.120277404785156,
+     17.9079532623291,
+     16.304500579833984
+    ]
+   },
+   "asteroid": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     12.70949649810791,
+     12.14546012878418,
+     12.256814956665039,
+     13.208030700683594,
+     14.22313404083252,
+     14.040271759033203,
+     17.15692710876465,
+     15.727801322937012,
+     16.4981689453125
+    ]
+   },
+   "river": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     11.784989356994629,
+     11.023490905761719,
+     11.700586318969727,
+     12.462265968322754,
+     10.67715835571289,
+     12.902324676513672,
+     12.317795753479004,
+     12.37700080871582,
+     13.109044075012207
+    ]
+   },
+   "real_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     12.94406795501709,
+     12.116206169128418,
+     13.17427921295166,
+     13.166951179504395,
+     13.006105422973633,
+     15.215092658996582,
+     15.104515075683594,
+     16.54537010192871,
+     13.863611221313477
+    ]
+   },
+   "fictional_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     10.425531387329102,
+     11.044108390808105,
+     11.20602035522461,
+     11.890908241271973,
+     11.400984764099121,
+     13.472908020019531,
+     12.922220230102539,
+     13.140637397766113,
+     11.14785385131836
+    ]
+   }
+  },
+  "27": {
+   "street": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     34.75127410888672,
+     39.73968505859375,
+     38.747440338134766,
+     40.709861755371094,
+     37.49261474609375,
+     45.9749641418457,
+     53.233829498291016,
+     58.13165283203125,
+     57.133544921875
+    ]
+   },
+   "mountain": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     39.14579772949219,
+     39.490211486816406,
+     35.00832748413086,
+     38.252281188964844,
+     32.99884033203125,
+     45.418922424316406,
+     44.04830551147461,
+     45.18389892578125,
+     40.742950439453125
+    ]
+   },
+   "orchard": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     40.94110870361328,
+     37.6686897277832,
+     38.68478012084961,
+     30.914886474609375,
+     38.14751052856445,
+     51.432640075683594,
+     52.63964080810547,
+     51.80621337890625,
+     52.999996185302734
+    ]
+   },
+   "mayfly": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     44.140235900878906,
+     44.548439025878906,
+     44.75614929199219,
+     46.51451873779297,
+     49.90876770019531,
+     55.21376419067383,
+     54.67974853515625,
+     60.30678176879883,
+     52.628517150878906
+    ]
+   },
+   "asteroid": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     44.55006790161133,
+     41.11368179321289,
+     38.07078552246094,
+     41.34158706665039,
+     42.64622497558594,
+     43.34434127807617,
+     54.47084045410156,
+     50.10697937011719,
+     51.2799186706543
+    ]
+   },
+   "river": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     43.65043640136719,
+     35.55629348754883,
+     38.807647705078125,
+     45.44965744018555,
+     37.210723876953125,
+     45.50522232055664,
+     43.967220306396484,
+     46.34748077392578,
+     48.582000732421875
+    ]
+   },
+   "real_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     41.21166229248047,
+     36.2596549987793,
+     39.28988265991211,
+     39.83929443359375,
+     38.53649139404297,
+     45.1837272644043,
+     47.53308868408203,
+     48.26016616821289,
+     45.586936950683594
+    ]
+   },
+   "fictional_population": {
+    "tau": "1day",
+    "tau_index": 0,
+    "tau_log10_days": 0.0,
+    "curve": [
+     34.79865646362305,
+     37.164363861083984,
+     37.699703216552734,
+     39.83254623413086,
+     33.832420349121094,
+     41.344966888427734,
+     44.431888580322266,
+     40.55366134643555,
+     38.98924255371094
+    ]
+   }
+  }
+ },
+ "m5_cyclic": {
+  "0": {
+   "orchard": {
+    "d_6months": 0.09568005055189133,
+    "d_1year": 0.08626620471477509,
+    "ratio_1y_over_6mo": 0.9016111949803755,
+    "cos_6mo_1y": 0.5163553953170776
+   },
+   "mountain": {
+    "d_6months": 0.1254136711359024,
+    "d_1year": 0.11815283447504044,
+    "ratio_1y_over_6mo": 0.942104902950046,
+    "cos_6mo_1y": 0.7275238633155823
+   },
+   "street": {
+    "d_6months": 0.11013875901699066,
+    "d_1year": 0.1003655195236206,
+    "ratio_1y_over_6mo": 0.9112643034885326,
+    "cos_6mo_1y": 0.6525278091430664
+   },
+   "river": {
+    "d_6months": 0.11286422610282898,
+    "d_1year": 0.12424924224615097,
+    "ratio_1y_over_6mo": 1.100873558747024,
+    "cos_6mo_1y": 0.7308982610702515
+   }
+  },
+  "8": {
+   "orchard": {
+    "d_6months": 8.03542709350586,
+    "d_1year": 6.855661392211914,
+    "ratio_1y_over_6mo": 0.8531794654389595,
+    "cos_6mo_1y": 0.52274489402771
+   },
+   "mountain": {
+    "d_6months": 9.852363586425781,
+    "d_1year": 10.662312507629395,
+    "ratio_1y_over_6mo": 1.082208590263401,
+    "cos_6mo_1y": 0.8525170087814331
+   },
+   "street": {
+    "d_6months": 9.12767505645752,
+    "d_1year": 9.30521011352539,
+    "ratio_1y_over_6mo": 1.0194501947066195,
+    "cos_6mo_1y": 0.8331645727157593
+   },
+   "river": {
+    "d_6months": 9.480293273925781,
+    "d_1year": 11.918952941894531,
+    "ratio_1y_over_6mo": 1.2572346231814036,
+    "cos_6mo_1y": 0.794938862323761
+   }
+  },
+  "14": {
+   "orchard": {
+    "d_6months": 10.838637351989746,
+    "d_1year": 9.354548454284668,
+    "ratio_1y_over_6mo": 0.8630742177720806,
+    "cos_6mo_1y": 0.5617712140083313
+   },
+   "mountain": {
+    "d_6months": 12.705381393432617,
+    "d_1year": 14.168498039245605,
+    "ratio_1y_over_6mo": 1.115157239322871,
+    "cos_6mo_1y": 0.8580814599990845
+   },
+   "street": {
+    "d_6months": 12.397085189819336,
+    "d_1year": 13.241506576538086,
+    "ratio_1y_over_6mo": 1.0681145102891711,
+    "cos_6mo_1y": 0.8270295858383179
+   },
+   "river": {
+    "d_6months": 12.47943115234375,
+    "d_1year": 15.413871765136719,
+    "ratio_1y_over_6mo": 1.2351421773131557,
+    "cos_6mo_1y": 0.80117267370224
+   }
+  },
+  "20": {
+   "orchard": {
+    "d_6months": 16.290851593017578,
+    "d_1year": 14.166045188903809,
+    "ratio_1y_over_6mo": 0.8695705751180405,
+    "cos_6mo_1y": 0.6074827313423157
+   },
+   "mountain": {
+    "d_6months": 18.314199447631836,
+    "d_1year": 19.81318473815918,
+    "ratio_1y_over_6mo": 1.0818482563113123,
+    "cos_6mo_1y": 0.8513251543045044
+   },
+   "street": {
+    "d_6months": 18.457273483276367,
+    "d_1year": 20.47916030883789,
+    "ratio_1y_over_6mo": 1.1095441765758303,
+    "cos_6mo_1y": 0.811690628528595
+   },
+   "river": {
+    "d_6months": 19.08708953857422,
+    "d_1year": 22.053627014160156,
+    "ratio_1y_over_6mo": 1.1554211536331684,
+    "cos_6mo_1y": 0.8100786805152893
+   }
+  },
+  "27": {
+   "orchard": {
+    "d_6months": 45.48550796508789,
+    "d_1year": 39.48215103149414,
+    "ratio_1y_over_6mo": 0.868016051657542,
+    "cos_6mo_1y": 0.6178314089775085
+   },
+   "mountain": {
+    "d_6months": 55.25412368774414,
+    "d_1year": 60.839237213134766,
+    "ratio_1y_over_6mo": 1.1010804832767322,
+    "cos_6mo_1y": 0.8824583292007446
+   },
+   "street": {
+    "d_6months": 55.273868560791016,
+    "d_1year": 62.32246780395508,
+    "ratio_1y_over_6mo": 1.127521366365207,
+    "cos_6mo_1y": 0.811644434928894
+   },
+   "river": {
+    "d_6months": 55.80195999145508,
+    "d_1year": 68.68912506103516,
+    "ratio_1y_over_6mo": 1.2309446670251771,
+    "cos_6mo_1y": 0.8276196122169495
+   }
+  }
+ },
+ "m6_real_vs_fictional": {
+  "0": {
+   "per_dt": {
+    "1day": {
+     "cos": 0.34361597895622253,
+     "norm_real": 0.08279971778392792,
+     "norm_fict": 0.07980118691921234,
+     "dist": 0.09318329393863678
+    },
+    "1week": {
+     "cos": 0.12426644563674927,
+     "norm_real": 0.08342110365629196,
+     "norm_fict": 0.07800213992595673,
+     "dist": 0.10689343512058258
+    },
+    "6months": {
+     "cos": 0.30936098098754883,
+     "norm_real": 0.09336826205253601,
+     "norm_fict": 0.08033006638288498,
+     "dist": 0.1026156097650528
+    },
+    "1year": {
+     "cos": 0.4247826635837555,
+     "norm_real": 0.08917514979839325,
+     "norm_fict": 0.08577466756105423,
+     "dist": 0.09386800229549408
+    },
+    "10years": {
+     "cos": 0.4891391694545746,
+     "norm_real": 0.09375590831041336,
+     "norm_fict": 0.11436796933412552,
+     "dist": 0.10667916387319565
+    },
+    "100years": {
+     "cos": 0.3934374749660492,
+     "norm_real": 0.08775657415390015,
+     "norm_fict": 0.0953725054860115,
+     "dist": 0.10105112940073013
+    },
+    "1000years": {
+     "cos": 0.46333351731300354,
+     "norm_real": 0.09392911195755005,
+     "norm_fict": 0.10593846440315247,
+     "dist": 0.10404154658317566
+    },
+    "10000years": {
+     "cos": 0.47048139572143555,
+     "norm_real": 0.09649824351072311,
+     "norm_fict": 0.11509154736995697,
+     "dist": 0.11003416031599045
+    },
+    "1000000years": {
+     "cos": 0.4909517467021942,
+     "norm_real": 0.08705217391252518,
+     "norm_fict": 0.08609237521886826,
+     "dist": 0.08735602349042892
+    }
+   },
+   "min_cos_at": "1week",
+   "max_dist_at": "10000years"
+  },
+  "8": {
+   "per_dt": {
+    "1day": {
+     "cos": 0.4214114844799042,
+     "norm_real": 6.2859368324279785,
+     "norm_fict": 5.387039661407471,
+     "dist": 6.324004650115967
+    },
+    "1week": {
+     "cos": 0.31024450063705444,
+     "norm_real": 5.842471599578857,
+     "norm_fict": 5.928250312805176,
+     "dist": 6.9128570556640625
+    },
+    "6months": {
+     "cos": 0.3312874734401703,
+     "norm_real": 6.36558723449707,
+     "norm_fict": 6.067752838134766,
+     "dist": 7.1935038566589355
+    },
+    "1year": {
+     "cos": 0.4684135913848877,
+     "norm_real": 6.591146469116211,
+     "norm_fict": 6.401813983917236,
+     "dist": 6.700503349304199
+    },
+    "10years": {
+     "cos": 0.4354649484157562,
+     "norm_real": 6.197322368621826,
+     "norm_fict": 6.608302593231201,
+     "dist": 6.812385082244873
+    },
+    "100years": {
+     "cos": 0.466218501329422,
+     "norm_real": 7.536524295806885,
+     "norm_fict": 6.4160685539245605,
+     "dist": 7.271676540374756
+    },
+    "1000years": {
+     "cos": 0.4768412411212921,
+     "norm_real": 7.10590124130249,
+     "norm_fict": 6.177879333496094,
+     "dist": 6.840609550476074
+    },
+    "10000years": {
+     "cos": 0.4985600411891937,
+     "norm_real": 7.5949811935424805,
+     "norm_fict": 6.488852024078369,
+     "dist": 7.1167521476745605
+    },
+    "1000000years": {
+     "cos": 0.416885644197464,
+     "norm_real": 6.653188705444336,
+     "norm_fict": 5.722548961639404,
+     "dist": 6.728160858154297
+    }
+   },
+   "min_cos_at": "1week",
+   "max_dist_at": "100years"
+  },
+  "14": {
+   "per_dt": {
+    "1day": {
+     "cos": 0.4440893232822418,
+     "norm_real": 8.791637420654297,
+     "norm_fict": 7.0420122146606445,
+     "dist": 8.47908878326416
+    },
+    "1week": {
+     "cos": 0.36297348141670227,
+     "norm_real": 8.231014251708984,
+     "norm_fict": 7.709144115447998,
+     "dist": 9.006453514099121
+    },
+    "6months": {
+     "cos": 0.36742594838142395,
+     "norm_real": 8.76382064819336,
+     "norm_fict": 7.731221675872803,
+     "dist": 9.315922737121582
+    },
+    "1year": {
+     "cos": 0.5201649069786072,
+     "norm_real": 9.0339994430542,
+     "norm_fict": 8.411473274230957,
+     "dist": 8.562250137329102
+    },
+    "10years": {
+     "cos": 0.46804481744766235,
+     "norm_real": 8.737312316894531,
+     "norm_fict": 8.14836597442627,
+     "dist": 8.72305965423584
+    },
+    "100years": {
+     "cos": 0.5525446534156799,
+     "norm_real": 10.793638229370117,
+     "norm_fict": 9.004335403442383,
+     "dist": 9.496185302734375
+    },
+    "1000years": {
+     "cos": 0.5341341495513916,
+     "norm_real": 10.095979690551758,
+     "norm_fict": 8.544548988342285,
+     "dist": 9.09853458404541
+    },
+    "10000years": {
+     "cos": 0.5889742970466614,
+     "norm_real": 10.917760848999023,
+     "norm_fict": 9.076761245727539,
+     "dist": 9.211560249328613
+    },
+    "1000000years": {
+     "cos": 0.48763367533683777,
+     "norm_real": 9.392457008361816,
+     "norm_fict": 7.496474742889404,
+     "dist": 8.7032470703125
+    }
+   },
+   "min_cos_at": "1week",
+   "max_dist_at": "100years"
+  },
+  "20": {
+   "per_dt": {
+    "1day": {
+     "cos": 0.4919932186603546,
+     "norm_real": 12.94406795501709,
+     "norm_fict": 10.425531387329102,
+     "dist": 11.977178573608398
+    },
+    "1week": {
+     "cos": 0.3349990248680115,
+     "norm_real": 12.116206169128418,
+     "norm_fict": 11.044108390808105,
+     "dist": 13.38359260559082
+    },
+    "6months": {
+     "cos": 0.3720797300338745,
+     "norm_real": 13.17427921295166,
+     "norm_fict": 11.20602035522461,
+     "dist": 13.757737159729004
+    },
+    "1year": {
+     "cos": 0.49757376313209534,
+     "norm_real": 13.166951179504395,
+     "norm_fict": 11.890908241271973,
+     "dist": 12.60773754119873
+    },
+    "10years": {
+     "cos": 0.4807523488998413,
+     "norm_real": 13.006105422973633,
+     "norm_fict": 11.400984764099121,
+     "dist": 12.512674331665039
+    },
+    "100years": {
+     "cos": 0.5693363547325134,
+     "norm_real": 15.215092658996582,
+     "norm_fict": 13.472908020019531,
+     "dist": 13.401493072509766
+    },
+    "1000years": {
+     "cos": 0.5268707275390625,
+     "norm_real": 15.104515075683594,
+     "norm_fict": 12.922220230102539,
+     "dist": 13.764331817626953
+    },
+    "10000years": {
+     "cos": 0.6116852760314941,
+     "norm_real": 16.54537010192871,
+     "norm_fict": 13.140637397766113,
+     "dist": 13.43295955657959
+    },
+    "1000000years": {
+     "cos": 0.5073989033699036,
+     "norm_real": 13.863611221313477,
+     "norm_fict": 11.14785385131836,
+     "dist": 12.634786605834961
+    }
+   },
+   "min_cos_at": "1week",
+   "max_dist_at": "1000years"
+  },
+  "27": {
+   "per_dt": {
+    "1day": {
+     "cos": 0.43628907203674316,
+     "norm_real": 41.21166229248047,
+     "norm_fict": 34.79865646362305,
+     "dist": 40.71822738647461
+    },
+    "1week": {
+     "cos": 0.2637811303138733,
+     "norm_real": 36.2596549987793,
+     "norm_fict": 37.164363861083984,
+     "dist": 44.55363845825195
+    },
+    "6months": {
+     "cos": 0.3296131491661072,
+     "norm_real": 39.28988265991211,
+     "norm_fict": 37.699703216552734,
+     "dist": 44.59265899658203
+    },
+    "1year": {
+     "cos": 0.46881410479545593,
+     "norm_real": 39.83929443359375,
+     "norm_fict": 39.83254623413086,
+     "dist": 41.0594482421875
+    },
+    "10years": {
+     "cos": 0.4826524555683136,
+     "norm_real": 38.53649139404297,
+     "norm_fict": 33.832420349121094,
+     "dist": 37.028987884521484
+    },
+    "100years": {
+     "cos": 0.5487428307533264,
+     "norm_real": 45.1837272644043,
+     "norm_fict": 41.344966888427734,
+     "dist": 41.24003982543945
+    },
+    "1000years": {
+     "cos": 0.5174708366394043,
+     "norm_real": 47.53308868408203,
+     "norm_fict": 44.431888580322266,
+     "dist": 45.252689361572266
+    },
+    "10000years": {
+     "cos": 0.538293182849884,
+     "norm_real": 48.26016616821289,
+     "norm_fict": 40.55366134643555,
+     "dist": 43.20448303222656
+    },
+    "1000000years": {
+     "cos": 0.48197340965270996,
+     "norm_real": 45.586936950683594,
+     "norm_fict": 38.98924255371094,
+     "dist": 43.41671371459961
+    }
+   },
+   "min_cos_at": "1week",
+   "max_dist_at": "1000years"
+  }
+ },
+ "m7_phrase_control": {
+  "0": {
+   "per_dt": {
+    "1day": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.059034135192632675,
+     "ratio": 59034135192.632675,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "1week": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.06204242631793022,
+     "ratio": 62042426317.93022,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "6months": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.058162789791822433,
+     "ratio": 58162789791.82243,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "1year": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.0638231709599495,
+     "ratio": 63823170959.94949,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "10years": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.05616576969623566,
+     "ratio": 56165769696.23566,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "100years": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.06147387996315956,
+     "ratio": 61473879963.15956,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "1000years": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.06910873204469681,
+     "ratio": 69108732044.69681,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "10000years": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.07146987318992615,
+     "ratio": 71469873189.92615,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    },
+    "1000000years": {
+     "shared_ctrl_norm": 0.0,
+     "shared_exp_norm": 0.07306032627820969,
+     "ratio": 73060326278.20969,
+     "cos_exp_ctrl": 0.0,
+     "frac_shared_ctrl": 1.0
+    }
+   },
+   "mean_ratio": 63815678159.39586,
+   "mean_cos": 0.0
+  },
+  "8": {
+   "per_dt": {
+    "1day": {
+     "shared_ctrl_norm": 1.8294966220855713,
+     "shared_exp_norm": 6.3320488929748535,
+     "ratio": 3.4610880482266464,
+     "cos_exp_ctrl": 0.47977256774902344,
+     "frac_shared_ctrl": 0.7333645242022369
+    },
+    "1week": {
+     "shared_ctrl_norm": 1.9741251468658447,
+     "shared_exp_norm": 6.192471504211426,
+     "ratio": 3.1368181060048617,
+     "cos_exp_ctrl": 0.45697614550590515,
+     "frac_shared_ctrl": 0.7982452178491217
+    },
+    "6months": {
+     "shared_ctrl_norm": 2.0039772987365723,
+     "shared_exp_norm": 6.093952178955078,
+     "ratio": 3.040928748441427,
+     "cos_exp_ctrl": 0.4575542211532593,
+     "frac_shared_ctrl": 0.7747003881833989
+    },
+    "1year": {
+     "shared_ctrl_norm": 1.7793349027633667,
+     "shared_exp_norm": 6.647457122802734,
+     "ratio": 3.7359224013845145,
+     "cos_exp_ctrl": 0.4489381015300751,
+     "frac_shared_ctrl": 0.7843061306998014
+    },
+    "10years": {
+     "shared_ctrl_norm": 2.04716420173645,
+     "shared_exp_norm": 6.320152759552002,
+     "ratio": 3.087272019600587,
+     "cos_exp_ctrl": 0.4768320918083191,
+     "frac_shared_ctrl": 0.7858996331223583
+    },
+    "100years": {
+     "shared_ctrl_norm": 2.3617794513702393,
+     "shared_exp_norm": 6.623959064483643,
+     "ratio": 2.804647597656843,
+     "cos_exp_ctrl": 0.4644010066986084,
+     "frac_shared_ctrl": 0.7942903863280899
+    },
+    "1000years": {
+     "shared_ctrl_norm": 2.3648250102996826,
+     "shared_exp_norm": 8.021560668945312,
+     "ratio": 3.3920313909084494,
+     "cos_exp_ctrl": 0.33221861720085144,
+     "frac_shared_ctrl": 0.7672143765168229
+    },
+    "10000years": {
+     "shared_ctrl_norm": 2.560441732406616,
+     "shared_exp_norm": 8.550308227539062,
+     "ratio": 3.3393879342448844,
+     "cos_exp_ctrl": 0.3816603720188141,
+     "frac_shared_ctrl": 0.7405203887132892
+    },
+    "1000000years": {
+     "shared_ctrl_norm": 2.46884822845459,
+     "shared_exp_norm": 8.228948593139648,
+     "ratio": 3.3331123794058986,
+     "cos_exp_ctrl": 0.3967873752117157,
+     "frac_shared_ctrl": 0.7539450103312613
+    }
+   },
+   "mean_ratio": 3.259023180652679,
+   "mean_cos": 0.43279338876406354
+  },
+  "14": {
+   "per_dt": {
+    "1day": {
+     "shared_ctrl_norm": 2.7603211402893066,
+     "shared_exp_norm": 9.453561782836914,
+     "ratio": 3.4248050507060457,
+     "cos_exp_ctrl": 0.5489296317100525,
+     "frac_shared_ctrl": 0.7250499226761664
+    },
+    "1week": {
+     "shared_ctrl_norm": 3.0459835529327393,
+     "shared_exp_norm": 9.1299467086792,
+     "ratio": 2.9973722937163236,
+     "cos_exp_ctrl": 0.5355327725410461,
+     "frac_shared_ctrl": 0.7418749811914119
+    },
+    "6months": {
+     "shared_ctrl_norm": 3.4483108520507812,
+     "shared_exp_norm": 9.05055046081543,
+     "ratio": 2.6246330012360275,
+     "cos_exp_ctrl": 0.49705275893211365,
+     "frac_shared_ctrl": 0.7299825520068521
+    },
+    "1year": {
+     "shared_ctrl_norm": 3.009413719177246,
+     "shared_exp_norm": 9.666338920593262,
+     "ratio": 3.2120339117855696,
+     "cos_exp_ctrl": 0.4817878007888794,
+     "frac_shared_ctrl": 0.7347936027506596
+    },
+    "10years": {
+     "shared_ctrl_norm": 3.4184529781341553,
+     "shared_exp_norm": 8.93396282196045,
+     "ratio": 2.613452014435527,
+     "cos_exp_ctrl": 0.4977061450481415,
+     "frac_shared_ctrl": 0.724351345195425
+    },
+    "100years": {
+     "shared_ctrl_norm": 3.55743670463562,
+     "shared_exp_norm": 9.511534690856934,
+     "ratio": 2.6737045464392892,
+     "cos_exp_ctrl": 0.4448063373565674,
+     "frac_shared_ctrl": 0.7151156767374537
+    },
+    "1000years": {
+     "shared_ctrl_norm": 3.739881753921509,
+     "shared_exp_norm": 11.94250774383545,
+     "ratio": 3.193284849530272,
+     "cos_exp_ctrl": 0.315812885761261,
+     "frac_shared_ctrl": 0.7377281475685117
+    },
+    "10000years": {
+     "shared_ctrl_norm": 4.0000834465026855,
+     "shared_exp_norm": 12.333693504333496,
+     "ratio": 3.0833590522002456,
+     "cos_exp_ctrl": 0.30885571241378784,
+     "frac_shared_ctrl": 0.7272794069518276
+    },
+    "1000000years": {
+     "shared_ctrl_norm": 3.819115161895752,
+     "shared_exp_norm": 11.903060913085938,
+     "ratio": 3.1167064643251865,
+     "cos_exp_ctrl": 0.30707621574401855,
+     "frac_shared_ctrl": 0.7367593718743899
+    }
+   },
+   "mean_ratio": 2.9932612427082765,
+   "mean_cos": 0.43750669558842975
+  },
+  "20": {
+   "per_dt": {
+    "1day": {
+     "shared_ctrl_norm": 4.240492343902588,
+     "shared_exp_norm": 14.965458869934082,
+     "ratio": 3.529179551862513,
+     "cos_exp_ctrl": 0.5749924778938293,
+     "frac_shared_ctrl": 0.7367452457507266
+    },
+    "1week": {
+     "shared_ctrl_norm": 4.281680107116699,
+     "shared_exp_norm": 14.200522422790527,
+     "ratio": 3.316577153716862,
+     "cos_exp_ctrl": 0.5584920644760132,
+     "frac_shared_ctrl": 0.7210141108083532
+    },
+    "6months": {
+     "shared_ctrl_norm": 4.939998149871826,
+     "shared_exp_norm": 13.896979331970215,
+     "ratio": 2.813154764506941,
+     "cos_exp_ctrl": 0.5406351089477539,
+     "frac_shared_ctrl": 0.6962544296026651
+    },
+    "1year": {
+     "shared_ctrl_norm": 4.504575252532959,
+     "shared_exp_norm": 14.49714183807373,
+     "ratio": 3.2183149409966347,
+     "cos_exp_ctrl": 0.5496500730514526,
+     "frac_shared_ctrl": 0.7031891328597751
+    },
+    "10years": {
+     "shared_ctrl_norm": 4.761471271514893,
+     "shared_exp_norm": 13.569129943847656,
+     "ratio": 2.8497767118791626,
+     "cos_exp_ctrl": 0.5234307646751404,
+     "frac_shared_ctrl": 0.6674867464126395
+    },
+    "100years": {
+     "shared_ctrl_norm": 4.8714919090271,
+     "shared_exp_norm": 14.201933860778809,
+     "ratio": 2.91531508744971,
+     "cos_exp_ctrl": 0.3865819275379181,
+     "frac_shared_ctrl": 0.6499141222309142
+    },
+    "1000years": {
+     "shared_ctrl_norm": 5.320897102355957,
+     "shared_exp_norm": 17.725650787353516,
+     "ratio": 3.3313274897764362,
+     "cos_exp_ctrl": 0.23350723087787628,
+     "frac_shared_ctrl": 0.6904646083203646
+    },
+    "10000years": {
+     "shared_ctrl_norm": 5.796494483947754,
+     "shared_exp_norm": 17.67864418029785,
+     "ratio": 3.04988544874015,
+     "cos_exp_ctrl": 0.2204340100288391,
+     "frac_shared_ctrl": 0.7117388259359889
+    },
+    "1000000years": {
+     "shared_ctrl_norm": 5.2545576095581055,
+     "shared_exp_norm": 17.454479217529297,
+     "ratio": 3.3217790182328693,
+     "cos_exp_ctrl": 0.20591750741004944,
+     "frac_shared_ctrl": 0.6944951835731916
+    }
+   },
+   "mean_ratio": 3.1494789074623646,
+   "mean_cos": 0.4215156849887636
+  },
+  "27": {
+   "per_dt": {
+    "1day": {
+     "shared_ctrl_norm": 8.672343254089355,
+     "shared_exp_norm": 37.431617736816406,
+     "ratio": 4.3162057404913705,
+     "cos_exp_ctrl": 0.5391980409622192,
+     "frac_shared_ctrl": 0.5737651378304693
+    },
+    "1week": {
+     "shared_ctrl_norm": 8.922141075134277,
+     "shared_exp_norm": 35.22223663330078,
+     "ratio": 3.9477336590720453,
+     "cos_exp_ctrl": 0.5063422322273254,
+     "frac_shared_ctrl": 0.573677104814426
+    },
+    "6months": {
+     "shared_ctrl_norm": 11.139297485351562,
+     "shared_exp_norm": 34.336570739746094,
+     "ratio": 3.082471833156122,
+     "cos_exp_ctrl": 0.5119360089302063,
+     "frac_shared_ctrl": 0.5945432853435471
+    },
+    "1year": {
+     "shared_ctrl_norm": 10.48625659942627,
+     "shared_exp_norm": 38.519569396972656,
+     "ratio": 3.673338434144029,
+     "cos_exp_ctrl": 0.5579980611801147,
+     "frac_shared_ctrl": 0.5915286435388832
+    },
+    "10years": {
+     "shared_ctrl_norm": 10.7907075881958,
+     "shared_exp_norm": 33.13212203979492,
+     "ratio": 3.0704309026069643,
+     "cos_exp_ctrl": 0.4906248152256012,
+     "frac_shared_ctrl": 0.5610922068432372
+    },
+    "100years": {
+     "shared_ctrl_norm": 11.861289024353027,
+     "shared_exp_norm": 37.37955856323242,
+     "ratio": 3.1513909227305197,
+     "cos_exp_ctrl": 0.2765779197216034,
+     "frac_shared_ctrl": 0.5896749358662451
+    },
+    "1000years": {
+     "shared_ctrl_norm": 13.433222770690918,
+     "shared_exp_norm": 47.13505935668945,
+     "ratio": 3.508842231033858,
+     "cos_exp_ctrl": 0.17383114993572235,
+     "frac_shared_ctrl": 0.6296133998729632
+    },
+    "10000years": {
+     "shared_ctrl_norm": 13.871088981628418,
+     "shared_exp_norm": 48.373748779296875,
+     "ratio": 3.4873793141520513,
+     "cos_exp_ctrl": 0.21182695031166077,
+     "frac_shared_ctrl": 0.6323334538826794
+    },
+    "1000000years": {
+     "shared_ctrl_norm": 12.924471855163574,
+     "shared_exp_norm": 47.46495056152344,
+     "ratio": 3.67248666664523,
+     "cos_exp_ctrl": 0.22681403160095215,
+     "frac_shared_ctrl": 0.6096352603065667
+    }
+   },
+   "mean_ratio": 3.545586633781354,
+   "mean_cos": 0.38834991223282284
+  }
+ }
+}
