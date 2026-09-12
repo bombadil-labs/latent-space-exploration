@@ -19,6 +19,15 @@ def blocks(m):
             return obj
         except AttributeError: continue
 B = blocks(model); l = a.layer
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple), so
+    `block.output[0]` silently means "batch row 0" there and a patch written that way lands on the
+    FIRST SEQUENCE OF THE BATCH ONLY. Harmless while this script traces one prompt per job, fatal the
+    moment anyone batches it -- see results/notes/random_control_diagnosis.md (hour 36) and
+    results/notes/instrument_audit.md (hour 39)."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
 prompts = a.prompts.split("|") if a.prompts else ["A passage from a story: It was late when the news reached her, and", "A passage from a story: The old man opened the box and"]
 def fmt(p):
     if not a.chat: return p
@@ -29,7 +38,7 @@ def gen(prompt, vec=None, scale=1.0):
     with model.generate(prompt, max_new_tokens=a.tokens, do_sample=False, backend=backend) as tracer:
         if v is not None:
             with tracer.all():
-                B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
+                h = resid(B[l]); h[:] = h + v.to(h.device, h.dtype)
         out = model.generator.output.save()
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))

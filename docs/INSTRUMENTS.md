@@ -131,11 +131,53 @@ results, which trace one prompt per job and are correct by accident. Corrected 8
 
 **Standing check.** Commit `fe31abb`: a tuple-or-tensor `resid()` helper, mid-rank ties, a
 mandatory no-patch arm, right padding. Hour 37 added an assertion that fails if at most one
-candidate's score moved; no-patch read exactly 2.00 in all four hour-37 runs. Not fixed: six other
-NDIF scripts (`ndif_generate`, `ndif_shift`, `ndif_commutator`, `ndif_recompose_gen`,
-`ndif_recompose_sweep`, `ndif_absential_probe`) keep the `output[0][:]` idiom at batch 1, which the
-note calls "a live trap"; and the local selector scripts (`stage5_factors.py`, `stage6_factors.py`,
-`time_translation_selector.py`) still rank 1-on-ties.
+candidate's score moved; no-patch read exactly 2.00 in all four hour-37 runs. Fixed at hour 39: the six other NDIF
+scripts (`ndif_generate`, `ndif_shift`, `ndif_commutator`, `ndif_recompose_gen`,
+`ndif_recompose_sweep`, `ndif_absential_probe`) kept the `output[0][:]` idiom, which the note called
+"a live trap"; each was verified to run at batch 1 (so no logged number moves) and all now use the
+`resid()` helper. The local selector scripts (`stage5_factors.py`, `stage6_factors.py`,
+`time_translation_selector.py`) ranked 1-on-ties with no no-patch arm; both are fixed
+(`results/notes/instrument_audit.md`).
+
+## 4b. A batched extraction that read its spans out of the padding (hours 30–31; caught at 39)
+
+**What it was.** `scripts/ndif_time_translation_extract.py`, the Gemma-2-9B-it time-grid extractor,
+batches six passages per NDIF job through six `tracer.invoke` blocks and pools the interval and state
+spans by **absolute** token index from `B[bi].output[0]`.
+
+**What it appeared to show.** Hour 31: the shared clock replicates on Gemma-9B — shared variance
+fraction 0.478, Spearman(‖shared‖, log Δt) 0.683, adjacent/distant cosine 0.87/0.61 — i.e. the clock
+is model-invariant across a 6× parameter jump.
+
+**What it actually was.** Not the hour-36 bug: nnsight 0.7's `Batcher.narrow` slices the batch
+dimension per invoke, so inside invoke *i* the block output is that passage's row alone and
+`output[0]` is safe (confirmed on NDIF: last-token vectors match a batch-of-one extraction to cosine
+0.99996). But `LanguageModel` loads its tokenizer with `padding_side="left"` and pads the six texts
+to a common length, and `narrow` touches only the batch dimension — so the sequence dimension keeps
+the padding while the indices were computed on the unpadded text. Every passage shorter than the
+longest of its six had its spans read `n_pad` positions too early. Measured on the v2 grid: **363 of
+480 passages corrupted**, 232 of them with the *entire* interval span inside the padding block; the
+batched-vs-single cosine for a 30-token-padded passage is 0.287 (interval) and 0.794 (state) against
+0.999997 / 0.999991 for the unpadded one. Because jobs are consecutive grid items, the shift is
+correlated with Δt — the measurement's own axis.
+
+**How it was caught.** By running the missing arm: the same three passages extracted batched and one
+per job, with a position-stable last-token readout alongside the span readouts to separate "wrong
+row" from "wrong positions". Three NDIF jobs, 18 seconds.
+
+**What it invalidated.** Every number in hour 31's shared-clock replication, withdrawn (its
+subject-clock half was already withdrawn at hour 32). The grid was re-extracted with the fixed
+script and the measurements redone: shared variance fraction 0.478 → **0.501**, Spearman 0.683 →
+**0.767**, adjacent/distant cosine 0.87/0.61 → **0.89/0.57**, phrase-only ratio 1.67 → **2.50** at
+layer 20 (and 1.72 → 3.31 at layer 31, the largest move, in the measure that reads the interval span
+that was being pooled out of the padding). The *conclusion* survives on the corrected vectors — the
+clock does replicate on Gemma-9B — but on new numbers, and still inside the v2 grid's lexical
+confound. See `results/notes/instrument_audit.md`.
+
+**Standing check.** Span indices are counted from the end of the sequence (correct under left
+padding, identical at batch 1) with an assertion on `tokenizer.padding_side`. The sibling batched
+readers `ndif_recompose_gen`/`ndif_recompose_sweep` pool `[..., -k:, :]` and were immune for that
+reason — stated in the code now rather than left to luck.
 
 ## 5. Same family, not broken instruments: the lexical floor and a failed calibration
 
@@ -179,16 +221,28 @@ rewrite; the batch-row bug would have survived indefinitely had the control not 
 
 ## What currently rests on instruments that have never been independently checked
 
-- **No local selector battery has a no-patch arm** (hours 4–11, 23, 28–32), and their scripts still
-  rank 1-on-ties. Their defence is a random control at chance (1.83–2.25). Hour 8's tense control is
+- **No local selector battery has a no-patch arm** (hours 4–11, 23, 28–32), and their scripts ranked
+  1-on-ties. Both properties are fixed at hour 39 (mid-rank ties + a zero-direction arm in
+  `stage5_factors`, `stage6_factors`, `time_translation_selector`). Hour 8's three-factor battery was
+  re-run with both fixes: every number reproduces to two decimals (era 1.25, voice 1.24, tense 1.03,
+  composed 2.81 of 18, same cross-talk matrix) and **the no-patch arm reads exactly chance on all
+  four tests** (2.00 / 2.00 / 1.50 / 9.50). Ties never fired locally — one text per forward pass
+  gives distinct gains — so no logged local number changes, and the batteries now have the positive
+  control they lacked. Hour 8's low tense random control (1.44) sits beside a no-patch of exactly
+  1.50, so it is a fluctuation, not an instrument failure. See `results/notes/instrument_audit.md`. Their defence is a random control at chance (1.83–2.25). Hour 8's tense control is
   the exception: factor 1.03 of 2, random 1.44 against chance 1.5, flagged at hour 36, not re-run.
 - **Every generation-level NDIF result** (hours 12–14, 19, 22, 27, 29, 31, 33) and hour 13's Gemma
   battery use the batch-row idiom at batch 1 with no plumbing assertion. Hour 29's dose-response
   (0.27 → 0.84 across 1×–3×) is the only evidence those patches land.
-- **Hour 31's Gemma extraction** batches six passages per job through `tracer.invoke` with
-  `output[0]`. The record does not say whether that path was re-checked after hour 36.
+- ~~**Hour 31's Gemma extraction** batches six passages per job through `tracer.invoke` with
+  `output[0]`.~~ Checked at hour 39 (§4b): `tracer.invoke` scoping makes `output[0]` safe, but the
+  absolute span indices were read out of nnsight's **left padding** for 363 of 480 passages. Hour 31
+  is withdrawn; the extractor is fixed and the grid re-extracted.
 - **The abstraction ladder** (hours 15, 26) has no permutation null or random-feature control in the
-  record; the broad corpus already shrank its effect from 2.9× to 1.9×, and the merge test (12 of
+  record. Hour 39 specifies exactly which three nulls it needs (merge-test null against the two
+  dictionaries' different marginal generality distributions, a size-matched random-feature control on
+  the width effect, and a matched-count + label-permutation null on the flow) and prices them at one
+  CPU-only session with no NDIF, since the corpus residuals are cached; the broad corpus already shrank its effect from 2.9× to 1.9×, and the merge test (12 of
   15, 13 of 15) has no null distribution.
 - **The shared-clock selector numbers in `WRITEUP.md` claim 10** (3.9 vs 5.7, 3.6 vs 4.8) come from
   the v1/v2 grids in which 221 of 240 state spans restate the interval; never re-run on v3.

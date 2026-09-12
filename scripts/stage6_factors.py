@@ -50,7 +50,13 @@ for s in S:
         else:
             patches = [Patch(ll, add_vector(DL[ll][0][n][lvl], a.scale)) for ll in LAYERS]
         return {c: lm.logprob(lead, f" {spans[key(s, c)]}", patches) - base[c] for c in combos}
-    rank = lambda gd, t, cands: 1 + sum(gd[c] > gd[t] for c in cands if c != t)
+    # mid-rank on ties: a patch that moves nothing must score chance, not 1.0 (hour-36 bug #2,
+    # results/notes/random_control_diagnosis.md §4). Audit hour 39.
+    rank = lambda gd, t, cands: (1 + sum(gd[c] > gd[t] for c in cands if c != t)
+                                 + 0.5 * sum(gd[c] == gd[t] for c in cands if c != t))
+    # no-patch arm: identical scoring pass with a zero direction. Must read chance under mid-rank;
+    # anything else means the patch/scoring plumbing, not the factor, is producing the ranks.
+    gd_none = gains(np.zeros_like(D[names[0]][F[names[0]][0]]))
     for i, n in enumerate(names):
         for lvl in F[n]:
             r = rng.normal(size=D[n][lvl].shape); r *= np.linalg.norm(D[n][lvl]) / np.linalg.norm(r)
@@ -60,15 +66,22 @@ for s in S:
                     if c[i] == lvl:
                         res.append(dict(scene=s, test="B", factor=n, cond=cond, rank=rank(gd, c, [cc for cc in combos if all(cc[j] == c[j] for j in range(len(names)) if j != i)])))
                 res.append(dict(scene=s, test="X", factor=n, cond=cond, **{f"frac_{m}": dec[m] for m in names}))
+            for c in combos:
+                if c[i] == lvl:
+                    res.append(dict(scene=s, test="B", factor=n, cond="none",
+                                    rank=rank(gd_none, c, [cc for cc in combos if all(cc[j] == c[j] for j in range(len(names)) if j != i)])))
     for c in combos:
         patches = [Patch(ll, add_vector(sum(DL[ll][0][n][c[i]] for i, n in enumerate(names)), a.scale)) for ll in LAYERS]
-        gd = {cc: lm.logprob(lead, f" {spans[key(s, cc)]}", patches) - base[cc] for cc in combos}; res.append(dict(scene=s, test="D", rank=rank(gd, c, combos)))
+        gd = {cc: lm.logprob(lead, f" {spans[key(s, cc)]}", patches) - base[cc] for cc in combos}
+        res.append(dict(scene=s, test="D", cond="compose", rank=rank(gd, c, combos)))
+        res.append(dict(scene=s, test="D", cond="none", rank=rank(gd_none, c, combos)))
     print("scene", s, "done")
 print(f"\n=== summary layers={LAYERS} scale={a.scale} ===")
 for n in names:
     k = len(F[n]); f = lambda c: np.mean([x["rank"] for x in res if x["test"] == "B" and x["factor"] == n and x["cond"] == c])
-    print(f"(B) {n:6s} lens: rank/{k} factor-dir {f('factor'):.2f}  random {f('rand'):.2f}   (chance {(k+1)/2:.1f})")
-print(f"(D) all {len(names)} factors composed: rank/{len(combos)} {np.mean([x['rank'] for x in res if x['test']=='D']):.2f}   (chance {(len(combos)+1)/2:.1f})")
+    print(f"(B) {n:6s} lens: rank/{k} factor-dir {f('factor'):.2f}  random {f('rand'):.2f}  no-patch {f('none'):.2f}   (chance {(k+1)/2:.1f})")
+dm = lambda c: np.mean([x['rank'] for x in res if x['test'] == 'D' and x['cond'] == c])
+print(f"(D) all {len(names)} factors composed: rank/{len(combos)} {dm('compose'):.2f}  no-patch {dm('none'):.2f}   (chance {(len(combos)+1)/2:.1f})")
 print("(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor")
 print("        " + "".join(f"{m:>9s}" for m in names))
 for n in names + ["rand"]:

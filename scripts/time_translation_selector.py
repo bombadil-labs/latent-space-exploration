@@ -54,6 +54,14 @@ rng = np.random.default_rng(a.seed)
 p = a.paraphrase
 t0_text = {s: ST[s]["t0"][p] for s in S}
 
+def rank_of(score, target, cands):
+    """Mid-rank on ties. The strict-'>' form scored a total tie as rank 1, so a patch that moves
+    nothing (the no-patch arm, whose gains are all identically zero) looked like a perfect selector
+    -- the second bug of hour 36, results/notes/random_control_diagnosis.md §4. Audit hour 39."""
+    others = [c for c in cands if c != target]
+    return 1 + sum(score[c] > score[target] for c in others) + 0.5 * sum(score[c] == score[target] for c in others)
+
+
 res, t_start = [], time.time()
 base_cache = {}
 for l in TEST:
@@ -67,16 +75,12 @@ for l in TEST:
             base = base_cache[key]
             v = SHARED[l][t][s]
             r = rng.normal(size=v.shape); r *= np.linalg.norm(v) / np.linalg.norm(r)
-            for cond, vec in (("clock", v), ("rand", r)):
+            for cond, vec in (("clock", v), ("rand", r), ("none", np.zeros_like(v))):
                 patches = [Patch(l, add_vector(vec, a.scale))]
                 lp = {c: lm.logprob(prefix, cands[c], patches) for c in DT}
                 gain = {c: lp[c] - base[c] for c in DT}
                 res.append(dict(layer=l, subject=s, dt=t, cond=cond,
-                                rank_raw=1 + sum(lp[c] > lp[t] for c in DT if c != t),
-                                rank_gain=1 + sum(gain[c] > gain[t] for c in DT if c != t)))
-            res.append(dict(layer=l, subject=s, dt=t, cond="none",
-                            rank_raw=1 + sum(base[c] > base[t] for c in DT if c != t),
-                            rank_gain=None))
+                                rank_raw=rank_of(lp, t, DT), rank_gain=rank_of(gain, t, DT)))
         print(f"  layer {l} {s} done  {time.time()-t_start:.0f}s", flush=True)
 
 os.makedirs(os.path.dirname(a.out), exist_ok=True)
@@ -90,11 +94,13 @@ for l in TEST:
     print(f"  layer {l:2d}  raw:  clock {m('rank_raw', layer=l, cond='clock'):.2f}  "
           f"none {m('rank_raw', layer=l, cond='none'):.2f}  rand {m('rank_raw', layer=l, cond='rand'):.2f}")
     print(f"           gain: clock {m('rank_gain', layer=l, cond='clock'):.2f}  "
-          f"rand {m('rank_gain', layer=l, cond='rand'):.2f}")
+          f"rand {m('rank_gain', layer=l, cond='rand'):.2f}  "
+          f"no-patch {m('rank_gain', layer=l, cond='none'):.2f}   (no-patch must read 5.00)")
     for t in TESTDT:
         print(f"      {t:14s} raw clock {m('rank_raw', layer=l, cond='clock', dt=t):.2f} "
               f"none {m('rank_raw', layer=l, cond='none', dt=t):.2f} "
               f"rand {m('rank_raw', layer=l, cond='rand', dt=t):.2f} | "
               f"gain clock {m('rank_gain', layer=l, cond='clock', dt=t):.2f} "
-              f"rand {m('rank_gain', layer=l, cond='rand', dt=t):.2f}")
+              f"rand {m('rank_gain', layer=l, cond='rand', dt=t):.2f} "
+              f"none {m('rank_gain', layer=l, cond='none', dt=t):.2f}")
 print(f"\nwrote {a.out} in {time.time()-t_start:.0f}s")

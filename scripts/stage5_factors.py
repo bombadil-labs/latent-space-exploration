@@ -49,7 +49,15 @@ for s in test_scenes:
     lp = lambda ev, patches=None: lm.logprob(lead, txt[ev], patches)
     base = {ev: lp(ev) for ev in txt}
     def gains(patches): return {ev: lp(ev, patches) - base[ev] for ev in txt}
-    def rank_in(gd, target, cands): return 1 + sum(gd[c] > gd[target] for c in cands if c != target)
+    # mid-rank on ties: a patch that moves nothing scores chance, not 1.0. The strict-'>' form scored a
+    # total tie as rank 1, i.e. "doing nothing is a perfect selector" -- the second bug of hour 36
+    # (results/notes/random_control_diagnosis.md §4). Audit hour 39.
+    def rank_in(gd, target, cands):
+        others = [c for c in cands if c != target]
+        return 1 + sum(gd[c] > gd[target] for c in others) + 0.5 * sum(gd[c] == gd[target] for c in others)
+    # no-patch arm: the same scoring pass with a zero direction. Under mid-rank ties this must read
+    # chance (2.0 for a 3-way lens, 5.0 composed); anything else is a stop-the-line plumbing failure.
+    gd_none = gains(P(np.zeros_like(de[E[0]])))
     # (B) era lens + (C) cross-talk under era patch
     for e in E:
         for cond, vec in (("era", de[e]), ("rand", (r := rng.normal(size=de[e].shape)) / np.linalg.norm(r) * np.linalg.norm(de[e]))):
@@ -69,10 +77,15 @@ for s in test_scenes:
                     for vv in V:
                         res.append(dict(scene=s, test="C_era_under_voice", cond="patched", rank=rank_in(ab, (e, vv), [(ee, vv) for ee in E]),
                                         base_rank=rank_in(base, (e, vv), [(ee, vv) for ee in E])))
+    for e in E:
+        for v in V:
+            res.append(dict(scene=s, test="B_era", cond="none", factor=e, rank=rank_in(gd_none, (e, v), [(ee, v) for ee in E])))
+            res.append(dict(scene=s, test="B_voice", cond="none", factor=v, rank=rank_in(gd_none, (e, v), [(e, vv) for vv in V])))
+            res.append(dict(scene=s, test="D_compose", cond="none", rank=rank_in(gd_none, (e, v), list(txt))))
     # (D) composition and (E) commutator
     for e in E:
         for v in V:
-            gd = gains(P(de[e] + dv[v])); res.append(dict(scene=s, test="D_compose", rank=rank_in(gd, (e, v), list(txt))))
+            gd = gains(P(de[e] + dv[v])); res.append(dict(scene=s, test="D_compose", cond="compose", rank=rank_in(gd, (e, v), list(txt))))
             g1 = gains([Patch(l, add_vector(de[e], a.scale)), Patch(a.layer2, add_vector(dv2[v], a.scale))])
             g2 = gains([Patch(l, add_vector(dv[v], a.scale)), Patch(a.layer2, add_vector(de2[e], a.scale))])
             res.append(dict(scene=s, test="E_era_then_voice", rank=rank_in(g1, (e, v), list(txt))))
@@ -82,10 +95,10 @@ for s in test_scenes:
     print(f"scene {s} done")
 print(f"\n=== summary  layer={l} layer2={a.layer2} scale={a.scale} ===")
 m = lambda t, c=None: np.mean([x["rank"] for x in res if x["test"] == t and (c is None or x["cond"] == c)])
-print(f"(B) era lens: rank/3 factor-dir {m('B_era','era'):.2f}  random {m('B_era','rand'):.2f}   (chance 2.0)")
-print(f"(B) voice lens: rank/3 factor-dir {m('B_voice','voice'):.2f}  random {m('B_voice','rand'):.2f}   (chance 2.0)")
+print(f"(B) era lens: rank/3 factor-dir {m('B_era','era'):.2f}  random {m('B_era','rand'):.2f}  no-patch {m('B_era','none'):.2f}   (chance 2.0)")
+print(f"(B) voice lens: rank/3 factor-dir {m('B_voice','voice'):.2f}  random {m('B_voice','rand'):.2f}  no-patch {m('B_voice','none'):.2f}   (chance 2.0)")
 print(f"(C) voice readout under +era: rank {m('C_voice_under_era'):.2f}  (base {np.mean([x['base_rank'] for x in res if x['test']=='C_voice_under_era']):.2f})")
 print(f"(C) era readout under +voice: rank {m('C_era_under_voice'):.2f}  (base {np.mean([x['base_rank'] for x in res if x['test']=='C_era_under_voice']):.2f})")
-print(f"(D) era+voice composed: rank/9 {m('D_compose'):.2f}   (chance 5.0)")
+print(f"(D) era+voice composed: rank/9 {m('D_compose','compose'):.2f}  no-patch {m('D_compose','none'):.2f}   (chance 5.0)")
 print(f"(E) era@{l}+voice@{a.layer2}: {m('E_era_then_voice'):.2f}   voice@{l}+era@{a.layer2}: {m('E_voice_then_era'):.2f}   mean |rank gap| {m('E_order_gap'):.2f}   gain-profile corr {np.mean([x['agree'] for x in res if x['test']=='E_order_gap']):.2f}")
 if a.out: json.dump(dict(decodability=accA, results=res), open(a.out, "w"), indent=1)

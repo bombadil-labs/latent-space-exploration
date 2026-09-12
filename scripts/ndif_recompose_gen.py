@@ -122,6 +122,15 @@ def blocks(m):
 
 
 B = blocks(model); D = model.config.hidden_size; NL = len(B)
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple), so
+    `block.output[0]` silently means "batch row 0" there and a patch written that way lands on the
+    FIRST SEQUENCE OF THE BATCH ONLY. Harmless while this script traces one prompt per job, fatal the
+    moment anyone batches it -- see results/notes/random_control_diagnosis.md (hour 36) and
+    results/notes/instrument_audit.md (hour 39)."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
 assert a.layer < NL and a.read < NL, f"{a.model} has {NL} blocks"
 
 
@@ -146,7 +155,7 @@ def _inner_gen(prompt, vec):
     with model.generate(prompt, max_new_tokens=a.tokens, do_sample=False, backend=backend) as tracer:
         if v is not None:
             with tracer.all():
-                B[a.layer].output[0][:] = B[a.layer].output[0] + v.to(B[a.layer].output[0])
+                h = resid(B[a.layer]); h[:] = h + v.to(h.device, h.dtype)
         out = model.generator.output.save()
     res = backend.wait(tracer)
     ts = [x for x in res.values() if isinstance(x, torch.Tensor)] if isinstance(res, dict) else []

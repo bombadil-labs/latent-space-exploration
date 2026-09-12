@@ -46,6 +46,9 @@ ckpt = a.stacks + ".partial.npz"
 
 model = LanguageModel(a.model, device_map="auto", dispatch=False)
 tok = model.tokenizer
+assert tok.padding_side == "left", (
+    "span indices below are counted from the end of the sequence, which is only correct for "
+    f"left padding; tokenizer reports padding_side={tok.padding_side!r}")
 
 
 def blocks(m):
@@ -81,12 +84,22 @@ todo = [(k, m) for k, m in items if f"{k}::state" not in out]
 
 
 def _spans(marked):
-    """Parsed text plus token index lists for the 'interval' and 'state' roles."""
+    """Parsed text plus token index lists for the 'interval' and 'state' roles.
+
+    Indices are returned NEGATIVE (counted from the end of the sequence). nnsight batches the six
+    `tracer.invoke` texts of a job into one padded tensor and pads on the LEFT (LanguageModel loads
+    its tokenizer with padding_side='left'; Gemma's own default is left too), and the per-invoke
+    narrow slices the batch dimension only -- the sequence dimension keeps the padded length. Absolute
+    indices computed on the unpadded text therefore point `n_pad` positions too early for every
+    passage that is not the longest of its job, which pooled pad positions and early tokens instead of
+    the requested span (audit hour 39, `results/audit_h31_batch_check.log`). Counting from the end is
+    correct under left padding and identical at batch 1."""
     parsed = parse_roles(marked)
     enc = tok(parsed.text, return_offsets_mapping=True)
     offs = enc["offset_mapping"]
-    idx_state = tokens_in_span(offs, parsed.spans["state"][0])
-    idx_interval = tokens_in_span(offs, parsed.spans["interval"][0])
+    n = len(enc["input_ids"])
+    idx_state = [j - n for j in tokens_in_span(offs, parsed.spans["state"][0])]
+    idx_interval = [j - n for j in tokens_in_span(offs, parsed.spans["interval"][0])]
     return parsed.text, idx_interval, idx_state
 
 

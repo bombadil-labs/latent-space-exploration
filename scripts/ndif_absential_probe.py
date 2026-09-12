@@ -122,6 +122,15 @@ for k in chosen:
 model = LanguageModel(a.model, device_map="auto", dispatch=False)
 tok = model.tokenizer
 B = model.model.layers
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple), so
+    `block.output[0]` silently means "batch row 0" there and a patch written that way lands on the
+    FIRST SEQUENCE OF THE BATCH ONLY. Harmless while this script traces one prompt per job, fatal the
+    moment anyone batches it -- see results/notes/random_control_diagnosis.md (hour 36) and
+    results/notes/instrument_audit.md (hour 39)."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
 l = a.layer
 lead = grid["lead"]
 texts = {k: f"{lead} {grid['spans'][k]}" for k in chosen}
@@ -138,7 +147,7 @@ def _score(text, vec=None):
     backend = ProxyAuthBackend(model.to_model_key())
     with model.trace({"input_ids": ids, "attention_mask": enc["attention_mask"]}, backend=backend) as tracer:
         if v is not None:
-            B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
+            h = resid(B[l]); h[:] = h + v.to(h.device, h.dtype)
         logits = model.lm_head.output[:, :-1, :]
         picked = logits.gather(-1, tgt.unsqueeze(-1).to(logits.device)).squeeze(-1).float() \
             - torch.logsumexp(logits, dim=-1).float()
@@ -161,7 +170,7 @@ def _gen(text, vec=None):
     with model.generate(text, max_new_tokens=a.gen_tokens, do_sample=False, backend=backend) as tracer:
         if v is not None:
             with tracer.all():
-                B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
+                h = resid(B[l]); h[:] = h + v.to(h.device, h.dtype)
         out = model.generator.output.save()
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))

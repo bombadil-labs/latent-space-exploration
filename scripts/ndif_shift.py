@@ -19,6 +19,15 @@ def blocks(m):
             return obj
         except AttributeError: continue
 B = blocks(model); D = model.config.hidden_size
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple), so
+    `block.output[0]` silently means "batch row 0" there and a patch written that way lands on the
+    FIRST SEQUENCE OF THE BATCH ONLY. Harmless while this script traces one prompt per job, fatal the
+    moment anyone batches it -- see results/notes/random_control_diagnosis.md (hour 36) and
+    results/notes/instrument_audit.md (hour 39)."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
 def dirs(l, train):
     allv = np.stack([X[key(s, e, t)][l] for s in train for e in E for t in T]); mu = allv.mean(0)
     return ({e: np.mean([X[key(s, e, t)][l] for s in train for t in T], axis=0) - mu for e in E},
@@ -31,7 +40,7 @@ def _inner_read_span(text, vec=None):
     backend = ProxyAuthBackend(model.to_model_key())
     with model.trace(text, backend=backend) as tracer:
         if v is not None:
-            B[a.layer].output[0][:] = B[a.layer].output[0] + v.to(B[a.layer].output[0])
+            _h = resid(B[a.layer]); _h[:] = _h + v.to(_h.device, _h.dtype)
         h = B[a.read].output[0][..., sel, :].mean(-2).reshape(-1, D)[-1].save()
     res = backend.wait(tracer); o = res["h"] if isinstance(res, dict) and "h" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
     return o.float().cpu().numpy()

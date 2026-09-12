@@ -116,6 +116,17 @@ def make_model(name):
     raise RuntimeError("no blocks")
 
 
+def resid(block):
+    """Hidden states at a block's output. transformers >= 4.54 returns a bare Tensor [batch, seq, d]
+    from Llama/Gemma/Qwen decoder layers (older versions, and GPT-J today, return a tuple), so
+    `block.output[0]` silently means "batch row 0" there and a patch written that way lands on the
+    FIRST SEQUENCE OF THE BATCH ONLY. Harmless while this script traces one prompt per job, fatal the
+    moment anyone batches it -- see results/notes/random_control_diagnosis.md (hour 36) and
+    results/notes/instrument_audit.md (hour 39)."""
+    o = block.output
+    return o if isinstance(o, torch.Tensor) else o[0]
+
+
 def run(model, B, tok, prompt, patches, n_tokens):
     """patches: list of (layer, np.ndarray). Returns list of generated token ids."""
     from lsx.ndif import ProxyAuthBackend
@@ -125,7 +136,7 @@ def run(model, B, tok, prompt, patches, n_tokens):
         if vs:
             with tracer.all():
                 for l, v in vs:
-                    B[l].output[0][:] = B[l].output[0] + v.to(B[l].output[0])
+                    h = resid(B[l]); h[:] = h + v.to(h.device, h.dtype)
         out = model.generator.output.save()
     res = backend.wait(tracer)
     o = res["out"] if isinstance(res, dict) and "out" in res else next(x for x in res.values() if isinstance(x, torch.Tensor))
