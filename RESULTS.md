@@ -4,6 +4,71 @@ Honest running record. Numbers are from the scripts in `scripts/`, JSON in `resu
 and null results are kept. Models: Qwen2.5-0.5B (24 layers, d=896), Qwen2.5-1.5B (28 layers,
 d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, flat}, 6 roles).
 
+## CHECKPOINT 2 — 2026-09-12, after 38 stages
+
+*Checkpoint 1 (below) covers stages 1–22 and still reads correctly except where this supersedes it.
+Twelve stages have been logged since; three of them retracted earlier results. The instrument
+history is written up separately in `docs/INSTRUMENTS.md`.*
+
+**Withdrawn since Checkpoint 1 (read this first).**
+- **Hours 28, 30, 31 — "subject-relative timescales are absent."** Withdrawn at h32. The probe was a
+  1536-dimensional residual norm built from three-paraphrase means, sitting at its own noise floor
+  (residual/floor 1.1–1.4, nothing above 1.8; the identical pipeline on Gaussian noise returns 0.95
+  and "no signal" everywhere). Three published negatives across two models were an instrument
+  reading itself.
+- **Hour 34 — the Llama selector battery.** Withdrawn at h36. `ndif_factors.py` patched
+  `B[l].output[0]`, which under current transformers is batch row 0 of a bare tensor rather than the
+  hidden states; with nine candidates in one padded batch only one was ever touched, and
+  rank-1-on-ties pinned every measured rank at 11/9 = 1.22 for *any* direction. That was the whole
+  reported band (1.00–1.28), treatment and control alike. The layer-sweep conclusion went with it,
+  so **h33's depth-fraction confound is open again**.
+- **Hour 28–35 discrimination numbers are inflated by copying.** At h38, with the interval phrase
+  removed so the model cannot copy Δt from the prompt, h35's 0.961 at layer 14 falls to 0.522.
+
+**Stands, added or changed since Checkpoint 1.**
+10. **The gauge/engine boundary is a magnitude, and it is engine-specific.** At 3× norm re-imposed at
+    every decoding step, an era shift moves the *generated* era on Gemma-2-9B-it: 0.84 read as
+    target, 0.30 gaining target-era vocabulary, prose intact (h29). The same treatment on
+    Llama-3.1-70B-Instruct reaches only 0.43, below Gemma's 2× value (h33). At matched norm both are
+    null (h27). Bigger is not more steerable.
+11. **Instruction tuning sharpens some factors and not others.** On the matched pair Llama-3.1-70B
+    and 70B-Instruct — same pretraining, size, tokenizer — the era selector goes 1.50 → 1.06, at both
+    layer 26 and layer 14, so depth does not explain it; theme is tuning-invariant at 1.06–1.39
+    either way (h37). The 70B-Instruct has the sharpest era selector measured and the weak engine of
+    h33: sharp gauge, weak engine, at fixed size.
+12. **Claim 7 of the writeup is now about tuning, not only scale**, pending the generation arms.
+
+**Fell, added since Checkpoint 1.**
+- **Parameterized time translation** (h28–h38). Five stages, ~1M agent tokens, closed at h38. A
+  shared direction does track the interval and replicates across models, and against a lexical floor
+  of 0.728 the model recovers real gain (0.297 at layer 24, permutation z 7.6), so it is not only
+  vocabulary. But the gain survives word-shuffling the passage (structural residue 0.076, label-swap
+  z 1.21) and does not transfer to the case where the model must supply the change itself (ρ 0.150,
+  cos 0.078). It is a **computed register detector** — how much change a passage describes, read
+  order-invariantly — not a representation of elapsed time. `transform: translate (parameterized)` is
+  withdrawn from ALGEBRA as a time operator. Subject-relative clocks dropped with reasons on record.
+- **Llama-3.1-405B is unreachable** for this key: "Model is not pinned and hotswapping is not
+  supported", deterministic, 3/3 attempts (h34). `results/ndif_pinned.txt` is stale. The
+  scale-vs-tuning spec's "or sufficient scale substitutes for tuning" clause cannot be tested; 70B is
+  the largest reachable base model.
+
+**Standing caveats, updated.** Every caveat from Checkpoint 1 still holds, and **no human-written
+grid yet** remains the first thing a reviewer will ask about. Added: no text-based time grid can
+drive layer-0 discrimination to chance, because far-interval prose genuinely uses a different
+register from near-interval prose (h35, floor 0.72); any future stimulus-based design must measure
+gain over that floor rather than try to remove it.
+
+**Plan from here.**
+1. **Consolidation, not experiments.** This checkpoint, `docs/INSTRUMENTS.md`, and a writeup pass that
+   matches stage 38. The value is now in the narrative; the experiments have outrun the exposition.
+2. **A human-written grid.** Every grid so far was authored by a model. This is the cheapest single
+   change to the repo's credibility.
+3. **Piece 2 of `docs/specs/scale_vs_tuning_v1.md`**: the generation arms on the 70B pair at 3×
+   re-imposed, with a *generation-level* layer sweep, which is the control h33 needs and h36 removed.
+4. **Re-check h8's `tense` random control** (1.44, closer to its treatment than it should be), and
+   correct `results/ndif_pinned.txt`.
+Deferred unchanged: cohere, commutator regimes, Shadow Walker adapter. Dropped: subject clocks.
+
 ## CHECKPOINT 1 — 2026-09-11, after 22 stages
 
 **Stands, with controls (keep in the writeup).**
