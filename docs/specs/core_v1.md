@@ -6,11 +6,19 @@ sixth cheap to detect.*
 
 ## 0. Blocking dependency
 
-**The §2a pass-through test against stage 14 must return a verdict before piece 1 starts.** It is
-offline, needs no forward pass, and decides whether `readout_shift` has a reproduction target at all
-— and whether claim 6 of `WRITEUP.md` stands. If stage 14 is arithmetic, §1A loses a row, §8 loses an
-instrument's only target, and the writeup loses a claim. Building the core against a target that is
-about to be withdrawn would be the same mistake this core exists to prevent.
+**Resolved at stage 40: verdict (a). Stage 14 is residual arithmetic and claim 6 is withdrawn.**
+The model arm is indistinguishable from vector addition and on Gemma is worse than it; gain over a
+norm-matched pass-through is −0.111, −0.125, −0.028. Consequences, applied below: §1A loses its
+stage-14 row; §8's `readout_shift` keeps the instrument but its reproduction target becomes the
+*negative* result — the instrument must return "no gain over pass-through" on the stage-14
+configuration; and `results/notes/passthrough_h14.md` is the reference implementation of the arm.
+
+**A new blocking item takes its place.** The same arm is untested against the log-probability
+selector instruments (`stage4*`, `stage5*`, `stage6_factors`, `ndif_factors`,
+`time_translation_selector`, the h37 70B battery). Exposure there is weaker — a log-prob readout
+passes through the unembedding rather than being a linear readout of the same stream — but four §1A
+targets depend on it. **Run that arm before piece 3 grades any selector target.** It need not block
+pieces 1 and 2.
 
 ## 1. Acceptance criteria (pre-registered; do not renegotiate after building)
 
@@ -32,7 +40,7 @@ on a grid with 221 of 240 leaky spans.
 | three-factor battery, Qwen-1.5B | h8, re-verified h39 | era 1.25, voice 1.24, tense 1.03, composed 2.81/18, no-patch 2.00/2.00/1.50/9.50 |
 | role lens, held-out domains | h4 | 1.7/6, random 3.3, chance 3.5 |
 | relation selector, 40 domains | h16 | 2.21/6 vs 3.5 null, **as a full layer curve — the logged "peak layer 16" is argmax on scoring data and the core must refuse it** |
-| era shift as readout | h14 | **re-posed as gain over pass-through (§2a), not the raw 0.89/0.88.** If the gain is ~0, the logged claim is arithmetic and must be withdrawn |
+| ~~era shift as readout~~ | h14 | **withdrawn at h40.** Replaced by a negative target: on this configuration the core must report no gain over a norm-matched pass-through (logged gain −0.111 / −0.125 / −0.028) |
 | era shift in generation, 3x re-imposed | h29 | era→target 0.84, lexical 0.30, Gemma-9B |
 | 70B matched pair selector | h37 | era 1.50 base / 1.06 instruct @26; theme 1.06 / 1.06; no-patch 2.00 |
 | Gemma clock, corrected | h39 | as **gain over the measured stimulus floor**; the logged 0.501 / 0.767 / 2.50 are raw scores on a leaky grid and the core must not print them bare |
@@ -238,7 +246,7 @@ claimed invariances, and its reproduction target from §1A.
 |---|---|---|---|
 | `selector` | random, no_patch, permutation | midpoint of candidates | h4, h8, h16, h37 |
 | `composition` | random, no_patch | midpoint over joint variants | h8 (2.81/18) |
-| `readout_shift` | random, no_patch, **passthrough** | pass-through value, not chance | h14, re-posed |
+| `readout_shift` | random, no_patch, **passthrough (norm-matched)** | pass-through value, not chance | h14 as a *negative* target: no gain |
 | `crosstalk` | permutation | variance-decomposition zero | h8 matrix |
 | `discrimination` | shuffled-stimulus, floor | floor value, not chance | h39 |
 | `depth_gain` | shuffled-stimulus, floor, layer-0 calibration | 0 at the known-zero point | h38 |
