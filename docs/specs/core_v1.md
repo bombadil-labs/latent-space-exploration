@@ -8,19 +8,26 @@ sixth cheap to detect.*
 
 The core is finished when it does both of these, and not before.
 
-**A. Reproduction.** Re-run through the core, these surviving claims come back within the stated
-tolerance of their logged values. Tolerance is ±0.03 on ranks and fractions, ±0.02 on cosines,
-unless noted.
+**A. Reproduction.** Re-run through the core, these surviving claims come back within tolerance.
+**Tolerance is per target, set from measured re-run variance, not one number for all.** Local
+targets: ±0.02 (stage 39's re-run reproduced stage 8 to two decimals, so this is measured). Remote
+targets: **unmeasured** — the first task of piece 3 is to re-run one remote target twice and set the
+tolerance from the spread. Stage 29 lost 17 of 72 jobs and stage 37 hit bf16 ties, so ±0.03 on a
+fraction over ~55 surviving generations is almost certainly tighter than the noise.
+
+Two targets are restated because the core would refuse them as originally logged, which is the point:
+stage 16's "peak layer 16" was an argmax on the scoring data, and stage 39's numbers are raw scores
+on a grid with 221 of 240 leaky spans.
 
 | claim | source | target |
 |---|---|---|
 | three-factor battery, Qwen-1.5B | h8, re-verified h39 | era 1.25, voice 1.24, tense 1.03, composed 2.81/18, no-patch 2.00/2.00/1.50/9.50 |
 | role lens, held-out domains | h4 | 1.7/6, random 3.3, chance 3.5 |
-| relation selector, 40 domains | h16 | 2.21/6 vs 3.5 null, peak layer 16 |
-| era shift as readout | h14 | moved 0.89 (Qwen) / 0.88 (Gemma); theme kept 0.81 / 0.94 |
+| relation selector, 40 domains | h16 | 2.21/6 vs 3.5 null, **as a full layer curve — the logged "peak layer 16" is argmax on scoring data and the core must refuse it** |
+| era shift as readout | h14 | **re-posed as gain over pass-through (§2a), not the raw 0.89/0.88.** If the gain is ~0, the logged claim is arithmetic and must be withdrawn |
 | era shift in generation, 3x re-imposed | h29 | era→target 0.84, lexical 0.30, Gemma-9B |
 | 70B matched pair selector | h37 | era 1.50 base / 1.06 instruct @26; theme 1.06 / 1.06; no-patch 2.00 |
-| Gemma clock, corrected | h39 | shared fraction 0.501, Spearman 0.767, phrase ratio 2.50 |
+| Gemma clock, corrected | h39 | as **gain over the measured stimulus floor**; the logged 0.501 / 0.767 / 2.50 are raw scores on a leaky grid and the core must not print them bare |
 
 **B. Rediscovery.** Fed each known-bad configuration, the core must refuse or flag it *without
 being told what to look for*. These are the five bugs plus the two near-misses:
@@ -34,6 +41,8 @@ being told what to look for*. These are the five bugs plus the two near-misses:
    (returns its chance value on synthetic signal *and* on synthetic noise).
 7. A grid whose labels are recoverable from a bag of tokens → allowed, but the `Claim` must report
    gain over the measured floor, never raw score.
+8. **A readout at or after the patch layer whose movement is residual arithmetic** → refuses without
+   a `passthrough` arm (§2a).
 
 A core that cannot rediscover our own bugs has not earned trust. Build B's harness *first*, from the
 descriptions above, before the instruments it tests.
@@ -46,6 +55,32 @@ descriptions above, before the instruments it tests.
 | extraction | the vectors are not the vectors you think (h36, h39) | one `Stack` path with assertions |
 | estimator | the number cannot mean what you want (cross-talk, ties, noise floor) | `calibrate()` gate before real data |
 | inference | the comparison is missing or rigged (best-layer, no null) | `Claim` contract |
+
+## 2a. The sixth failure mode: treatment-in-readout pass-through
+
+Found by adversarial review of this spec, and it implicates a **standing claim**.
+
+Stage 14 patches `dir_era[e2] − dir_era[e1]` at layer 14 at every position and reads the pooled span
+at layer 20 by nearest era direction. But `resid₂₀ = resid₁₄ + shift + Σ(block outputs)`, and the era
+direction is stable across layers — decodable by layer 12 — so the layer-20 cosine moves by residual
+arithmetic **whether or not blocks 14 through 19 do anything**. "Theme kept" is equally arithmetic,
+and the random control passes trivially because a random direction has cosine near zero with era.
+This has the exact signature of the other five: a fixed point that reads as a finding, here 0.89
+"address moved".
+
+**The arm.** Computable offline from cached stacks with no forward pass:
+`passthrough = readout(base_resid_at_read_layer + shift)`. The `Claim` reports gain over it. If the
+model's number matches the arithmetic, the claim is vacuous.
+
+**The rule.** Any instrument whose readout layer is at or after its patch layer requires a
+`passthrough` arm. Stage 29's generation readout is unpatched at read time and is clean; every
+`Readout` on a patched forward is not.
+
+Two smaller uncovered modes, both to be recorded in provenance rather than checked:
+**library versions**, since the stage-36 bug *was* a transformers change (≥4.54 returning bare
+tensors) and nothing is pinned — record local and NDIF-reported versions; and **template mismatch**,
+since directions are fit on raw `lead + span` text and applied inside chat templates on instruct
+models — record the template alongside padding side.
 
 ## 3. Types
 
@@ -70,8 +105,10 @@ Claim                # the ONLY exportable type
 ```
 
 `Direction` construction requires a declared held-out axis; there is no constructor that fits on
-everything. `Readout` and `Probe` return raw scores that cannot be formatted, logged, or written to
-JSON — they are inputs to `Claim` only.
+everything. `Readout` and `Probe` return raw scores. They may be inspected through an explicitly
+**un-ledgerable `Sketch`**, which prints freely and can never reach the ledger or a generated
+document. The contract gates *publication*, not thought: a `Readout` that could not be printed at all
+would be bypassed with `print(scores.mean())` within a day.
 
 ## 4. The `Claim` contract
 
@@ -79,17 +116,38 @@ JSON — they are inputs to `Claim` only.
 Claim(
   instrument   = "selector",
   treatment    = scores,
-  arms         = {"random": ..., "no_patch": ..., "permutation": ...},
-  floor        = FloorEstimate(...),     # from Grid.leak, or a paraphrase-noise floor
+  arms         = {"random": Arm(scores, expected_null=2.0),   # each arm declares where it should sit
+                  "no_patch": Arm(..., expected_null=2.0),
+                  "permutation": Arm(...)},
+  semantic_null= Arm(..., justification="role identity retained"),  # caller-declared, see below
+  floor        = Floor(stimulus=..., estimator=...),   # BOTH, always
+  selection    = Selection(axis="layer", rule="full curve reported", held_out=True),
   effect       = EffectSize(...),        # vs the null distribution, with n and z
   provenance   = stack.provenance | direction.held_out,
 )
 ```
 
-Per-instrument required arms are declared in the registry, not passed by the caller, and
-construction raises `MissingArm` if any is absent. Required for every instrument: a **no-patch or
-no-direction baseline**. Stage 34 is the whole argument for this — its artifact would have been
-visible in one line.
+**Plumbing arms** (no_patch, random, permutation) are declared in the registry, not by the caller;
+construction raises `MissingArm` if any is absent. **The semantic null is the caller's**, with a
+one-line justification recorded in provenance, because the right null depends on the question rather
+than the instrument: stage 16's relation selector needs "role identity retained" (1.37 vs 2.21), the
+ladder needs a marginal-matched partner, stage 38 needs the lexical floor. Forcing these through
+`permutation` would either corrupt that arm or push callers out of the registry entirely.
+
+**Every arm declares where it should sit, and `Claim` raises `ArmOffNull` when one is outside
+tolerance.** This is the single rule that catches stage 34: under that bug the no-patch arm read a
+respectable 2.00, and what actually screamed was the *random* arm at 1.22 where it belonged near 2.0.
+A missing arm was only half the failure; an arm off its null and nobody noticing was the other half.
+
+**`Floor` has two fields and both are required.** A stimulus floor (what the text gives away) and an
+estimator floor (what the statistic returns on its own noise). Stage 28 would have passed a
+stimulus-floor-only check while sitting at its estimator floor, which is exactly how it published
+three false negatives.
+
+**`Selection` records what was swept and how the reported value was chosen.** A Claim whose selection
+axis is not in a declared held-out set is refused. `Direction.held_out` governs *fitting*; nothing in
+the original draft stopped `min(claim(l) for l in layers)` — twenty-nine valid Claims, one quoted.
+Stage 38's `L* = argmax` and stage 16's "peak layer 16" are both this failure.
 
 `Claim.render()` is the only path to a printable number, and it always prints treatment, every arm,
 the floor, and the effect size together. There is no way to quote a treatment number alone.
@@ -101,7 +159,12 @@ cached per code version. Minimum battery:
 
 - **Noise:** synthetic Gaussian activations of matched shape and scale → the statistic must return
   its declared null value within tolerance.
-- **Self-floor:** the instrument applied to its own floor as treatment → approximately zero.
+- **Sensitivity (synthetic signal):** a planted effect of known size → the statistic must move, and
+  move monotonically with the planted size. **Noise alone is not enough:** the broken cross-talk rank
+  returned its chance value 2.0 on noise *and* passed, because it returned 2.0 on everything. A
+  statistic that cannot distinguish signal from noise fails calibration even if its null is perfect.
+- **Self-floor (mandatory, not optional):** the instrument applied to its own floor as treatment →
+  approximately zero.
 - **Scale and rotation:** per-layer rescaling and a random orthogonal rotation must not change a
   statistic that claims to be invariant to them; the report says which invariances are claimed.
 - **Known-zero point:** a configuration where the answer is analytically zero (for a depth gain,
@@ -129,17 +192,25 @@ measured floor**, which is the stage-38 lesson.
 
 ## 7. `Stack`: one extraction path, with assertions
 
-Every extraction, local or remote, goes through one function. It asserts, every run:
+Every extraction **and every remote forward, `Probe` included**, goes through one function. The
+stage-36 bug lived in a patched forward, not in an extraction, so assertions scoped to `Stack` alone
+would have missed it. It asserts, every run:
 
 1. **Padding side** read from the tokenizer and compared to the indexing convention; span indices are
    end-relative when padding is left. (Stage 39.)
-2. **Batched-vs-single equivalence** on a random sample of ≥3 items per run: vectors from a batched
-   job must match a batch-of-one extraction at cosine ≥ 0.999. (Stage 39, and it would have caught
-   stage 36 too.)
-3. **Non-empty spans**: every span resolves to ≥1 real token, never into padding.
-4. **Layer-output shape**: tuple-or-tensor resolved by the `resid()` helper, never by index.
-5. **Provenance** written alongside the `.npz`, including grid hash and code version, so a stale
-   stack cannot be silently reused. Stacks are gitignored; the provenance file is not.
+2. **Batched-vs-single equivalence** on the **shortest item in each batch**, never a random sample:
+   vectors from a batched job must match a batch-of-one extraction at cosine ≥ 0.999. Under stage
+   39's bug 117 of 480 passages were clean — the longest in each job — so three random items would
+   all have been clean about 1.4% of the time... and would have *passed* far more often than that.
+   The shortest item is the one that is maximally padded, so it is the one that fails first.
+3. **Moved-candidates assertion** on every patched forward: the number of candidates whose score
+   changed equals the batch size. (Stage 36.)
+4. **Non-empty spans**: every span resolves to ≥1 real token, never into padding.
+5. **Layer-output shape**: tuple-or-tensor resolved by the `resid()` helper, never by index.
+6. **Provenance** written alongside the `.npz`: grid hash, code version, **transformers and nnsight
+   versions both locally and as reported by the NDIF server**, and the **chat template** in force
+   (directions fit on raw text and applied inside a chat template is an untracked mismatch today).
+   A stale stack cannot be silently reused. Stacks are gitignored; the provenance file is not.
 
 ## 8. Instrument registry
 
@@ -150,10 +221,14 @@ claimed invariances, and its reproduction target from §1A.
 |---|---|---|---|
 | `selector` | random, no_patch, permutation | midpoint of candidates | h4, h8, h16, h37 |
 | `composition` | random, no_patch | midpoint over joint variants | h8 (2.81/18) |
+| `readout_shift` | random, no_patch, **passthrough** | pass-through value, not chance | h14, re-posed |
 | `crosstalk` | permutation | variance-decomposition zero | h8 matrix |
 | `discrimination` | shuffled-stimulus, floor | floor value, not chance | h39 |
 | `depth_gain` | shuffled-stimulus, floor, layer-0 calibration | 0 at the known-zero point | h38 |
 | `generality` | **to be designed — h15/h26 have no null** | — | h15 (0.18 vs 0.06) |
+
+Any instrument whose readout layer is at or after its patch layer inherits the `passthrough`
+requirement automatically, not only `readout_shift`.
 
 The `generality` row is deliberately unfinished: the abstraction ladder has never had a null, three
 were specified at stage 39, and the core must not ship an instrument that cannot state its own.
@@ -184,11 +259,15 @@ whose bugs were in the callers.
 1. **Rediscovery harness + types + extraction** (§1B, §3, §7). Build the harness first from the bug
    descriptions, then the types and the single extraction path, and show the harness catching bugs
    1, 2 and 7. Deliverable: `src/lsx/core/{types,extract,checks}.py`, `results/notes/core_p1.md`.
-2. **Instrument registry + calibration** (§4, §5, §8). Five instruments with passing calibration
-   reports; `generality` left declared-but-unimplemented with its null options written out.
-   Show the harness catching bugs 3, 4, 5 and 6.
-3. **Ledger, retraction, reproduction suite** (§1A, §9). Every target in §1A reproduced within
-   tolerance, or the discrepancy explained and logged as a finding. This piece is where the core
-   either proves itself or does not.
+2. **Instrument registry + calibration** (§4, §5, §8), **three instruments only**: `selector`,
+   `composition`, `readout_shift`. Five was underestimated by two to three times — it is stage 38's
+   estimator run several times over — and `depth_gain`'s known-zero calibration is the one that
+   *failed* at stage 38, so it should not gate the core. Show the harness catching bugs 3, 4, 5, 6
+   and 8.
+3. **Ledger, retraction, reproduction suite** (§1A, §9), **from cached stacks only**. The first task
+   is to re-run one remote target twice and set remote tolerance from the spread; targets whose
+   stacks are not cached are deferred rather than re-extracted. This piece is where the core either
+   proves itself or does not.
+4. **Deferred:** `crosstalk`, `depth_gain`, and `generality` with the null it still lacks.
 
 Pieces 1 and 2 can overlap; piece 3 runs last and alone.
