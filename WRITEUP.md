@@ -30,13 +30,15 @@ matched null, eleven things stand, six fell, and two are partial.
 5. Factors differ in kind, and the model's depth shows it: voice and tense are lexical, era is
    computed by layer 12, mood is integrated at the last token, theme is distributed and peaks
    mid-passage.
-6. Recomposition works as a readout: an era shift moves a passage's address (0.89–0.94 of cases)
-   and keeps its theme (0.81–0.94, equal to the unpatched readout), on two models and two authors'
-   grids.
-7. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
+6. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
    dictionary keeps more general features (mean generality 0.18 vs 0.06; 12 of 15 merges go up).
-8. Under generation the shallower factor dominates the surface text regardless of patch order
+7. Under generation the shallower factor dominates the surface text regardless of patch order
    (voice > era > theme), at two layer pairs.
+8. **Recomposition is real, and only in generation.** At three times the norm, re-imposed at every
+   decoding step, an era shift moves the era of Gemma-2-9B-it's *generated text* in 0.84 of cases,
+   0.30 of continuations gain target-era vocabulary, and prose stays intact. This is now the only
+   evidence for recomposition: the representational version of this claim, which looked like its
+   foundation and was far cheaper, was withdrawn at stage 40 as vector addition (see below).
 9. **Gauges compose; engines do not — and the boundary between them is a magnitude.** At matched
    norm an era shift moves the readout but never the generated text (0.14 on Llama-70B-Instruct,
    0.27 on Gemma-9B, and on neither does a single continuation gain target-era vocabulary). At
@@ -70,6 +72,12 @@ matched null, eleven things stand, six fell, and two are partial.
   patches diverge the same way.
 - **Steering as a scale effect** (superseded by claim 11, not refuted: it was never tested against
   tuning until stage 37).
+- **Recomposition as a representational result.** Stages 14 and 23 patched an era shift at layer 14
+  and read the era at layer 20. The patch is a constant added at every position and the readout is a
+  span mean, so the readout moves by vector addition *exactly*; the model arm is indistinguishable
+  from the arithmetic and on Gemma is worse than it, the six intervening blocks partly undoing the
+  addition. Against a norm-matched pass-through the gain is −0.111, −0.125 and −0.028 on the three
+  targets, and the layer curve is never positive outside tolerance. Withdrawn at stage 40.
 
 **Partial.** The relation operator as a generative patch: helpful (+0.18 nats vs −0.10 random) but
 no better than the same operator fed the wrong source, so source-specificity is undemonstrated. A
@@ -80,7 +88,8 @@ results across two models (stages 28, 30, 31): the probe was a high-dimensional 
 sitting at its own noise floor. One Llama selector battery (stage 34): the patch wrote into batch
 row zero of a padded tensor, pinning every rank at 1.22 for any direction. A set of discrimination
 numbers (stages 28–35): with the interval phrase removed so the model cannot copy the answer, 0.961
-falls to 0.522. Stage 31's numbers, though not its conclusion (stage 39): a batched extractor read
+falls to 0.522. Claim 6 in its representational form (stage 40): a readout taken after a patch layer,
+moving by arithmetic. Stage 31's numbers, though not its conclusion (stage 39): a batched extractor read
 363 of 480 passages' spans out of left-padding, with the padding correlated with the variable under
 study; re-extracted cleanly the result is stronger, not weaker. See `docs/INSTRUMENTS.md`.
 
@@ -138,12 +147,18 @@ Theme is distributed, read from the mean, at chance in the first 15% of a passag
 the midpoint, with a single positive-then-negative beat-to-beat derivative shared by all three
 themes (h6, h8, h9, h17).
 
-Recomposition is the primitive the calculus needs, and as a readout it is demonstrated: an era
-shift, one additive patch while the model reads a passage, moves the era readout to the target in
-89% (Qwen 1.5B) and 88% (Gemma 9B) of cases while the theme readout stays at exactly its unpatched
-value, 0.81 and 0.94 (h14). On grids written by GPT rather than by us, the same test gives 0.94
-moved and 0.86 kept (h23). Whether it survives into generated text is claim 9's question, and the
-answer is: only at three times the norm, only on some engines (h27, h29, h33).
+Recomposition is the primitive the calculus needs, and for most of this project we thought it was
+demonstrated cheaply, as a readout: an era shift patched while the model reads a passage moved the
+era readout to the target in 89% (Qwen 1.5B) and 88% (Gemma 9B) of cases, 94% on GPT-authored grids,
+while theme stayed put (h14, h23). That result was arithmetic. The patch is a constant added at every
+position, the readout is a span mean, and `mean(resid + shift) = mean(resid) + shift` exactly; the
+model arm is indistinguishable from the addition and on Gemma is worse than it (h40).
+
+What remains is the expensive version. Re-imposed at every decoding step at three times the norm, the
+same shift moves the era of Gemma's generated text in 0.84 of cases, with 0.30 of continuations
+taking on target-era vocabulary, read off the text itself with no patch in force (h29). We had the
+story backwards: the cheap representational result was the illusion and the costly generative one is
+the finding.
 
 Three models across two families give the same numbers within a few hundredths on every
 selector-level quantity (h7). The model with the sharpest selector is not the model that steers:

@@ -22,6 +22,12 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
   rank-1-on-ties pinned every measured rank at 11/9 = 1.22 for *any* direction. That was the whole
   reported band (1.00–1.28), treatment and control alike. The layer-sweep conclusion went with it,
   so **h33's depth-fraction confound is open again**.
+- **Hours 14 and 23, and claim 6 of the writeup** ("an era shift moves the address and keeps the
+  form"). Withdrawn at h40: the readout was taken after the patch layer, and since the patch is a
+  constant added at every position and the readout is a span mean, the movement is vector addition,
+  exactly. The model arm is indistinguishable from the arithmetic and on Gemma is worse than it.
+  Recomposition now rests solely on the generation results of h29/h33, which re-read unpatched text
+  and are confirmed clean.
 - **Hour 31's numbers** (not its conclusion). Withdrawn at h39: nnsight left-pads batched texts and
   the extractor indexed spans from the unpadded text, so 363 of 480 passages read their spans out of
   the padding, with the padding correlated with Δt. Corrected numbers are in h39 and are stronger.
@@ -1471,6 +1477,54 @@ deployment (warm, unpinned); five pinned running models listed with provenance.
 
 Files: `results/notes/instrument_audit.md`, `docs/INSTRUMENTS.md` §4b, fixes across eight scripts.
 Cost: ~235k agent tokens, ~70 min wall.
+
+## 2026-09-13 (hour 40) — Stage 14 was residual arithmetic: claim 6 is withdrawn, and recomposition survives only in generation (agent)
+
+**The test.** Adversarial review of `docs/specs/core_v1.md` predicted a sixth failure mode: a readout
+taken after a patch layer can move by residual arithmetic alone. Stage 14 patches an era shift at
+layer 14 and reads the era at layer 20. Because the patch is a constant added at every position and
+the readout is a mean over span tokens, `mean(resid₂₀ + shift) = mean(resid₂₀) + shift` **exactly**,
+so the pass-through arm is not an approximation but an identity. A second, fairer arm rescales the
+shift to preserve ‖shift‖/‖resid‖ at the read layer; without it the control is unfairly weak at depth.
+
+| target | logged (model) | pass-through | norm-matched | gain over norm-matched |
+|---|---|---|---|---|
+| Qwen2.5-1.5B (h14) | 0.889 / 0.806 | 0.792 / 0.778 | 1.000 / 0.764 | **−0.111** / +0.042 |
+| Gemma-2-9B-it (h14) | 0.875 / 0.944 | 0.972 / 0.958 | 1.000 / 0.917 | **−0.125** / +0.027 |
+| GPT grid (h23) | 0.944 / 0.861 | 0.861 / 0.847 | 0.972 / 0.792 | **−0.028** / +0.069 |
+
+**The model is indistinguishable from vector addition, and where it differs it is worse.** On Gemma
+the six intervening blocks partly *undo* the addition. The layer curve never goes positive outside
+tolerance and is never monotone in the number of intervening blocks (Qwen, reads 15–28: +0.000,
++0.000, +0.000, −0.111, −0.014, +0.056, −0.111). Across reads 15–18 the model arm and pure vector
+addition agree case for case to three decimals. The apparent growth against the *plain* pass-through
+(+0.10 → +0.69 → +0.81) is pure norm mismatch — the trap that would have rescued the claim in
+weakened form.
+
+**Sanity checks pass:** zero shift reproduces the unpatched readout exactly at every read layer, the
+base arms reproduce the logged 0.97/0.78, 0.97/0.94 and 0.94/0.86, and the logged JSONs re-score to
+the published table. One capture artifact: HF records `hidden_states[14]` before the forward-pre-hook
+fires, so the model arm at the patch layer reads unpatched and the curve starts at 15.
+
+**Withdrawn: hours 14 and 23's shift results, and claim 6 of the writeup.** ALGEBRA's L4
+(address/form separation) loses its gauge-level evidence entirely, having already lost its
+generation-level evidence at h27.
+
+**What survives, and it inverts the story.** Hours 27, 29 and 33 re-read *generated text* with no
+patch in force, so they are clean and confirmed. The 3× re-imposed result on Gemma (0.84 era-as-target,
+0.30 lexical) stands. We believed recomposition worked as a readout and failed in generation; the
+truth is the reverse. **The only real evidence for recomposition is the generation result**, which is
+the expensive, qualitative, hard-won one — and the cheap representational result that looked like its
+foundation was arithmetic.
+
+**Also at risk, untested, arm is cheap:** every log-probability-readout patch instrument —
+`stage4*`, `stage5*`, `stage6_factors`, `ndif_factors`, `ndif_absential_probe`,
+`time_translation_selector`, and the h37 70B selector. The exposure is weaker there, because a
+log-prob readout passes through the unembedding rather than being a linear readout of the same
+stream, but it has not been checked. **Confirmed clean:** the role lens (h3, h16) never patches.
+
+Files: `scripts/passthrough_test.py`, `results/passthrough_h14.json`, `results/notes/passthrough_h14.md`.
+Cost: ~135k agent tokens, ~35 min.
 
 ## Open problems (ordered)
 
