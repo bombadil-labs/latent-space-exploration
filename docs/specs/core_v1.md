@@ -4,6 +4,14 @@
 easier to write. It is to make the five known failures structurally impossible and to make a
 sixth cheap to detect.*
 
+## 0. Blocking dependency
+
+**The §2a pass-through test against stage 14 must return a verdict before piece 1 starts.** It is
+offline, needs no forward pass, and decides whether `readout_shift` has a reproduction target at all
+— and whether claim 6 of `WRITEUP.md` stands. If stage 14 is arithmetic, §1A loses a row, §8 loses an
+instrument's only target, and the writeup loses a claim. Building the core against a target that is
+about to be withdrawn would be the same mistake this core exists to prevent.
+
 ## 1. Acceptance criteria (pre-registered; do not renegotiate after building)
 
 The core is finished when it does both of these, and not before.
@@ -69,8 +77,12 @@ This has the exact signature of the other five: a fixed point that reads as a fi
 "address moved".
 
 **The arm.** Computable offline from cached stacks with no forward pass:
-`passthrough = readout(base_resid_at_read_layer + shift)`. The `Claim` reports gain over it. If the
-model's number matches the arithmetic, the claim is vacuous.
+`passthrough = readout(base_resid_at_read_layer + shift)`, scored with the *same* readout code as the
+treatment. **Gain is defined as `treatment_score − passthrough_score`, reported with the
+paraphrase-noise interval on that difference, never as a ratio** — a ratio is unstable when the
+pass-through value is already near the ceiling, which is precisely the regime in question. The arm
+must also reproduce the unpatched readout exactly at zero shift; if it does not, the arm is wrong,
+not the claim.
 
 **The rule.** Any instrument whose readout layer is at or after its patch layer requires a
 `passthrough` arm. Stage 29's generation readout is unpatched at read time and is clean; every
@@ -128,9 +140,11 @@ Claim(
 ```
 
 **Plumbing arms** (no_patch, random, permutation) are declared in the registry, not by the caller;
-construction raises `MissingArm` if any is absent. **The semantic null is the caller's**, with a
-one-line justification recorded in provenance, because the right null depends on the question rather
-than the instrument: stage 16's relation selector needs "role identity retained" (1.37 vs 2.21), the
+construction raises `MissingArm` if any is absent. **The semantic null is the caller's**, with a one-line justification recorded in provenance, subject
+to two rules that stop it becoming a rubber stamp: it must be **computed from data as a real arm**,
+never asserted in prose, and it must be **declared in the `Experiment` before any treatment score is
+computed**, enforced by construction order rather than by discipline. The right null depends on the
+question rather than the instrument: stage 16's relation selector needs "role identity retained" (1.37 vs 2.21), the
 ladder needs a marginal-matched partner, stage 38 needs the lexical floor. Forcing these through
 `permutation` would either corrupt that arm or push callers out of the registry entirely.
 
@@ -155,7 +169,10 @@ the floor, and the effect size together. There is no way to quote a treatment nu
 ## 5. Calibration protocol
 
 Every instrument implements `calibrate() -> CalibrationReport`, run before it sees real data, and
-cached per code version. Minimum battery:
+cached under a key that is the hash of **the instrument's own source, its declared nulls, and its
+declared invariances** — not a repo-wide version, so that editing one instrument re-calibrates that
+one and only that one. A stale or missing report blocks `Claim` construction for that instrument.
+Minimum battery:
 
 - **Noise:** synthetic Gaussian activations of matched shape and scale → the statistic must return
   its declared null value within tolerance.
@@ -235,7 +252,18 @@ were specified at stage 39, and the core must not ship an instrument that cannot
 
 ## 9. Ledger and retraction
 
-Claims append to `results/ledger.jsonl`, keyed by provenance hash. `RESULTS.md` hour entries are
+Claims append to `results/ledger.jsonl`, one JSON object per line:
+
+```
+{ id, stage, instrument, treatment, arms:{name:{value, expected_null, off_null:bool}},
+  semantic_null:{value, justification}, floor:{stimulus, estimator}, effect:{size, n, z},
+  selection:{axis, rule, held_out}, provenance:{grid_hash, model, layers, pooling, template,
+  padding_side, code_version, lib_versions, calibration_key},
+  status:"standing"|"withdrawn", withdrawn:{reason, superseded_by, at} }
+```
+
+`id` is the provenance hash, so the same experiment re-run is recognised rather than duplicated, and
+a changed grid or library version produces a new id rather than silently overwriting. `RESULTS.md` hour entries are
 **generated** from the ledger rather than hand-written.
 
 **Retraction is a first-class operation.** `withdraw(claim_id, reason, superseded_by=None)` marks a
