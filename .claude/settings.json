@@ -20,7 +20,7 @@
           {
             "type": "command",
             "if": "Bash(git merge*)",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && b=$(jq -r '.tool_input.command' | grep -oE 'worktree-agent-[a-z0-9]+|[a-z0-9-]+' | grep -E '^worktree-agent-|^h[0-9]+-' | head -1); [ -n \"$b\" ] || exit 0; echo \"=== measurement-code diff in $b (read this, not the report) ===\"; git diff --stat HEAD..\"$b\" -- src/lsx scripts 2>/dev/null | tail -20; git diff HEAD..\"$b\" -- src/lsx 'scripts/*extract*' 'scripts/*factors*' 'scripts/*selector*' 'scripts/*sweep*' 2>/dev/null | head -250",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" || exit 0; b=$(jq -r '.tool_input.command' | grep -oE \"worktree-agent-[a-z0-9]+|h[0-9]+-[a-z-]+\" | head -1); [ -n \"$b\" ] || exit 0; git rev-parse --verify \"$b\" >/dev/null 2>&1 || exit 0; stat=$(git diff --stat HEAD..\"$b\" -- src/lsx scripts 2>/dev/null | tail -15); dif=$(git diff HEAD..\"$b\" -- src/lsx \"scripts/*extract*\" \"scripts/*factors*\" \"scripts/*selector*\" \"scripts/*sweep*\" 2>/dev/null | head -200); [ -n \"$stat$dif\" ] || exit 0; jq -n --arg s \"$stat\" --arg d \"$dif\" --arg b \"$b\" '{hookSpecificOutput:{hookEventName:\"PreToolUse\",additionalContext:(\"MEASUREMENT-CODE DIFF for \\($b) \u2014 read this, not the agent report (CLAUDE.md non-negotiable 5).\\n\\n\" + $s + \"\\n\\n\" + $d)}}'",
             "statusMessage": "Surfacing agent measurement diff",
             "timeout": 60
           }
