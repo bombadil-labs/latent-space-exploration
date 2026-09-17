@@ -2,8 +2,8 @@
 
 *Phase 0.2 of `docs/PROGRAM.md`. The ladder (hours 15, 26; writeup claim 6) was the only standing
 claim in this project with no null anywhere. Three were specified in the hour-39 audit. All three
-ran. Numbers below are from the run log; the process died at serialization (memory) after producing
-every result, and the JSON artifact was regenerated separately.*
+ran. Nulls 1 and 2 are in `results/sae_ladder_nulls.json`, which confirms every number below; null 3
+is reported from the run log, as the serializer does not carry it.*
 
 ## Null 1 — the merge test, against the right population
 
@@ -16,8 +16,8 @@ those 15 unequal Bernoulli probabilities into the exact null via Poisson-binomia
 
 | corpus | observed | null mean | null sd | null 95% CI | P(K ≥ observed) |
 |---|---|---|---|---|---|
-| narrative | 13/15 | 3.99 | 1.49 | [1, 7] | 0.0000 |
-| broad | 13/15 | 5.78 | 1.31 | [3, 8] | 0.0000 |
+| narrative | 13/15 | 3.99 | 1.49 | [1, 7] | 3.5e-9 |
+| broad | 13/15 | 5.78 | 1.31 | [3, 8] | 9.8e-10 |
 
 **Survives**, decisively. Note the observed count is 13/15 on this run where the record says 12/15
 (narrative); the matching procedure was re-derived here, so the small discrepancy is a re-derivation
@@ -72,3 +72,9 @@ coin flip. Hour 26's sub-claim that the flow is an *ordering* is **downgraded to
   to the search population but not to the selection of the 15.
 - The re-derived merge count (13/15) differs by one from the logged 12/15.
 - Nulls 1 and 2 were run at layer 20 only, matching hours 15 and 26.
+- **A run-to-run discrepancy in null 3's secondary metric.** Two runs of the same code disagreed on
+  the within/across *ratio* entry threshold: the first reported theme and era entering their null
+  bands at g_k ≥ 0.0, the second reported `None` for both. The primary metric (8-NN purity) gave
+  `None` for both in both runs. The permutation null is seeded per run, so this is most likely
+  resampling noise in a boundary condition, but it is unexplained and the ratio metric should not be
+  relied on until it is. The verdict above rests on 8-NN purity only.
