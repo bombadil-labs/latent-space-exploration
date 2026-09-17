@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Write(src/lsx/**)",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && HF_HOME=$PWD/cache/hf HF_HUB_OFFLINE=1 .venv/bin/python -m pytest -q tests/test_invariants.py 2>&1 | tail -15",
+            "statusMessage": "Checking measurement invariants",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git merge*)",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && b=$(jq -r '.tool_input.command' | grep -oE 'worktree-agent-[a-z0-9]+|[a-z0-9-]+' | grep -E '^worktree-agent-|^h[0-9]+-' | head -1); [ -n \"$b\" ] || exit 0; echo \"=== measurement-code diff in $b (read this, not the report) ===\"; git diff --stat HEAD..\"$b\" -- src/lsx scripts 2>/dev/null | tail -20; git diff HEAD..\"$b\" -- src/lsx 'scripts/*extract*' 'scripts/*factors*' 'scripts/*selector*' 'scripts/*sweep*' 2>/dev/null | head -250",
+            "statusMessage": "Surfacing agent measurement diff",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo \"--- open instrument risks ---\" && grep -nE \"still has no null|Next:|NOT narrowed|remains open|unre-run|untested\" RESULTS.md | grep -v \"^.*~~.*~~.*done\" | tail -6 | cut -c1-200",
+            "statusMessage": "Loading open risks",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
