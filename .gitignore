@@ -11,3 +11,5 @@ src/*.egg-info/
 *.partial
 prompts/holonic_candidates.jsonl
 .claude/worktrees/
+
+.claude/settings.local.json
