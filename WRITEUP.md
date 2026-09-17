@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Fourth draft, after 41 logged stages. Every number below is in `RESULTS.md` with its control and
+*Fourth draft, after 42 logged stages. Every number below is in `RESULTS.md` with its control and
 file reference; Checkpoint 2 at the top of that file lists what was withdrawn and when. The calculus
 these results support is in `docs/ALGEBRA.md`. The four measurement instruments this project found
 broken, and what they invalidated, are in `docs/INSTRUMENTS.md` — read that first if you are
@@ -38,7 +38,12 @@ matched null, eleven things stand, six fell, and two are partial.
    computed by layer 12, mood is integrated at the last token, theme is distributed and peaks
    mid-passage.
 6. Abstraction is a quotient with a measurable scale: re-encoding through a narrower sparse
-   dictionary keeps more general features (mean generality 0.18 vs 0.06; 12 of 15 merges go up).
+   dictionary keeps more general features (mean generality 0.18 vs 0.06; 13 of 15 merges go up).
+   Both halves now have nulls (stage 42): the merge count beats an exact Poisson-binomial null drawn
+   from the population the search ranges over (null mean 4.0, p < 0.0001), and the generality gap
+   survives size-matched random subsets of the wide dictionary (z = 14.8). The companion claim that
+   the *flow* is an ordering, with era dying before theme, is downgraded to unconfirmed: at every
+   threshold tested both labels stay far above their own permutation nulls.
 7. Under generation the shallower factor dominates the surface text regardless of patch order
    (voice > era > theme), at two layer pairs.
 8. **Recomposition is real, and only in generation.** At three times the norm, re-imposed at every

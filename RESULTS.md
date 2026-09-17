@@ -1591,6 +1591,40 @@ Files: `scripts/selector_direct_path{,_report}.py`, 5 result JSONs, `results/not
 (491 lines), `LM.pre_norm_residual` and `Patch(n_layers)` in `src/lsx/model.py`, 4 new invariants.
 Cost: ~240k agent tokens, 3 h 22 min compute (two concurrent fp32 processes OOM at 15 GB; run sequentially).
 
+## 2026-09-17 (hour 42) — PHASE 0.2: the abstraction ladder survives its two missing nulls; hour 26's "flow is an ordering" is downgraded to unconfirmed (agent + hand-finished)
+
+The ladder was the only standing claim with no null anywhere. All three specified at hour 39 ran.
+Full numbers and constructions in `results/notes/sae_ladder_nulls.md`.
+
+**Merge test (null 1).** 13 of 15 merges more general, against an exact Poisson-binomial null drawn
+from the same 16,384-feature population the cosine search ranges over: null mean 3.99 (narrative) and
+5.78 (broad), P(K ≥ 13) = 0.0000 in both. The previous implied comparison was a coin flip, which was
+the wrong null because the dictionaries have different marginal generality distributions. **Survives,
+and more strongly than it appeared.**
+
+**Width effect (null 2).** Narrow-dictionary mean generality 0.182 against 4,000 size-matched random
+subsets of the wide dictionary at 0.063 ± 0.008 (z = 14.81); broad corpus 0.187 against 0.101 ± 0.012
+(z = 7.07). A size-matched subset reproduces the *wide* mean exactly, so the effect is about what
+narrowing preserves, not about dictionary size. **Survives.**
+
+**Flow ordering (null 3).** Label-permutation nulls, class structure preserved: theme 8-NN purity
+0.628 against 0.112 ± 0.017 (z ≈ 30); era 0.535 against 0.324 ± 0.025 (z ≈ 8.3); both p = 0.000 at
+every threshold from 0.0 to 0.1. **Neither label falls into its own null band anywhere in the tested
+range.** Hour 26 claimed "the flow is an ordering, era dies before theme". Theme is indeed far more
+robustly structured than era, which is consistent, but nothing dies where we looked, so **the ordering
+is downgraded from measured to unconfirmed.** Testing it needs thresholds above 0.1.
+
+**Process note.** The agent handed back incomplete, having built all three nulls correctly but run out
+of turn mid-computation. It had solved a real problem worth recording: git worktrees do not share
+untracked files, so the cached Gemma Scope dictionaries were absent, and it symlinked them from the
+main checkout rather than re-downloading onto a disk a previous session had already filled. The run
+then produced every number and died at serialization (memory) before writing its JSON; the numbers
+here are from the run log, and the script is recovered at `scripts/sae_ladder_nulls.py`.
+
+**Not tested:** thresholds above 0.1, which is where the ordering claim would actually be decided;
+layers other than 20; the selection of the 15 features (the null matches the search population, not
+the selection).
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
