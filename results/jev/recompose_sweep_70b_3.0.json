@@ -1,6 +1,6 @@
 {
  "meta": {
-  "source": "results/recompose_sweep_70b_2.0.json",
+  "source": "results/recompose_sweep_70b_3.0.json",
   "model": "jev-latest",
   "questions": {
    "fluent": {
@@ -39,22 +39,22 @@
    "e2": "1920s",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.29,
-   "quality": 1.8,
-   "quality_conf": 0.52,
+   "fluent": 0.53,
+   "quality": 2.55,
+   "quality_conf": 0.55,
    "quality_probs": {
-    "0": 0.05,
-    "1": 0.24,
-    "2": 0.57,
-    "3": 0.14
+    "0": 0.02,
+    "1": 0.03,
+    "2": 0.33,
+    "3": 0.62
    },
-   "repetition": 0.07,
+   "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.417
+   "latency_s": 0.46
   },
   {
    "id": "debt|medieval|betrayal|shift|1",
@@ -63,22 +63,22 @@
    "e2": "farfuture",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.71,
-   "quality": 2.39,
-   "quality_conf": 0.49,
+   "fluent": 0.73,
+   "quality": 2.41,
+   "quality_conf": 0.48,
    "quality_probs": {
-    "0": 0.0,
+    "0": 0.01,
     "1": 0.05,
-    "2": 0.5,
-    "3": 0.45
+    "2": 0.48,
+    "3": 0.46
    },
-   "repetition": 0.06,
+   "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 492,
     "output_tokens": 53
    },
-   "latency_s": 0.437
+   "latency_s": 0.399
   },
   {
    "id": "debt|medieval|sacrifice|shift|2",
@@ -87,22 +87,22 @@
    "e2": "1920s",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.63,
-   "quality": 2.37,
-   "quality_conf": 0.52,
+   "fluent": 0.58,
+   "quality": 2.3,
+   "quality_conf": 0.53,
    "quality_probs": {
     "0": 0.01,
     "1": 0.05,
-    "2": 0.52,
-    "3": 0.42
+    "2": 0.54,
+    "3": 0.39
    },
-   "repetition": 0.05,
+   "repetition": 0.03,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.475
+   "latency_s": 0.451
   },
   {
    "id": "debt|medieval|sacrifice|shift|3",
@@ -112,21 +112,21 @@
    "t": "sacrifice",
    "cond": "shift",
    "fluent": 0.88,
-   "quality": 2.62,
-   "quality_conf": 0.62,
+   "quality": 2.23,
+   "quality_conf": 0.65,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.02,
-    "2": 0.34,
-    "3": 0.64
+    "1": 0.06,
+    "2": 0.65,
+    "3": 0.29
    },
-   "repetition": 0.03,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.467
+   "latency_s": 0.4
   },
   {
    "id": "debt|medieval|homecoming|shift|4",
@@ -135,40 +135,16 @@
    "e2": "1920s",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.82,
-   "quality": 2.24,
-   "quality_conf": 0.65,
+   "fluent": 0.44,
+   "quality": 2.67,
+   "quality_conf": 0.67,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.05,
-    "2": 0.65,
-    "3": 0.3
+    "0": 0.02,
+    "1": 0.02,
+    "2": 0.23,
+    "3": 0.73
    },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.385
-  },
-  {
-   "id": "debt|medieval|homecoming|shift|5",
-   "scene": "debt",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.92,
-   "quality": 2.91,
-   "quality_conf": 0.91,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.0,
-    "2": 0.09,
-    "3": 0.91
-   },
-   "repetition": 0.03,
+   "repetition": 0.08,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 490,
@@ -177,28 +153,52 @@
    "latency_s": 0.47
   },
   {
+   "id": "debt|medieval|homecoming|shift|5",
+   "scene": "debt",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.61,
+   "quality": 2.49,
+   "quality_conf": 0.49,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.03,
+    "2": 0.41,
+    "3": 0.55
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.392
+  },
+  {
    "id": "debt|1920s|betrayal|shift|6",
    "scene": "debt",
    "e1": "1920s",
    "e2": "medieval",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.23,
-   "quality": 2.41,
-   "quality_conf": 0.41,
+   "fluent": 0.46,
+   "quality": 1.93,
+   "quality_conf": 0.61,
    "quality_probs": {
-    "0": 0.06,
-    "1": 0.05,
-    "2": 0.32,
-    "3": 0.57
+    "0": 0.03,
+    "1": 0.16,
+    "2": 0.65,
+    "3": 0.16
    },
    "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.454
+   "latency_s": 0.351
   },
   {
    "id": "debt|1920s|betrayal|shift|7",
@@ -207,22 +207,22 @@
    "e2": "farfuture",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.77,
-   "quality": 2.67,
-   "quality_conf": 0.67,
+   "fluent": 0.83,
+   "quality": 2.75,
+   "quality_conf": 0.75,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.02,
-    "2": 0.26,
-    "3": 0.71
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.23,
+    "3": 0.76
    },
-   "repetition": 0.05,
+   "repetition": 0.09,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.402
+   "latency_s": 0.415
   },
   {
    "id": "debt|1920s|sacrifice|shift|8",
@@ -231,22 +231,22 @@
    "e2": "medieval",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.36,
-   "quality": 2.16,
-   "quality_conf": 0.55,
+   "fluent": 0.58,
+   "quality": 1.83,
+   "quality_conf": 0.6,
    "quality_probs": {
-    "0": 0.02,
-    "1": 0.1,
-    "2": 0.57,
-    "3": 0.31
+    "0": 0.04,
+    "1": 0.21,
+    "2": 0.64,
+    "3": 0.11
    },
    "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.392
+   "latency_s": 0.369
   },
   {
    "id": "debt|1920s|sacrifice|shift|9",
@@ -255,22 +255,22 @@
    "e2": "farfuture",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.8,
-   "quality": 2.14,
-   "quality_conf": 0.7,
+   "fluent": 0.69,
+   "quality": 2.5,
+   "quality_conf": 0.5,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.08,
-    "2": 0.7,
-    "3": 0.22
+    "0": 0.01,
+    "1": 0.03,
+    "2": 0.43,
+    "3": 0.53
    },
-   "repetition": 0.05,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.506
+   "latency_s": 0.41
   },
   {
    "id": "debt|1920s|homecoming|shift|10",
@@ -279,22 +279,22 @@
    "e2": "medieval",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.7,
-   "quality": 2.66,
-   "quality_conf": 0.66,
+   "fluent": 0.81,
+   "quality": 2.31,
+   "quality_conf": 0.58,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.02,
-    "2": 0.29,
-    "3": 0.68
+    "0": 0.0,
+    "1": 0.05,
+    "2": 0.59,
+    "3": 0.36
    },
-   "repetition": 0.36,
+   "repetition": 0.07,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 489,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.548
+   "latency_s": 0.381
   },
   {
    "id": "debt|1920s|homecoming|shift|11",
@@ -303,14 +303,14 @@
    "e2": "farfuture",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.88,
-   "quality": 2.9,
-   "quality_conf": 0.9,
+   "fluent": 0.85,
+   "quality": 2.76,
+   "quality_conf": 0.76,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.0,
-    "2": 0.1,
-    "3": 0.9
+    "1": 0.01,
+    "2": 0.21,
+    "3": 0.78
    },
    "repetition": 0.04,
    "served_model": "jev-1.13.0",
@@ -318,7 +318,7 @@
     "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.434
+   "latency_s": 0.419
   },
   {
    "id": "debt|farfuture|betrayal|shift|12",
@@ -327,7 +327,655 @@
    "e2": "medieval",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.97,
+   "fluent": 0.78,
+   "quality": 2.55,
+   "quality_conf": 0.55,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.03,
+    "2": 0.38,
+    "3": 0.59
+   },
+   "repetition": 0.03,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.445
+  },
+  {
+   "id": "debt|farfuture|betrayal|shift|13",
+   "scene": "debt",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.73,
+   "quality": 2.72,
+   "quality_conf": 0.72,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.23,
+    "3": 0.76
+   },
+   "repetition": 0.19,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.482
+  },
+  {
+   "id": "debt|farfuture|sacrifice|shift|14",
+   "scene": "debt",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.29,
+   "quality": 2.11,
+   "quality_conf": 0.48,
+   "quality_probs": {
+    "0": 0.05,
+    "1": 0.1,
+    "2": 0.53,
+    "3": 0.32
+   },
+   "repetition": 0.07,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.346
+  },
+  {
+   "id": "debt|farfuture|sacrifice|shift|15",
+   "scene": "debt",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.82,
+   "quality": 1.94,
+   "quality_conf": 0.73,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.15,
+    "2": 0.74,
+    "3": 0.1
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.361
+  },
+  {
+   "id": "debt|farfuture|homecoming|shift|16",
+   "scene": "debt",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.56,
+   "quality": 1.88,
+   "quality_conf": 0.62,
+   "quality_probs": {
+    "0": 0.05,
+    "1": 0.14,
+    "2": 0.67,
+    "3": 0.13
+   },
+   "repetition": 0.05,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.408
+  },
+  {
+   "id": "debt|farfuture|homecoming|shift|17",
+   "scene": "debt",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.39,
+   "quality": 1.8,
+   "quality_conf": 0.46,
+   "quality_probs": {
+    "0": 0.09,
+    "1": 0.2,
+    "2": 0.54,
+    "3": 0.17
+   },
+   "repetition": 0.05,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.388
+  },
+  {
+   "id": "message|medieval|betrayal|shift|18",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.61,
+   "quality": 2.21,
+   "quality_conf": 0.6,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.07,
+    "2": 0.61,
+    "3": 0.31
+   },
+   "repetition": 0.16,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.622
+  },
+  {
+   "id": "message|medieval|betrayal|shift|19",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.98,
+   "quality": 2.95,
+   "quality_conf": 0.95,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.04,
+    "3": 0.96
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.649
+  },
+  {
+   "id": "message|medieval|sacrifice|shift|20",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.46,
+   "quality": 2.72,
+   "quality_conf": 0.72,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.01,
+    "2": 0.24,
+    "3": 0.74
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.414
+  },
+  {
+   "id": "message|medieval|sacrifice|shift|21",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.61,
+   "quality": 2.22,
+   "quality_conf": 0.6,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.07,
+    "2": 0.61,
+    "3": 0.31
+   },
+   "repetition": 0.06,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.442
+  },
+  {
+   "id": "message|medieval|homecoming|shift|22",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.73,
+   "quality": 2.47,
+   "quality_conf": 0.47,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.04,
+    "2": 0.45,
+    "3": 0.51
+   },
+   "repetition": 0.1,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 492,
+    "output_tokens": 53
+   },
+   "latency_s": 0.695
+  },
+  {
+   "id": "message|medieval|homecoming|shift|23",
+   "scene": "message",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.82,
+   "quality": 2.78,
+   "quality_conf": 0.78,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.21,
+    "3": 0.78
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 492,
+    "output_tokens": 53
+   },
+   "latency_s": 0.429
+  },
+  {
+   "id": "message|1920s|betrayal|shift|24",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.78,
+   "quality": 2.27,
+   "quality_conf": 0.49,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.09,
+    "2": 0.51,
+    "3": 0.39
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 492,
+    "output_tokens": 53
+   },
+   "latency_s": 0.611
+  },
+  {
+   "id": "message|1920s|betrayal|shift|25",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.24,
+   "quality": 2.3,
+   "quality_conf": 0.3,
+   "quality_probs": {
+    "0": 0.09,
+    "1": 0.07,
+    "2": 0.3,
+    "3": 0.54
+   },
+   "repetition": 0.1,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.787
+  },
+  {
+   "id": "message|1920s|sacrifice|shift|26",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.72,
+   "quality": 1.81,
+   "quality_conf": 0.73,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.22,
+    "2": 0.73,
+    "3": 0.04
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.43
+  },
+  {
+   "id": "message|1920s|sacrifice|shift|27",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.84,
+   "quality": 2.6,
+   "quality_conf": 0.6,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.37,
+    "3": 0.62
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.395
+  },
+  {
+   "id": "message|1920s|homecoming|shift|28",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.78,
+   "quality": 2.55,
+   "quality_conf": 0.55,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.03,
+    "2": 0.38,
+    "3": 0.59
+   },
+   "repetition": 0.03,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 492,
+    "output_tokens": 53
+   },
+   "latency_s": 0.477
+  },
+  {
+   "id": "message|1920s|homecoming|shift|29",
+   "scene": "message",
+   "e1": "1920s",
+   "e2": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.53,
+   "quality": 1.99,
+   "quality_conf": 0.71,
+   "quality_probs": {
+    "0": 0.02,
+    "1": 0.12,
+    "2": 0.72,
+    "3": 0.14
+   },
+   "repetition": 0.07,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.684
+  },
+  {
+   "id": "message|farfuture|betrayal|shift|30",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.72,
+   "quality": 1.73,
+   "quality_conf": 0.65,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.28,
+    "2": 0.67,
+    "3": 0.04
+   },
+   "repetition": 0.05,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.47
+  },
+  {
+   "id": "message|farfuture|betrayal|shift|31",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.95,
+   "quality": 2.08,
+   "quality_conf": 0.74,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.09,
+    "2": 0.74,
+    "3": 0.17
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.443
+  },
+  {
+   "id": "message|farfuture|sacrifice|shift|32",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.79,
+   "quality": 1.76,
+   "quality_conf": 0.64,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.28,
+    "2": 0.65,
+    "3": 0.06
+   },
+   "repetition": 0.03,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.427
+  },
+  {
+   "id": "message|farfuture|sacrifice|shift|33",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.67,
+   "quality": 2.33,
+   "quality_conf": 0.54,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.06,
+    "2": 0.54,
+    "3": 0.4
+   },
+   "repetition": 0.06,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.545
+  },
+  {
+   "id": "message|farfuture|homecoming|shift|34",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.76,
+   "quality": 1.99,
+   "quality_conf": 0.74,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.13,
+    "2": 0.75,
+    "3": 0.12
+   },
+   "repetition": 0.06,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.381
+  },
+  {
+   "id": "message|farfuture|homecoming|shift|35",
+   "scene": "message",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.82,
+   "quality": 2.32,
+   "quality_conf": 0.57,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.05,
+    "2": 0.58,
+    "3": 0.37
+   },
+   "repetition": 0.03,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 492,
+    "output_tokens": 53
+   },
+   "latency_s": 0.434
+  },
+  {
+   "id": "door|medieval|betrayal|shift|36",
+   "scene": "door",
+   "e1": "medieval",
+   "e2": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.8,
+   "quality": 2.13,
+   "quality_conf": 0.71,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.07,
+    "2": 0.72,
+    "3": 0.21
+   },
+   "repetition": 0.13,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.426
+  },
+  {
+   "id": "door|medieval|betrayal|shift|37",
+   "scene": "door",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.78,
+   "quality": 2.3,
+   "quality_conf": 0.55,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.07,
+    "2": 0.55,
+    "3": 0.38
+   },
+   "repetition": 0.09,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.433
+  },
+  {
+   "id": "door|medieval|sacrifice|shift|38",
+   "scene": "door",
+   "e1": "medieval",
+   "e2": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.68,
+   "quality": 2.67,
+   "quality_conf": 0.67,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.02,
+    "2": 0.26,
+    "3": 0.71
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.339
+  },
+  {
+   "id": "door|medieval|sacrifice|shift|39",
+   "scene": "door",
+   "e1": "medieval",
+   "e2": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.92,
    "quality": 2.95,
    "quality_conf": 0.95,
    "quality_probs": {
@@ -339,658 +987,10 @@
    "repetition": 0.03,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.487
-  },
-  {
-   "id": "debt|farfuture|betrayal|shift|13",
-   "scene": "debt",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.35,
-   "quality": 2.51,
-   "quality_conf": 0.51,
-   "quality_probs": {
-    "0": 0.03,
-    "1": 0.03,
-    "2": 0.34,
-    "3": 0.6
-   },
-   "repetition": 0.06,
-   "served_model": "jev-1.13.0",
-   "usage": {
     "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.498
-  },
-  {
-   "id": "debt|farfuture|sacrifice|shift|14",
-   "scene": "debt",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.6,
-   "quality": 2.12,
-   "quality_conf": 0.61,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.09,
-    "2": 0.63,
-    "3": 0.26
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.894
-  },
-  {
-   "id": "debt|farfuture|sacrifice|shift|15",
-   "scene": "debt",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.79,
-   "quality": 2.11,
-   "quality_conf": 0.74,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.07,
-    "2": 0.75,
-    "3": 0.18
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.422
-  },
-  {
-   "id": "debt|farfuture|homecoming|shift|16",
-   "scene": "debt",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.69,
-   "quality": 2.37,
-   "quality_conf": 0.49,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.04,
-    "2": 0.5,
-    "3": 0.44
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.472
-  },
-  {
-   "id": "debt|farfuture|homecoming|shift|17",
-   "scene": "debt",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.77,
-   "quality": 2.59,
-   "quality_conf": 0.59,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.01,
-    "2": 0.38,
-    "3": 0.61
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.461
-  },
-  {
-   "id": "message|medieval|betrayal|shift|18",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "1920s",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.9,
-   "quality": 2.23,
-   "quality_conf": 0.68,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.05,
-    "2": 0.68,
-    "3": 0.27
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.84
-  },
-  {
-   "id": "message|medieval|betrayal|shift|19",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.96,
-   "quality": 2.14,
-   "quality_conf": 0.77,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.04,
-    "2": 0.78,
-    "3": 0.18
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.433
-  },
-  {
-   "id": "message|medieval|sacrifice|shift|20",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "1920s",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.6,
-   "quality": 2.57,
-   "quality_conf": 0.57,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.02,
-    "2": 0.33,
-    "3": 0.63
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.606
-  },
-  {
-   "id": "message|medieval|sacrifice|shift|21",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.65,
-   "quality": 2.35,
-   "quality_conf": 0.51,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.05,
-    "2": 0.52,
-    "3": 0.42
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.44
-  },
-  {
-   "id": "message|medieval|homecoming|shift|22",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "1920s",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.36,
-   "quality": 2.18,
-   "quality_conf": 0.43,
-   "quality_probs": {
-    "0": 0.05,
-    "1": 0.1,
-    "2": 0.47,
-    "3": 0.38
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.591
-  },
-  {
-   "id": "message|medieval|homecoming|shift|23",
-   "scene": "message",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.8,
-   "quality": 2.46,
-   "quality_conf": 0.46,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.03,
-    "2": 0.46,
-    "3": 0.51
-   },
-   "repetition": 0.07,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 493,
-    "output_tokens": 53
-   },
-   "latency_s": 0.428
-  },
-  {
-   "id": "message|1920s|betrayal|shift|24",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "medieval",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.66,
-   "quality": 2.08,
-   "quality_conf": 0.68,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.09,
-    "2": 0.69,
-    "3": 0.2
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.426
-  },
-  {
-   "id": "message|1920s|betrayal|shift|25",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "farfuture",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.79,
-   "quality": 2.72,
-   "quality_conf": 0.72,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.02,
-    "2": 0.23,
-    "3": 0.75
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.474
-  },
-  {
-   "id": "message|1920s|sacrifice|shift|26",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "medieval",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.49,
-   "quality": 2.17,
-   "quality_conf": 0.57,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.11,
-    "2": 0.58,
-    "3": 0.3
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.442
-  },
-  {
-   "id": "message|1920s|sacrifice|shift|27",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "farfuture",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.76,
-   "quality": 2.22,
-   "quality_conf": 0.57,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.09,
-    "2": 0.58,
-    "3": 0.32
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.432
-  },
-  {
-   "id": "message|1920s|homecoming|shift|28",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "medieval",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.65,
-   "quality": 2.43,
-   "quality_conf": 0.48,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.04,
-    "2": 0.48,
-    "3": 0.47
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.369
-  },
-  {
-   "id": "message|1920s|homecoming|shift|29",
-   "scene": "message",
-   "e1": "1920s",
-   "e2": "farfuture",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.91,
-   "quality": 2.25,
-   "quality_conf": 0.65,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.05,
-    "2": 0.65,
-    "3": 0.3
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.458
-  },
-  {
-   "id": "message|farfuture|betrayal|shift|30",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.19,
-   "quality": 1.64,
-   "quality_conf": 0.48,
-   "quality_probs": {
-    "0": 0.1,
-    "1": 0.23,
-    "2": 0.59,
-    "3": 0.08
-   },
-   "repetition": 0.1,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.449
-  },
-  {
-   "id": "message|farfuture|betrayal|shift|31",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.96,
-   "quality": 2.84,
-   "quality_conf": 0.84,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.0,
-    "2": 0.16,
-    "3": 0.84
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.49
-  },
-  {
-   "id": "message|farfuture|sacrifice|shift|32",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.56,
-   "quality": 1.72,
-   "quality_conf": 0.56,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.34,
-    "2": 0.57,
-    "3": 0.08
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.462
-  },
-  {
-   "id": "message|farfuture|sacrifice|shift|33",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.72,
-   "quality": 1.97,
-   "quality_conf": 0.65,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.14,
-    "2": 0.68,
-    "3": 0.16
-   },
-   "repetition": 0.07,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 493,
-    "output_tokens": 53
-   },
-   "latency_s": 0.481
-  },
-  {
-   "id": "message|farfuture|homecoming|shift|34",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.78,
-   "quality": 2.49,
-   "quality_conf": 0.49,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.03,
-    "2": 0.44,
-    "3": 0.53
-   },
-   "repetition": 0.06,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.437
-  },
-  {
-   "id": "message|farfuture|homecoming|shift|35",
-   "scene": "message",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.54,
-   "quality": 2.34,
-   "quality_conf": 0.55,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.05,
-    "2": 0.56,
-    "3": 0.39
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.452
-  },
-  {
-   "id": "door|medieval|betrayal|shift|36",
-   "scene": "door",
-   "e1": "medieval",
-   "e2": "1920s",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.47,
-   "quality": 2.12,
-   "quality_conf": 0.55,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.14,
-    "2": 0.57,
-    "3": 0.28
-   },
-   "repetition": 0.06,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.513
-  },
-  {
-   "id": "door|medieval|betrayal|shift|37",
-   "scene": "door",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.67,
-   "quality": 2.61,
-   "quality_conf": 0.61,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.02,
-    "2": 0.3,
-    "3": 0.67
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.518
-  },
-  {
-   "id": "door|medieval|sacrifice|shift|38",
-   "scene": "door",
-   "e1": "medieval",
-   "e2": "1920s",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.96,
-   "quality": 2.63,
-   "quality_conf": 0.63,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.01,
-    "2": 0.35,
-    "3": 0.64
-   },
-   "repetition": 0.04,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.546
-  },
-  {
-   "id": "door|medieval|sacrifice|shift|39",
-   "scene": "door",
-   "e1": "medieval",
-   "e2": "farfuture",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.42,
-   "quality": 2.39,
-   "quality_conf": 0.39,
-   "quality_probs": {
-    "0": 0.02,
-    "1": 0.05,
-    "2": 0.45,
-    "3": 0.48
-   },
-   "repetition": 0.17,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.445
+   "latency_s": 0.363
   },
   {
    "id": "door|medieval|homecoming|shift|40",
@@ -999,22 +999,22 @@
    "e2": "1920s",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.54,
-   "quality": 1.89,
-   "quality_conf": 0.55,
+   "fluent": 0.64,
+   "quality": 1.61,
+   "quality_conf": 0.5,
    "quality_probs": {
     "0": 0.03,
-    "1": 0.21,
-    "2": 0.59,
-    "3": 0.17
+    "1": 0.39,
+    "2": 0.52,
+    "3": 0.06
    },
-   "repetition": 0.25,
+   "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.509
+   "latency_s": 0.596
   },
   {
    "id": "door|medieval|homecoming|shift|41",
@@ -1023,22 +1023,22 @@
    "e2": "farfuture",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.77,
-   "quality": 2.78,
-   "quality_conf": 0.78,
+   "fluent": 0.88,
+   "quality": 2.79,
+   "quality_conf": 0.79,
    "quality_probs": {
     "0": 0.0,
     "1": 0.01,
     "2": 0.19,
     "3": 0.8
    },
-   "repetition": 0.06,
+   "repetition": 0.03,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 489,
     "output_tokens": 53
    },
-   "latency_s": 0.507
+   "latency_s": 0.407
   },
   {
    "id": "door|1920s|betrayal|shift|42",
@@ -1047,22 +1047,22 @@
    "e2": "medieval",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.9,
-   "quality": 1.79,
-   "quality_conf": 0.64,
+   "fluent": 0.69,
+   "quality": 2.5,
+   "quality_conf": 0.5,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.28,
-    "2": 0.65,
-    "3": 0.07
+    "0": 0.01,
+    "1": 0.04,
+    "2": 0.41,
+    "3": 0.54
    },
    "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.457
+   "latency_s": 0.447
   },
   {
    "id": "door|1920s|betrayal|shift|43",
@@ -1071,22 +1071,22 @@
    "e2": "farfuture",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.67,
-   "quality": 2.61,
-   "quality_conf": 0.61,
+   "fluent": 0.84,
+   "quality": 2.83,
+   "quality_conf": 0.83,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.03,
-    "2": 0.29,
-    "3": 0.67
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.15,
+    "3": 0.84
    },
    "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 494,
+    "input_tokens": 492,
     "output_tokens": 53
    },
-   "latency_s": 0.692
+   "latency_s": 0.388
   },
   {
    "id": "door|1920s|sacrifice|shift|44",
@@ -1095,22 +1095,22 @@
    "e2": "medieval",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.63,
-   "quality": 2.33,
-   "quality_conf": 0.51,
+   "fluent": 0.89,
+   "quality": 2.41,
+   "quality_conf": 0.5,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.06,
-    "2": 0.52,
-    "3": 0.41
+    "0": 0.0,
+    "1": 0.04,
+    "2": 0.5,
+    "3": 0.46
    },
-   "repetition": 0.1,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.426
+   "latency_s": 0.439
   },
   {
    "id": "door|1920s|sacrifice|shift|45",
@@ -1119,22 +1119,22 @@
    "e2": "farfuture",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.71,
-   "quality": 2.33,
-   "quality_conf": 0.54,
+   "fluent": 0.73,
+   "quality": 2.12,
+   "quality_conf": 0.61,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.06,
-    "2": 0.54,
-    "3": 0.4
+    "0": 0.01,
+    "1": 0.12,
+    "2": 0.62,
+    "3": 0.25
    },
    "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.449
+   "latency_s": 0.406
   },
   {
    "id": "door|1920s|homecoming|shift|46",
@@ -1143,22 +1143,22 @@
    "e2": "medieval",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.71,
-   "quality": 2.76,
-   "quality_conf": 0.76,
+   "fluent": 0.57,
+   "quality": 2.59,
+   "quality_conf": 0.59,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.01,
-    "2": 0.21,
-    "3": 0.77
+    "0": 0.02,
+    "1": 0.03,
+    "2": 0.29,
+    "3": 0.66
    },
-   "repetition": 0.07,
+   "repetition": 0.17,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.429
+   "latency_s": 0.38
   },
   {
    "id": "door|1920s|homecoming|shift|47",
@@ -1167,22 +1167,22 @@
    "e2": "farfuture",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.58,
-   "quality": 2.78,
-   "quality_conf": 0.78,
+   "fluent": 0.95,
+   "quality": 2.93,
+   "quality_conf": 0.93,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.01,
-    "2": 0.18,
-    "3": 0.8
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.07,
+    "3": 0.93
    },
-   "repetition": 0.06,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.616
+   "latency_s": 0.507
   },
   {
    "id": "door|farfuture|betrayal|shift|48",
@@ -1191,22 +1191,22 @@
    "e2": "medieval",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.47,
-   "quality": 2.51,
-   "quality_conf": 0.51,
+   "fluent": 0.87,
+   "quality": 2.1,
+   "quality_conf": 0.62,
    "quality_probs": {
-    "0": 0.02,
-    "1": 0.04,
-    "2": 0.36,
-    "3": 0.58
+    "0": 0.0,
+    "1": 0.14,
+    "2": 0.62,
+    "3": 0.24
    },
-   "repetition": 0.05,
+   "repetition": 0.1,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.412
+   "latency_s": 0.603
   },
   {
    "id": "door|farfuture|betrayal|shift|49",
@@ -1215,22 +1215,22 @@
    "e2": "1920s",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.73,
-   "quality": 2.65,
-   "quality_conf": 0.65,
+   "fluent": 0.61,
+   "quality": 1.7,
+   "quality_conf": 0.59,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.02,
-    "2": 0.3,
-    "3": 0.67
+    "0": 0.04,
+    "1": 0.27,
+    "2": 0.63,
+    "3": 0.06
    },
-   "repetition": 0.05,
+   "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.437
+   "latency_s": 0.432
   },
   {
    "id": "door|farfuture|sacrifice|shift|50",
@@ -1239,22 +1239,22 @@
    "e2": "medieval",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.79,
-   "quality": 2.13,
-   "quality_conf": 0.66,
+   "fluent": 0.77,
+   "quality": 1.7,
+   "quality_conf": 0.63,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.1,
-    "2": 0.67,
-    "3": 0.23
+    "0": 0.01,
+    "1": 0.32,
+    "2": 0.64,
+    "3": 0.03
    },
-   "repetition": 0.05,
+   "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.411
+   "latency_s": 0.505
   },
   {
    "id": "door|farfuture|sacrifice|shift|51",
@@ -1263,22 +1263,22 @@
    "e2": "1920s",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.89,
-   "quality": 2.12,
-   "quality_conf": 0.74,
+   "fluent": 0.87,
+   "quality": 2.21,
+   "quality_conf": 0.7,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.07,
-    "2": 0.74,
-    "3": 0.19
+    "1": 0.04,
+    "2": 0.7,
+    "3": 0.26
    },
-   "repetition": 0.04,
+   "repetition": 0.03,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.487
+   "latency_s": 0.436
   },
   {
    "id": "door|farfuture|homecoming|shift|52",
@@ -1287,22 +1287,22 @@
    "e2": "medieval",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.82,
-   "quality": 1.89,
-   "quality_conf": 0.72,
+   "fluent": 0.44,
+   "quality": 1.84,
+   "quality_conf": 0.57,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.19,
-    "2": 0.72,
-    "3": 0.09
+    "0": 0.04,
+    "1": 0.21,
+    "2": 0.61,
+    "3": 0.14
    },
-   "repetition": 0.08,
+   "repetition": 0.07,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.428
+   "latency_s": 0.606
   },
   {
    "id": "door|farfuture|homecoming|shift|53",
@@ -1311,22 +1311,22 @@
    "e2": "1920s",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.85,
-   "quality": 2.15,
-   "quality_conf": 0.71,
+   "fluent": 0.59,
+   "quality": 1.88,
+   "quality_conf": 0.67,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.07,
-    "2": 0.71,
-    "3": 0.22
+    "0": 0.03,
+    "1": 0.17,
+    "2": 0.69,
+    "3": 0.11
    },
-   "repetition": 0.05,
+   "repetition": 0.06,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 490,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.442
+   "latency_s": 0.514
   },
   {
    "id": "meal|medieval|betrayal|shift|54",
@@ -1335,22 +1335,22 @@
    "e2": "1920s",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.59,
-   "quality": 1.99,
-   "quality_conf": 0.51,
+   "fluent": 0.21,
+   "quality": 1.98,
+   "quality_conf": 0.45,
    "quality_probs": {
-    "0": 0.06,
-    "1": 0.14,
-    "2": 0.5599999999999999,
-    "3": 0.24
+    "0": 0.05,
+    "1": 0.18,
+    "2": 0.5,
+    "3": 0.27
    },
-   "repetition": 0.05,
+   "repetition": 0.07,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 492,
     "output_tokens": 53
    },
-   "latency_s": 0.54
+   "latency_s": 0.418
   },
   {
    "id": "meal|medieval|betrayal|shift|55",
@@ -1359,22 +1359,22 @@
    "e2": "farfuture",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.82,
-   "quality": 2.19,
-   "quality_conf": 0.66,
+   "fluent": 0.97,
+   "quality": 2.83,
+   "quality_conf": 0.83,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.07,
-    "2": 0.66,
-    "3": 0.27
+    "1": 0.0,
+    "2": 0.16,
+    "3": 0.84
    },
-   "repetition": 0.04,
+   "repetition": 0.03,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.456
+   "latency_s": 0.409
   },
   {
    "id": "meal|medieval|sacrifice|shift|56",
@@ -1383,22 +1383,22 @@
    "e2": "1920s",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.75,
-   "quality": 2.28,
-   "quality_conf": 0.58,
+   "fluent": 0.8,
+   "quality": 2.55,
+   "quality_conf": 0.55,
    "quality_probs": {
-    "0": 0.01,
-    "1": 0.05,
-    "2": 0.59,
-    "3": 0.35
+    "0": 0.0,
+    "1": 0.02,
+    "2": 0.41,
+    "3": 0.57
    },
    "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.555
+   "latency_s": 0.412
   },
   {
    "id": "meal|medieval|sacrifice|shift|57",
@@ -1407,22 +1407,22 @@
    "e2": "farfuture",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.63,
-   "quality": 2.12,
-   "quality_conf": 0.67,
+   "fluent": 0.71,
+   "quality": 2.23,
+   "quality_conf": 0.54,
    "quality_probs": {
     "0": 0.01,
-    "1": 0.08,
-    "2": 0.68,
-    "3": 0.23
+    "1": 0.09,
+    "2": 0.56,
+    "3": 0.34
    },
-   "repetition": 0.05,
+   "repetition": 0.07,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 493,
     "output_tokens": 53
    },
-   "latency_s": 0.628
+   "latency_s": 0.4
   },
   {
    "id": "meal|medieval|homecoming|shift|58",
@@ -1431,22 +1431,22 @@
    "e2": "1920s",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.98,
-   "quality": 2.65,
-   "quality_conf": 0.65,
+   "fluent": 0.78,
+   "quality": 2.07,
+   "quality_conf": 0.68,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.01,
-    "2": 0.32,
-    "3": 0.67
+    "1": 0.12,
+    "2": 0.68,
+    "3": 0.2
    },
-   "repetition": 0.03,
+   "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 492,
     "output_tokens": 53
    },
-   "latency_s": 0.418
+   "latency_s": 0.817
   },
   {
    "id": "meal|medieval|homecoming|shift|59",
@@ -1455,22 +1455,22 @@
    "e2": "farfuture",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.86,
-   "quality": 2.86,
-   "quality_conf": 0.86,
+   "fluent": 0.81,
+   "quality": 2.77,
+   "quality_conf": 0.77,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.0,
-    "2": 0.13,
-    "3": 0.87
+    "0": 0.01,
+    "1": 0.01,
+    "2": 0.2,
+    "3": 0.78
    },
-   "repetition": 0.03,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 492,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.453
+   "latency_s": 0.416
   },
   {
    "id": "meal|1920s|betrayal|shift|60",
@@ -1479,22 +1479,22 @@
    "e2": "medieval",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.81,
-   "quality": 1.65,
-   "quality_conf": 0.6,
+   "fluent": 0.62,
+   "quality": 2.18,
+   "quality_conf": 0.56,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.37,
-    "2": 0.6,
-    "3": 0.03
+    "0": 0.02,
+    "1": 0.08,
+    "2": 0.59,
+    "3": 0.31
    },
-   "repetition": 0.04,
+   "repetition": 0.05,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.504
+   "latency_s": 0.39
   },
   {
    "id": "meal|1920s|betrayal|shift|61",
@@ -1503,22 +1503,22 @@
    "e2": "farfuture",
    "t": "betrayal",
    "cond": "shift",
-   "fluent": 0.8,
-   "quality": 2.54,
-   "quality_conf": 0.54,
+   "fluent": 0.82,
+   "quality": 2.65,
+   "quality_conf": 0.65,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.03,
-    "2": 0.41,
-    "3": 0.56
+    "1": 0.02,
+    "2": 0.31,
+    "3": 0.67
    },
-   "repetition": 0.03,
+   "repetition": 0.04,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 493,
+    "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.502
+   "latency_s": 0.507
   },
   {
    "id": "meal|1920s|sacrifice|shift|62",
@@ -1527,181 +1527,13 @@
    "e2": "medieval",
    "t": "sacrifice",
    "cond": "shift",
-   "fluent": 0.49,
-   "quality": 1.72,
-   "quality_conf": 0.58,
-   "quality_probs": {
-    "0": 0.03,
-    "1": 0.28,
-    "2": 0.62,
-    "3": 0.07
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.472
-  },
-  {
-   "id": "meal|1920s|sacrifice|shift|63",
-   "scene": "meal",
-   "e1": "1920s",
-   "e2": "farfuture",
-   "t": "sacrifice",
-   "cond": "shift",
    "fluent": 0.93,
-   "quality": 1.63,
-   "quality_conf": 0.61,
+   "quality": 1.8,
+   "quality_conf": 0.73,
    "quality_probs": {
     "0": 0.0,
-    "1": 0.38,
-    "2": 0.61,
-    "3": 0.01
-   },
-   "repetition": 0.03,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 492,
-    "output_tokens": 53
-   },
-   "latency_s": 0.895
-  },
-  {
-   "id": "meal|1920s|homecoming|shift|64",
-   "scene": "meal",
-   "e1": "1920s",
-   "e2": "medieval",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.82,
-   "quality": 2.28,
-   "quality_conf": 0.62,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.05,
-    "2": 0.62,
-    "3": 0.33
-   },
-   "repetition": 0.06,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.443
-  },
-  {
-   "id": "meal|1920s|homecoming|shift|65",
-   "scene": "meal",
-   "e1": "1920s",
-   "e2": "farfuture",
-   "t": "homecoming",
-   "cond": "shift",
-   "fluent": 0.81,
-   "quality": 2.69,
-   "quality_conf": 0.69,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.01,
-    "2": 0.29,
-    "3": 0.7
-   },
-   "repetition": 0.15,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.363
-  },
-  {
-   "id": "meal|farfuture|betrayal|shift|66",
-   "scene": "meal",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.95,
-   "quality": 2.17,
-   "quality_conf": 0.71,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.06,
-    "2": 0.71,
-    "3": 0.23
-   },
-   "repetition": 0.03,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.404
-  },
-  {
-   "id": "meal|farfuture|betrayal|shift|67",
-   "scene": "meal",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "betrayal",
-   "cond": "shift",
-   "fluent": 0.79,
-   "quality": 2.06,
-   "quality_conf": 0.74,
-   "quality_probs": {
-    "0": 0.0,
-    "1": 0.09,
-    "2": 0.75,
-    "3": 0.16
-   },
-   "repetition": 0.03,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 490,
-    "output_tokens": 53
-   },
-   "latency_s": 0.523
-  },
-  {
-   "id": "meal|farfuture|sacrifice|shift|68",
-   "scene": "meal",
-   "e1": "farfuture",
-   "e2": "medieval",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.68,
-   "quality": 1.85,
-   "quality_conf": 0.7,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.21,
-    "2": 0.7,
-    "3": 0.08
-   },
-   "repetition": 0.05,
-   "served_model": "jev-1.13.0",
-   "usage": {
-    "input_tokens": 491,
-    "output_tokens": 53
-   },
-   "latency_s": 0.357
-  },
-  {
-   "id": "meal|farfuture|sacrifice|shift|69",
-   "scene": "meal",
-   "e1": "farfuture",
-   "e2": "1920s",
-   "t": "sacrifice",
-   "cond": "shift",
-   "fluent": 0.71,
-   "quality": 1.74,
-   "quality_conf": 0.69,
-   "quality_probs": {
-    "0": 0.01,
-    "1": 0.27,
-    "2": 0.69,
+    "1": 0.24,
+    "2": 0.73,
     "3": 0.03
    },
    "repetition": 0.05,
@@ -1710,7 +1542,175 @@
     "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.52
+   "latency_s": 0.449
+  },
+  {
+   "id": "meal|1920s|sacrifice|shift|63",
+   "scene": "meal",
+   "e1": "1920s",
+   "e2": "farfuture",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.73,
+   "quality": 1.89,
+   "quality_conf": 0.66,
+   "quality_probs": {
+    "0": 0.01,
+    "1": 0.21,
+    "2": 0.67,
+    "3": 0.11
+   },
+   "repetition": 0.05,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 493,
+    "output_tokens": 53
+   },
+   "latency_s": 0.552
+  },
+  {
+   "id": "meal|1920s|homecoming|shift|64",
+   "scene": "meal",
+   "e1": "1920s",
+   "e2": "medieval",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.85,
+   "quality": 2.33,
+   "quality_conf": 0.49,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.09,
+    "2": 0.49,
+    "3": 0.42
+   },
+   "repetition": 0.12,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.352
+  },
+  {
+   "id": "meal|1920s|homecoming|shift|65",
+   "scene": "meal",
+   "e1": "1920s",
+   "e2": "farfuture",
+   "t": "homecoming",
+   "cond": "shift",
+   "fluent": 0.54,
+   "quality": 2.75,
+   "quality_conf": 0.75,
+   "quality_probs": {
+    "0": 0.02,
+    "1": 0.01,
+    "2": 0.17,
+    "3": 0.8
+   },
+   "repetition": 0.05,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.404
+  },
+  {
+   "id": "meal|farfuture|betrayal|shift|66",
+   "scene": "meal",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.46,
+   "quality": 2.04,
+   "quality_conf": 0.59,
+   "quality_probs": {
+    "0": 0.05,
+    "1": 0.09,
+    "2": 0.63,
+    "3": 0.23
+   },
+   "repetition": 0.06,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.411
+  },
+  {
+   "id": "meal|farfuture|betrayal|shift|67",
+   "scene": "meal",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "betrayal",
+   "cond": "shift",
+   "fluent": 0.77,
+   "quality": 1.82,
+   "quality_conf": 0.68,
+   "quality_probs": {
+    "0": 0.02,
+    "1": 0.22,
+    "2": 0.69,
+    "3": 0.07
+   },
+   "repetition": 0.04,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.388
+  },
+  {
+   "id": "meal|farfuture|sacrifice|shift|68",
+   "scene": "meal",
+   "e1": "farfuture",
+   "e2": "medieval",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.26,
+   "quality": 1.79,
+   "quality_conf": 0.52,
+   "quality_probs": {
+    "0": 0.07,
+    "1": 0.19,
+    "2": 0.61,
+    "3": 0.13
+   },
+   "repetition": 0.1,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 491,
+    "output_tokens": 53
+   },
+   "latency_s": 0.421
+  },
+  {
+   "id": "meal|farfuture|sacrifice|shift|69",
+   "scene": "meal",
+   "e1": "farfuture",
+   "e2": "1920s",
+   "t": "sacrifice",
+   "cond": "shift",
+   "fluent": 0.96,
+   "quality": 2.32,
+   "quality_conf": 0.62,
+   "quality_probs": {
+    "0": 0.0,
+    "1": 0.03,
+    "2": 0.62,
+    "3": 0.35
+   },
+   "repetition": 0.03,
+   "served_model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 490,
+    "output_tokens": 53
+   },
+   "latency_s": 0.438
   },
   {
    "id": "meal|farfuture|homecoming|shift|70",
@@ -1719,22 +1719,22 @@
    "e2": "medieval",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.44,
-   "quality": 2.35,
-   "quality_conf": 0.49,
+   "fluent": 0.7,
+   "quality": 2.45,
+   "quality_conf": 0.45,
    "quality_probs": {
-    "0": 0.01,
+    "0": 0.02,
     "1": 0.05,
-    "2": 0.51,
-    "3": 0.43
+    "2": 0.38,
+    "3": 0.55
    },
-   "repetition": 0.11,
+   "repetition": 0.16,
    "served_model": "jev-1.13.0",
    "usage": {
     "input_tokens": 491,
     "output_tokens": 53
    },
-   "latency_s": 0.537
+   "latency_s": 0.459
   },
   {
    "id": "meal|farfuture|homecoming|shift|71",
@@ -1743,22 +1743,22 @@
    "e2": "1920s",
    "t": "homecoming",
    "cond": "shift",
-   "fluent": 0.97,
-   "quality": 2.89,
-   "quality_conf": 0.89,
+   "fluent": 0.37,
+   "quality": 1.57,
+   "quality_conf": 0.47,
    "quality_probs": {
-    "0": 0.0,
-    "1": 0.0,
-    "2": 0.11,
-    "3": 0.89
+    "0": 0.04,
+    "1": 0.4,
+    "2": 0.51,
+    "3": 0.05
    },
-   "repetition": 0.05,
+   "repetition": 0.08,
    "served_model": "jev-1.13.0",
    "usage": {
-    "input_tokens": 491,
+    "input_tokens": 490,
     "output_tokens": 53
    },
-   "latency_s": 0.449
+   "latency_s": 0.425
   }
  ]
 }
