@@ -186,3 +186,71 @@ def test_last_hidden_state_is_post_norm(tiny_lm):
     assert not torch.allclose(res[-1], pre["x"][0], atol=1e-4), (
         "last hidden state equals the pre-norm residual; the convention changed, update the docstring"
     )
+
+
+# --- phase 0.1: the final-residual patch point and the offline direct-path arm ----------------
+
+def _final_norm_and_head(lm):
+    return lm.final_norm(), lm.head()
+
+
+def test_final_layer_zero_patch_is_identity(tiny_lm):
+    """A zero vector added at `pre_28` must leave the log-probs exactly unchanged."""
+    prefix, cont = "first, a particle has", " a definite position"
+    zero = np.zeros(tiny_lm.d_model, dtype=np.float32)
+    base = tiny_lm.logprob(prefix, cont)
+    got = tiny_lm.logprob(prefix, cont, [Patch(tiny_lm.n_layers, steer.add_vector(zero, 1.0))])
+    assert got == base, f"zero final patch moved the log-prob by {got - base}"
+
+
+def test_final_layer_patch_is_offline_unembed(tiny_lm):
+    """`Patch(n_layers, +v)` must equal the offline arithmetic on the captured pre-norm residual.
+
+    This identity is what makes every final-residual arm computable without a forward pass. If it
+    fails the arm is wrong, not the claim (docs/specs/selector_direct_path_v1.md §2). Note the
+    offline form norms `pre + v` ONCE: using `residuals()[-1]` here would double-norm.
+    """
+    prefix, cont = "first, a particle has", " a definite position"
+    rng = np.random.default_rng(0)
+    v = rng.normal(size=tiny_lm.d_model).astype(np.float32)
+    v /= np.linalg.norm(v)
+    v *= 2.0
+
+    enc_p, _ = tiny_lm.encode(prefix)
+    enc_f, _ = tiny_lm.encode(prefix + cont)
+    n_p = enc_p["input_ids"].shape[1]
+    ids = enc_f["input_ids"][0]
+
+    pre, r, logits = tiny_lm.pre_norm_residual(prefix + cont)
+    norm, head = _final_norm_and_head(tiny_lm)
+    with torch.no_grad():
+        z = norm(pre + torch.as_tensor(v))
+        lp = torch.log_softmax(head(z)[:-1].float(), dim=-1)
+    tgt = ids[1:]
+    offline = float(lp[torch.arange(n_p - 1, len(tgt)), tgt[n_p - 1:]].sum())
+    online = tiny_lm.logprob(prefix, cont, [Patch(tiny_lm.n_layers, steer.add_vector(v, 1.0))])
+    assert abs(online - offline) < 1e-4, f"offline final-residual arm off by {online - offline:.2e} nats"
+
+    with torch.no_grad():
+        lp0 = torch.log_softmax(head(norm(pre))[:-1].float(), dim=-1)
+    off0 = float(lp0[torch.arange(n_p - 1, len(tgt)), tgt[n_p - 1:]].sum())
+    assert abs(off0 - tiny_lm.logprob(prefix, cont)) < 1e-4, "base offline arm does not reproduce base"
+
+
+def test_pre_norm_capture_differs_from_hidden_states_last(tiny_lm):
+    """`pre_norm_residual` returns the residual, not the normed hidden state."""
+    pre, r, _ = tiny_lm.pre_norm_residual(P)
+    hs, _ = tiny_lm.residuals(P)
+    norm, _ = _final_norm_and_head(tiny_lm)
+    with torch.no_grad():
+        assert torch.allclose(norm(pre), hs[-1], atol=1e-4), "norm(pre_28) != hidden_states[-1]"
+    assert not torch.allclose(pre, hs[-1], atol=1e-4), "pre_28 == hidden_states[-1]; capture is post-norm"
+    assert abs(float(r[-1]) - float(pre[1:].norm(dim=-1).mean())) < 1e-4, "r[-1] is not the pre-norm norm"
+
+
+def test_final_layer_patch_sees_upstream_patch(tiny_lm):
+    """A patch at block L is visible in the captured `pre_28` (the norm hook fires after it)."""
+    v = np.ones(tiny_lm.d_model, dtype=np.float32) * 0.3
+    pre0, _, _ = tiny_lm.pre_norm_residual(P)
+    pre1, _, _ = tiny_lm.pre_norm_residual(P, [Patch(1, steer.add_vector(v, 1.0))])
+    assert not torch.allclose(pre0, pre1), "upstream patch not visible in pre-norm capture"

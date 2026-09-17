@@ -41,7 +41,11 @@ PatchFn = Callable[[torch.Tensor], torch.Tensor]
 
 @dataclass
 class Patch:
-    layer: int              # residual stream index (input to block `layer`); 0..L-1 patchable
+    # residual stream index. 0..n_layers-1 -> forward-pre-hook on that block (edits its input).
+    # layer == n_layers -> forward-pre-hook on the FINAL NORM, i.e. the residual `pre_28` after the
+    # last block and before the norm. No block follows, so a patch there reaches the logits by the
+    # skip path alone (phase 0.1, docs/specs/selector_direct_path_v1.md §2).
+    layer: int
     fn: PatchFn
 
 
@@ -102,12 +106,57 @@ class LM:
             return hook
 
         for layer, fns in by_layer.items():
-            handles.append(self.blocks[layer].register_forward_pre_hook(make_pre_hook(fns), with_kwargs=True))
+            if layer == self.n_layers:
+                # `pre_28`: the residual after the last block, before the final norm. Nothing
+                # computes after this point, so the patch reaches the logits by the skip path only.
+                mod = self.final_norm()
+                if mod is None:
+                    raise ValueError("no final norm module found; cannot patch at layer == n_layers")
+            elif 0 <= layer < self.n_layers:
+                mod = self.blocks[layer]
+            else:
+                raise ValueError(f"patch layer {layer} out of range 0..{self.n_layers}")
+            handles.append(mod.register_forward_pre_hook(make_pre_hook(fns), with_kwargs=True))
         try:
             yield
         finally:
             for h in handles:
                 h.remove()
+
+    @torch.no_grad()
+    def pre_norm_residual(self, text: str, patches: list[Patch] | None = None):
+        """Capture the PRE-final-norm residual `pre_28` with a forward-pre-hook on the final norm.
+
+        The only sanctioned way to obtain `pre_28`; `hidden_states[-1]` is the norm OUTPUT
+        (test_last_hidden_state_is_post_norm). Returns
+          pre   [seq, d]      float32 cpu -- the residual entering the final norm
+          r     [n_layers+1]  float32     -- mean position norm of hidden_states[l], positions >= 1
+                                             (r[n_layers] is overwritten with the norm of `pre`,
+                                              NOT of the post-norm hidden state)
+          logits[seq, V]      float32 cpu
+        Run under `patched(patches)`, so any patch at layer <= n_layers-1 is visible in `pre`.
+        The capture hook is registered before the patch hooks, so a patch AT `n_layers` is visible in
+        `logits` but not in `pre` (by design: `pre` is always the residual the patch is added to).
+        """
+        enc, _ = self.encode(text)
+        grab = {}
+        norm_mod = self.final_norm()
+        if norm_mod is None:
+            raise ValueError("no final norm module found")
+        h = norm_mod.register_forward_pre_hook(
+            lambda mod, args: grab.setdefault("x", args[0].detach().clone()))
+        try:
+            with self.patched(patches or []):
+                out = self.model(**enc, output_hidden_states=True)
+        finally:
+            h.remove()
+        if "x" not in grab:
+            raise RuntimeError("final norm never ran; capture point is wrong")
+        pre = grab["x"][0].float().cpu()
+        hs = torch.stack(out.hidden_states, dim=0)[:, 0].float().cpu()
+        r = hs[:, 1:].norm(dim=-1).mean(dim=-1)              # positions >= 1 (sink excluded)
+        r[self.n_layers] = pre[1:].norm(dim=-1).mean()       # true pre-norm residual norm
+        return pre, r, out.logits[0].float().cpu()
 
     @torch.no_grad()
     def generate(self, text: str, max_new_tokens: int = 24, patches: list[Patch] | None = None, **kw) -> str:
@@ -125,15 +174,24 @@ class LM:
             out = self.model(**enc)
         return out.logits[0, -1].float().cpu()
 
-    def unembed(self, vec: torch.Tensor, k: int = 10) -> list[tuple[str, float]]:
-        """Logit lens: push a residual vector through final norm + lm_head, return top-k tokens."""
+    def final_norm(self) -> nn.Module | None:
+        """The norm module applied to the last block's residual before the unembedding."""
         m = self.model
-        norm = None
         for base_name, norm_name in (("model", "norm"), ("transformer", "ln_f"), ("gpt_neox", "final_layer_norm")):
             base = getattr(m, base_name, None)
             if base is not None and getattr(base, norm_name, None) is not None:
-                norm = getattr(base, norm_name); break
-        head = getattr(m, "lm_head", None) or getattr(m, "embed_out", None) or m.get_output_embeddings()
+                return getattr(base, norm_name)
+        return None
+
+    def head(self) -> nn.Module:
+        m = self.model
+        return getattr(m, "lm_head", None) or getattr(m, "embed_out", None) or m.get_output_embeddings()
+
+    def unembed(self, vec: torch.Tensor, k: int = 10) -> list[tuple[str, float]]:
+        """Logit lens: push a residual vector through final norm + lm_head, return top-k tokens."""
+        m = self.model
+        norm = self.final_norm()
+        head = self.head()
         with torch.no_grad():
             v = vec.to(self.device, dtype=next(m.parameters()).dtype)
             if norm is not None:
