@@ -6,8 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Write(src/lsx/**)",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && HF_HOME=$PWD/cache/hf HF_HUB_OFFLINE=1 .venv/bin/python -m pytest -q tests/test_invariants.py 2>&1 | tail -15",
+            "command": "f=$(jq -r '.tool_response.filePath // .tool_input.file_path // \"\"'); case \"$f\" in *src/lsx/*|*scripts/*extract*|*scripts/*factors*|*scripts/*selector*|*tests/test_invariants*) ;; *) exit 0;; esac; cd \"$CLAUDE_PROJECT_DIR\" && HF_HOME=$PWD/cache/hf HF_HUB_OFFLINE=1 .venv/bin/python -m pytest -q tests/test_invariants.py 2>&1 | tail -15",
             "statusMessage": "Checking measurement invariants",
             "timeout": 120
           }
@@ -33,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo \"--- open instrument risks ---\" && grep -nE \"still has no null|Next:|NOT narrowed|remains open|unre-run|untested\" RESULTS.md | grep -v \"^.*~~.*~~.*done\" | tail -6 | cut -c1-200",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo \"--- unresolved (Checkpoint 2) ---\" && awk \"/^## CHECKPOINT 2/,/^## CHECKPOINT 1/\" RESULTS.md | grep -E \"still has no null|NOT narrowed|remains open|unre-run|untested|cannot be tested\" | sed \"s/^ *//\" | cut -c1-160 | head -5",
             "statusMessage": "Loading open risks",
             "timeout": 30
           }
