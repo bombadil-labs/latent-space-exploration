@@ -3,7 +3,11 @@
 Layer indexing convention (matches HF `output_hidden_states`):
   resid[0]   = embedding output (before any transformer block)
   resid[i]   = residual stream after block i-1, i.e. input to block i
-  resid[L]   = output of the last block (before final norm)
+  resid[L]   = the model's FINAL-NORM OUTPUT, not the raw residual (HF applies the final norm to
+               the last hidden state). Verified on Qwen2.5-1.5B: hidden_states[28] == norm(pre),
+               mean position norm 190.5 vs 283.2 for the true pre-norm residual. To obtain the raw
+               last-block residual, register a forward-pre-hook on `model.model.norm`. See
+               tests/test_invariants.py::test_last_hidden_state_is_post_norm.
 """
 from __future__ import annotations
 

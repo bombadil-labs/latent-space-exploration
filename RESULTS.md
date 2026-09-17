@@ -22,6 +22,14 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
   rank-1-on-ties pinned every measured rank at 11/9 = 1.22 for *any* direction. That was the whole
   reported band (1.00–1.28), treatment and control alike. The layer-sweep conclusion went with it,
   so **h33's depth-fraction confound is open again**.
+- **Two incidental "layer 28" numbers are mislabelled, not wrong** (found 2026-09-17 during the
+  phase-0.1 spec review, verified directly). HF applies the final norm to the last hidden state, so
+  `residuals()[-1]` is the final-norm *output*, not the last block's residual (mean position norm
+  190.5 vs 283.2 on Qwen2.5-1.5B). Affected: the RSA figure "0.38 at layer 28" and "tense 0.78 at
+  layer 28". Both are incidental; every headline layer number in this repo is mid-stack (12, 14, 16,
+  18, 20, 24) and unaffected. The docstring in `src/lsx/model.py` asserted the opposite and is
+  corrected; `tests/test_invariants.py::test_last_hidden_state_is_post_norm` now pins the convention.
+  Not a retraction — no claim depended on it.
 - **Hours 14 and 23, and claim 6 of the writeup** ("an era shift moves the address and keeps the
   form"). Withdrawn at h40: the readout was taken after the patch layer, and since the patch is a
   constant added at every position and the readout is a span mean, the movement is vector addition,

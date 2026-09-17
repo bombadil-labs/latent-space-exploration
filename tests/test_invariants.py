@@ -164,3 +164,25 @@ def test_statistic_returns_its_null_on_noise_and_moves_on_signal(tiny_lm):
         assert readout(planted) > amp * 0.5, f"readout did not respond to planted signal at {amp}"
     vals = [readout(noise + a * direction) for a in (1.0, 2.0, 4.0)]
     assert vals[0] < vals[1] < vals[2], "readout not monotone in planted effect size"
+
+
+# --- phase 0.1 review finding: the last hidden state is post-final-norm --------------------
+
+def test_last_hidden_state_is_post_norm(tiny_lm):
+    """`residuals()[-1]` is the final-norm OUTPUT, not the last block's residual.
+
+    Found while reviewing the direct-path spec: an offline arm written as `norm(hs[-1] + v)` would
+    double-norm, and any 'layer N' number read from `hs[-1]` is a normed vector, not a residual.
+    Assert the relationship so the convention cannot be silently misremembered again.
+    """
+    pre = {}
+    h = tiny_lm.model.model.norm.register_forward_pre_hook(
+        lambda mod, args: pre.setdefault("x", args[0].detach().clone()))
+    res, _ = tiny_lm.residuals(P)
+    h.remove()
+    assert "x" in pre, "final norm never ran; capture point is wrong"
+    post = tiny_lm.model.model.norm(pre["x"])[0]
+    assert torch.allclose(res[-1], post, atol=1e-4), "last hidden state is not the final-norm output"
+    assert not torch.allclose(res[-1], pre["x"][0], atol=1e-4), (
+        "last hidden state equals the pre-norm residual; the convention changed, update the docstring"
+    )
