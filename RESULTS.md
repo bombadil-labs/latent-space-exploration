@@ -1534,6 +1534,63 @@ stream, but it has not been checked. **Confirmed clean:** the role lens (h3, h16
 Files: `scripts/passthrough_test.py`, `results/passthrough_h14.json`, `results/notes/passthrough_h14.md`.
 Cost: ~135k agent tokens, ~35 min.
 
+## 2026-09-17 (hour 41) — PHASE 0.1: the selector effect is not the direct path. Claims 2 and 4 describe computation (agent, spec `docs/specs/selector_direct_path_v1.md` v2)
+
+**The threat.** A direction patched at block L reaches the unembedding by the residual skip path
+whether or not any block uses it, and Qwen2.5 ties embeddings, so a selector effect could in principle
+be vocabulary geometry rather than computation. If so, writeup claims 2 and 4 are not about the stack.
+The test: compare the treatment against the *observed* displacement projected onto the direction and
+applied at the pre-norm residual (`F_par`). That null gives the direct path credit for whatever the
+stack did **along** `d`; only orthogonal new content counts as computed. Conservative by construction.
+
+**Gates (§5), all read before any number.** Reproduction exact under mid-rank: role L20 1.69, era 1.25,
+voice 1.24, tense 1.03, composed 2.81, no-patch 2.00/2.00/1.50/9.50. No-patch max |gain| 0.0. The
+offline identity `F_Δ ≡ A` holds to 4.6e-5 nats. Re-run bit-exact over 252 margins.
+
+| claim | m_A | F_abs | F_par | **G_new** | 90% LB | 2τ | sign | verdict |
+|---|---|---|---|---|---|---|---|---|
+| role lens @ L20 (claim 2) | +1.857 | +0.037 | +0.020 | **+1.837** | +1.563 | 0.261 | 0.92 | **computed** |
+| composed 3-factor @ L14 (claim 4) | +3.828 | +0.128 | +0.214 | **+3.614** | +3.251 | 0.411 | 1.00 | **computed** |
+| era @ L14 | +2.245 | +0.185 | +0.308 | +1.937 | +1.387 | — | — | computed |
+| voice @ L14 | +2.382 | −0.102 | −0.024 | +2.405 | +1.802 | — | — | computed |
+| tense @ L14 | +0.834 | +0.131 | +0.216 | +0.618 | +0.342 | — | — | computed |
+| role lens @ L14 | +2.140 | — | — | — | — | — | — | **no verdict (gate 5 failed)** |
+
+**The stop condition does not fire.** Six of seven registered predictions *under*-estimated how
+computed these are, and the planner's two most confident "substantially lexical" calls — tense at 0.80
+and voice at 0.65 — were the most wrong.
+
+**Mechanism.** The skip path delivers almost nothing: ‖d‖/‖pre_28‖ is 0.7–3.8%, while the orthogonal
+response is 2.3–5.1× ‖d‖. No dose on a 0.25×–16× grid fits the per-case margins (RMS 0.59–4.04 against
+τ 0.04–0.26), so the one-parameter direct family is rejected outright rather than merely beaten. The
+lead-positions-only arm, whose direct path is removed by construction, still reads +0.316 (LB +0.232):
+unambiguous computation.
+
+**A standing claim is qualified, not withdrawn.** Claim 4 says the cross-talk matrix is diagonal. At
+the final residual the *null* is also diagonal: on-diagonal fractions 0.40 / 0.45 / 0.49 for
+F_par against 0.58 / 0.64 / 0.47 for the treatment, and 0.27 / 0.28 / 0.04 for random. **For tense the
+diagonal is entirely vocabulary geometry** (0.47 treatment vs 0.49 null). The diagonal cross-talk
+result is therefore partly a statement about embeddings, not only about factor independence.
+
+**Two failures worth the record.** (1) **Gate 5 failed for role @ L14**: the positive control, a
+direction built from the target span's own unembedding rows, was credited with +0.432 nats of "new
+content" against τ = 0.212. Per §5 the instrument cannot separate the hypotheses there and **no verdict
+is issued**; role @ L20 is the primary and is unaffected. (2) The registered `G_new(27)` sanity check
+failed: +0.453 against 2τ = 0.249. Diagnosis: at L27 the treatment does nothing (m_A +0.014, rank 3.46 —
+the lens has faded, cf. h5) while F_par is −0.44, so G_new inflates wherever the direct term *hurts*.
+**No G_new below ~0.5 nats from this instrument is trustworthy until the per-layer offset is measured.**
+Both primaries sit 4–14× above that floor. A guard is now in the script: no verdict when m_A < 2τ.
+Also flagged: era's random arm reads +0.20 rather than null.
+
+**Not tested here:** mood and theme; the h25 relation-as-patch; the remote 70B and Gemma batteries
+(unblocked by this result, not withdrawn); the layer sweeps, which need the G_new offset measured
+first. Claim 3 (relation selector 2.21/6) is out of scope and remains so: `stage3.py` never constructs
+a model and never patches, verified in review.
+
+Files: `scripts/selector_direct_path{,_report}.py`, 5 result JSONs, `results/notes/selector_direct_path.md`
+(491 lines), `LM.pre_norm_residual` and `Patch(n_layers)` in `src/lsx/model.py`, 4 new invariants.
+Cost: ~240k agent tokens, 3 h 22 min compute (two concurrent fp32 processes OOM at 15 GB; run sequentially).
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

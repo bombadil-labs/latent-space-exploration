@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Fourth draft, after 38 logged stages. Every number below is in `RESULTS.md` with its control and
+*Fourth draft, after 41 logged stages. Every number below is in `RESULTS.md` with its control and
 file reference; Checkpoint 2 at the top of that file lists what was withdrawn and when. The calculus
 these results support is in `docs/ALGEBRA.md`. The four measurement instruments this project found
 broken, and what they invalidated, are in `docs/INSTRUMENTS.md` — read that first if you are
@@ -20,13 +20,20 @@ matched null, eleven things stand, six fell, and two are partial.
 1. Discourse position dominates pooled activations. The naive "shape" of a prompt is where each
    part sits in its template, not what it says.
 2. Roles are domain-independent directions and causally usable: adding a role's direction in a
-   domain it never saw selects that role's span (rank 1.7 of 6; random 3.3; chance 3.5).
+   domain it never saw selects that role's span (rank 1.7 of 6; random 3.3; chance 3.5). **This is
+   computation, not vocabulary geometry** (stage 41): against a null that credits the residual skip
+   path with the whole observed displacement along the direction, the treatment still gains 1.84 nats
+   (90% lower bound 1.56, sign fraction 0.92), and a patch confined to positions that are never scored
+   — where the direct path is removed by construction — still gains 0.32.
 3. The source→target relation between roles is real, computed by the stack, and, given forty
    domains, a working selector (rank 2.21 of 6 vs 3.5 null; peak at layer 16 of 28).
 4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each is a lens on
    unseen scenes (1.1–1.4 of 3 vs ~2.0 random), three compose in one patch (2.8 of 18, chance 9.5),
    and their cross-talk matrix is diagonal. Replicated on four model families and on grids written
-   by a second model author.
+   by a second model author. The three-way composition is computation rather than geometry (stage 41:
+   3.61 nats over the skip-path null, lower bound 3.25, sign fraction 1.00). **The diagonal itself is
+   partly geometry:** the null's cross-talk is also diagonal (on-diagonal 0.40/0.45/0.49 against the
+   treatment's 0.58/0.64/0.47), and for tense the diagonal is entirely vocabulary.
 5. Factors differ in kind, and the model's depth shows it: voice and tense are lexical, era is
    computed by layer 12, mood is integrated at the last token, theme is distributed and peaks
    mid-passage.
@@ -82,6 +89,15 @@ matched null, eleven things stand, six fell, and two are partial.
 **Partial.** The relation operator as a generative patch: helpful (+0.18 nats vs −0.10 random) but
 no better than the same operator fed the wrong source, so source-specificity is undemonstrated. A
 continuation-defined test for absence: null at n = 8, sensitive to presence, blind to absence.
+
+**Survived a serious threat.** Every selector claim was exposed to the possibility that a patched
+direction simply reaches the unembedding through the residual skip path, which on a tied-embedding
+model would make the effect vocabulary geometry rather than computation. Stage 41 tested it against a
+null built from the observed displacement itself and the claims held, by margins four to fourteen
+times the instrument's noise floor. The one-parameter direct-path family does not fit the data at any
+dose. Two limits are on the record: no verdict is issued for the role lens at layer 14, where the
+positive control failed, and no gain below about half a nat from this instrument is trustworthy until
+a per-layer offset is measured.
 
 **Withdrawn, with the instrument that caused each.** Three "subject-relative timescales are absent"
 results across two models (stages 28, 30, 31): the probe was a high-dimensional residual norm
