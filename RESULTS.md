@@ -1621,9 +1621,32 @@ main checkout rather than re-downloading onto a disk a previous session had alre
 then produced every number and died at serialization (memory) before writing its JSON; the numbers
 here are from the run log, and the script is recovered at `scripts/sae_ladder_nulls.py`.
 
-**Not tested:** thresholds above 0.1, which is where the ordering claim would actually be decided;
-layers other than 20; the selection of the 15 features (the null matches the search population, not
-the selection).
+**Not tested:** layers other than 20; the selection of the 15 features (the null matches the search
+population, not the selection).
+
+### Correction (hour 42b), superseding the flow-ordering paragraph above
+
+The executing agent's own run reached further than the partial log I first published from, and I had
+**removed its worktree while it was still computing** — my operational error, recorded here because
+it nearly cost the better result. Recovered from the one file that survived on disk.
+
+- **Twelve thresholds to g_k = 0.95**, not five to 0.1, at 1000 permutations each. **8-NN purity for
+  both theme and era stays significantly above its permutation null at every threshold**, era still
+  p = 0.008 at g_k = 0.95. So hour 26's "era's purity is gone by g_k = 0.7" was reading the observed
+  value's proximity to the *theoretical* class-frequency floor (0.32), not testing it against a null
+  that accounts for this particular 72-passage reconstruction's geometry. Real residual structure
+  survives past that point for both labels.
+- **A weaker version of the ordering does survive.** The within/across cosine-distance ratio has era
+  crossing into its permutation-null band at g_k ≥ 0.7 on the broad corpus while theme never crosses
+  in either corpus. That is a genuine ordering, but in one statistic of two, under one corpus of two,
+  and marginal: p = 0.061 at the crossing, drifting to 0.106 by g_k = 0.95 rather than settling.
+- **The run-to-run discrepancy I flagged was not resampling noise.** It was a directional bug the
+  agent found and fixed: the ratio test was run in the purity direction (higher than null = more
+  structured), when the ratio means the opposite (lower = more structured), which silently read every
+  ratio comparison as "not significant". It caught this by noticing that ratio and purity gave
+  contradictory verdicts at g_k = 0.0, which is impossible if both track the same structure.
+- **The 12/15 versus 13/15 question is resolved:** 13/15 matches hour 26's count, not hour 15's, and
+  the difference is the content filter, not the matching.
 
 ## Open problems (ordered)
 
