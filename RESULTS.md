@@ -1648,6 +1648,31 @@ it nearly cost the better result. Recovered from the one file that survived on d
 - **The 12/15 versus 13/15 question is resolved:** 13/15 matches hour 26's count, not hour 15's, and
   the difference is the content filter, not the matching.
 
+## 2026-09-18 — PHASE 0 GATE: blocked on item 0.3, which needs the user
+
+Phase 0 of `docs/PROGRAM.md` has three items. Two are closed:
+
+- **0.1 — the direct-path threat to the selector claims.** Resolved in the claims' favour (hour 41):
+  role lens +1.837 nats over a skip-path null (90% LB +1.563), three-factor composition +3.614
+  (LB +3.251), no dose of the direct-path family fits at any scale. Claims 2 and 4 describe
+  computation. Two limits on the record: no verdict for the role lens at layer 14 (positive control
+  failed), and no gain below ~0.5 nats from that instrument is trustworthy until a per-layer offset
+  is measured.
+- **0.2 — the abstraction ladder's missing nulls.** Run (hours 42, 42b). Merge test survives an exact
+  Poisson-binomial null (p = 3.5e-9 / 9.8e-10); width effect survives size-matched subsets (z = 14.8 /
+  7.1). Hour 26's "flow is an ordering" downgraded: nothing dies against a permutation null out to
+  g_k = 0.95, and only a marginal single-statistic single-corpus version of the ordering survives.
+
+**0.3 — move `TYPESAFE_API_KEY` from a plain environment variable to proxy credential injection,
+matching NDIF — cannot be done from this session.** It requires the environment's credential UI,
+which is the user's. Until then the key is readable by every spawned agent.
+
+Per the program's one rule ("if a gate cannot be met, record that and stop rather than routing
+around it"), **phase 1 does not open.** No work proceeds on the measurement core until the user
+either completes 0.3 or rules it non-blocking. Recorded rather than silently skipped, because
+deciding for myself which of my own gates to honour is the exact pattern the scaffolding exists to
+prevent.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
