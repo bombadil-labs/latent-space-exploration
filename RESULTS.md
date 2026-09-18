@@ -2258,6 +2258,68 @@ Cost: ≈143k agent tokens, 11 min, local CPU. **Open problem 4j is closed. 4i a
 phase-2 gate decision is still outstanding. Not tested: anything remote; no row in the repo yet
 declares an independent unit, so both bands remain exercised only by tests and planted cases.
 
+## 2026-09-18 (hour 50) — Fifteen rows reach the ledger: the provenance wall was partly a property of how hour 48 ran (agent)
+
+Note: `results/notes/phase2_qwen_ledger.md`. **181 tests pass** (179 + 2). `results/ledger.jsonl`:
+**21 → 36 rows.**
+
+**I checked hour 48's premise instead of inheriting it, and it was half wrong.** Hour 48 reported
+that four of five replication models are absent from the local HF cache and I logged the provenance
+wall (open problem 4k) on that basis. Looking at the cache directly: only **`Qwen/Qwen2.5-1.5B` and
+`Qwen2.5-1.5B-Instruct` carry real weights** (2.9 G of safetensors each); every other entry —
+GPT-J-6B, Gemma-2-9B-it, all four Llamas, Qwen-7B — is a config stub of a few MB, and Qwen-0.5B is
+not there at all. **So for the Qwen-1.5B grids the route was open all along**, and piece 5 had
+already used it: `reproduce.h8` extracts the reference grid through `build_stack`. Hour 48 read
+cached `.npz` where it could have re-extracted. Its "nothing reaches the ledger" was true of what it
+ran, not of what was possible.
+
+**15 of 15 candidate rows landed; 0 refused.** All five Qwen-1.5B grids re-extracted through
+`extract.build_stack` with every §7 assertion — `narrative_factors_v1`, `narrative_factors_gpt_v1`,
+`narrative_theme_gpt_v1`, `narrative_theme_v1`, `narrative_mood_v1` — composed plus two per-factor
+lenses each. **Verified independently rather than taken on report:** all 15 provenances recompute
+their own `stack_signature` and match, and the five grids carry **five distinct `acts_digest`s**, so
+these are five genuine live extractions and not one stack relabelled.
+
+| grid | composed | era | third factor |
+|---|---|---|---|
+| factors_v1 | 1.1944, gain **−1.0278** | 1.0000, **−1.0000** | voice 1.0000, **−0.0278** (does not clear) |
+| factors_gpt_v1 | 1.4167, **−1.6667** | 1.0556, **−0.5833** | voice 1.0000, **−0.3056** |
+| theme_gpt_v1 | 1.0556, **−0.6111** | 1.0000, **−0.2222** | theme 1.0278, **−0.0556** (does not clear) |
+| theme_v1 | 1.1667, **−1.3889** | 1.0000, **−0.5000** | theme 1.0278, **−0.3056** |
+| mood_v1 | 1.3889, **−2.1667** | 1.0000, **−0.8056** | mood 1.1944, **−0.3333** |
+
+Gain is treatment − measured lexical floor; negative is better than floor. **12 of 15 clear.** The
+two that do not reproduce hour 48's cached-path numbers **to the fourth decimal** — voice on
+factors_v1 (−0.0278) and theme on theme_gpt_v1 (−0.0556) — which is the cached and live routes
+agreeing on a null, not a new result.
+
+**Cached vs re-extracted: cosine ≥ 0.99999999998 on all five grids**, four to five orders tighter
+than h47's ≥ 0.99996 precedent. That is expected rather than suspicious — h47 compared an NDIF
+extraction against a local one, while both of these are local CPU float32 on the same weights — and
+the live path calls `ex.build_stack(lm, grid, layers=None)`, a real forward, not a reload of the
+`.npz` it is being compared to.
+
+**No arm sat off its null** at hour 48's settings (32 permutation draws, 8 pooled random passes),
+used from the start. A deliberate smoke test at a quarter of the draws reproduced hour 48's
+`ArmOffNull` exactly (permutation 1.931 vs declared 2.000) — the under-power finding confirmed on
+purpose rather than rediscovered by accident.
+
+**One path, not two.** The cached and live routes call a single shared battery function, pinned by a
+test that fails if a second extraction path appears. This build has produced a fix carrying its own
+bug six times; a parallel extractor would have been the seventh.
+
+**What failed:** a leftover `inspect.py` in a shared scratch directory shadowed the stdlib module and
+crashed numpy's import. And an unguarded `FileNotFoundError` in the cosine lookup was patched but
+**never triggered** — flagged as unexercised rather than claimed tested.
+
+**Open problem 4k is narrowed, not closed.** Every remaining un-ledgered claim needs a model whose
+weights are not here: claims 9, 10 and 11 (Gemma and the Llama pair) and the GPT-J and Gemma
+replication rows of claim 4b. Those are NDIF work and still wait on the gate decision. Claim 4's
+Qwen-1.5B portion is now ledgered end to end.
+
+Cost: ≈187k agent tokens, 12 min, local CPU. Not tested: any model but Qwen2.5-1.5B; `narrative_factors_v2`
+was left alone, already ledgered by the pre-existing route.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -2287,7 +2349,9 @@ declares an independent unit, so both bands remain exercised only by tests and p
    on the cluster count, so the guard decides *whether* an arm may widen its band but never *how
    much*; where clustering is partial the honest effective n is `n/deff` ≫ k, and banding on k is
    over-wide — the permissive direction. Latent, not active: no row declares a reduced unit yet.
-4k. **Nothing built from a cached `.npz` can reach the ledger** (h48): `ProvenanceNotFromStack`
+4k. **Nothing built from a cached `.npz` can reach the ledger** — narrowed at h50: re-extraction
+   through `build_stack` works locally and landed 15 Qwen-1.5B rows, so this binds only where the
+   weights are absent (the Llama pair, Gemma, GPT-J). Original text (h48): `ProvenanceNotFromStack`
    refuses all 27 of the phase-2 measurements. Every re-derivation needs re-extraction through
    `build_stack`, and four of the five replication models are not in the local HF cache.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
