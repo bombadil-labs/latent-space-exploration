@@ -1671,6 +1671,66 @@ untrusted agent) reopens it.
 
 **PHASE 0 GATE MET.** 0.1 and 0.2 resolved on the evidence, 0.3 waived by decision. Phase 1 opens.
 
+## 2026-09-18 (hour 43) — PHASE 1 piece 1: the rediscovery harness catches 9 of 9 of our own bugs (agent, spec `docs/specs/core_v1.md`)
+
+**Built in the spec's order, and the git history shows it:** the harness was committed first, with
+its imports resolving to nothing, and the types it tests were committed second. A core that cannot
+rediscover this project's own failures has no standing to certify anything new, so the failures come
+first.
+
+**All nine reconstructed bugs are caught, each by a named mechanism** (tiny random fixture, not the
+1.5B; every case carries a positive control; tests assert the verdict *and* which mechanism fired):
+
+| bug | mechanism |
+|---|---|
+| batch-row patch (h36) | `MovedCandidates` — moved 1 of 3, deltas [0.4988, 0, 0] |
+| absolute spans under left padding (h39) | `PaddingConvention`; bypassed, `BatchEquivalence` on the shortest item |
+| rank-1-on-ties, no no-patch arm (h34) | `MissingArm('no_patch')`, then `ArmOffNull` naming no_patch 1.00 *and* random 1.22 |
+| best layer chosen on scoring data | `SelectionOnScoringData` |
+| high-dim norm with no floor (h28) | `MissingFloor`; `Floor(estimator=None)` refuses itself |
+| cross-talk rank degenerate by construction | calibration **sensitivity** failure — its noise test passes at exactly 2.000 |
+| leaky grid reported raw (h35/h38) | `Grid.leak` at construction, then `RawScoreOnLeakyGrid` |
+| post-norm hidden state as a residual (h40) | `PostNormResidual` |
+| readout at or after patch layer (h40) | `MissingArm('passthrough')`, inherited by any such instrument |
+
+**Three catches are thinner than they look**, and the agent said so rather than claiming nine clean:
+the cross-talk catch rests on a two-test calibration (piece 2 owns the other three); the
+selection catch is a regex over the caller's own prose; and the pass-through catch only verifies the
+arm is *present*, never that it was computed.
+
+**A finding about our leak checks.** The leak detector needed a null of its own. Leave-one-out on
+balanced labels is **anti-predictive by construction**, so a grid carrying no lexical information at
+all scores 0.00 rather than chance — the agent's first deliberately-clean control grid was flagged as
+leaking. Recoverability is now read against a permutation null of the same leave-one-out. This means
+every previous leak number in this repo was read against an implicit wrong baseline; the direction of
+the error made us *over*-report leakage, so no claim was inflated by it, but the numbers are not
+comparable to the new ones.
+
+**An open exposure, not a bug yet.** `build_stack` must pass explicit `position_ids` or left-padded
+batches fail equivalence for reasons unrelated to span indexing — and **no script in this repo passes
+them.** Four remote scripts batch more than one text per job: `ndif_factors`, `ndif_recompose_gen`,
+`ndif_recompose_sweep`, `ndif_time_translation_extract`, which between them touch hours 27, 29, 31
+(corrected), 33 and 37. Cutting against this: the hour-39 audit ran an explicit batched-vs-single
+equivalence check on NDIF and got cosine 0.99996, so nnsight's remote path may supply position ids
+where local HF does not. **Unresolved. Piece 3 must measure a separate variance spread for batched
+remote targets before grading any of them, and the equivalence check must run on the remote path.**
+
+**Still unprotected, in the agent's words and worth repeating:** nothing ties a `Claim`'s provenance
+to a real `Stack`, so a hand-rolled extraction can be wrapped in a valid Claim; `Probe` and remote
+forwards do not go through the asserted path, so the moved-candidates assertion currently guards no
+NDIF call; arm tolerance is an unmeasured 0.15 default; `Direction.held_out` is declared but never
+verified; `EffectSize` is caller-supplied with nothing behind it.
+
+**Process note.** Three harness cases initially fired the *wrong* mechanism, and all three were fixed
+by correcting the core or the reconstruction rather than by weakening the assertion. Also: the venv's
+editable install points at the main checkout's `src`, so `pytest` in a worktree imports a different
+tree than the one being edited — a path shim is now in `tests/conftest.py`, and this affects every
+future worktree agent.
+
+Tests 52 passed in 0.54 s. Files: `src/lsx/core/{__init__,types,checks,extract,rediscovery}.py`,
+`tests/test_core_rediscovery.py`, `results/notes/core_p1.md`. `scripts/` untouched, as the spec
+requires. Cost: ~190k agent tokens, ~45 min, no downloads, no NDIF.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
