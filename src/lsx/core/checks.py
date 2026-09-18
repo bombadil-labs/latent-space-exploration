@@ -418,15 +418,49 @@ class CalibrationReport:
         return cls(**d)
 
 
-def calibration_key(stat: Callable, declared_null, invariances=()) -> str:
-    """Hash of the statistic's own source, its declared null and its declared invariances -- not a
-    repo-wide version, so that editing one instrument re-calibrates that one only. (spec §5)"""
+def _source_closure(fn: Callable, _seen: set | None = None) -> list[str]:
+    """The source of `fn` AND of every function it calls that this package defines, transitively.
+
+    Piece 4 found `calibration_key` hashing only the top-level source, and the failure is the one
+    the key exists to prevent. `discrimination_rho` is one line -- `mean(discrimination_per_item(f))`
+    -- so changing what `discrimination_per_item` computes, or changing `spearman` underneath it,
+    left the key identical and every cached report valid. It happened in this piece: the tie
+    tolerance that fixed a dead readout scoring +-0.55 changed the arithmetic and not the key. The
+    same hole covers `midrank` and `cosine_scores`, which three shipped instruments delegate to.
+
+    Still NOT a repo-wide version, which §5 forbids for good reason: the closure is only what this
+    statistic actually calls, so editing `selector`'s ranking re-calibrates the instruments that
+    use it and no others. Functions from outside `lsx` (numpy) are not followed -- their version is
+    provenance, recorded in `lib_versions`, not a calibration key.
+    """
+    seen = _seen if _seen is not None else set()
+    key = getattr(fn, "__module__", ""), getattr(fn, "__qualname__", repr(fn))
+    if key in seen:
+        return []
+    seen.add(key)
     try:
-        src = inspect.getsource(stat)
+        src = inspect.getsource(fn)
     except (OSError, TypeError):
-        src = getattr(stat, "__qualname__", repr(stat))
+        return [f"{key[0]}.{key[1]}"]
+    out = [src]
+    globs = getattr(fn, "__globals__", {})
+    for name in sorted(getattr(getattr(fn, "__code__", None), "co_names", ())):
+        dep = globs.get(name)
+        if callable(dep) and str(getattr(dep, "__module__", "")).startswith("lsx."):
+            out.extend(_source_closure(dep, seen))
+    return out
+
+
+def calibration_key(stat: Callable, declared_null, invariances=()) -> str:
+    """Hash of the statistic's source CLOSURE, its declared null and its declared invariances --
+    not a repo-wide version, so that editing one instrument re-calibrates that one only. (spec §5)
+
+    "Closure" rather than "own source" since piece 4: see `_source_closure` for the hole that was,
+    and for why the boundary is `lsx.` rather than everything importable.
+    """
     h = hashlib.sha256()
-    h.update(src.encode())
+    for src in _source_closure(stat):
+        h.update(src.encode())
     h.update(repr(declared_null).encode())
     h.update(repr(tuple(invariances)).encode())
     return h.hexdigest()[:16]
@@ -587,3 +621,84 @@ def cached_calibration(instrument: str, key: str, run: Callable, *, cache_dir=No
             f"{key}; the statistic, its null or its invariances changed mid-calibration")
     save_calibration(rep, cache_dir)
     return rep
+
+
+def top1_hit(scores: Sequence[float], target: int) -> float:
+    """Did the argmax land on `target`? TIES SPLIT THE HIT (1/T), never winner-takes-first.
+
+    This is `midrank`'s rule in the accuracy family, and it matters for the same reason. Written as
+    `int(np.argmax(s) == target)`, a wholly tied field awards a full hit to whichever candidate the
+    sort returns first -- so a dead readout scores 1.0 on the items whose target happens to sort
+    first and 0.0 on the rest, and the mean is 1/k only by luck of the labelling. h34 is exactly
+    this bug in the rank family. Splitting the hit makes a tied field read 1/k *per item*, which is
+    what nothing-happened should look like.
+    """
+    s = np.asarray(scores, dtype=np.float64)
+    top = np.flatnonzero(s == s.max())
+    return float(1.0 / len(top)) if int(target) in set(top.tolist()) else 0.0
+
+
+def dot_tie_atol(d: int, scale: float, safety: float = 4.0) -> float:
+    """Below what difference are two float64 dot products of length `d` the SAME number?
+
+    A measured bound, not a chosen epsilon. The rounding error of a length-`d` float64 dot product
+    is bounded by about `d * eps * sum|x_i y_i|`, which `scale` stands in for; `safety` is the only
+    free quantity and it is a small integer, not a threshold tuned to make anything pass. At
+    Gemma's d=3584 with residual projections of order 20 this is ~1e-11 -- eleven orders of
+    magnitude below any difference a readout could mean -- so it can only ever merge values that
+    arithmetic, not the model, separated.
+
+    Why this exists: see `spearman`. A flat tolerance anywhere in this core is a bug (piece 2), and
+    this is the alternative -- a tolerance computed from the arithmetic that produced the numbers.
+    """
+    return float(safety) * int(d) * float(np.finfo(np.float64).eps) * abs(float(scale))
+
+
+def _midranks(x: np.ndarray, atol: float = 0.0) -> np.ndarray:
+    """Ranks of `x` with ties averaged -- the vector form of `midrank`'s tie rule.
+
+    `atol` merges values that differ by less than a numerical-noise bound (see `dot_tie_atol`).
+    Merging is over CONSECUTIVE values in sorted order, so it chains; at the magnitudes `atol` is
+    ever set to that is a distinction without a difference, and at atol=0 (the default) this is
+    exact equality and identical to `midrank`.
+    """
+    x = np.asarray(x, dtype=np.float64)
+    order = np.argsort(x, kind="stable")
+    ranks = np.empty(len(x), dtype=np.float64)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and abs(x[order[j + 1]] - x[order[j]]) <= atol:
+            j += 1
+        ranks[order[i:j + 1]] = (i + j) / 2 + 1
+        i = j + 1
+    return ranks
+
+
+def spearman(x: Sequence[float], y: Sequence[float], atol: float = 0.0) -> float:
+    """Spearman rank correlation, with ties mid-ranked and a DEAD READOUT READING ZERO.
+
+    Two things here are not standard, and both are the h34 lesson in this statistic's costume.
+
+    **A constant vector reads 0, not NaN.** If either vector is constant its ranks are all equal,
+    the Pearson correlation of the ranks is 0/0, and numpy returns NaN. A statistic that returns
+    NaN on a dead readout is one `nanmean` away from being a statistic that quietly drops its dead
+    items, and one that returned 1.0 there would be h34 exactly. Zero is the honest value.
+
+    **`atol` decides what "constant" means, and it must not be zero on real numbers.** This is a
+    bug the known-zero test caught in piece 4 before anything was published. The fixture whose
+    answer is analytically zero gives every level of a subject the IDENTICAL activation vector --
+    and the identical vectors, run through one batched matmul, came back differing by 4.4e-16,
+    because BLAS does not promise the same summation order for every row of a batch. Spearman does
+    not care how small a difference is: it ranks it. So a wholly dead readout scored +0.55 on some
+    subjects and -0.55 on others, and the instrument read ~0 only because the signs happened to
+    cancel in the mean. With an asymmetric rounding pattern -- or with real near-tied activations,
+    which is what a dead readout looks like on real data -- it would have reported a clean
+    correlation out of pure floating-point noise. `dot_tie_atol` is the bound that closes it.
+    """
+    rx = _midranks(np.asarray(x, dtype=np.float64), atol)
+    ry = _midranks(np.asarray(y, dtype=np.float64))
+    sx, sy = rx.std(), ry.std()
+    if sx <= 0 or sy <= 0:
+        return 0.0
+    return float(((rx - rx.mean()) @ (ry - ry.mean())) / (len(rx) * sx * sy))

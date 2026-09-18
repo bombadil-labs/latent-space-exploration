@@ -47,6 +47,23 @@ class InstrumentSpec:
     null_doc: str
     null_item_sd: Callable[[dict], float]          # per-ITEM sd of the statistic under its null
     null_sd_doc: str
+    # The null the CALIBRATION BATTERY is run at, when that is not the same object as the null the
+    # arms are held to. Default None -> they are the same, which is true of every piece-2
+    # instrument: a 3-candidate selector's null of 2.00 is a property of the statistic and the
+    # battery can check it.
+    #
+    # `discrimination` is the case that forced the distinction, and piece 3's warning is the reason
+    # to write it down rather than quietly reuse `null`. Its declared null is the MEASURED FLOOR
+    # (spec §8), which is a number the caller measures on their own grid. Feeding that into
+    # `calibrate()` would run the battery against a synthetic fixture that knows nothing about the
+    # caller's grid, so the noise test would "fail" for every floor except zero -- and, worse, the
+    # calibration key hashes the declared null, so every distinct measured floor would demand its
+    # own re-calibration of an unchanged statistic. That is piece 3's config-dependent-key bug
+    # reappearing inside the code written after it. The battery therefore bounds the STATISTIC at
+    # its chance null, and what it does NOT check is the caller's floor measurement. Stated in the
+    # report rather than left implicit.
+    calibration_null: Callable[[dict], float] | None = None
+    calibration_null_doc: str = ""
     invariances: tuple[str, ...] = ()              # claimed, and therefore tested
     not_invariances: tuple[str, ...] = ()          # explicitly NOT claimed, and therefore not tested
     not_invariance_doc: str = ""
@@ -57,6 +74,12 @@ class InstrumentSpec:
 
     def null_value(self, config: dict | None = None) -> float:
         return float(self.null(config or {}))
+
+    def calibration_null_value(self, config: dict | None = None) -> float:
+        """Where the battery expects the statistic to sit. Same as `null_value` unless the
+        instrument declares otherwise (see `calibration_null`)."""
+        fn = self.calibration_null or self.null
+        return float(fn(config or {}))
 
     def arm_tolerance(self, n: int, config: dict | None = None, z: float = Z_ARM) -> float:
         """z * the standard error of an n-item arm under this instrument's own null.
@@ -80,6 +103,22 @@ def _rank_sd(config: dict, key: str, default: int) -> float:
     distribution on {1..k}, sd = sqrt((k^2 - 1)/12)."""
     k = int(config.get(key, default))
     return math.sqrt((k * k - 1) / 12) if k > 1 else 0.0
+
+
+def _bernoulli_sd(config: dict, key: str, default: int) -> float:
+    """sd of one item's hit/miss when an argmax over k exchangeable candidates is at chance:
+    Bernoulli(1/k), sd = sqrt(p(1-p)). Not a rank's sd -- the statistic is bounded in [0, 1]."""
+    k = int(config.get(key, default))
+    if k <= 1:
+        return 0.0
+    p = 1.0 / k
+    return math.sqrt(p * (1 - p))
+
+
+def _spearman_sd(config: dict, key: str, default: int) -> float:
+    """sd of a Spearman rho over m points under the null of no association: 1/sqrt(m-1)."""
+    m = int(config.get(key, default))
+    return 1.0 / math.sqrt(m - 1) if m > 1 else 0.0
 
 
 REGISTRY: dict[str, InstrumentSpec] = {}
@@ -170,14 +209,63 @@ register(InstrumentSpec(
 register(InstrumentSpec(
     name="discrimination",
     required_arms=("shuffled_stimulus", "floor"),
-    null=lambda c: float(c.get("floor", 0.5)),
-    null_doc="the measured floor value, not chance (h38).",
-    null_item_sd=lambda c: float(c.get("null_sd", 0.15)),
-    null_sd_doc="unmeasured; deferred with the instrument.",
+    null=lambda c: float(c.get("floor", 0.0)),
+    null_doc="the MEASURED FLOOR value, not chance (h38). A plumbing arm on this instrument sits "
+             "where the stimulus alone puts it, and the reported quantity is the gain over that "
+             "floor (spec §6), never the raw score. `config['floor']` is that measurement and it "
+             "is the caller's: the battery does not and cannot verify it (see `calibration_null`). "
+             "With no floor declared the null is 0, which is chance for a rank correlation.",
+    null_item_sd=lambda c: _spearman_sd(c, "m", 9),
+    null_sd_doc="sd of one subject's Spearman rho over m ordered levels under H0: 1/sqrt(m-1). "
+                "m=9 (h39's nine intervals) -> 0.3536. Checked against a Monte-Carlo draw from the "
+                "statistic in tests/test_core_registry.py.",
+    calibration_null=lambda c: 0.0,
+    calibration_null_doc="the battery runs at CHANCE (rho = 0), never at the caller's measured "
+                         "floor: the synthetic fixture knows nothing about the caller's grid, and "
+                         "hashing a measured floor into the calibration key would demand a fresh "
+                         "battery for every floor of an unchanged statistic -- piece 3's "
+                         "config-dependent-key bug, reappearing.",
+    invariances=("scale", "rotation", "monotone_target"),
+    not_invariances=("cell_rescale",),
+    not_invariance_doc="rescaling INDIVIDUAL cells by different positive scalars changes the "
+                       "projection and therefore may change the order; the instrument claims "
+                       "invariance to one scalar on the whole stack (a layer or model scale "
+                       "change), not to per-cell rescaling, and the battery measures the "
+                       "difference rather than leaving it untested.",
     reproduces="h39 Gemma clock, as gain over the measured stimulus floor",
-    implemented=False,
-    notes=("piece 1's harness uses this instrument for the floor and leak cases; it is declared so "
-           "those keep working, and unimplemented so no Claim can be graded through it",),
+    implemented=True,
+    config_keys=("floor", "m"),
+    notes=("`monotone_target` is the invariance this statistic actually leans on and nobody had "
+           "tested: h39's target is log Δt, and the choice of log base -- or of Δt, or of grid "
+           "index -- must not move the number.",),
+))
+
+register(InstrumentSpec(
+    name="top1_accuracy",
+    required_arms=("random", "no_patch"),
+    null=lambda c: 1.0 / max(int(c.get("n_candidates", 3)), 1),
+    null_doc="1/k, the chance rate of an argmax over k exchangeable candidates -- NOT a rank "
+             "midpoint. This instrument's statistic is bounded in [0, 1] and its null moves the "
+             "other way from a rank's: more candidates make chance SMALLER, where a rank's "
+             "midpoint grows. h29's era readout is `argmax_e cos(u, d_e)` over three era "
+             "directions, so its null is 0.3333 and not 2.00. Ties split the hit over the tied "
+             "set (1/T), so a wholly tied field reads exactly 1/k -- the h34 rank-1-on-ties rule "
+             "restated for an argmax, where the same bug would award a full hit to whichever "
+             "candidate the sort happened to return first.",
+    null_item_sd=lambda c: _bernoulli_sd(c, "n_candidates", 3),
+    null_sd_doc="one item is Bernoulli(1/k): sd = sqrt(p(1-p)) = sqrt(k-1)/k. k=3 -> 0.4714, "
+                "k=2 -> 0.5, k=6 -> 0.3727. Checked against a Monte-Carlo draw from the statistic.",
+    invariances=("scale", "rotation"),
+    not_invariances=("candidate_count",),
+    not_invariance_doc="the value is not comparable across different k, because the null moves: "
+                       "0.53 over three candidates and 0.53 over six are different results, and "
+                       "the instrument refuses to pretend otherwise by taking k from config.",
+    reproduces="h29 (era->target 0.84, leaves-e1 0.91, theme-kept 0.53 at n=55, Gemma-2-9B-it)",
+    implemented=True,
+    config_keys=("n_candidates",),
+    notes=("shares `cosine_scores` and the rank fixtures with `selector` and `composition`, so "
+           "three instruments now rest on one scoring routine and their calibrations are not "
+           "independent evidence (piece 2 named this hazard for two)",),
 ))
 
 register(InstrumentSpec(

@@ -248,7 +248,15 @@ def case_5_residual_norm_no_floor() -> Verdict:
                      selection=Selection(axis=None, rule="single pre-registered layer", held_out=True),
                      effect=EffectSize(size=0.1, n=8, z=0.2),
                      calibration=checks.CalibrationReport.hand_declared("discrimination", passed=True),
-                     provenance={"model": "qwen2.5-1.5b", "d": 1536})
+                     provenance={"model": "qwen2.5-1.5b", "d": 1536},
+                     # piece 4: `discrimination` is now BUILT, so its null is no longer a
+                     # placeholder and this case has to declare the floor it is measured against --
+                     # which is the h28 lesson the case is about, arriving one level earlier. With
+                     # the floor declared, the Claim's recomputed effect (0.1 at z 0.80) agrees with
+                     # the declared one about the verdict; without it the instrument's default null
+                     # of 0 made a 9.1 residual norm look like a nine-sigma result, and
+                     # `EffectSizeUnverified` said so.
+                     config={"floor": 9.0, "m": 9})
 
     none_at_all = _refusal(lambda: _claim(None))
     stim_only = _refusal(lambda: _claim(Floor(stimulus=0.0, estimator=None)))
@@ -368,6 +376,10 @@ def case_7_leaky_grid_raw_score() -> Verdict:
                      effect=EffectSize(size=0.233, n=24, z=3.0),
                      calibration=checks.CalibrationReport.hand_declared("discrimination", passed=True),
                      provenance={"model": "gemma-2-9b-it"},
+                     # the measured lexical floor, declared to the instrument rather than only to
+                     # the Floor: with it the null IS 0.728 and the declared effect of 0.233 is the
+                     # gain the case is about (piece 4).
+                     config={"floor": 0.728, "m": 9},
                      grid=grid, report_as=report_as)
 
     raw = _refusal(lambda: _claim(leaky, "raw"))
