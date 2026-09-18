@@ -254,7 +254,23 @@ def h8_claims(res: dict, *, layer: int = 14) -> tuple[list[Claim], list[Row]]:
         floor=Floor(stimulus=float((V + 1) / 2), estimator=float((V + 1) / 2)),
         selection=Selection(axis=None, rule=f"pre-registered patch layer {layer}; no sweep"),
         provenance=dict(stack.provenance, direction_held_out="scene (leave-one-scene-out)"),
-        grid=grid, stage="h8", report_as="raw")
+        grid=grid, stage="h8", report_as="gain_over_floor",
+        # PIECE 4: this said `report_as="raw"` as piece 3 committed it, and it cannot have been the
+        # code that produced piece 3's ledger row. `narrative_factors_v2` is FLAGGED by its own leak
+        # report (era, scene, tense and voice all recoverable from a bag of tokens well above their
+        # permutation nulls), so §6 forbids a raw score and `Claim` raises `RawScoreOnLeakyGrid` --
+        # which it duly did, twenty minutes into the re-run. The published row reports
+        # -6.6944, which is 2.8056 - 9.50, i.e. the gain; the committed function could not have
+        # produced it. A path with no test on it, in a file whose tests all need a 1.5B forward.
+        #
+        # What the gain is measured against is worth stating rather than glossing: `Floor.stimulus`
+        # here is the joint midpoint 9.50, which is CHANCE and not a measured stimulus floor. A
+        # measured one would need the grid's own lexical predictor over 18 joint variants, which
+        # h8 never built. So this row reports "gain over chance" under the name gain_over_floor,
+        # and that is weaker than §6 intends. Recorded, not fixed, in this piece.
+        notes=["report_as=gain_over_floor is required here: narrative_factors_v2 is flagged leaky. "
+               "The floor subtracted is the joint midpoint 9.50 (chance), NOT a measured lexical "
+               "floor -- h8 never built one, so the gain is over chance and §6 is only half met."])
     claims.append(claim)
     return claims, rows
 
