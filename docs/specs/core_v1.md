@@ -222,6 +222,16 @@ Every instrument implements `calibrate() -> CalibrationReport`, run before it se
 cached under a key that is the hash of **the instrument's own source, its declared nulls, and its
 declared invariances** — not a repo-wide version, so that editing one instrument re-calibrates that
 one and only that one. A stale or missing report blocks `Claim` construction for that instrument.
+
+**Written in after the fact (piece 4): "the instrument's own source" has to mean the source
+*closure*.** As implemented in pieces 2 and 3 the key hashed the statistic's top-level source only,
+and the statistics delegate: `discrimination_rho` is one line over `discrimination_per_item`, and
+`selector_rank` calls `midrank`. Changing what those callees compute left the key identical and
+every cached report valid — which happened inside piece 4, when the fix for a dead readout changed
+the arithmetic and not the key. The key now covers every `lsx.`-defined function the statistic
+calls, transitively, **including calls made inside comprehensions**, whose names live in a nested
+code object and were missed by the first version of that very fix. Functions outside `lsx.` are not
+followed: their version is provenance (`lib_versions`), not a calibration key.
 Minimum battery:
 
 - **Noise:** synthetic Gaussian activations of matched shape and scale → the statistic must return
@@ -281,24 +291,58 @@ would have missed it. It asserts, every run:
 
 ## 8. Instrument registry
 
-Six instruments cover everything in the repo. Each declares its required arms, its null value, its
-claimed invariances, and its reproduction target from §1A.
+~~Six~~ **Seven** instruments cover everything in the repo. Each declares its required arms, its
+null value, its claimed invariances, and its reproduction target from §1A.
 
-| instrument | required arms | null | reproduces |
-|---|---|---|---|
-| `selector` | random, no_patch, permutation | midpoint of candidates | h4, h8, h16, h37 |
-| `composition` | random, no_patch | midpoint over joint variants | h8 (2.81/18) |
-| `readout_shift` | random, no_patch, **passthrough (norm-matched)** | pass-through value, not chance | h14 as a *negative* target: no gain |
-| `crosstalk` | permutation | variance-decomposition zero | h8 matrix |
-| `discrimination` | shuffled-stimulus, floor | floor value, not chance | h39 |
-| `depth_gain` | shuffled-stimulus, floor, layer-0 calibration | 0 at the known-zero point | h38 |
-| `generality` | **to be designed — h15/h26 have no null** | — | h15 (0.18 vs 0.06) |
+**Written in after the fact (piece 4), and marked as such: this section said "six instruments cover
+everything in the repo" and it was wrong.** Stage 29's generation readout is a **top-1 accuracy**
+over three era directions, and the six named here are three ranks, a projection gain, a
+variance-decomposition zero and a floor-referenced correlation. None of them is an accuracy and
+none of their nulls is 1/k, so the §1A row for stage 29 had no instrument to be graded through at
+all — which piece 3 discovered by reproducing its numbers and having nowhere to put them. The
+seventh row below is that instrument.
+
+| instrument | required arms | null | per-item sd (null) | reproduces | built |
+|---|---|---|---|---|---|
+| `selector` | random, no_patch, permutation | midpoint of candidates, (k+1)/2 | sqrt((k²−1)/12) | h4, h8, h16, h37 | piece 2 |
+| `composition` | random, no_patch | midpoint over joint variants | sqrt((V²−1)/12) | h8 (2.81/18) | piece 2 |
+| `readout_shift` | random, no_patch, **passthrough (norm-matched)** | pass-through value, not chance | paraphrase noise, 0.3191 measured | h14 as a *negative* target: no gain | piece 2 |
+| `crosstalk` | permutation | variance-decomposition zero | unmeasured | h8 matrix | no |
+| `discrimination` | shuffled-stimulus, floor | floor value, not chance | 1/sqrt(m−1) = **0.3536** at m=9 | h39, as gain over the measured floor | **piece 4** |
+| `top1_accuracy` | random, no_patch | **1/k, not a rank midpoint** | Bernoulli, sqrt(k−1)/k = **0.4714** at k=3 | h29 (0.84 / 0.91 / 0.53 at n=55) | **piece 4** |
+| `depth_gain` | shuffled-stimulus, floor, layer-0 calibration | 0 at the known-zero point | unmeasured | h38 | no |
+| `generality` | **to be designed — h15/h26 have no null** | — | — | h15 (0.18 vs 0.06) | no |
 
 Any instrument whose readout layer is at or after its patch layer inherits the `passthrough`
 requirement automatically, not only `readout_shift`.
 
 The `generality` row is deliberately unfinished: the abstraction ladder has never had a null, three
 were specified at stage 39, and the core must not ship an instrument that cannot state its own.
+**Piece 4 did not finish it.** Building `discrimination` did not make it cheap: `discrimination`
+answers "does this residual order a scale", and `generality` asks how far up an abstraction ladder
+a feature holds, which is a different quantity with a different missing null. Inventing one to fill
+the row would be the thing this row exists to refuse.
+
+**Two declarations piece 4 added, both written in after the fact.**
+
+**(a) `top1_accuracy`'s null is 1/k and its tie rule splits the hit.** The null moves the opposite
+way from a rank's — more candidates make chance *smaller*, where a rank's midpoint grows — so an
+accuracy read against a rank's null is a category error rather than a rounding one. Ties split the
+hit over the tied set (1/T), which is stage 34's mid-rank rule in the accuracy family: written as
+`argmax == target`, a wholly tied field reads 1.0 or 0.0 depending on nothing but which tied
+candidate the labelling calls correct. Measured on a tie fixture: the shipped statistic reads 0.5
+either way, the naive one reads 1.0 and 0.0.
+
+**(b) `discrimination`'s arms sit at the caller's measured floor; its battery runs at chance.**
+These are different numbers and conflating them is a bug the registry now prevents structurally. The
+declared null is the measured stimulus floor (§6's rule for a leaky grid), which is a measurement of
+*the caller's grid*; the calibration battery runs on a synthetic fixture that knows nothing about
+that grid, so it must run at the statistic's own chance value. Feeding the floor into `calibrate()`
+would fail the noise test for every floor except zero and — because the calibration key hashes the
+declared null — would demand a fresh battery for every floor of an unchanged statistic, which is
+piece 3's config-dependent-key bug one level along. **What this means for a reader of a
+`discrimination` claim: the battery bounds the statistic, and nothing in it checks that the declared
+floor is the floor of that grid.**
 
 ## 9. Ledger and retraction
 

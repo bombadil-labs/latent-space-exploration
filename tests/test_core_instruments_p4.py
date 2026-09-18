@@ -274,3 +274,61 @@ def test_an_unbuilt_instrument_is_still_refused_for_the_honest_reason():
         instruments.build("generality")
     for name in ("crosstalk", "depth_gain"):
         assert registry.spec(name).implemented is False
+
+
+# ---------------------------------------------------------------------------------------------
+# the positive controls: both instruments can actually produce a Claim
+#
+# Every §1A row these two touch comes back REFUSED or deferred, for reasons that belong to h29's
+# and h39's batteries rather than to the instruments. That makes it possible to ship an instrument
+# that refuses everything and call it rigorous, so each one is also shown BUILDING a claim.
+# ---------------------------------------------------------------------------------------------
+def test_a_complete_top1_accuracy_claim_constructs_and_reports_against_one_over_k():
+    from lsx.core.types import Floor, Measured, Selection
+
+    inst = instruments.build("top1_accuracy", n_candidates=3)
+    rng = np.random.default_rng(0)
+    n = 55
+    treat = (rng.random(n) < 0.84).astype(float)
+    claim = inst.claim(
+        treatment=Measured(treat, label="era reads as target"),
+        arms={"random": (rng.random(n) < 1 / 3).astype(float),
+              "no_patch": (rng.random(n) < 1 / 3).astype(float)},
+        floor=Floor(stimulus=0.30, estimator=1 / 3),
+        selection=Selection(axis=None, rule="pre-registered scale 3.0"),
+        provenance={"model": "google/gemma-2-9b-it"}, stage="synthetic")
+    assert claim.arms["random"].expected_null == pytest.approx(1 / 3)
+    assert claim.effect.computed and claim.effect.verdict == 1
+    assert "arm random" in claim.render() and "arm no_patch" in claim.render()
+
+    # an arm that is NOT at chance is refused, which is the h34 rule
+    with pytest.raises(checks.ArmOffNull):
+        inst.claim(treatment=Measured(treat, label="x"),
+                   arms={"random": np.full(n, 0.8), "no_patch": np.full(n, 1 / 3)},
+                   floor=Floor(stimulus=0.30, estimator=1 / 3),
+                   selection=Selection(axis=None, rule="pre-registered"),
+                   provenance={"model": "m"}, stage="synthetic")
+
+
+def test_a_complete_discrimination_claim_reports_gain_over_the_measured_floor():
+    from lsx.core.types import Floor, Measured, Selection
+
+    floor_value = 0.52
+    inst = instruments.build("discrimination", m=9, floor=floor_value)
+    rng = np.random.default_rng(1)
+    treat = np.clip(rng.normal(0.96, 0.03, size=8), -1, 1)
+    floor = np.clip(rng.normal(floor_value, 0.05, size=8), -1, 1)
+    shuffled = np.clip(rng.normal(floor_value, 0.05, size=8), -1, 1)
+    claim = inst.claim(
+        treatment=Measured(treat, label="delta-t discrimination"),
+        arms={"floor": floor, "shuffled_stimulus": shuffled},
+        floor=Floor(stimulus=float(floor.mean()), estimator=0.0),
+        selection=Selection(axis=None, rule="pre-registered layer 14"),
+        provenance={"model": "Qwen/Qwen2.5-1.5B"}, stage="synthetic",
+        report_as="gain_over_floor")
+    assert claim.reported_value == pytest.approx(treat.mean() - floor.mean(), abs=1e-9)
+    assert claim.reported_value < claim.treatment.value, "a gain must not be the raw score"
+    assert "gain over stimulus floor" in claim.render()
+    # both arms took their null from the registry, i.e. from the MEASURED floor
+    assert claim.arms["floor"].expected_null == pytest.approx(floor_value)
+    assert claim.arms["shuffled_stimulus"].expected_null == pytest.approx(floor_value)
