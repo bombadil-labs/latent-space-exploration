@@ -53,11 +53,44 @@ def publish(led, claim, note, reproduces, logged) -> str | None:
 # ================================================================================================
 # 1 + 5: h8 -- the permutation arm, and the measured lexical floor
 # ================================================================================================
-def h8_rows(res: dict, lex: dict, led) -> tuple[list[Row], dict]:
+def h8_from_cache(lm, npz: str = "results/repro_p5_h8_arrays.npz", layer: int = 14) -> dict:
+    """Re-grade h8 from the per-item ranks a previous run checkpointed.
+
+    The forwards are 24 minutes and the grading is milliseconds, so a refusal found at grading time
+    should not cost the forwards again. The `Stack` IS rebuilt -- it is one extraction and the
+    claim's provenance has to be a real, signed one, not a remembered dict.
+    """
+    z = np.load(REPO / npz)
+    grid, g = R.factor_grid(R.prompt("narrative_factors_v2.json"))
+    stack = R.ex.build_stack(lm, grid, layers=[layer], batch_size=8)
+    names = list(g["factors"])
+    return {"composed": z["composed"], "composed_none": z["composed_none"],
+            "B": {n: {c: z[f"B_{n}_{c}"] for c in ("factor", "rand", "none", "perm")}
+                  for n in names},
+            "stack": stack, "grid": grid,
+            "n_variants": int(np.prod([len(g["factors"][n]) for n in names]))}
+
+
+def load_perm_draws(npz: str = "results/repro_p5_h8_permdraws.npz") -> dict:
+    """The extra permutation draws `h8_permutation_null` checkpointed, as {factor: [array, ...]}."""
+    p = REPO / npz
+    if not p.exists():
+        return {}
+    z = np.load(p)
+    out: dict = {}
+    for key in z.files:
+        seed, name = key.split("_", 1)
+        out.setdefault(name, []).append(z[key])
+    return out
+
+
+def h8_rows(res: dict, lex: dict, led, perm_draws: dict | None = None) -> tuple[list[Row], dict]:
     rows: list[Row] = []
     summary: dict = {"lexical_floor": {"composed": lex["composed_mean"],
-                                       "lenses": lex["lens_mean"]}}
-    claims, _ = R.h8_claims(res, lexical=lex)
+                                       "lenses": lex["lens_mean"]},
+                     "permutation_draws_pooled": {k: len(v) + 1
+                                                  for k, v in (perm_draws or {}).items()}}
+    claims, lens_status = R.h8_claims(res, lexical=lex, perm_draws=perm_draws)
     V = res["n_variants"]
 
     comp = claims[0]
@@ -87,38 +120,54 @@ def h8_rows(res: dict, lex: dict, led) -> tuple[list[Row], dict]:
         claim_id=comp.id))
 
     logged_lens = {"era": 1.25, "voice": 1.24, "tense": 1.03}
-    for claim in claims[1:]:
-        name = claim.treatment.label.split()[1]
-        k = int(claim.treatment.label.split("/")[1].split()[0])
+    for claim, (name, construction_refusal) in zip(claims[1:], lens_status):
         b = res["B"][name]
+        k = len(res["grid"].levels(name))
         t = float(np.mean(b["factor"]))
-        ref = publish(led, claim,
-                      f"h8 {name} lens, with the permutation arm and the measured lexical floor "
-                      "(piece 5)",
-                      f"h8 {name} lens {logged_lens[name]}/3",
-                      {"lens": logged_lens[name], "piece5_floor": float(claim.floor.stimulus)})
+        band = registry.arm_tolerance("selector", len(b["perm"]), {"n_candidates": k})
+        if claim is None:
+            ref, gain, floor_v, off = construction_refusal, float("nan"), float("nan"), []
+        else:
+            ref = publish(led, claim,
+                          f"h8 {name} lens, with the permutation arm and the measured lexical "
+                          "floor (piece 5)",
+                          f"h8 {name} lens {logged_lens[name]}/3",
+                          {"lens": logged_lens[name],
+                           "piece5_floor": float(claim.floor.stimulus)})
+            gain, floor_v = claim.reported_value, float(claim.floor.stimulus)
+            off = [kk for kk, a in claim.arms.items() if a.off_null]
+        perm_pooled = (float(claim.arms["permutation"].value) if claim is not None
+                       else float(np.mean(b["perm"])))
+        perm_band = (float(claim.arms["permutation"].resolved_tolerance) if claim is not None
+                     else band)
         summary.setdefault("lenses", {})[name] = {
-            "treatment": t, "candidates": k,
-            "reported_gain_over_measured_floor": claim.reported_value,
-            "floor": float(claim.floor.stimulus),
-            "arms": {kk: {"value": a.value, "null": a.expected_null,
-                          "tol": a.resolved_tolerance, "off_null": a.off_null}
-                     for kk, a in claim.arms.items()},
-            "refusal": ref, "id": claim.id, "render": claim.render()}
-        off = [kk for kk, a in claim.arms.items() if a.off_null]
+            "treatment": t, "candidates": k, "null": (k + 1) / 2,
+            "arms": {"random": float(np.mean(b["rand"])), "no_patch": float(np.mean(b["none"])),
+                     "permutation_single_draw": float(np.mean(b["perm"])),
+                     "permutation_pooled": perm_pooled},
+            "permutation_band_used": perm_band,
+            "arm_band": float(band),
+            "reported_gain_over_measured_floor": gain, "floor": floor_v,
+            "refusal": ref, "id": "" if claim is None else claim.id,
+            "render": "" if claim is None else claim.render()}
         rows.append(Row(
             target=f"h8 {name} lens", source="h8",
-            logged=f"{logged_lens[name]}/3",
-            reproduced=f"{t:.4f}/{k}; gain over the measured lexical floor "
-                       f"{claim.reported_value:+.4f} (floor {claim.floor.stimulus:.4f}/{k})",
-            tolerance=f"+-{LOCAL_TOLERANCE}; arm band "
-                      f"+-{registry.arm_tolerance('selector', len(b['perm']), {'n_candidates': k}):.4f}",
-            verdict=REPRODUCED if abs(t - logged_lens[name]) <= LOCAL_TOLERANCE else FAILED,
-            detail=("PUBLISHED" if ref is None else f"ledger: {ref}")
+            logged=f"{logged_lens[name]}/3 as RESULTS.md prints it; the lens is over {k} candidates",
+            reproduced=(f"{t:.4f}/{k}" if claim is None else
+                        f"{t:.4f}/{k}; gain over the measured lexical floor "
+                        f"{gain:+.4f} (floor {floor_v:.4f}/{k})"),
+            tolerance=f"+-{LOCAL_TOLERANCE}; random/no-patch band +-{band:.4f} at "
+                      f"n={len(b['perm'])}, permutation band +-{perm_band:.4f} (cluster-robust, "
+                      "between-draw)",
+            verdict=(REFUSED if claim is None or ref is not None else
+                     (REPRODUCED if abs(t - logged_lens[name]) <= LOCAL_TOLERANCE else FAILED)),
+            detail=("PUBLISHED" if claim is not None and ref is None else f"{ref}")
                    + f"; arms random {np.mean(b['rand']):.3f} / no_patch {np.mean(b['none']):.3f} "
-                     f"/ permutation {np.mean(b['perm']):.3f} vs null {(k + 1) / 2:.2f}"
+                     f"/ permutation {perm_pooled:.3f} pooled over "
+                     f"{len(perm_draws.get(name, [])) + 1 if perm_draws else 1} draws "
+                     f"(single draw {np.mean(b['perm']):.3f}) vs null {(k + 1) / 2:.2f}"
                    + (f"; OFF NULL: {off}" if off else "; no arm off its null"),
-            claim_id=claim.id))
+            claim_id="" if claim is None else claim.id))
     return rows, summary
 
 
@@ -207,6 +256,19 @@ def h29_rows(led, path: str = "results/h29_arms_reimpose3.0.json") -> tuple[list
         for e2 in [x for x in e if x != r["e1"]]:
             base_pairs.append(float(r["era_read"] == e2))
 
+    # The per-item half of the moved-candidates clause, which no generation job can assert on its
+    # own: every patched continuation must differ from the SAME passage's no-patch continuation.
+    # Greedy decoding makes the no-patch continuation deterministic, so an identical string means
+    # the patch did not reach the forward. Free -- it is a comparison of text already in hand.
+    base_cont = {(r["scene"], r["e1"], r["t"]): r.get("cont", "") for r in base}
+    moved = {}
+    for cond, arr in (("shift", shift), ("rand", rand)):
+        pairs = [(r, base_cont.get((r["scene"], r["e1"], r["t"])))
+                 for r in arr if (r["scene"], r["e1"], r["t"]) in base_cont]
+        same = [r for r, b in pairs if r.get("cont", "").strip() == (b or "").strip()]
+        moved[cond] = {"compared": len(pairs), "identical_to_no_patch": len(same),
+                       "moved": len(pairs) - len(same)}
+
     treat = np.array([float(r["era_read"] == r["e2"]) for r in shift])
     a_rand = np.array([float(r["era_read"] == r["e2"]) for r in rand])
     a_base = np.array(base_pairs)
@@ -269,6 +331,11 @@ def h29_rows(led, path: str = "results/h29_arms_reimpose3.0.json") -> tuple[list
                    f"at cosine >= "
                    f"{ctl.get('asserted_stack', {}).get(str(blob['meta']['patch_layer']), {}).get('min_cos_shift_vector_vs_cached_npz')}"
                    ", and the readout directions ARE that stack's.",
+                   f"per-item moved-vs-no-patch: {moved}. The half of the moved-candidates clause "
+                   "a generation job cannot assert on its own -- every patched continuation must "
+                   "differ from the same passage's unpatched one, which greedy decoding makes "
+                   "deterministic, so an identical string means the patch did not reach the "
+                   "forward.",
                    "structural check on target-blindness: for an arm that cannot see e2, "
                    "era-as-target must equal leaves-e1 / 2. no_patch "
                    f"{np.mean(a_base):.4f} vs {leaves['base'] / 2:.4f}; random "
@@ -295,7 +362,7 @@ def h29_rows(led, path: str = "results/h29_arms_reimpose3.0.json") -> tuple[list
         "leaves_e1": leaves, "theme_kept": theme, "lexical": lexical,
         "declared_null": null_base, "h27_prior": prior,
         "arm_tolerance": float(inst.tolerance(len(treat))),
-        "controls": ctl,
+        "controls": ctl, "per_item_moved_vs_no_patch": moved,
         "claim": None if claim is None else {"id": claim.id, "reported": claim.reported_value,
                                              "render": claim.render(), "refusal": ref},
     }
@@ -419,6 +486,10 @@ def h39_rows(led, path: str = "results/h39_gemma_clock_arms.json") -> tuple[list
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--parts", default="h8,h16")
+    ap.add_argument("--perm-seeds", type=int, default=6)
+    ap.add_argument("--h8-cache", action="store_true",
+                    help="re-grade h8 from results/repro_p5_h8_arrays.npz instead of re-running "
+                         "24 minutes of patched forwards")
     ap.add_argument("--out", default="results/repro_summary_p5.json")
     a = ap.parse_args()
     parts = [x.strip() for x in a.parts.split(",") if x.strip()]
@@ -428,24 +499,38 @@ def main() -> None:
     summary: dict = {}
 
     lm = None
-    if "h8" in parts or "h16" in parts:
+    if {"h8", "h16", "permnull"} & set(parts):
         from lsx import LM as _LM
         lm = _LM.from_pretrained("Qwen/Qwen2.5-1.5B")
         log("model loaded")
 
     if "h8" in parts:
-        log("h8: three-factor battery WITH the permutation arm")
-        res8 = R.h8(lm, progress=log)
-        np.savez(REPO / "results/repro_p5_h8_arrays.npz",
-                 composed=np.asarray(res8["composed"]),
-                 composed_none=np.asarray(res8["composed_none"]),
-                 **{f"B_{n}_{c}": np.asarray(v) for n, d in res8["B"].items()
-                    for c, v in d.items()})
+        if a.h8_cache:
+            log("h8: re-grading from the checkpointed per-item ranks")
+            res8 = h8_from_cache(lm)
+        else:
+            log("h8: three-factor battery WITH the permutation arm")
+            res8 = R.h8(lm, progress=log)
+            np.savez(REPO / "results/repro_p5_h8_arrays.npz",
+                     composed=np.asarray(res8["composed"]),
+                     composed_none=np.asarray(res8["composed_none"]),
+                     **{f"B_{n}_{c}": np.asarray(v) for n, d in res8["B"].items()
+                        for c, v in d.items()})
         lex = R.h8_lexical_floor()
         log(f"lexical floor: composed {lex['composed_mean']:.4f}, lenses {lex['lens_mean']}")
-        r, s = h8_rows(res8, lex, led)
+        r, s = h8_rows(res8, lex, led, perm_draws=load_perm_draws())
         rows += r
         summary["h8"] = s
+
+    if "permnull" in parts:
+        log("h8: the permutation arm's own spread over independent draws (diagnostic, not a "
+            "tolerance)")
+        d = R.h8_permutation_null(lm, seeds=tuple(range(101, 101 + a.perm_seeds)), progress=log)
+        per_item = d.pop("per_item", {})
+        np.savez(REPO / "results/repro_p5_h8_permdraws.npz",
+                 **{f"{seed}_{n}": v for seed, dd in per_item.items() for n, v in dd.items()})
+        summary["h8_permutation_null"] = d
+        log(json.dumps(d["across_draws"], indent=1))
 
     if "h16" in parts:
         log("h16: the layer curve, recomputed")

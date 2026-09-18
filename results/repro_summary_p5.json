@@ -1,0 +1,752 @@
+{
+ "rows": [
+  {
+   "target": "h8 three-factor battery, composed",
+   "source": "h8 (re-verified h39)",
+   "logged": "2.81/18, no-patch 9.50",
+   "reproduced": "2.8056/18; gain over the MEASURED lexical floor -0.0417 (floor 2.8472/18)",
+   "tolerance": "+-0.02 (local, \u00a71A); arm band +-1.8343",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; \u00a76 now met with a measured floor, and the floor is the finding: a bag-of-tokens predictor reaches 2.847/18 on the same candidates, so the gain is -0.0417 of a rank",
+   "claim_id": "26a709702715a106",
+   "extra": {}
+  },
+  {
+   "target": "h8 era lens",
+   "source": "h8",
+   "logged": "1.25/3 as RESULTS.md prints it; the lens is over 3 candidates",
+   "reproduced": "1.2500/3; gain over the measured lexical floor -0.7500 (floor 2.0000/3)",
+   "tolerance": "+-0.02; random/no-patch band +-0.2887 at n=72, permutation band +-0.1786 (cluster-robust, between-draw)",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; arms random 2.000 / no_patch 2.000 / permutation 2.153 pooled over 7 draws (single draw 2.139) vs null 2.00; no arm off its null",
+   "claim_id": "b1ae456bc39d8098",
+   "extra": {}
+  },
+  {
+   "target": "h8 voice lens",
+   "source": "h8",
+   "logged": "1.24/3 as RESULTS.md prints it; the lens is over 3 candidates",
+   "reproduced": "1.2361/3; gain over the measured lexical floor +0.2083 (floor 1.0278/3)",
+   "tolerance": "+-0.02; random/no-patch band +-0.2887 at n=72, permutation band +-0.4199 (cluster-robust, between-draw)",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; arms random 2.250 / no_patch 2.000 / permutation 1.919 pooled over 7 draws (single draw 2.347) vs null 2.00; no arm off its null",
+   "claim_id": "a95b26cd33b32ae7",
+   "extra": {}
+  },
+  {
+   "target": "h8 tense lens",
+   "source": "h8",
+   "logged": "1.03/3 as RESULTS.md prints it; the lens is over 2 candidates",
+   "reproduced": "1.0278/2; gain over the measured lexical floor +0.0000 (floor 1.0278/2)",
+   "tolerance": "+-0.02; random/no-patch band +-0.1768 at n=72, permutation band +-0.1577 (cluster-robust, between-draw)",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; arms random 1.444 / no_patch 1.500 / permutation 1.411 pooled over 7 draws (single draw 1.417) vs null 1.50; no arm off its null",
+   "claim_id": "cf64496c278e02ee",
+   "extra": {}
+  },
+  {
+   "target": "h16 relation selector, 'peak layer 16'",
+   "source": "h16",
+   "logged": "1.73/6 at layer 16 (curve mean 2.21, null 3.5)",
+   "reproduced": "not published",
+   "tolerance": "n/a -- refused before grading",
+   "verdict": "REFUSED",
+   "detail": "SelectionOnScoringData -- the reported value was chosen along 'layer' by 'peak layer 16 (argmax over the sweep)' on the scoring data. Report the c",
+   "claim_id": "",
+   "extra": {
+    "curve": {
+     "0": 2.73,
+     "4": 2.2,
+     "10": 1.98,
+     "16": 1.73,
+     "20": 1.86,
+     "24": 2.39,
+     "28": 2.73
+    }
+   }
+  },
+  {
+   "target": "h16 relation selector, as the full layer curve (\u00a71A's restatement)",
+   "source": "h16",
+   "logged": "\u00a71A quotes 2.21; the repo's own stage-3 JSON is 2.1692",
+   "reproduced": "2.1692 over 15 layers (step 2) = the canonical value; 2.2065 over the 8 step-4 layers = what RESULTS.md published as 2.21",
+   "tolerance": "+-0.02 (local, \u00a71A)",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; graded against the aggregate it IS: |delta| 0.0035 on the step-4 mean against 2.21. The two numbers are one curve at two sweep steps; piece 5 makes the step-2 mean canonical and records 2.21 as the step-4 subsample; no arm off its null",
+   "claim_id": "6e185e691dcc9e87",
+   "extra": {}
+  },
+  {
+   "target": "h29 era shift in generation, 3x re-imposed",
+   "source": "h29",
+   "logged": "0.84 era->target / 0.91 leaves e1 / 0.53 theme kept, lex 0.30, n=55/72",
+   "reproduced": "0.8364 / 0.9091 / 0.5091, lex 0.30 (n=55/72)",
+   "tolerance": "+-0.0182 remote (measured, piece 3); arm band +-0.1907 at n=55",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; arms: random 0.1429, no_patch 0.1111, both declared at 0.1111 +-0.1890; neither off its null",
+   "claim_id": "04ca1960d8602e2d",
+   "extra": {
+    "n": {
+     "shift": 55,
+     "rand": 56,
+     "base": 36,
+     "attempted": {
+      "shift": 72,
+      "rand": 72,
+      "base": 36
+     }
+    },
+    "era_target": {
+     "shift": 0.8363636363636363,
+     "rand": 0.14285714285714285,
+     "no_patch": 0.1111111111111111
+    },
+    "leaves_e1": {
+     "shift": 0.9090909090909091,
+     "rand": 0.30357142857142855,
+     "base": 0.2222222222222222
+    },
+    "theme_kept": {
+     "shift": 0.509090909090909,
+     "rand": 0.625,
+     "base": 0.5277777777777778
+    },
+    "lexical": 0.3,
+    "declared_null": 0.1111111111111111,
+    "h27_prior": {
+     "base": {
+      "n": 36,
+      "era_stayed": 0.7777777777777778,
+      "era_other": 0.2222222222222222,
+      "era_as_target": 0.1111111111111111,
+      "theme_kept": 0.5277777777777778
+     },
+     "rand": {
+      "n": 32,
+      "era_stayed": 0.6875,
+      "era_other": 0.3125,
+      "era_as_target": 0.15625,
+      "theme_kept": 0.53125
+     }
+    },
+    "arm_tolerance": 0.19069251784911845,
+    "controls": {
+     "patch_reaches_batch": {
+      "n_texts": 4,
+      "moved_shift": 4,
+      "moved_rand": 4,
+      "batch_row_bug": {
+       "caught": true,
+       "mechanism": "MovedCandidates",
+       "message": "patch moved 1/4 sequences; a patch that reaches one row of a padded batch is the h34 signature (deltas [1.035002, 0.0, 0.0, 0.0])"
+      },
+      "padding_side": "left",
+      "lib_versions": {
+       "torch": "2.14.0+cu130",
+       "transformers": "5.17.0",
+       "nnsight": "0.7.0",
+       "numpy": "2.5.3",
+       "ndif_reported": null
+      }
+     },
+     "asserted_stack": {
+      "14": {
+       "provenance": {
+        "model": "google/gemma-2-9b-it",
+        "layers": [
+         14
+        ],
+        "pooling": "mean",
+        "grid_hash": "666190d8ecaf66df",
+        "grid_name": "narrative_theme_v1",
+        "code_version": "fe5bbedd41aac049",
+        "tokenizer_padding": "left",
+        "span_policy": "auto",
+        "template": null,
+        "lib_versions": {
+         "torch": "2.14.0+cu130",
+         "transformers": "5.17.0",
+         "nnsight": "0.7.0",
+         "numpy": "2.5.3",
+         "ndif_reported": null
+        },
+        "batch_size": 4,
+        "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+        "remote": true,
+        "acts_digest": "278e46250c513493",
+        "equivalence_min_cos": 0.9999967887181179,
+        "equivalence_item_rule": "shortest item in each batch",
+        "stack_signature": "0b2fedf251e5ebc9"
+       },
+       "min_cos_shift_vector_vs_cached_npz": 0.9999619126319885,
+       "n_compared": 24,
+       "batched_vs_single_min_cos": 0.9999967887181179
+      },
+      "20": {
+       "provenance": {
+        "model": "google/gemma-2-9b-it",
+        "layers": [
+         20
+        ],
+        "pooling": "mean",
+        "grid_hash": "666190d8ecaf66df",
+        "grid_name": "narrative_theme_v1",
+        "code_version": "fe5bbedd41aac049",
+        "tokenizer_padding": "left",
+        "span_policy": "auto",
+        "template": null,
+        "lib_versions": {
+         "torch": "2.14.0+cu130",
+         "transformers": "5.17.0",
+         "nnsight": "0.7.0",
+         "numpy": "2.5.3",
+         "ndif_reported": null
+        },
+        "batch_size": 4,
+        "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+        "remote": true,
+        "acts_digest": "25fd48dd73437748",
+        "equivalence_min_cos": 0.9999968234740263,
+        "equivalence_item_rule": "shortest item in each batch",
+        "stack_signature": "82eb9e477d177c38"
+       },
+       "min_cos_shift_vector_vs_cached_npz": 0.9999560117721558,
+       "n_compared": 24,
+       "batched_vs_single_min_cos": 0.9999968234740263
+      }
+     },
+     "grid_leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+     "read_direction_source": "asserted build_remote_stack",
+     "scoring_equivalence": {
+      "n_batches": 25,
+      "min_cos": 0.9999974853972131,
+      "rule": "shortest item in each batch"
+     }
+    },
+    "per_item_moved_vs_no_patch": {
+     "shift": {
+      "compared": 55,
+      "identical_to_no_patch": 0,
+      "moved": 55
+     },
+     "rand": {
+      "compared": 56,
+      "identical_to_no_patch": 0,
+      "moved": 56
+     }
+    },
+    "claim": {
+     "id": "04ca1960d8602e2d",
+     "reported": 0.7252525252525253,
+     "render": "top1_accuracy [04ca1960d8602e2d] h29 era reads as target, 3x re-imposed @ scale 3.0\n  gain over stimulus floor = 0.7253  (raw 0.8364, n=55)\n  arm no_patch           0.1111   declared null 0.1111  +-0.2357\n  arm random             0.1429   declared null 0.1111  +-0.1890\n  floor              stimulus 0.1111 / estimator 0.3333\n  effect             0.5030  n=55  z=9.99\n  selection          axis=None rule='pre-registered scale 3.0, patch 14 / read 20; no sweep' held_out=False executed=False\n  calibration        top1_accuracy [e37df6b753fce8c4] 6 tests PASS: noise 0.3356+-0.0192 vs null 0.3333333333333333; sensitivity [0.39, 0.465, 0.63, 0.8075]; self-floor 0.2900; invariance scale d=0, rotation d=0; known-zero 0.333",
+     "refusal": null
+    }
+   }
+  },
+  {
+   "target": "h39 Gemma clock, corrected",
+   "source": "h39",
+   "logged": "0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (RAW, on a flagged grid)",
+   "reproduced": "gain over the measured floor +0.0675 (treatment 0.9895, floor 0.9221, shuffled 0.9693) over 8 subjects",
+   "tolerance": "arm band +-0.4009 at m=8 subjects (measured, piece 4)",
+   "verdict": "reproduced",
+   "detail": "PUBLISHED; arms: floor 0.9221, shuffled_stimulus 0.9693, both declared at the measured floor 0.9221 +-0.4009; neither off its null",
+   "claim_id": "cd6e63d75ea74d7f",
+   "extra": {
+    "subjects": [
+     "asteroid",
+     "fictional_population",
+     "mayfly",
+     "mountain",
+     "orchard",
+     "real_population",
+     "river",
+     "street"
+    ],
+    "layer": 20,
+    "treatment": 0.9895439377085649,
+    "floor": 0.9220800889877641,
+    "shuffled_stimulus": 0.9692992213570633,
+    "gain": 0.06746384872080087,
+    "arm_tolerance": 0.4008918628686365,
+    "per_subject": {
+     "exp": {
+      "street": 0.997330367074527,
+      "mountain": 0.9870967741935481,
+      "orchard": 0.9999999999999998,
+      "mayfly": 0.9924360400444937,
+      "asteroid": 0.9497219132369298,
+      "river": 0.9982202447163513,
+      "real_population": 0.9942157953281422,
+      "fictional_population": 0.997330367074527
+     },
+     "ctrl": {
+      "street": 0.918576195773081,
+      "mountain": 0.9804226918798663,
+      "orchard": 0.9968854282536149,
+      "mayfly": 0.6093437152391545,
+      "asteroid": 0.8936596218020021,
+      "river": 0.997330367074527,
+      "real_population": 0.9946607341490543,
+      "fictional_population": 0.9857619577308118
+     },
+     "shuf": {
+      "street": 0.9902113459399331,
+      "mountain": 0.9648498331479419,
+      "orchard": 0.9808676307007784,
+      "mayfly": 0.9786429365962178,
+      "asteroid": 0.9523915461624025,
+      "river": 0.9955506117908786,
+      "real_population": 0.8972191323692991,
+      "fictional_population": 0.9946607341490543
+     }
+    },
+    "claim": {
+     "id": "cd6e63d75ea74d7f",
+     "reported": 0.0674638487208008,
+     "render": "discrimination [cd6e63d75ea74d7f] h39 Gemma shared clock, per subject @L20\n  gain over stimulus floor = 0.0675  (raw 0.9895, n=8)\n  arm floor              0.9221   declared null 0.9221  +-0.4009\n  arm shuffled_stimulus  0.9693   declared null 0.9221  +-0.4009\n  floor              stimulus 0.9221 / estimator 0.0000\n  effect             0.0675  n=8  z=11.50\n  selection          axis=None rule='pre-registered layer 20; no sweep' held_out=False executed=False\n  calibration        discrimination [65af3fe21d5d2a87] 6 tests PASS: noise 0.0086+-0.0245 vs null 0.0; sensitivity [0.188, 0.3891, 0.6382, 0.8614]; self-floor 0.0363; invariance scale d=0, rotation d=0, monotone_target d=0, cell_rescale (not claimed) d=0.0493; known-zero 0",
+     "refusal": null
+    }
+   }
+  }
+ ],
+ "summary": {
+  "h8": {
+   "lexical_floor": {
+    "composed": 2.8472222222222223,
+    "lenses": {
+     "era": 2.0,
+     "voice": 1.0277777777777777,
+     "tense": 1.0277777777777777
+    }
+   },
+   "permutation_draws_pooled": {
+    "era": 7,
+    "voice": 7,
+    "tense": 7
+   },
+   "composed": {
+    "treatment": 2.8055555555555554,
+    "reported_gain_over_measured_floor": -0.04166666666666696,
+    "floor": 2.8472222222222223,
+    "arms": {
+     "no_patch": {
+      "value": 9.5,
+      "null": 9.5,
+      "tol": 1.8342800585879284,
+      "off_null": false
+     },
+     "random": {
+      "value": 2.0,
+      "null": 2.0,
+      "tol": 0.28867513459481287,
+      "off_null": false
+     }
+    },
+    "refusal": null,
+    "id": "26a709702715a106",
+    "render": "composition [26a709702715a106] h8 composed rank/18 @L14\n  gain over stimulus floor = -0.0417  (raw 2.8056, n=72)\n  arm no_patch           9.5000   declared null 9.5000  +-1.8343\n  arm random             2.0000   declared null 2.0000  +-0.2887\n  floor              stimulus 2.8472 / estimator 9.5000\n  effect             -6.6944  n=72  z=-25.25\n  selection          axis=None rule='pre-registered patch layer 14; no sweep' held_out=False executed=False\n  calibration        composition [c58afde6e9c22bf9] 6 tests PASS: noise 9.4787+-0.3244 vs null 9.5; sensitivity [7.4025, 6.09, 3.975, 1.81]; self-floor 9.8225; invariance scale d=0, rotation d=0; known-zero 9.5\n  grid leak          era recoverable 1.00 (permutation null 0.31); scene recoverable 1.00 (permutation null 0.24); tense recoverable 0.78 (permutation null 0.48); voice recoverable 1.00 (permutation null 0.30); era~length position r=+0.01; scene~length position r=+0.08; tense~length position r=+0.00; voice~length position r=-0.18; FLAGGED ['era', 'scene', 'tense', 'voice']"
+   },
+   "lenses": {
+    "era": {
+     "treatment": 1.25,
+     "candidates": 3,
+     "null": 2.0,
+     "arms": {
+      "random": 2.0,
+      "no_patch": 2.0,
+      "permutation_single_draw": 2.138888888888889,
+      "permutation_pooled": 2.1527777777777777
+     },
+     "permutation_band_used": 0.1786375538944028,
+     "arm_band": 0.28867513459481287,
+     "reported_gain_over_measured_floor": -0.75,
+     "floor": 2.0,
+     "refusal": null,
+     "id": "b1ae456bc39d8098",
+     "render": "selector [b1ae456bc39d8098] h8 era lens rank/3 @L14\n  gain over stimulus floor = -0.7500  (raw 1.2500, n=72)\n  arm no_patch           2.0000   declared null 2.0000  +-0.2887\n  arm permutation        2.1528   declared null 2.0000  +-0.1786\n  arm random             2.0000   declared null 2.0000  +-0.2887\n  floor              stimulus 2.0000 / estimator 2.0000\n  effect             -0.7500  n=72  z=-12.82\n  selection          axis=None rule='pre-registered patch layer 14; no sweep' held_out=False executed=False\n  calibration        selector [565ba129909cdb39] 6 tests PASS: noise 2.0081+-0.0571 vs null 2.0; sensitivity [1.79, 1.63, 1.415, 1.11]; self-floor 1.9450; invariance scale d=0, rotation d=0; known-zero 2\n  grid leak          era recoverable 1.00 (permutation null 0.31); scene recoverable 1.00 (permutation null 0.24); tense recoverable 0.78 (permutation null 0.48); voice recoverable 1.00 (permutation null 0.30); era~length position r=+0.01; scene~length position r=+0.08; tense~length position r=+0.00; voice~length position r=-0.18; FLAGGED ['era', 'scene', 'tense', 'voice']"
+    },
+    "voice": {
+     "treatment": 1.2361111111111112,
+     "candidates": 3,
+     "null": 2.0,
+     "arms": {
+      "random": 2.25,
+      "no_patch": 2.0,
+      "permutation_single_draw": 2.3472222222222223,
+      "permutation_pooled": 1.9186507936507937
+     },
+     "permutation_band_used": 0.41987146199237696,
+     "arm_band": 0.28867513459481287,
+     "reported_gain_over_measured_floor": 0.20833333333333348,
+     "floor": 1.0277777777777777,
+     "refusal": null,
+     "id": "a95b26cd33b32ae7",
+     "render": "selector [a95b26cd33b32ae7] h8 voice lens rank/3 @L14\n  gain over stimulus floor = 0.2083  (raw 1.2361, n=72)\n  arm no_patch           2.0000   declared null 2.0000  +-0.2887\n  arm permutation        1.9187   declared null 2.0000  +-0.4199\n  arm random             2.2500   declared null 2.0000  +-0.2887\n  floor              stimulus 1.0278 / estimator 2.0000\n  effect             -0.7639  n=72  z=-14.11\n  selection          axis=None rule='pre-registered patch layer 14; no sweep' held_out=False executed=False\n  calibration        selector [565ba129909cdb39] 6 tests PASS: noise 2.0081+-0.0571 vs null 2.0; sensitivity [1.79, 1.63, 1.415, 1.11]; self-floor 1.9450; invariance scale d=0, rotation d=0; known-zero 2\n  grid leak          era recoverable 1.00 (permutation null 0.31); scene recoverable 1.00 (permutation null 0.24); tense recoverable 0.78 (permutation null 0.48); voice recoverable 1.00 (permutation null 0.30); era~length position r=+0.01; scene~length position r=+0.08; tense~length position r=+0.00; voice~length position r=-0.18; FLAGGED ['era', 'scene', 'tense', 'voice']"
+    },
+    "tense": {
+     "treatment": 1.0277777777777777,
+     "candidates": 2,
+     "null": 1.5,
+     "arms": {
+      "random": 1.4444444444444444,
+      "no_patch": 1.5,
+      "permutation_single_draw": 1.4166666666666667,
+      "permutation_pooled": 1.4107142857142858
+     },
+     "permutation_band_used": 0.15771001547014007,
+     "arm_band": 0.1767766952966369,
+     "reported_gain_over_measured_floor": 0.0,
+     "floor": 1.0277777777777777,
+     "refusal": null,
+     "id": "cf64496c278e02ee",
+     "render": "selector [cf64496c278e02ee] h8 tense lens rank/2 @L14\n  gain over stimulus floor = 0.0000  (raw 1.0278, n=72)\n  arm no_patch           1.5000   declared null 1.5000  +-0.1768\n  arm permutation        1.4107   declared null 1.5000  +-0.1577\n  arm random             1.4444   declared null 1.5000  +-0.1768\n  floor              stimulus 1.0278 / estimator 1.5000\n  effect             -0.4722  n=72  z=-24.21\n  selection          axis=None rule='pre-registered patch layer 14; no sweep' held_out=False executed=False\n  calibration        selector [0b43d627b7c4895a] 6 tests PASS: noise 1.4856+-0.0252 vs null 1.5; sensitivity [1.3975, 1.2675, 1.105, 1.005]; self-floor 1.4525; invariance scale d=0, rotation d=0; known-zero 1.5\n  grid leak          era recoverable 1.00 (permutation null 0.31); scene recoverable 1.00 (permutation null 0.24); tense recoverable 0.78 (permutation null 0.48); voice recoverable 1.00 (permutation null 0.30); era~length position r=+0.01; scene~length position r=+0.08; tense~length position r=+0.00; voice~length position r=-0.18; FLAGGED ['era', 'scene', 'tense', 'voice']"
+    }
+   }
+  },
+  "h8_permutation_null": {
+   "seeds": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106
+   ],
+   "per_seed": {
+    "101": {
+     "era": 2.3194444444444446,
+     "voice": 1.4027777777777777,
+     "tense": 1.5416666666666667
+    },
+    "102": {
+     "era": 2.0,
+     "voice": 1.6527777777777777,
+     "tense": 1.4027777777777777
+    },
+    "103": {
+     "era": 2.2222222222222223,
+     "voice": 1.7083333333333333,
+     "tense": 1.5833333333333333
+    },
+    "104": {
+     "era": 2.375,
+     "voice": 1.7916666666666667,
+     "tense": 1.3194444444444444
+    },
+    "105": {
+     "era": 1.9861111111111112,
+     "voice": 2.3055555555555554,
+     "tense": 1.4444444444444444
+    },
+    "106": {
+     "era": 2.0277777777777777,
+     "voice": 2.2222222222222223,
+     "tense": 1.1666666666666667
+    }
+   },
+   "layer": 14,
+   "n_items_per_factor": 18,
+   "across_draws": {
+    "era": {
+     "values": [
+      2.3194444444444446,
+      2.0,
+      2.2222222222222223,
+      2.375,
+      1.9861111111111112,
+      2.0277777777777777
+     ],
+     "mean": 2.155092592592593,
+     "sd": 0.1724498197424924,
+     "declared_null": 2.0,
+     "registry_band_at_72": 0.28867513459481287
+    },
+    "voice": {
+     "values": [
+      1.4027777777777777,
+      1.6527777777777777,
+      1.7083333333333333,
+      1.7916666666666667,
+      2.3055555555555554,
+      2.2222222222222223
+     ],
+     "mean": 1.847222222222222,
+     "sd": 0.3488296127989023,
+     "declared_null": 2.0,
+     "registry_band_at_72": 0.28867513459481287
+    },
+    "tense": {
+     "values": [
+      1.5416666666666667,
+      1.4027777777777777,
+      1.5833333333333333,
+      1.3194444444444444,
+      1.4444444444444444,
+      1.1666666666666667
+     ],
+     "mean": 1.4097222222222223,
+     "sd": 0.15233521759106955,
+     "declared_null": 1.5,
+     "registry_band_at_72": 0.1767766952966369
+    }
+   }
+  },
+  "h16": {
+   "curve": {
+    "0": 2.7316666666666665,
+    "2": 2.4634722222222223,
+    "4": 2.1995833333333334,
+    "6": 2.183611111111111,
+    "8": 2.1008333333333336,
+    "10": 1.9838888888888888,
+    "12": 1.9013888888888888,
+    "14": 1.8144444444444445,
+    "16": 1.7320833333333334,
+    "18": 1.7897222222222222,
+    "20": 1.8633333333333333,
+    "22": 2.1594444444444445,
+    "24": 2.3891666666666667,
+    "26": 2.491527777777778,
+    "28": 2.734027777777778
+   },
+   "treatment": 2.169212962962963,
+   "random": 3.4790092592592594,
+   "no_patch": 3.4677777777777776,
+   "permutation": 3.516842592592593,
+   "role_identity_retained": 1.3447777777777778,
+   "n": 108000,
+   "arm_tolerance": 0.015590239111558088,
+   "cluster_bands": {
+    "random": 0.038579239084652044,
+    "no_patch": 0.0788739904073138,
+    "permutation": 0.07358246754972217
+   },
+   "n_domains": 40,
+   "curve_step4_mean": 2.206510416666667,
+   "peak_layer": "16",
+   "peak_value": 1.7320833333333334,
+   "refusal": null,
+   "refusal_at_ledger": null,
+   "canonical_aggregate": "step-2 mean over the 15-layer curve"
+  },
+  "h29": {
+   "n": {
+    "shift": 55,
+    "rand": 56,
+    "base": 36,
+    "attempted": {
+     "shift": 72,
+     "rand": 72,
+     "base": 36
+    }
+   },
+   "era_target": {
+    "shift": 0.8363636363636363,
+    "rand": 0.14285714285714285,
+    "no_patch": 0.1111111111111111
+   },
+   "leaves_e1": {
+    "shift": 0.9090909090909091,
+    "rand": 0.30357142857142855,
+    "base": 0.2222222222222222
+   },
+   "theme_kept": {
+    "shift": 0.509090909090909,
+    "rand": 0.625,
+    "base": 0.5277777777777778
+   },
+   "lexical": 0.3,
+   "declared_null": 0.1111111111111111,
+   "h27_prior": {
+    "base": {
+     "n": 36,
+     "era_stayed": 0.7777777777777778,
+     "era_other": 0.2222222222222222,
+     "era_as_target": 0.1111111111111111,
+     "theme_kept": 0.5277777777777778
+    },
+    "rand": {
+     "n": 32,
+     "era_stayed": 0.6875,
+     "era_other": 0.3125,
+     "era_as_target": 0.15625,
+     "theme_kept": 0.53125
+    }
+   },
+   "arm_tolerance": 0.19069251784911845,
+   "controls": {
+    "patch_reaches_batch": {
+     "n_texts": 4,
+     "moved_shift": 4,
+     "moved_rand": 4,
+     "batch_row_bug": {
+      "caught": true,
+      "mechanism": "MovedCandidates",
+      "message": "patch moved 1/4 sequences; a patch that reaches one row of a padded batch is the h34 signature (deltas [1.035002, 0.0, 0.0, 0.0])"
+     },
+     "padding_side": "left",
+     "lib_versions": {
+      "torch": "2.14.0+cu130",
+      "transformers": "5.17.0",
+      "nnsight": "0.7.0",
+      "numpy": "2.5.3",
+      "ndif_reported": null
+     }
+    },
+    "asserted_stack": {
+     "14": {
+      "provenance": {
+       "model": "google/gemma-2-9b-it",
+       "layers": [
+        14
+       ],
+       "pooling": "mean",
+       "grid_hash": "666190d8ecaf66df",
+       "grid_name": "narrative_theme_v1",
+       "code_version": "fe5bbedd41aac049",
+       "tokenizer_padding": "left",
+       "span_policy": "auto",
+       "template": null,
+       "lib_versions": {
+        "torch": "2.14.0+cu130",
+        "transformers": "5.17.0",
+        "nnsight": "0.7.0",
+        "numpy": "2.5.3",
+        "ndif_reported": null
+       },
+       "batch_size": 4,
+       "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+       "remote": true,
+       "acts_digest": "278e46250c513493",
+       "equivalence_min_cos": 0.9999967887181179,
+       "equivalence_item_rule": "shortest item in each batch",
+       "stack_signature": "0b2fedf251e5ebc9"
+      },
+      "min_cos_shift_vector_vs_cached_npz": 0.9999619126319885,
+      "n_compared": 24,
+      "batched_vs_single_min_cos": 0.9999967887181179
+     },
+     "20": {
+      "provenance": {
+       "model": "google/gemma-2-9b-it",
+       "layers": [
+        20
+       ],
+       "pooling": "mean",
+       "grid_hash": "666190d8ecaf66df",
+       "grid_name": "narrative_theme_v1",
+       "code_version": "fe5bbedd41aac049",
+       "tokenizer_padding": "left",
+       "span_policy": "auto",
+       "template": null,
+       "lib_versions": {
+        "torch": "2.14.0+cu130",
+        "transformers": "5.17.0",
+        "nnsight": "0.7.0",
+        "numpy": "2.5.3",
+        "ndif_reported": null
+       },
+       "batch_size": 4,
+       "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+       "remote": true,
+       "acts_digest": "25fd48dd73437748",
+       "equivalence_min_cos": 0.9999968234740263,
+       "equivalence_item_rule": "shortest item in each batch",
+       "stack_signature": "82eb9e477d177c38"
+      },
+      "min_cos_shift_vector_vs_cached_npz": 0.9999560117721558,
+      "n_compared": 24,
+      "batched_vs_single_min_cos": 0.9999968234740263
+     }
+    },
+    "grid_leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+    "read_direction_source": "asserted build_remote_stack",
+    "scoring_equivalence": {
+     "n_batches": 25,
+     "min_cos": 0.9999974853972131,
+     "rule": "shortest item in each batch"
+    }
+   },
+   "per_item_moved_vs_no_patch": {
+    "shift": {
+     "compared": 55,
+     "identical_to_no_patch": 0,
+     "moved": 55
+    },
+    "rand": {
+     "compared": 56,
+     "identical_to_no_patch": 0,
+     "moved": 56
+    }
+   },
+   "claim": {
+    "id": "04ca1960d8602e2d",
+    "reported": 0.7252525252525253,
+    "render": "top1_accuracy [04ca1960d8602e2d] h29 era reads as target, 3x re-imposed @ scale 3.0\n  gain over stimulus floor = 0.7253  (raw 0.8364, n=55)\n  arm no_patch           0.1111   declared null 0.1111  +-0.2357\n  arm random             0.1429   declared null 0.1111  +-0.1890\n  floor              stimulus 0.1111 / estimator 0.3333\n  effect             0.5030  n=55  z=9.99\n  selection          axis=None rule='pre-registered scale 3.0, patch 14 / read 20; no sweep' held_out=False executed=False\n  calibration        top1_accuracy [e37df6b753fce8c4] 6 tests PASS: noise 0.3356+-0.0192 vs null 0.3333333333333333; sensitivity [0.39, 0.465, 0.63, 0.8075]; self-floor 0.2900; invariance scale d=0, rotation d=0; known-zero 0.333",
+    "refusal": null
+   }
+  },
+  "h39": {
+   "subjects": [
+    "asteroid",
+    "fictional_population",
+    "mayfly",
+    "mountain",
+    "orchard",
+    "real_population",
+    "river",
+    "street"
+   ],
+   "layer": 20,
+   "treatment": 0.9895439377085649,
+   "floor": 0.9220800889877641,
+   "shuffled_stimulus": 0.9692992213570633,
+   "gain": 0.06746384872080087,
+   "arm_tolerance": 0.4008918628686365,
+   "per_subject": {
+    "exp": {
+     "street": 0.997330367074527,
+     "mountain": 0.9870967741935481,
+     "orchard": 0.9999999999999998,
+     "mayfly": 0.9924360400444937,
+     "asteroid": 0.9497219132369298,
+     "river": 0.9982202447163513,
+     "real_population": 0.9942157953281422,
+     "fictional_population": 0.997330367074527
+    },
+    "ctrl": {
+     "street": 0.918576195773081,
+     "mountain": 0.9804226918798663,
+     "orchard": 0.9968854282536149,
+     "mayfly": 0.6093437152391545,
+     "asteroid": 0.8936596218020021,
+     "river": 0.997330367074527,
+     "real_population": 0.9946607341490543,
+     "fictional_population": 0.9857619577308118
+    },
+    "shuf": {
+     "street": 0.9902113459399331,
+     "mountain": 0.9648498331479419,
+     "orchard": 0.9808676307007784,
+     "mayfly": 0.9786429365962178,
+     "asteroid": 0.9523915461624025,
+     "river": 0.9955506117908786,
+     "real_population": 0.8972191323692991,
+     "fictional_population": 0.9946607341490543
+    }
+   },
+   "claim": {
+    "id": "cd6e63d75ea74d7f",
+    "reported": 0.0674638487208008,
+    "render": "discrimination [cd6e63d75ea74d7f] h39 Gemma shared clock, per subject @L20\n  gain over stimulus floor = 0.0675  (raw 0.9895, n=8)\n  arm floor              0.9221   declared null 0.9221  +-0.4009\n  arm shuffled_stimulus  0.9693   declared null 0.9221  +-0.4009\n  floor              stimulus 0.9221 / estimator 0.0000\n  effect             0.0675  n=8  z=11.50\n  selection          axis=None rule='pre-registered layer 20; no sweep' held_out=False executed=False\n  calibration        discrimination [65af3fe21d5d2a87] 6 tests PASS: noise 0.0086+-0.0245 vs null 0.0; sensitivity [0.188, 0.3891, 0.6382, 0.8614]; self-floor 0.0363; invariance scale d=0, rotation d=0, monotone_target d=0, cell_rescale (not claimed) d=0.0493; known-zero 0",
+    "refusal": null
+   }
+  }
+ },
+ "table": "| target | source | logged | reproduced | tolerance | verdict | note |\n|---|---|---|---|---|---|---|\n| h29 era shift in generation, 3x re-imposed | h29 | 0.84 era->target / 0.91 leaves e1 / 0.53 theme kept, lex 0.30, n=55/72 | 0.8364 / 0.9091 / 0.5091, lex 0.30 (n=55/72) | +-0.0182 remote (measured, piece 3); arm band +-0.1907 at n=55 | **reproduced** | PUBLISHED; arms: random 0.1429, no_patch 0.1111, both declared at 0.1111 +-0.1890; neither off its null |",
+ "verdict_counts": {
+  "reproduced": 1
+ },
+ "wall_seconds": 0.0
+}
