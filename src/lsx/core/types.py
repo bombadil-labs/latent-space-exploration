@@ -408,6 +408,12 @@ class Probe:
 # --------------------------------------------------------------------------------------------
 # Claim
 # --------------------------------------------------------------------------------------------
+def _score_digest(scores: np.ndarray) -> str:
+    """A fingerprint of the exact scores a unit declaration was measured on, so that a band can
+    never be inherited by an arm holding different numbers."""
+    return hashlib.sha256(np.ascontiguousarray(scores, dtype=np.float64).tobytes()).hexdigest()
+
+
 @dataclass
 class Arm:
     """A control arm. It declares WHERE IT SHOULD SIT; an arm off its null raises (spec §4).
@@ -444,6 +450,25 @@ class Arm:
 
     def _resolve_unit(self) -> None:
         n = self.n
+        # `Instrument.claim` calls `dataclasses.replace(arm, tolerance=...)` to attach the
+        # measured tolerance once an arm is built (`instruments.py`), which constructs a NEW `Arm`
+        # carrying every field's CURRENT value -- including a `n_independent` this method may
+        # already have rewritten from `k` to a measured `n_eff` != k. Re-running the block below
+        # unchanged would then compare that already-resolved `n_eff` against the cluster count and
+        # raise "cannot be two numbers" on an arm that never lied about anything. `unit_evidence`
+        # is set exactly once, by this method, so its presence is the signal that this Arm has
+        # already earned its band; re-resolving a resolved arm is a no-op rather than a re-check.
+        if self.clusters is not None and self.unit_evidence is not None:
+            # ...but only for THESE scores. Keying the short-circuit on the mere presence of
+            # evidence would make the guard bypassable by `replace(arm, scores=<other>)`: the new
+            # arm would inherit a band earned by a different arm's clustering, which is precisely
+            # the unearned widening the p-gate exists to refuse. Nothing in the core does that
+            # today (`Instrument.claim` replaces `tolerance` only), so this is a hole being closed
+            # while it is still theoretical rather than after it has cost a retraction. On a
+            # mismatch the arm re-earns its band from scratch.
+            if self.unit_evidence.get("score_digest") == _score_digest(self.scores):
+                return
+            self.n_independent, self.unit_evidence = None, None
         if self.clusters is not None:
             self.clusters = tuple(self.clusters)
             if len(self.clusters) != n:
@@ -480,6 +505,7 @@ class Arm:
                 "clusters=[unit label per item] and the core will test it (spec §7 -- when h47's "
                 "arm read off its null the fix was more draws, not a wider band).")
         ev = cluster_evidence(self.scores, self.clusters)
+        ev["score_digest"] = _score_digest(self.scores)
         self.unit_evidence = ev
         if ev["p"] > 0.05:
             raise ArmUnitNotInDesign(
@@ -491,6 +517,27 @@ class Arm:
                 "agree more than items across units do, so the unit is not in the design and the "
                 "wider band it buys is not earned. This is the widening spec §7 forbids, and it "
                 "is refused with the same numbers a wrong value would be.")
+        # --- band on the MEASURED effective sample size, not on the raw cluster count --------
+        # `k` (the declared/derived cluster count) decided WHETHER the arm may widen its band at
+        # all -- the p-gate above -- but says nothing about HOW MUCH clustering there is. Partial
+        # clustering (a small but real ICC) earns a band narrower than banding flatly on k would
+        # give, because n/deff sits above k whenever the clustering is not total; banding on k in
+        # that regime is the over-wide, permissive failure this fix closes (results/notes/
+        # phase2_unit_band.md). `cluster_evidence` already clamps icc to >= 0 before building
+        # `deff`, so deff >= 1 and n_eff <= n always -- the upper clamp below is therefore a
+        # no-op in practice and is kept only so the invariant is enforced by construction rather
+        # than by an upstream guarantee. A non-positive/degenerate icc (deff <= 1, e.g. a real but
+        # noisy clustering whose method-of-moments ICC estimate lands at or below zero even though
+        # the permutation p-gate above found it) yields n_eff = n, i.e. NO widening: between the
+        # two ways this arithmetic can be wrong, refusing a clean arm is the safe direction and
+        # silently admitting a dirty one is not, so a clustering the core cannot SIZE is treated as
+        # a clustering it may not use to widen anything -- it still may not narrow below k, since
+        # the design itself guarantees at least k independent draws.
+        k_units = int(self.n_independent)
+        deff = float(ev["deff"])
+        n_eff = n / deff if deff > 0 else float(n)
+        n_eff = min(max(n_eff, k_units), n)
+        self.n_independent = min(max(int(round(n_eff)), k_units), n)
 
     @property
     def value(self) -> float:

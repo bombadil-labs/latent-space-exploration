@@ -763,6 +763,93 @@ def case_12_band_widened_without_a_design_reason() -> Verdict:
                    NOT_CAUGHT, _named(widened), detail, ctl)
 
 
+def case_13_partial_clustering_k_band_admits_a_dirty_arm() -> Verdict:
+    """The bug case_12 was one hour too early to catch: a `k`-flat band and a `n/deff`-measured
+    band agree only when the design says exactly how much clustering there is, and `k` alone never
+    says that. `deff` computes `1 + (mbar - 1) * icc`, and *nothing used it* -- `Arm._resolve_unit`
+    set `n_independent = k`, the raw cluster count, so an arm whose clustering is real but PARTIAL
+    (small-but-significant ICC, which clears the p < 0.05 gate exactly like h8's total clustering
+    does) got banded as if it had earned the whole width of `k`'s tolerance, when the honest
+    effective sample size `n / deff` sits well above `k`. Over-wide is the permissive direction: an
+    arm genuinely off its null can hide inside it.
+
+    One arm, one design, two bands:
+
+      * flat on `k = 6` (phase 2's original arithmetic) -> the tolerance is wide enough that an arm
+        0.70 off its declared null of 2.00 is NOT flagged;
+      * measured on `n_eff = n / deff` (this fix) -> the same arm, same numbers, same clustering,
+        is measurably narrower and the arm IS flagged, because `n_eff` (~23 here) is nearly four
+        times `k`.
+
+    The clustering itself is real (p <= 0.05 over 999 shuffles) -- this is not case_12's noise
+    label relabelled. It is deliberately PARTIAL (ICC ~0.19, not ~1), which is exactly the regime
+    the original arithmetic could not tell from total clustering because it never looked at `icc`
+    or `deff` at all.
+    """
+    from . import checks, instruments, registry
+    from .types import Arm, Floor, Measured, Selection
+
+    n, k = 72, 6
+    rng = np.random.default_rng(0)
+    offsets = rng.normal(0, 0.22, size=k)
+    base = rng.normal(0, 0.30, size=n)
+    null = 2.0
+    off_by = 0.70
+    lab = tuple(f"d{i % k}" for i in range(n))
+
+    def scored(target: float) -> np.ndarray:
+        s = target + np.array([offsets[i % k] for i in range(n)]) + base
+        return s - s.mean() + target      # exact mean, no draw-to-draw wobble
+
+    dirty = scored(null + off_by)
+    clean = scored(null)
+
+    sel = registry.spec("selector")
+    flat_tol = sel.arm_tolerance(n, {"n_candidates": 3}, n_independent=k)
+    flat_admits = abs(dirty.mean() - null) <= flat_tol
+
+    inst = instruments.build("selector", n=n, d=32, n_candidates=3)
+    treat = np.full(n, 1.3)
+
+    def claim_with(perm: Arm):
+        return inst.claim(
+            treatment=Measured(treat, label="harness lens"),
+            arms={"random": np.full(n, null), "no_patch": np.full(n, null), "permutation": perm},
+            floor=Floor(stimulus=null, estimator=null),
+            selection=Selection(axis=None, rule="pre-registered layer 14; no sweep"),
+            provenance={"grid_hash": "harness_v1"}, stage="harness")
+
+    dirty_arm = Arm(dirty, expected_null=null, n_independent=k, unit="one draw", clusters=lab)
+    ev = dirty_arm.unit_evidence
+    n_eff = dirty_arm.effective_n
+    measured_tol = sel.arm_tolerance(n, {"n_candidates": 3}, n_independent=n_eff)
+    measured = _refusal(lambda: claim_with(dirty_arm))
+    measured_flags = isinstance(measured, checks.ArmOffNull)
+
+    caught = (ev is not None and ev["p"] <= 0.05 and n_eff > k and flat_admits and measured_flags)
+    detail = "no unit_evidence recorded"
+    if ev is not None:
+        detail = (f"arm at {dirty.mean():.3f} against a declared {null:.3f} (off by {off_by:.2f}); "
+                  f"clustering real (p={ev['p']:.3f}, ICC={ev['icc']:+.3f}) but partial -> "
+                  f"n_eff={n_eff} (k={k}, n={n}); flat-on-k tolerance {flat_tol:.4f} "
+                  f"({'admits' if flat_admits else 'flags'} it), n_eff-measured tolerance "
+                  f"{measured_tol:.4f} -> {_named(measured)}")
+
+    clean_arm = Arm(clean, expected_null=null, n_independent=k, unit="one draw", clusters=lab)
+    honest = _refusal(lambda: claim_with(clean_arm))
+    ctl = ("an arm ON its null, with the same clustering, still publishes clean" if honest is None
+           else f"FAILED: {_named(honest)}")
+    if caught:
+        return Verdict(13, "a k-flat band admits an arm the n/deff-measured band correctly flags",
+                       CAUGHT,
+                       "Arm._resolve_unit bands on n/deff (measured), not on k (the raw cluster "
+                       "count); Instrument.claim -> ArmOffNull for the arm the flat-on-k band "
+                       "would have missed",
+                       detail, ctl)
+    return Verdict(13, "a k-flat band admits an arm the n/deff-measured band correctly flags",
+                   NOT_CAUGHT, _named(measured), detail, ctl)
+
+
 def _tmp_ledger():
     """A throwaway ledger file. The harness must never touch `results/ledger.jsonl`: these are
     demonstrations that a mechanism fires, not results (the same line piece 3 drew for its
@@ -782,7 +869,8 @@ PURE_CASES = {3: case_3_rank1_ties_no_no_patch, 4: case_4_best_layer_on_scoring_
               9: case_9_hand_declared_calibration_published,
               10: case_10_provenance_not_from_a_stack,
               11: case_11_swept_axis_with_no_curve,
-              12: case_12_band_widened_without_a_design_reason}
+              12: case_12_band_widened_without_a_design_reason,
+              13: case_13_partial_clustering_k_band_admits_a_dirty_arm}
 
 
 def run_all(lm=None) -> list[Verdict]:

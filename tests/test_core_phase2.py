@@ -64,11 +64,66 @@ def test_a_declared_unit_bands_on_units_and_widens_nothing_by_itself():
     scores = scores - scores.mean() + 2.0
     arm = Arm(scores, expected_null=2.0, n_independent=6, unit="one draw",
               clusters=tuple(f"d{i % 6}" for i in range(72)))
-    assert arm.effective_n == 6
+    # The band is on the MEASURED effective sample size (n / deff), not flatly on the cluster
+    # count: this fixture's clustering is real but PARTIAL (icc ~0.5, not ~1), so n/deff lands
+    # well above k=6 -- banding on k alone here would be the over-wide failure the fix closes.
+    # Still bounded to [k, n] on both sides.
+    assert 6 < arm.effective_n < 72
+    assert arm.effective_n == 11
     assert arm.unit_evidence["p"] <= 0.05
     spec = registry.spec("selector")
     assert spec.arm_tolerance(arm.n, {"n_candidates": 3}, n_independent=arm.effective_n) > \
         spec.arm_tolerance(arm.n, {"n_candidates": 3})
+
+
+def test_n_eff_is_clamped_to_k_and_n_and_never_widens_past_k():
+    """Piece 5's constraint 1: `n_eff` is measured from the arm's own scores and can only ever
+    land in `[k, n]`, so the loosest band a declared unit can ever buy is exactly the flat `k`
+    band -- a declaration can only make the band NARROWER than that (more clustering visible in
+    the scores earns a tighter band, never a wider one). Swept over a range of clustering
+    strengths, including total clustering (icc -> 1, where n_eff must equal k exactly) and no
+    real clustering at all (refused outright, so it never reaches the tolerance comparison)."""
+    n, k = 72, 6
+    lab = tuple(f"d{i % k}" for i in range(n))
+    sel = registry.spec("selector")
+    flat_tol = sel.arm_tolerance(n, {"n_candidates": 3}, n_independent=k)
+    item_tol = sel.arm_tolerance(n, {"n_candidates": 3})
+    for seed, offset_sd, noise_sd in [(0, 0.05, 0.30), (1, 0.15, 0.30), (2, 0.35, 0.20),
+                                      (3, 0.80, 0.05), (4, 1.20, 0.02)]:
+        rng = np.random.default_rng(seed)
+        offsets = rng.normal(0, offset_sd, size=k)
+        scores = 2.0 + np.array([offsets[i % k] for i in range(n)]) + rng.normal(0, noise_sd, n)
+        scores = scores - scores.mean() + 2.0
+        ev = checks.cluster_evidence(scores, lab)
+        if ev["p"] > 0.05:
+            continue    # not visibly clustered -- Arm refuses the declaration outright (tested
+                        # elsewhere); nothing to bound here
+        arm = Arm(scores, expected_null=2.0, n_independent=k, unit="one draw", clusters=lab)
+        assert k <= arm.effective_n <= n, (seed, arm.effective_n)
+        measured_tol = sel.arm_tolerance(n, {"n_candidates": 3}, n_independent=arm.effective_n)
+        # never wider than the flat k-band, never tighter than banding on every raw item
+        assert measured_tol <= flat_tol + 1e-12, (seed, measured_tol, flat_tol)
+        assert measured_tol >= item_tol - 1e-12, (seed, measured_tol, item_tol)
+
+
+def test_total_clustering_reproduces_the_h8_permutation_case_unchanged():
+    """Piece 5's constraint 2: h8's permutation arm is four scenes re-ranked eighteen ways
+    (n=72, k=4) with ICC near 1. At icc=1 exactly, deff = 1 + (mbar - 1) * 1 = mbar = n / k for
+    ANY cluster sizing (mbar is always n/k, balanced or not), so n_eff = n / deff = k exactly --
+    this case must be bit-for-bit unaffected by the fix, and it is by construction rather than by
+    a special case in the code."""
+    n, k = 72, 4
+    lab = tuple(f"scene{i % k}" for i in range(n))
+    rng = np.random.default_rng(2)
+    offsets = rng.normal(0, 5.0, size=k)          # huge between-scene spread
+    scores = 2.0 + np.array([offsets[i % k] for i in range(n)])   # ~zero within-scene noise
+    scores = scores - scores.mean() + 2.0
+    ev = checks.cluster_evidence(scores, lab)
+    assert ev["p"] <= 0.05
+    assert ev["icc"] > 0.999, ev            # "near 1", as the ticket specifies
+    arm = Arm(scores, expected_null=2.0, n_independent=k, unit="one permutation draw, shared by "
+              "all items of a scene", clusters=lab)
+    assert arm.effective_n == k
 
 
 def test_a_unit_declaration_with_no_design_behind_it_is_refused():
@@ -103,10 +158,19 @@ def test_rediscovery_catches_a_band_widened_without_a_design_reason():
     assert "FAILED" not in v.positive_control
 
 
+def test_rediscovery_catches_the_k_flat_band_this_piece_fixed():
+    """Case 13: a `k`-flat band would have admitted an arm whose clustering is real but partial
+    (ICC well under 1); the `n/deff`-measured band correctly flags it."""
+    v = rediscovery.case_13_partial_clustering_k_band_admits_a_dirty_arm()
+    assert v.ok, v.render()
+    assert "ArmOffNull" in v.mechanism
+    assert "FAILED" not in v.positive_control
+
+
 def test_every_rediscovery_case_still_fires():
     vs = [v for v in rediscovery.run_all() if v.status != rediscovery.UNWIRED]
     assert all(v.ok for v in vs), "\n".join(v.render() for v in vs if not v.ok)
-    assert len(vs) == 10
+    assert len(vs) == 11
 
 
 # ================================================================================================
@@ -237,3 +301,31 @@ def test_replication_rows_report_gain_over_a_measured_floor_and_never_over_chanc
     # era and voice must not collide on Claim.id: `factor` is in the provenance
     ids = [r["claim_id"] for r in rows if r["status"] == "built"]
     assert len(ids) == len(set(ids))
+
+
+def test_a_band_cannot_be_inherited_by_an_arm_with_different_scores():
+    """The unit guard short-circuits on re-entry so that `replace(arm, tolerance=...)` does not
+    re-raise; that short-circuit must be keyed to the SCORES the clustering was measured on.
+    Otherwise `replace(arm, scores=<other>)` inherits a band another arm earned, which is the
+    unearned widening the permutation gate exists to refuse."""
+    from dataclasses import replace
+    import numpy as np
+    from lsx.core.types import Arm
+    from lsx.core.checks import ArmUnitNotInDesign
+
+    clusters = tuple(f"s{i // 18}" for i in range(72))
+    clustered = np.concatenate([np.full(18, 2.0 + j) for j in range(4)])
+    arm = Arm(scores=clustered, expected_null=3.5, unit="one draw per scene", clusters=clusters)
+    earned = arm.effective_n
+    assert earned < arm.n
+
+    same = replace(arm, tolerance=0.5)          # what Instrument.claim does: must not re-raise
+    assert same.effective_n == earned
+
+    flat = np.full(72, 3.5)                     # no clustering at all in these numbers
+    try:
+        other = replace(arm, scores=flat)
+    except ArmUnitNotInDesign:
+        return                                  # refused outright is also correct
+    assert other.effective_n == other.n, (
+        "an arm holding different scores inherited a band earned by the original's clustering")
