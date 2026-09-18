@@ -1,0 +1,146 @@
+{
+ "table": "| target | source | logged | reproduced | tolerance | verdict | note |\n|---|---|---|---|---|---|---|\n| h39 Gemma clock, corrected | h39 | 0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (raw) | not published | n/a -- refused before grading | **REFUSED** | `discrimination` is declared in the registry and NOT built (spec \u00a78/\u00a711.4), so no Claim can be graded through it; and the grid is flagged leaky (interval recoverable 0.92 (permutation null 0.40); FLAGGED ['interval'...), so \u00a76 requires gain over the measured floor, never the raw score. Stacks for the v3 grid are not cached, so the gain cannot be measured here (\u00a711.3: defer, do not re-extract). |\n| h16 relation selector, 'peak layer 16' | h16 | 1.73/6 at layer 16 (curve mean 2.21, null 3.5) | not published | n/a -- refused before grading | **REFUSED** | SelectionOnScoringData -- the reported value was chosen along 'layer' by 'peak layer 16 (argmax over the sweep)' on the scoring data. Report the c |\n| h8 three-factor battery, composed | h8 (re-verified h39) | 2.81/18, no-patch 9.50 | 2.806/18, no-patch 9.500 | \u00b10.02 (local, \u00a71A) | **reproduced** | through `composition` against its declared null of 9.50; |delta| 0.004 |\n| h8 era lens | h8 | 1.25/3 | 1.250/3 | \u00b10.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h8 voice lens | h8 | 1.24/3 | 1.236/3 | \u00b10.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h8 tense lens | h8 | 1.03/3 | 1.028/3 | \u00b10.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h14 era shift, gain over norm-matched pass-through | h14 (withdrawn at h40) | -0.111 (model 0.889 vs pass-through 1.000) | -0.1111 (model 0.889 vs pass-through 1.000) | \u00b10.1128 (paraphrase-noise, measured) | **reproduced** | zero-shift error 0; random arm +0.000 |\n| h4 role lens, held-out domains | h4 | 1.69/6 (n=48), random 3.25 (n=96), chance 3.5 | 1.688/6 (n=48), random 3.406, permutation 3.542, no-patch 3.500 | \u00b10.02 (local, \u00a71A) | **reproduced** | |delta| 0.002; the `permutation` arm h4 never had is computed here |\n| h29 era shift in generation, 3x re-imposed | h29 | era->target 0.84, leaves-e1 0.91, theme-kept 0.53, lexical 0.30 (n=55 of 72), Gemma-9B | era->target 0.8364, leaves-e1 0.9091, theme-kept 0.5273 (n=55 of 72) | \u00b10.0182 (remote, measured) | **deferred** | the NUMBERS reproduce exactly (twice, bit-identically), but the row cannot be published: its statistic is a TOP-1 ACCURACY over three era directions and the registry ships a rank, not an accuracy, so no Claim can be built; and it comes from a frozen script, so its provenance is not a `Stack` and the ledger refuses it. |\n| h37 70B matched pair selector | h37 | era 1.50 base / 1.06 instruct @26; theme 1.06/1.06; no-patch 2.00 | not re-derived | remote | **deferred** | the Llama-3.1-70B direction stacks are not cached (spec \u00a711.3: defer rather than re-extract). NOT blocked by position ids: `ndif_factors` pads RIGHT. |",
+ "rows": [
+  {
+   "target": "h39 Gemma clock, corrected",
+   "source": "h39",
+   "logged": "0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (raw)",
+   "reproduced": "not published",
+   "tolerance": "n/a -- refused before grading",
+   "verdict": "REFUSED",
+   "detail": "`discrimination` is declared in the registry and NOT built (spec \u00a78/\u00a711.4), so no Claim can be graded through it; and the grid is flagged leaky (interval recoverable 0.92 (permutation null 0.40); FLAGGED ['interval'...), so \u00a76 requires gain over the measured floor, never the raw score. Stacks for the v3 grid are not cached, so the gain cannot be measured here (\u00a711.3: defer, do not re-extract).",
+   "claim_id": "",
+   "extra": {
+    "instrument_built": false,
+    "leak": "interval recoverable 0.92 (permutation null 0.40); FLAGGED ['interval']"
+   }
+  },
+  {
+   "target": "h16 relation selector, 'peak layer 16'",
+   "source": "h16",
+   "logged": "1.73/6 at layer 16 (curve mean 2.21, null 3.5)",
+   "reproduced": "not published",
+   "tolerance": "n/a -- refused before grading",
+   "verdict": "REFUSED",
+   "detail": "SelectionOnScoringData -- the reported value was chosen along 'layer' by 'peak layer 16 (argmax over the sweep)' on the scoring data. Report the c",
+   "claim_id": "",
+   "extra": {
+    "curve": {
+     "0": 2.73,
+     "4": 2.2,
+     "10": 1.98,
+     "16": 1.73,
+     "20": 1.86,
+     "24": 2.39,
+     "28": 2.73
+    }
+   }
+  },
+  {
+   "target": "h8 three-factor battery, composed",
+   "source": "h8 (re-verified h39)",
+   "logged": "2.81/18, no-patch 9.50",
+   "reproduced": "2.806/18, no-patch 9.500",
+   "tolerance": "\u00b10.02 (local, \u00a71A)",
+   "verdict": "reproduced",
+   "detail": "through `composition` against its declared null of 9.50; |delta| 0.004",
+   "claim_id": "281ec8ebf3371c58",
+   "extra": {}
+  },
+  {
+   "target": "h8 era lens",
+   "source": "h8",
+   "logged": "1.25/3",
+   "reproduced": "1.250/3",
+   "tolerance": "\u00b10.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h8 voice lens",
+   "source": "h8",
+   "logged": "1.24/3",
+   "reproduced": "1.236/3",
+   "tolerance": "\u00b10.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h8 tense lens",
+   "source": "h8",
+   "logged": "1.03/3",
+   "reproduced": "1.028/3",
+   "tolerance": "\u00b10.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h14 era shift, gain over norm-matched pass-through",
+   "source": "h14 (withdrawn at h40)",
+   "logged": "-0.111 (model 0.889 vs pass-through 1.000)",
+   "reproduced": "-0.1111 (model 0.889 vs pass-through 1.000)",
+   "tolerance": "\u00b10.1128 (paraphrase-noise, measured)",
+   "verdict": "reproduced",
+   "detail": "zero-shift error 0; random arm +0.000",
+   "claim_id": "567baa66236c4de1",
+   "extra": {}
+  },
+  {
+   "target": "h4 role lens, held-out domains",
+   "source": "h4",
+   "logged": "1.69/6 (n=48), random 3.25 (n=96), chance 3.5",
+   "reproduced": "1.688/6 (n=48), random 3.406, permutation 3.542, no-patch 3.500",
+   "tolerance": "\u00b10.02 (local, \u00a71A)",
+   "verdict": "reproduced",
+   "detail": "|delta| 0.002; the `permutation` arm h4 never had is computed here",
+   "claim_id": "d732ea710fa22c82",
+   "extra": {}
+  },
+  {
+   "target": "h29 era shift in generation, 3x re-imposed",
+   "source": "h29",
+   "logged": "era->target 0.84, leaves-e1 0.91, theme-kept 0.53, lexical 0.30 (n=55 of 72), Gemma-9B",
+   "reproduced": "era->target 0.8364, leaves-e1 0.9091, theme-kept 0.5273 (n=55 of 72)",
+   "tolerance": "\u00b10.0182 (remote, measured)",
+   "verdict": "deferred",
+   "detail": "the NUMBERS reproduce exactly (twice, bit-identically), but the row cannot be published: its statistic is a TOP-1 ACCURACY over three era directions and the registry ships a rank, not an accuracy, so no Claim can be built; and it comes from a frozen script, so its provenance is not a `Stack` and the ledger refuses it.",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h37 70B matched pair selector",
+   "source": "h37",
+   "logged": "era 1.50 base / 1.06 instruct @26; theme 1.06/1.06; no-patch 2.00",
+   "reproduced": "not re-derived",
+   "tolerance": "remote",
+   "verdict": "deferred",
+   "detail": "the Llama-3.1-70B direction stacks are not cached (spec \u00a711.3: defer rather than re-extract). NOT blocked by position ids: `ndif_factors` pads RIGHT.",
+   "claim_id": "",
+   "extra": {}
+  }
+ ],
+ "summary": {
+  "h14": {
+   "paraphrase_sd": 0.3191423692521127,
+   "tolerance": 0.11283386673105501,
+   "gain": -0.1111111111111111,
+   "passthrough": 1.0,
+   "model": 0.8888888888888888,
+   "gain_rand": 0.0,
+   "zero_shift_error": 0.0
+  },
+  "h4": {
+   "role": 1.6875,
+   "random": 3.40625,
+   "no_patch": 3.5,
+   "permutation": 3.5416666666666665,
+   "n": 48
+  }
+ }
+}

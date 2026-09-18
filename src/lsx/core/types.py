@@ -630,13 +630,13 @@ class Claim:
                 from . import instruments as _instruments   # noqa: F401  (registers the keys)
             except Exception:  # noqa: BLE001 -- a partially-imported package must not break Claim
                 pass
-        expected_key = registry.CALIBRATION_KEYS.get(self.instrument)
-        if (expected_key is not None and not self.calibration.hand_declared_report
-                and self.calibration.key != expected_key):
+        current = registry.key_is_current(self.instrument, self.calibration.key)
+        if current is False and not self.calibration.hand_declared_report:
             raise CalibrationStale(
                 f"{self.instrument}'s calibration report was produced under key "
-                f"{self.calibration.key} but the instrument now hashes to {expected_key}: its "
-                "source, its declared null or its declared invariances changed since. Re-calibrate "
+                f"{self.calibration.key}, which is not among the keys this instrument currently "
+                f"hashes to ({sorted(registry.CALIBRATION_KEYS[self.instrument])}): its source, its "
+                "declared null or its declared invariances changed since. Re-calibrate "
                 "(spec §5: a stale report blocks Claim construction).")
         if not self.calibration.passed and self.companion is None:
             raise CalibrationFailed(

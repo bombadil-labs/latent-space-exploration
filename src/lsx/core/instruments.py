@@ -243,6 +243,11 @@ class Instrument:
 
         self._report = cached_calibration(self.name, self.key, run, cache_dir=cache_dir,
                                           refresh=refresh)
+        # This configuration's key is now a CURRENT key for this instrument. The declared null is a
+        # function of the config (a 3-candidate selector's null is 2.00, a 6-candidate's is 3.50),
+        # so one instrument legitimately has several current keys; piece 3 found a single-key table
+        # refusing good claims as stale (see registry.CALIBRATION_KEYS).
+        registry.register_key(self.name, self.key)
         return self._report
 
     @property
@@ -397,11 +402,13 @@ def calibrate_all(*, refresh: bool = False, cache_dir=None) -> dict[str, Calibra
     return {name: build(name).calibrate(refresh=refresh, cache_dir=cache_dir) for name in BUILDERS}
 
 
-def register_calibration_keys() -> dict[str, str]:
-    """Publish each built instrument's current key so `Claim` can refuse a STALE measured report
-    without importing this module (spec §5: a stale report blocks construction)."""
-    registry.CALIBRATION_KEYS.update({name: build(name).key for name in BUILDERS})
-    return dict(registry.CALIBRATION_KEYS)
+def register_calibration_keys() -> dict[str, set[str]]:
+    """Publish each built instrument's DEFAULT-configuration key so `Claim` can refuse a STALE
+    measured report without importing this module (spec §5: a stale report blocks construction).
+    Other configurations register their own keys when they calibrate."""
+    for name in BUILDERS:
+        registry.register_key(name, build(name).key)
+    return {k: set(v) for k, v in registry.CALIBRATION_KEYS.items()}
 
 
 register_calibration_keys()

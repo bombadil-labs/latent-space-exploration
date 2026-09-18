@@ -186,6 +186,31 @@ def test_h39_raw_scores_on_a_leaky_grid_are_refused():
     assert row.extra["instrument_built"] is False       # `discrimination` is declared, not built
 
 
+def test_a_selector_with_a_non_default_candidate_count_is_not_stale():
+    """A bug the §1A suite found in piece 2's staleness check.
+
+    The calibration key hashes the statistic's source, its declared null and its declared
+    invariances -- and the declared null is a function of the CONFIG. A 3-candidate selector's null
+    is 2.00 and a 6-candidate's is 3.50, so they hash differently and both are correct. The table
+    held one key per instrument, so every selector claim whose candidate count was not the registry
+    default (h8's three single-factor lenses, h34, h37) was refused as `CalibrationStale` while
+    holding a freshly measured, passing report.
+    """
+    s3 = instruments.build("selector", n=200, d=32, n_candidates=3)
+    s6 = instruments.build("selector", n=200, d=32, n_candidates=6)
+    assert s3.key != s6.key and s3.declared_null == 2.0 and s6.declared_null == 3.5
+    claim = s3.claim(
+        treatment=Measured(np.full(30, 1.25)),
+        arms={"random": np.full(30, 2.0), "no_patch": np.full(30, 2.0),
+              "permutation": np.full(30, 2.0)},
+        floor=Floor(stimulus=2.0, estimator=2.0),
+        selection=Selection(axis=None, rule="pre-registered layer"),
+        provenance=signed())
+    assert claim.treatment.value == 1.25
+    assert registry.key_is_current("selector", s3.key)
+    assert registry.key_is_current("selector", "0" * 16) is False
+
+
 def test_no_remote_target_can_be_graded_before_the_remote_tolerance_exists():
     """§1A's pre-registration gap. When `REMOTE_TOLERANCE` is None a remote grade is impossible by
     construction, rather than by someone remembering."""

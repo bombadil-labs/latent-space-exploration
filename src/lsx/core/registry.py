@@ -240,7 +240,27 @@ def table() -> str:
     return "\n".join(rows)
 
 
-# Populated by `instruments.register_calibration_keys()` at import of `lsx.core.instruments`:
-# the current calibration key of every BUILT instrument, so that `Claim` can refuse a stale
-# measured report without importing the instruments module (spec §5).
-CALIBRATION_KEYS: dict[str, str] = {}
+# Populated by `instruments.register_calibration_keys()` at import of `lsx.core.instruments`, and
+# added to by `Instrument.calibrate()`: the calibration keys currently VALID for each built
+# instrument, so that `Claim` can refuse a stale measured report without importing the instruments
+# module (spec §5).
+#
+# Piece 3 found this holding one key per instrument, which was wrong and refused good claims. The
+# key is a hash of the statistic's source, its declared null and its declared invariances -- and the
+# declared null is a function of the CONFIG: a 3-candidate selector's null is 2.00 and a
+# 6-candidate's is 3.50, so they hash differently and both are correct. With a single key, any
+# selector claim whose candidate count was not the registry default (h8's three single-factor
+# lenses, h34, h37) was refused as `CalibrationStale` while holding a freshly measured, passing
+# report. It is a set per instrument now. A genuinely stale report -- one produced by an older
+# version of the statistic -- is still refused, because its key is in none of the sets.
+CALIBRATION_KEYS: dict[str, set[str]] = {}
+
+
+def register_key(instrument: str, key: str) -> None:
+    CALIBRATION_KEYS.setdefault(instrument, set()).add(key)
+
+
+def key_is_current(instrument: str, key: str) -> bool | None:
+    """True/False, or None when nothing is registered for this instrument (nothing to check against)."""
+    keys = CALIBRATION_KEYS.get(instrument)
+    return None if not keys else key in keys
