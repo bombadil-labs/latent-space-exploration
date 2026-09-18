@@ -1,0 +1,126 @@
+"""Piece 4, item 3: route a remote forward through the asserted path, on a live NDIF deployment.
+
+Small on purpose. Six jobs on google/gemma-2-9b-it:
+  1-2  a batched extraction of a 3-item grid + the batch-of-one re-extraction of the shortest item
+       (the §7.2 equivalence assertion, on the maximally padded item)
+  3    an unpatched candidate scoring job (the base for the moved-candidates assertion)
+  4    the same under a whole-tensor patch  -> moved-candidates must PASS (positive control)
+  5    the same under the h36 idiom `output[0][:] = ...` -> MovedCandidates must FIRE
+  6    a no-patch (zero vector) job -> nothing moves, and the assertion is skipped not inverted
+"""
+import json
+import sys
+import time
+
+sys.path.insert(0, "/home/user/latent-space-exploration/.claude/worktrees/agent-afc2152e0feb3c19e/src")
+import numpy as np
+
+from lsx.core import checks, remote
+from lsx.core.types import Grid, Item, Probe, Direction
+
+OUT = "/home/user/latent-space-exploration/.claude/worktrees/agent-afc2152e0feb3c19e/results/ndif_probe_asserted.json"
+MODEL = "google/gemma-2-9b-it"
+LAYER = 20
+rec = {"model": MODEL, "layer": LAYER, "jobs": 0}
+t0 = time.time()
+
+rlm = remote.RemoteLM(MODEL)
+rec["padding_side"] = rlm.padding_side
+rec["lib_versions"] = rlm.lib_versions()
+print("padding side:", rlm.padding_side, flush=True)
+
+# --- a tiny grid with three items of very different lengths ---------------------------------
+LEAD = "The scene: "
+SPANS = [
+    "a knight dismounts at the abbey gate and the steward counts the tithe before the bell rings",
+    "a courier hands over the telegram",
+    "the pilot seals the airlock",
+]
+items = []
+for i, sp in enumerate(SPANS):
+    text = LEAD + sp
+    items.append(Item(text=text, factors={"era": ["medieval", "1920s", "farfuture"][i]},
+                      spans={"span": (len(LEAD), len(text))}))
+grid = Grid(items=items, name="ndif_probe_v1", leak_check=False)
+
+# --- jobs 1-2: the asserted remote stack ------------------------------------------------------
+stack = remote.build_remote_stack(rlm, grid, LAYER, batch_size=3)
+rec["jobs"] += 2
+rec["equivalence"] = stack.checks["batched_vs_single_min_cos"]
+rec["stack_signature"] = stack.provenance["stack_signature"]
+rec["acts_shape"] = list(stack.acts.shape)
+n_pad = None
+ids, mask = remote._encode(rlm, [it.text for it in items])
+lens = np.asarray(mask).sum(axis=1)
+rec["token_lengths"] = [int(x) for x in lens]
+rec["max_padding_on_shortest"] = int(lens.max() - lens.min())
+print("equivalence:", rec["equivalence"], "padding on shortest:",
+      rec["max_padding_on_shortest"], flush=True)
+
+# --- the direction used as a patch: the era contrast from the stack itself --------------------
+v = stack.vectors("span", LAYER)
+shift = (v[2] - v[0]).astype(np.float32)
+shift = shift / np.linalg.norm(shift) * float(np.linalg.norm(v[0]))
+
+CANDS = [" a knight dismounts at the abbey gate",
+         " a courier hands over the telegram",
+         " the pilot seals the airlock"]
+
+# --- job 3: base ------------------------------------------------------------------------------
+base = remote.asserted_remote_patched_logprob(rlm, LEAD, CANDS)
+rec["jobs"] += 1
+rec["base_logprob"] = [float(x) for x in base]
+print("base:", np.round(base, 4), flush=True)
+
+# --- job 4: whole-tensor patch, the positive control ------------------------------------------
+patched = remote.asserted_remote_patched_logprob(
+    rlm, LEAD, CANDS, patch_layer=LAYER, patch_vec=shift, scale=1.0, base=base)
+rec["jobs"] += 1
+rec["patched_logprob"] = [float(x) for x in patched]
+rec["patched_delta"] = [float(x) for x in (patched - base)]
+rec["moved_candidates_positive_control"] = "PASSED"
+print("patched deltas:", np.round(patched - base, 4), flush=True)
+
+# --- job 5: the h36 idiom, the negative control -----------------------------------------------
+try:
+    bad = remote.asserted_remote_patched_logprob(
+        rlm, LEAD, CANDS, patch_layer=LAYER, patch_vec=shift, scale=1.0, base=base,
+        batch_row_bug=True)
+    rec["batch_row_bug"] = {"caught": False,
+                            "delta": [float(x) for x in (bad - base)]}
+except checks.MovedCandidates as e:
+    rec["batch_row_bug"] = {"caught": True, "mechanism": "MovedCandidates", "message": str(e)}
+except checks.CoreError as e:
+    rec["batch_row_bug"] = {"caught": True, "mechanism": type(e).__name__, "message": str(e)}
+rec["jobs"] += 1
+print("h36 idiom:", rec["batch_row_bug"], flush=True)
+
+# --- job 6: the no-patch arm ------------------------------------------------------------------
+zero = remote.asserted_remote_patched_logprob(
+    rlm, LEAD, CANDS, patch_layer=LAYER, patch_vec=np.zeros_like(shift), scale=1.0)
+rec["jobs"] += 1
+rec["no_patch_delta"] = [float(x) for x in (zero - base)]
+print("no-patch deltas:", np.round(zero - base, 6), flush=True)
+
+# --- Probe is no longer a shell ----------------------------------------------------------------
+d = Direction(vecs={LAYER: shift}, held_out={"axis": "era", "unseen": {"1920s"}})
+probe = Probe(direction=d, patch_layer=LAYER, readout_layer=LAYER,
+              fn=remote.asserted_remote_patched_logprob)
+sketch = probe(rlm, LEAD, CANDS, patch_layer=LAYER, patch_vec=shift, base=base)
+rec["jobs"] += 1
+rec["probe_sketch"] = repr(sketch)
+try:
+    Probe(direction=d, patch_layer=LAYER, readout_layer=LAYER, fn=lambda *a, **k: [0.0])
+    rec["probe_refuses_unasserted"] = False
+except checks.UnassertedForward as e:
+    rec["probe_refuses_unasserted"] = str(e).splitlines()[0]
+print("probe:", rec["probe_sketch"], flush=True)
+
+rec["wall_seconds"] = round(time.time() - t0, 1)
+rec["provenance"] = {k: stack.provenance[k] for k in
+                     ("model", "layers", "pooling", "grid_hash", "tokenizer_padding",
+                      "code_version", "lib_versions", "equivalence_min_cos",
+                      "equivalence_item_rule", "remote", "acts_digest", "stack_signature")}
+with open(OUT, "w") as f:
+    json.dump(rec, f, indent=1, default=str)
+print("wrote", OUT, rec["jobs"], "jobs", rec["wall_seconds"], "s", flush=True)

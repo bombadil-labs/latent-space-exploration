@@ -612,3 +612,193 @@ def h4_claim(res: dict) -> tuple[Claim, dict]:
     return claim, {"role": float(t.mean()), "random": float(np.mean(res["rand"])),
                    "no_patch": float(np.mean(res["no_patch"])),
                    "permutation": float(np.mean(res["permutation"])), "n": int(t.size)}
+
+
+# ================================================================================================
+# target: h16, the relation selector -- as the full layer curve §1A restates it
+# ================================================================================================
+def rotated_holonic_v2_grid(path: pathlib.Path) -> tuple[Grid, dict]:
+    """`prompts/holonic_v2_rotated.json` -> Grid: 40 domains x 6 rotations, six role spans each."""
+    from ..extract import parse_roles
+    g = json.loads(path.read_text())
+    items = []
+    for key, marked in g["prompts"].items():
+        domain, rot = key.split("/")
+        p = parse_roles(marked)
+        items.append(Item(text=p.text, factors={"domain": domain, "rot": rot},
+                          spans={r: p.spans[r][0] for r in g["roles"]}))
+    # as in h4's grid: `rot` is a position label, not a stimulus factor -- the six rotations are the
+    # same six spans in six orders, so its bag-of-tokens recoverability is 1.00 by construction.
+    return Grid(items=items, name=path.stem, declared_leaks=("rot", "domain")), g
+
+
+def _role_rank_per_item(C: np.ndarray, pred: np.ndarray, dst_idx: int) -> np.ndarray:
+    """Where the true target role lands among the held-out prompt's own six roles, by cosine to the
+    prediction. MID-RANK on ties.
+
+    `operate.holdout_eval` -- which is what h16 ran -- counts `(sims > sims[dst]).sum() + 1`, i.e.
+    strict-greater, i.e. rank 1 on a wholly tied field. That is the h34 shape, and h16 predates the
+    rule that retired it. Nothing in h16 was tied, so the numbers do not move (measured below), but
+    the core does not get to use a ranking rule it refuses elsewhere.
+    """
+    from .checks import midrank
+    out = np.zeros(len(pred))
+    for j in range(len(pred)):
+        q = pred[j] / (np.linalg.norm(pred[j]) + 1e-9)
+        sims = C[j] @ q
+        out[j] = midrank(sims, dst_idx)
+    return out
+
+
+def h16_role_rank(acts: np.ndarray, domains: np.ndarray, roles: Sequence[str], *,
+                  ridge: float = 10.0, role_center: bool = True, null_seed: int | None = None,
+                  arm: str = "operator", seed: int = 0) -> np.ndarray:
+    """h16's statistic, PER ITEM: leave-one-domain-out affine operator, role-centred, mid-ranked.
+
+    `acts` is [n_prompts, n_roles, d] at ONE layer, grand-mean removed. Returns one rank per
+    (held-out prompt, ordered role pair) -- which is what `Instrument.sweep` needs and what
+    `operate.holdout_eval` does not return: it reports the fold means, so h16's layer curve could
+    only ever be asserted to the core, never computed by it (piece 3's §8.3).
+
+    `arm` selects which prediction is ranked, so every arm is the SAME code on the same folds:
+      * `operator`  -- the fitted affine map (the treatment);
+      * `mean`      -- the training-mean target, i.e. no relation applied (the no-patch arm);
+      * `random`    -- a Gaussian prediction of matched norm (the random arm).
+    `null_seed` permutes the src->dst pairing within the training fold only, which is h16's own
+    null and the `permutation` arm.
+    """
+    from ..operate import fit_affine
+    rng = np.random.default_rng(seed)
+    R = len(roles)
+    uniq = sorted(set(domains.tolist()))
+    out: list[float] = []
+    for g in uniq:
+        tr, te = domains != g, domains == g
+        C = acts
+        if role_center:
+            mu = acts[tr].mean(0)                     # [R, d], TRAINING prompts only
+            C = acts - mu
+        te_idx = np.flatnonzero(te)
+        Cn = C / (np.linalg.norm(C, axis=-1, keepdims=True) + 1e-9)
+        for si in range(R):
+            for di in range(R):
+                if si == di:
+                    continue
+                S, O = C[:, si], C[:, di]
+                S_tr, O_tr = S[tr], O[tr]
+                if null_seed is not None:
+                    perm = np.random.default_rng(null_seed * 7919 + si * 31 + di).permutation(
+                        len(O_tr))
+                    O_tr = O_tr[perm]
+                if arm == "mean":
+                    pred = np.repeat(O_tr.mean(0)[None, :], te.sum(), axis=0)
+                elif arm == "random":
+                    pred = rng.normal(size=(int(te.sum()), S.shape[1]))
+                    pred *= (np.linalg.norm(O_tr.mean(0)) /
+                             np.linalg.norm(pred, axis=-1, keepdims=True))
+                else:
+                    op = fit_affine(S_tr, O_tr, 0, roles[si], roles[di], n_spin=0, ridge=ridge,
+                                    low_rank=None)
+                    pred = op(S[te])
+                out.extend(_role_rank_per_item(Cn[te_idx], pred, di).tolist())
+    return np.asarray(out, dtype=np.float64)
+
+
+def h16(lm, *, layers: Sequence[int] = tuple(range(0, 29, 2)), ridge: float = 10.0,
+        progress: Callable[[str], None] = lambda s: None) -> dict:
+    """h16 re-run through the core: one asserted extraction, and the layer curve COMPUTED.
+
+    The published value was `role_rank 1.73 at the peak layer 16`, an argmax over a sweep of the
+    same held-out data that scores it, and the core refuses it (`h16_as_logged`). §1A restates the
+    target as the full curve, mean 2.21 over all pairs and layers against a null of 3.5. This
+    function computes that curve.
+    """
+    path = prompt("holonic_v2_rotated.json")
+    grid, g = rotated_holonic_v2_grid(path)
+    roles = list(g["roles"])
+
+    progress(f"extracting {len(grid.items)} prompts x {len(roles)} roles through build_stack")
+    stack = ex.build_stack(lm, grid, layers=list(layers), batch_size=4)
+    domains = np.array([it.factors["domain"] for it in grid.items])
+
+    def acts_at(layer: int) -> np.ndarray:
+        a = np.stack([stack.vectors(r, layer) for r in roles], axis=1)     # [item, role, d]
+        return a - a.mean(axis=(0, 1), keepdims=True)                      # h16's grand-mean removal
+
+    out = {"stack": stack, "grid": grid, "roles": roles, "layers": list(layers),
+           "n_candidates": len(roles), "ridge": ridge, "per_layer": {}}
+    for layer in layers:
+        a = acts_at(layer)
+        row = {arm: h16_role_rank(a, domains, roles, ridge=ridge, arm=arm)
+               for arm in ("operator", "mean", "random")}
+        row["permutation"] = h16_role_rank(a, domains, roles, ridge=ridge, null_seed=1)
+        row["role_identity_retained"] = h16_role_rank(a, domains, roles, ridge=ridge,
+                                                      role_center=False)
+        out["per_layer"][int(layer)] = row
+        progress(f"layer {layer}: operator {row['operator'].mean():.3f} "
+                 f"perm {row['permutation'].mean():.3f} mean {row['mean'].mean():.3f}")
+    return out
+
+
+def h16_claim(res: dict) -> tuple[Claim, dict]:
+    """The restated §1A target: the curve, reported whole, with the semantic null §4 names.
+
+    Three things the logged form did not have, all of them required by the core:
+      * the curve is computed by `Instrument.sweep`, so `Selection.executed` is a fact rather than
+        prose (piece 3 made that mandatory at the ledger);
+      * the `permutation` arm is h16's own null, the `no_patch` arm is the mean-target baseline
+        (the prediction with no relation applied) and the `random` arm is a matched-norm Gaussian
+        prediction -- three arms where h16 published one;
+      * the semantic null §4 names for exactly this target, "role identity retained" (1.37 against
+        2.21), computed as a real arm and declared BEFORE the treatment, which is what the
+        construction order enforces.
+    """
+    inst = instruments.build("selector", n=400, d=64, n_candidates=res["n_candidates"])
+    layers = res["layers"]
+    per = res["per_layer"]
+
+    # declared first, by construction order: the semantic null exists before any treatment score.
+    sem = Arm(np.concatenate([per[l]["role_identity_retained"] for l in layers]),
+              expected_null=float((res["n_candidates"] + 1) / 2),
+              tolerance=float("inf"),
+              justification="role identity retained (no role-centering): the lens can read which "
+                            "ROLE a vector is without carrying any relation, and h16 logs it at "
+                            "1.37 against the role-centred 2.21. It is not a plumbing arm and is "
+                            "not expected at chance -- it is the question 'is this a relation or "
+                            "is it role identity?' as a number (spec §4)")
+
+    selection = inst.sweep("layer", layers, lambda l: float(per[int(l)]["operator"].mean()))
+    treat = np.concatenate([per[l]["operator"] for l in layers])
+    arms = {name: np.concatenate([per[l][key] for l in layers])
+            for name, key in (("random", "random"), ("no_patch", "mean"),
+                              ("permutation", "permutation"))}
+    claim = inst.claim(
+        treatment=Measured(treat, label="h16 role_rank/6, all pairs x all swept layers"),
+        arms={"random": Arm(arms["random"], expected_null=float((res["n_candidates"] + 1) / 2),
+                            tolerance=inst.tolerance(len(arms["random"])),
+                            justification="a Gaussian prediction of matched norm, ranked by the "
+                                          "same code against the same six candidates"),
+              "no_patch": Arm(arms["no_patch"],
+                              expected_null=float((res["n_candidates"] + 1) / 2),
+                              tolerance=inst.tolerance(len(arms["no_patch"])),
+                              justification="the training-mean target: the prediction with no "
+                                            "relation applied at all"),
+              "permutation": Arm(arms["permutation"],
+                                 expected_null=float((res["n_candidates"] + 1) / 2),
+                                 tolerance=inst.tolerance(len(arms["permutation"])),
+                                 justification="h16's own null: the src->dst pairing permuted "
+                                               "within the training fold, held-out rows untouched")},
+        semantic_null=sem,
+        floor=Floor(stimulus=float((res["n_candidates"] + 1) / 2),
+                    estimator=float(np.mean(arms["permutation"]))),
+        selection=selection,
+        provenance=dict(res["stack"].provenance,
+                        direction_held_out="domain (leave-one-domain-out)"),
+        grid=res["grid"], stage="h16")
+    return claim, {"curve": dict(selection.curve), "treatment": float(treat.mean()),
+                   "random": float(arms["random"].mean()),
+                   "no_patch": float(arms["no_patch"].mean()),
+                   "permutation": float(arms["permutation"].mean()),
+                   "role_identity_retained": float(sem.value), "n": int(treat.size),
+                   "peak_layer": min(selection.curve, key=lambda k: selection.curve[k]),
+                   "peak_value": min(selection.curve.values())}

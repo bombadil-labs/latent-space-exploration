@@ -48,6 +48,12 @@ class PostNormResidual(CoreError):
     """A post-final-norm hidden state was passed where a residual was required. (h40)"""
 
 
+class UnassertedForward(CoreError):
+    """A `Probe` was built on a function that does not run the §7 assertions. Pieces 1-3 each
+    recorded `Probe` as a shell whose only job was to wrap a callable; this is the gate that makes
+    it a type rather than a label. (spec §3, §7)"""
+
+
 class MissingArm(CoreError):
     """A Claim is missing an arm its instrument requires. (h34, spec §4)"""
 

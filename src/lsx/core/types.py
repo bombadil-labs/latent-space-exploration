@@ -20,7 +20,7 @@ from . import registry
 from .checks import (ArmOffNull, CalibrationFailed, CalibrationReport, CalibrationStale,
                      EffectSizeUnverified, HeldOutNotDeclared, HeldOutViolated, MissingArm,
                      MissingCalibration, MissingFloor, NullDeclaredLate, PassthroughNotComputed,
-                     RawScoreOnLeakyGrid, SelectionOnScoringData)
+                     RawScoreOnLeakyGrid, SelectionOnScoringData, UnassertedForward)
 
 # Plumbing arms are declared in the REGISTRY, not by the caller and no longer by a placeholder
 # table here (spec §4, §8). This name is kept because the harness and the tests read it, but it is
@@ -362,14 +362,43 @@ class Readout:
                       label=f"readout@{self.layer}")
 
 
+# Every function that runs the §7 assertions is stamped by `remote.asserted` (or listed here for
+# the local path, which predates the stamp). `Probe` accepts these and nothing else.
+def is_asserted(fn: Callable) -> bool:
+    if getattr(fn, "_lsx_asserted", False):
+        return True
+    name = getattr(fn, "__qualname__", "")
+    mod = getattr(fn, "__module__", "")
+    return (mod.endswith("lsx.core.extract") and name.startswith("asserted_")) or \
+           (mod.endswith("lsx.core.remote"))
+
+
 @dataclass
 class Probe:
-    """Direction x Model -> scores (patched forward or generation). Goes through the one asserted
-    path in `lsx.core.extract`, never through a bare model call (spec §7)."""
+    """Direction x Model -> scores (patched forward or generation), through the ONE asserted path.
+
+    Piece 1 wrote this as a dataclass holding a callable, pieces 2 and 3 each listed "Probe is a
+    shell" as the largest remaining §7 gap, and it was: the type named the contract without
+    enforcing it, so a bare `model.trace(...)` wrapped in a `Probe` was indistinguishable from an
+    asserted forward. It now refuses a function that does not run the assertions
+    (`UnassertedForward`), and `lsx.core.remote` is where the remote ones live.
+
+    It still returns a `Sketch`, which is un-ledgerable by construction: a probe produces scores,
+    and a number becomes a result at the `Claim` and the ledger, not here.
+    """
     direction: Direction
     patch_layer: int
     readout_layer: int
     fn: Callable
+
+    def __post_init__(self):
+        if not is_asserted(self.fn):
+            raise UnassertedForward(
+                f"Probe was given {getattr(self.fn, '__qualname__', self.fn)!r} from module "
+                f"{getattr(self.fn, '__module__', '?')!r}, which is not one of the asserted "
+                "forwards. Every remote forward goes through `lsx.core.remote` and every local one "
+                "through `lsx.core.extract.asserted_*` (spec §7): the moved-candidates assertion "
+                "that caught h34 is worth nothing if a Probe can route around it.")
 
     def __call__(self, *a, **kw) -> Sketch:
         return Sketch(self.fn(*a, **kw), label=f"probe {self.patch_layer}->{self.readout_layer}")
