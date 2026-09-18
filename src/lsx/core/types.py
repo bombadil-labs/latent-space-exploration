@@ -468,6 +468,10 @@ class EffectSize:
         n = int(v.size)
         size = float(v.mean() - null)
         sd = float(v.std(ddof=1)) if n > 1 else 0.0
+        # A constant array's std is not reliably 0.0 -- cancellation leaves ~1e-16, which turns a
+        # zero-spread arm into a z of 1e14. Anything that small IS zero spread.
+        if sd <= 1e-12 * max(1.0, abs(float(v.mean()))):
+            sd = 0.0
         if sd <= 0:
             # A constant arm has no spread of its own; fall back to the instrument's measured
             # per-item null spread rather than reporting an infinite z.

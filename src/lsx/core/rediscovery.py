@@ -174,7 +174,11 @@ def case_3_rank1_ties_no_no_patch() -> Verdict:
                      selection=Selection(axis="layer", rule="full curve reported", held_out=True),
                      effect=EffectSize(size=-0.78, n=30, z=-3.1),
                      calibration=checks.CalibrationReport.hand_declared("selector", passed=True),
-                     provenance={"model": "llama-3.1-8b", "layers": [10]})
+                     provenance={"model": "llama-3.1-8b", "layers": [10]},
+                     # h34 ranked 3 candidates: the registry turns that into the null (2.0) and
+                     # into the tolerance around it (3 * sqrt((9-1)/12) / sqrt(30) = 0.447), so
+                     # neither is the caller's to choose.
+                     config={"n_candidates": 3})
 
     missing = _refusal(lambda: _claim({"random": Arm(np.full(30, 1.22), expected_null=2.0),
                                        "permutation": Arm(np.full(30, 2.0), expected_null=2.0)}))
@@ -186,9 +190,13 @@ def case_3_rank1_ties_no_no_patch() -> Verdict:
                                   "permutation": Arm(np.full(30, 1.98), expected_null=2.0),
                                   "no_patch": Arm(np.full(30, 2.00), expected_null=2.0)}))
     if isinstance(missing, checks.MissingArm) and isinstance(off, checks.ArmOffNull):
+        from .registry import spec as _spec
+        tol = _spec("selector").arm_tolerance(30, {"n_candidates": 3})
         return Verdict(3, "rank-1-on-ties with no no-patch arm", CAUGHT,
                        "Claim -> MissingArm('no_patch'); with the arm present, Claim -> ArmOffNull",
-                       f"{missing}  ||  {off}",
+                       f"{missing}  ||  {off}  ||  tolerance {tol:.3f}, measured from selector's "
+                       f"own null at k=3, n=30 (piece 1's flat 0.15 would have fired on a clean arm "
+                       f"at this n)",
                        "arms at their nulls construct" if ok is None else f"FAILED: {_named(ok)}")
     return Verdict(3, "rank-1-on-ties with no no-patch arm", NOT_CAUGHT,
                    f"{_named(missing)} / {_named(off)}", "one half of the h34 failure went through")
@@ -211,7 +219,7 @@ def case_4_best_layer_on_scoring_data() -> Verdict:
                      selection=selection,
                      effect=EffectSize(size=-1.49, n=40, z=-4.0),
                      calibration=checks.CalibrationReport.hand_declared("selector", passed=True),
-                     provenance={"model": "qwen2.5-1.5b"})
+                     provenance={"model": "qwen2.5-1.5b"}, config={"n_candidates": 6})
 
     e = _refusal(lambda: _claim(Selection(axis="layer", rule="argmax over 29 layers", held_out=False)))
     ok = _refusal(lambda: _claim(Selection(axis="layer", rule="full curve reported", held_out=True)))
@@ -283,9 +291,9 @@ def case_6_degenerate_crosstalk_rank() -> Verdict:
         return out
 
     bad = checks.run_calibration(broken_rank, shape=(512, 3), declared_null=2.0, plant=plant,
-                                 name="crosstalk_rank")
+                                 name="crosstalk")
     good = checks.run_calibration(working_rank, shape=(512, 3), declared_null=2.0, plant=plant,
-                                  name="target_rank")
+                                  name="crosstalk")
 
     def _claim(report):
         return Claim(instrument="crosstalk",
@@ -300,11 +308,14 @@ def case_6_degenerate_crosstalk_rank() -> Verdict:
     e = _refusal(lambda: _claim(bad))
     ok = _refusal(lambda: _claim(good))
     detail = (f"broken rank: noise {bad.noise_value:.3f} (null 2.0, passes), sensitivity "
-              f"{np.round(bad.sensitivity_values, 3).tolist()} -> flat; working rank sensitivity "
-              f"{np.round(good.sensitivity_values, 3).tolist()}")
-    if not bad.noise_failed and bad.sensitivity_failed and isinstance(e, checks.CalibrationFailed):
+              f"{np.round(bad.sensitivity_values, 3).tolist()} -> flat, DEGENERATE={bad.degenerate}; "
+              f"working rank sensitivity {np.round(good.sensitivity_values, 3).tolist()}, "
+              f"degenerate={good.degenerate}")
+    if (not bad.noise_failed and bad.sensitivity_failed and bad.degenerate
+            and isinstance(e, checks.CalibrationFailed)):
         return Verdict(6, "cross-talk rank pinned at chance by construction", CAUGHT,
-                       "checks.run_calibration -> sensitivity failure; Claim -> CalibrationFailed",
+                       "checks.run_calibration -> sensitivity failure AND the degenerate flag; "
+                       "Claim -> CalibrationFailed",
                        detail,
                        "working rank calibrates and constructs" if ok is None else f"FAILED: {_named(ok)}")
     return Verdict(6, "cross-talk rank pinned at chance by construction", NOT_CAUGHT, _named(e), detail)
@@ -403,42 +414,132 @@ def case_7p5_post_norm_last_hidden_state(lm) -> Verdict:
 # bug 8: a readout at or after the patch layer, whose movement is residual arithmetic (h14/h40).
 # --------------------------------------------------------------------------------------------
 def case_8_readout_after_patch_no_passthrough() -> Verdict:
+    """Four stages now, where piece 1 had one.
+
+    Piece 1 could only ask whether an arm called `passthrough` was PRESENT, which a caller satisfies
+    by typing a number. Piece 2's arm is computed from the residual arithmetic, asserts in its own
+    constructor that it reproduces the unpatched readout exactly at zero shift, and its gain is a
+    difference. So the stage-14 configuration is now refused three times over, and the fourth stage
+    is the one that matters: with a correctly computed arm the claim CONSTRUCTS, and what it prints
+    is h40's negative result -- no gain over the pass-through.
+    """
     from . import checks
+    from .instruments import PassthroughArm, build
+    from .planted import unit
     from .types import Arm, Claim, EffectSize, Floor, Measured, Selection
 
-    def _claim(arms, instrument="readout_shift", patch_layer=14, readout_layer=20):
+    rng = np.random.default_rng(14)
+    n, d = 18, 256
+    direction = unit(rng.normal(size=d))
+    base = rng.normal(size=(n, d))
+    scale = float(np.linalg.norm(base, axis=-1).mean())
+    shift = 0.89 * scale * direction                 # the era shift, decodable on its own
+    blocks = -0.111 * scale * direction              # what layers 14-19 actually add, h40's number
+
+    def readout(resid):                              # the SAME readout code for both arms
+        return (resid @ direction) / np.linalg.norm(base, axis=-1)
+
+    treatment_scores = readout(base + shift + blocks) - readout(base + shift)   # a DIFFERENCE
+    rs = build("readout_shift", d=d)
+
+    def _claim(arms, instrument="readout_shift", patch_layer=14, readout_layer=20,
+               effect=None, treatment=None):
         return Claim(instrument=instrument,
-                     treatment=Measured(np.full(18, 0.89), label="era address moved"),
+                     treatment=treatment or Measured(treatment_scores, label="era gain over "
+                                                                             "pass-through"),
                      arms=arms,
-                     floor=Floor(stimulus=0.5, estimator=0.5),
+                     floor=Floor(stimulus=0.5, estimator=0.0),
                      selection=Selection(axis=None, rule="pre-registered layer pair", held_out=True),
-                     effect=EffectSize(size=0.39, n=18, z=4.1),
-                     calibration=checks.CalibrationReport.hand_declared(instrument, passed=True),
-                     provenance={"model": "qwen2.5-1.5b"},
+                     effect=effect or EffectSize(size=0.39, n=n, z=4.1),
+                     calibration=rs.calibration,
+                     provenance={"model": "qwen2.5-1.5b"}, config={"d": d},
                      patch_layer=patch_layer, readout_layer=readout_layer)
 
-    plumbing = {"random": Arm(np.full(18, 0.02), expected_null=0.0),
-                "no_patch": Arm(np.full(18, 0.0), expected_null=0.0)}
+    plumbing = {"random": Arm(np.zeros(n), expected_null=0.0),
+                "no_patch": Arm(np.zeros(n), expected_null=0.0)}
+
+    # (a) the arm is absent
     missing = _refusal(lambda: _claim(dict(plumbing)))
-    # the arm present, and reading where stage 40 found it: pass-through >= treatment.
-    with_arm = dict(plumbing)
-    with_arm["passthrough"] = Arm(np.full(18, 1.00), expected_null=0.89, tolerance=0.25,
+
+    # (b) the arm is a number someone typed -- piece 1 accepted exactly this
+    declared = dict(plumbing)
+    declared["passthrough"] = Arm(np.full(n, 0.89), expected_null=0.89,
                                   justification="norm-matched pass-through")
-    present = _refusal(lambda: _claim(with_arm))
+    hand = _refusal(lambda: _claim(declared))
+
+    # (c) the arm is computed, but from a readout that does not reproduce the unpatched value at
+    #     zero shift -- a different pooling, say. The ARM is wrong, not the claim.
+    def wrong_readout(resid):
+        return (resid @ direction) / np.linalg.norm(base, axis=-1) + 1e-9
+
+    wrong = _refusal(lambda: PassthroughArm.compute(
+        base=base, shift=shift, readout=wrong_readout, expected_null=0.5,
+        justification="norm-matched pass-through", unpatched=readout(base)))
+
+    # (d) the arm computed properly. The claim constructs and reports h40's negative gain --
+    #     but only once the arm's declared null stops pretending the arithmetic is at the floor.
+    arm = PassthroughArm.compute(base=base, shift=shift, readout=readout, expected_null=0.5,
+                                 justification="if the movement were the model's work, the offline "
+                                               "arithmetic would sit at the stimulus floor",
+                                 match_norms=np.linalg.norm(base + shift + blocks, axis=-1),
+                                 unpatched=readout(base))
+    at_floor = _refusal(lambda: _claim(dict(plumbing, passthrough=arm)))
+
+    honest = PassthroughArm.compute(
+        base=base, shift=shift, readout=readout, expected_null=float(np.mean(arm.scores)),
+        justification="the arithmetic alone reproduces the movement; that IS the h40 finding",
+        match_norms=np.linalg.norm(base + shift + blocks, axis=-1), unpatched=readout(base))
+    good = dict(plumbing, passthrough=honest)
+    built, ok = None, None
+    try:
+        built = _claim(good, effect=EffectSize.against(treatment_scores, 0.0))
+    except BaseException as exc:  # noqa: BLE001
+        ok = exc
+
+    # (e) and the fabricated positive: same scores, a claimed z of +4.1
+    fabricated = _refusal(lambda: _claim(good))
+
     # a selector whose readout precedes its patch layer must NOT be forced to carry the arm
-    before = _refusal(lambda: _claim({"random": Arm(np.full(18, 2.0), expected_null=2.0),
-                                      "no_patch": Arm(np.full(18, 2.0), expected_null=2.0),
-                                      "permutation": Arm(np.full(18, 2.0), expected_null=2.0)},
-                                     instrument="selector", patch_layer=20, readout_layer=14))
-    if isinstance(missing, checks.MissingArm) and "passthrough" in str(missing):
-        ctl = ["with the arm: constructs" if present is None else f"with the arm: {_named(present)}",
-               "readout before patch layer: not required" if before is None
+    before = _refusal(lambda: Claim(
+        instrument="selector", treatment=Measured(np.full(40, 2.01), label="before"),
+        arms={"random": Arm(np.full(40, 3.5), expected_null=3.5),
+              "no_patch": Arm(np.full(40, 3.5), expected_null=3.5),
+              "permutation": Arm(np.full(40, 3.5), expected_null=3.5)},
+        floor=Floor(stimulus=3.5, estimator=3.5),
+        selection=Selection(axis=None, rule="pre-registered layer", held_out=True),
+        effect=EffectSize(size=-1.49, n=40, z=-4.0),
+        calibration=checks.CalibrationReport.hand_declared("selector", passed=True),
+        provenance={"model": "qwen2.5-1.5b"}, config={"n_candidates": 6},
+        patch_layer=20, readout_layer=14))
+
+    detail = (f"absent: {_named(missing)}; hand-declared: {_named(hand)}; computed from a readout "
+              f"that does not reproduce the unpatched value at zero shift: {_named(wrong)}; "
+              f"pass-through arm declared at the stimulus floor: {_named(at_floor)}; with the arm "
+              f"computed and declared honestly the claim CONSTRUCTS and reports gain "
+              f"{built.treatment.value:+.4f} against a pass-through of "
+              f"{honest.value:.4f} (h40 logged -0.111)"
+              if built is not None else f"FAILED to construct: {_named(ok)}")
+    caught = (isinstance(missing, checks.MissingArm) and "passthrough" in str(missing)
+              and isinstance(hand, checks.PassthroughNotComputed)
+              and isinstance(wrong, checks.PassthroughNotReproduced)
+              and isinstance(at_floor, checks.ArmOffNull)
+              and isinstance(fabricated, checks.EffectSizeUnverified)
+              and built is not None)
+    if caught:
+        ctl = ["computed arm constructs and reads a NEGATIVE gain",
+               "fabricated +4.1 z on the same scores: EffectSizeUnverified",
+               "readout before patch layer: arm not required" if before is None
                else f"FAILED: {_named(before)}"]
         return Verdict(8, "readout at or after the patch layer with no pass-through arm", CAUGHT,
-                       "Claim -> MissingArm('passthrough'), required because readout_layer >= patch_layer",
-                       str(missing), "; ".join(ctl))
+                       "Claim -> MissingArm('passthrough'); PassthroughNotComputed for a declared "
+                       "one; PassthroughNotReproduced inside the arm's own constructor; ArmOffNull "
+                       "when the arithmetic does not sit where the claim needs it",
+                       detail, "; ".join(ctl),
+                       extra={"gain": None if built is None else built.treatment.value,
+                              "passthrough": honest.value})
     return Verdict(8, "readout at or after the patch layer with no pass-through arm", NOT_CAUGHT,
-                   _named(missing), "a stage-14-shaped Claim was accepted without a pass-through arm")
+                   f"{_named(missing)} / {_named(hand)} / {_named(wrong)} / {_named(at_floor)} / "
+                   f"{_named(fabricated)}", detail)
 
 
 # --------------------------------------------------------------------------------------------

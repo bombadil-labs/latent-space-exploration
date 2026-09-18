@@ -1,0 +1,52 @@
+{
+ "declared_null": 0.0,
+ "degenerate": false,
+ "hand_declared_passed": null,
+ "instrument": "readout_shift",
+ "invariance": [
+  {
+   "after": 2.0154473299893314,
+   "before": 2.0154473299893314,
+   "claimed": true,
+   "name": "scale"
+  },
+  {
+   "after": 2.0154473299893314,
+   "before": 2.0154473299893314,
+   "claimed": true,
+   "name": "rotation"
+  }
+ ],
+ "invariance_failed": false,
+ "invariance_tol": 1e-06,
+ "key": "96db0d19006b9011",
+ "known_zero_failed": false,
+ "known_zero_value": 0.0,
+ "noise_failed": false,
+ "noise_sd": 1.7473899601549068e-18,
+ "noise_value": -8.567289079051292e-19,
+ "notes": [],
+ "self_floor_failed": false,
+ "self_floor_value": 0.0,
+ "sensitivity_amplitudes": [
+  0.25,
+  0.5,
+  1.0,
+  2.0
+ ],
+ "sensitivity_failed": false,
+ "sensitivity_values": [
+  0.2519309162486665,
+  0.5038618324973329,
+  1.007723664994666,
+  2.0154473299893314
+ ],
+ "tests_run": [
+  "noise",
+  "sensitivity",
+  "degeneracy",
+  "self_floor",
+  "invariance",
+  "known_zero"
+ ]
+}
