@@ -1663,15 +1663,13 @@ Phase 0 of `docs/PROGRAM.md` has three items. Two are closed:
   7.1). Hour 26's "flow is an ordering" downgraded: nothing dies against a permutation null out to
   g_k = 0.95, and only a marginal single-statistic single-corpus version of the ordering survives.
 
-**0.3 — move `TYPESAFE_API_KEY` from a plain environment variable to proxy credential injection,
-matching NDIF — cannot be done from this session.** It requires the environment's credential UI,
-which is the user's. Until then the key is readable by every spawned agent.
+**0.3 — move `TYPESAFE_API_KEY` to proxy credential injection — WAIVED by the user (2026-09-18).**
+Rationale on record: low-risk context, the key is revocable at will. It therefore stays a plain
+environment variable, readable by every spawned agent, and that is an accepted risk rather than an
+open item. Anything that would change the risk (a shared environment, a key with broader scope, an
+untrusted agent) reopens it.
 
-Per the program's one rule ("if a gate cannot be met, record that and stop rather than routing
-around it"), **phase 1 does not open.** No work proceeds on the measurement core until the user
-either completes 0.3 or rules it non-blocking. Recorded rather than silently skipped, because
-deciding for myself which of my own gates to honour is the exact pattern the scaffolding exists to
-prevent.
+**PHASE 0 GATE MET.** 0.1 and 0.2 resolved on the evidence, 0.3 waived by decision. Phase 1 opens.
 
 ## Open problems (ordered)
 
