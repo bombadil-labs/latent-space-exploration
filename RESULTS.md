@@ -2231,6 +2231,17 @@ anything the ledger would accept.
    key pending a fresh session): Qwen2.5-7B/-Instruct first, Llama-3.3-70B-Instruct when HF_TOKEN
    is set; beat-level directions at positions.
 4h. Mood × voice grid: do two register-like factors interfere more than era does with either?
+4i. **The permutation arm sits below its null on 25 of 25 replication rows** (h48; mean −0.117, all
+   inside their bands, sign test p ≈ 3e-8). The uncentered cosine ranking is partly a norm ranking.
+   Not tuned away — centering would make the floor and the treatment different procedures — and at
+   ~60–100 draws it would begin refusing rows. A defect of this readout's null, open.
+4j. **`checks.cluster_evidence` computes a design effect that nothing uses** (h48). The band is taken
+   on the cluster count, so the guard decides *whether* an arm may widen its band but never *how
+   much*; where clustering is partial the honest effective n is `n/deff` ≫ k, and banding on k is
+   over-wide — the permissive direction. Latent, not active: no row declares a reduced unit yet.
+4k. **Nothing built from a cached `.npz` can reach the ledger** (h48): `ProvenanceNotFromStack`
+   refuses all 27 of the phase-2 measurements. Every re-derivation needs re-extraction through
+   `build_stack`, and four of the five replication models are not in the local HF cache.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
