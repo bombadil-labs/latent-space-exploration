@@ -1,3 +1,11 @@
+import pathlib
+import sys
+
+# Test the checkout these tests live in, not whatever `src` the editable install points at: the
+# venv's .pth names the main checkout, so in a worktree `pytest tests/` would otherwise import a
+# different tree than the one under edit.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
+
 import pytest
 import torch
 from tokenizers import Tokenizer, models, pre_tokenizers, trainers

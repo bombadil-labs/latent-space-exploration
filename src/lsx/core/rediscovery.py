@@ -111,14 +111,12 @@ def case_1_batch_row_patch(lm) -> Verdict:
 # --------------------------------------------------------------------------------------------
 def _padding_grid():
     from .types import Grid, Item
-    # spans late in the text, so absolute indexing under left padding lands on REAL but WRONG
-    # tokens rather than on padding -- the h39 situation for the partially shifted passages.
-    bodies = [
-        "x y z w q r s t u v x y z w q r s t u v x y z the muppets take manhattan",
-        "x y z the muppets take manhattan",
-        "x y z w q r s t u v the muppets take manhattan",
-        "x y z w q r s t u v x y z w q the muppets take manhattan",
-    ]
+    # Spans late in the text and a length spread SMALLER than the span's start index, so absolute
+    # indexing under left padding lands on REAL but WRONG tokens rather than in the pad block --
+    # the h39 situation for the 117 partially shifted passages, which is the hard case: nothing is
+    # obviously empty, the vectors are merely the wrong ones.
+    filler = "x y z w q r s t u v x y z w q r s t u v x y z w q r s t u v"   # 30 tokens
+    bodies = [f"{filler}{' q r' * k} the muppets take manhattan" for k in (3, 0, 1, 2)]
     levels = ["long", "short", "mid", "midlong"]
     items = []
     for i, b in enumerate(bodies):
@@ -284,9 +282,9 @@ def case_6_degenerate_crosstalk_rank() -> Verdict:
         out[:, 0] += a
         return out
 
-    bad = checks.run_calibration(broken_rank, shape=(64, 3), declared_null=2.0, plant=plant,
+    bad = checks.run_calibration(broken_rank, shape=(512, 3), declared_null=2.0, plant=plant,
                                  name="crosstalk_rank")
-    good = checks.run_calibration(working_rank, shape=(64, 3), declared_null=2.0, plant=plant,
+    good = checks.run_calibration(working_rank, shape=(512, 3), declared_null=2.0, plant=plant,
                                   name="target_rank")
 
     def _claim(report):
@@ -329,15 +327,17 @@ def _leaky_grid():
 
 
 def _clean_grid():
+    """The h35 v3 repair: the same state prose under both levels, so the bag of tokens carries no
+    information about the label and only the model's computation can."""
     from .types import Grid, Item
-    words = ["the mayfly is dead", "the sediment has become stone",
-             "the lamp is still warm", "the ridge has worn flat"]
+    sentences = ["the mayfly is dead", "the sediment has become stone",
+                 "the lamp is still warm", "the ridge has worn flat",
+                 "the kettle has gone quiet", "the path is overgrown"]
     items = []
-    for i in range(12):
-        text = words[i % 4]
-        items.append(Item(text=f"{text} number {i}",
-                          factors={"interval": "near" if i % 2 == 0 else "far"},
-                          spans={"state": (0, len(text))}))
+    for k, s in enumerate(sentences):
+        for j, level in enumerate(("near", "far")):
+            items.append(Item(text=f"{s} number {2 * k + j}", factors={"interval": level},
+                              spans={"state": (0, len(s))}))
     return Grid(items, name="v3_state_spans")
 
 
