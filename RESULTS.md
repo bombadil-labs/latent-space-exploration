@@ -33,7 +33,8 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
 - **Hours 14 and 23, and claim 6 of the writeup** ("an era shift moves the address and keeps the
   form"). Withdrawn at h40: the readout was taken after the patch layer, and since the patch is a
   constant added at every position and the readout is a span mean, the movement is vector addition,
-  exactly. The model arm is indistinguishable from the arithmetic and on Gemma is worse than it.
+  exactly. The model arm is indistinguishable from the arithmetic (see the hour-45 correction: the
+  "worse than it" reading was an artifact of a tolerance 8.8x too tight).
   Recomposition now rests solely on the generation results of h29/h33, which re-read unpatched text
   and are confirmed clean.
 - **Hour 31's numbers** (not its conclusion). Withdrawn at h39: nnsight left-pads batched texts and
@@ -1501,7 +1502,8 @@ shift to preserve ‖shift‖/‖resid‖ at the read layer; without it the cont
 | Gemma-2-9B-it (h14) | 0.875 / 0.944 | 0.972 / 0.958 | 1.000 / 0.917 | **−0.125** / +0.027 |
 | GPT grid (h23) | 0.944 / 0.861 | 0.861 / 0.847 | 0.972 / 0.792 | **−0.028** / +0.069 |
 
-**The model is indistinguishable from vector addition, and where it differs it is worse.** On Gemma
+**The model is indistinguishable from vector addition.** (Hour 45 corrects the original "and where it
+differs it is worse": with the measured paraphrase interval, -0.1111 sits inside the band.) On Gemma
 the six intervening blocks partly *undo* the addition. The layer curve never goes positive outside
 tolerance and is never monotone in the number of intervening blocks (Qwen, reads 15–28: +0.000,
 +0.000, +0.000, −0.111, −0.014, +0.056, −0.111). Across reads 15–18 the model arm and pure vector
@@ -1790,6 +1792,75 @@ reproduce hour 8 through `composition` against its null of 9.50 rather than as t
 Files: `src/lsx/core/{planted,registry,instruments}.py`, `tests/test_core_registry.py` (30 tests),
 `results/calibration/*.json`, `results/notes/core_p2.md`. Cost: ~225k agent tokens, ~55 min, no
 downloads, no NDIF. `scripts/` untouched.
+
+## 2026-09-18 (hour 45) — PHASE 1 piece 3: the core reproduces every number it can compute, refuses three, and fails its own gate on coverage (agent)
+
+100 tests, harness still 9 of 9. The ledger, retraction, and the §1A reproduction suite.
+
+| §1A target | logged | reproduced | tolerance | verdict |
+|---|---|---|---|---|
+| h8 three-factor composition | 2.81 of 18, no-patch 9.50 | **2.8056**, no-patch **9.5000** | ±0.02 | reproduced |
+| h4 role lens | 1.69 of 6, random 3.25 | **1.6875**, random 3.406, permutation 3.542, no-patch 3.500 | ±0.02 | reproduced |
+| h14 gain vs norm-matched pass-through | −0.111 | **−0.1111**, zero-shift error exactly 0 | ±0.1128 measured | reproduced |
+| h8 era / voice / tense lens | 1.25 / 1.24 / 1.03 | 1.250 / 1.236 / 1.028 | ±0.02 | **REFUSED** — `MissingArm('permutation')` |
+| h16 "peak layer 16" | 1.73 of 6 | not published | — | **REFUSED** — `SelectionOnScoringData` |
+| h39 Gemma clock | 0.501 / 0.767 / 2.50 raw | not published | — | **REFUSED** — leaky grid, and `discrimination` unbuilt |
+| h29 3× re-imposed | 0.84 / 0.91 / 0.53, n = 55/72 | **0.8364 / 0.9091 / 0.5273, n = 55/72**, twice | ±0.018 measured | deferred, no instrument |
+| h37 70B selector | 1.50 / 1.06 | not re-derived | ±0.018 | deferred, stacks not cached |
+
+**Nothing failed its tolerance, so nothing is withdrawn.** Every number the core could compute came
+back to the logged decimals. The three refusals are results about how the numbers were *reported*:
+the factor lenses never carried a permutation arm, "peak layer 16" was an argmax on the scoring data,
+and the Gemma clock is a raw score on a grid with a measured leak.
+
+**The two tolerances, measured rather than assumed.**
+- **Remote re-run spread: 0.000.** Hour 29's 3× arm re-run end to end on NDIF gave the same 55 of 72
+  survivors, the same 17 losses (a property of the generation, not the queue), all 55 continuations
+  character-identical, zero readouts flipped. Tolerance is therefore set at the statistic's own
+  resolution, 1/55 = **0.018**. This bounds within-session, pinned-deployment noise only.
+- **`readout_shift` paraphrase noise: 0.3191 per item, ±0.1128 at n = 72.** Piece 2's `sqrt(2/d)`
+  stand-in was **8.8× too tight**.
+
+**That correction changes how hour 40 must be stated, and I have applied it above and in the
+writeup.** Under the too-tight stand-in, h14's −0.1111 read as significantly negative, which is where
+"the model is worse than the arithmetic, the blocks partly undoing the addition" came from. With the
+measured interval it sits *inside* the band. The correct statement is that **the model is
+indistinguishable from vector addition in either direction** — the blocks do nothing the readout
+sees. The verdict is unchanged: indistinguishable from arithmetic is still vacuous, and claim 6 stays
+withdrawn. But "worse than arithmetic" was over-claimed and is now corrected.
+
+**The position-ids exposure is settled and is not a live bug. No logged hour falls.** Local Qwen gives
+batched-vs-single cosine 1.000000 with *and* without explicit position ids, and the check is
+demonstrably sensitive (scrambled 0.691, all-zeros 0.713, uniform shift 1.000000 — RoPE depends on
+position *differences*, and left padding shifts a row uniformly). Remote Gemma via `tracer.invoke`:
+worst of twelve item-by-pooling pairs on the shortest item with 41 tokens of padding, **0.999943**.
+`ndif_factors` pads right and cannot be exposed at all.
+
+**A piece-2 bug found by running real targets.** `CALIBRATION_KEYS` held one key per instrument, but
+the key hashes the declared null, which is config-dependent — so *every* three-candidate selector
+claim (h8's lenses, h34, h37) was refused as `CalibrationStale` while holding a perfectly good
+report. Now a set per instrument, with a regression test. This is the third time a fix has carried a
+version of the bug it was fixing.
+
+**Decision taken, as delegated:** `Selection.executed` is **mandatory at the ledger**. It costs
+exactly one §1A row, h16, which was already refusable on other grounds.
+
+**Closed:** hand-declared calibration reports (refused at the ledger); provenance not from a real
+`Stack` (`build_stack` now signs its provenance with an activation digest); piece 2's stale-report
+import hole; the paraphrase tolerance; the position-ids exposure.
+
+**PHASE 1 GATE: §1B passes, §1A does not.** Not because anything failed to reproduce, but on
+**coverage**: three of the six instruments in §8 are unbuilt and two targets need them. Per
+`docs/PROGRAM.md`, the gate is both halves, so **phase 2 does not open.** Remaining, in the agent's
+order: build `discrimination` and a top-1-accuracy instrument (h29 has no instrument at all); route
+remote forwards through the asserted path, since `Probe` is still a shell and the h34
+moved-candidates assertion currently guards no NDIF call; a per-item `role_rank` path for h16's
+curve; and harness cases for the three publication refusals.
+
+Ledger: 3 standing rows, 0 withdrawals — the agent declined to fabricate one to demonstrate
+retraction, and exercises `withdraw()` in tests instead. `docs/specs/core_v1.md` edited in three
+places (§1A tolerances, §2a position-ids verdict, §4 sweep decision), each marked in the text as
+written in after the fact. Cost: ~370k agent tokens, ~2 h 45 min, 168 NDIF jobs.
 
 ## Open problems (ordered)
 

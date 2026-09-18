@@ -87,7 +87,7 @@ matched null, eleven things stand, six fell, and two are partial.
 - **Recomposition as a representational result.** Stages 14 and 23 patched an era shift at layer 14
   and read the era at layer 20. The patch is a constant added at every position and the readout is a
   span mean, so the readout moves by vector addition *exactly*; the model arm is indistinguishable
-  from the arithmetic and on Gemma is worse than it, the six intervening blocks partly undoing the
+  from the arithmetic in either direction, the six intervening blocks doing nothing the readout sees,
   addition. Against a norm-matched pass-through the gain is −0.111, −0.125 and −0.028 on the three
   targets, and the layer curve is never positive outside tolerance. Withdrawn at stage 40.
 
@@ -173,7 +173,7 @@ demonstrated cheaply, as a readout: an era shift patched while the model reads a
 era readout to the target in 89% (Qwen 1.5B) and 88% (Gemma 9B) of cases, 94% on GPT-authored grids,
 while theme stayed put (h14, h23). That result was arithmetic. The patch is a constant added at every
 position, the readout is a span mean, and `mean(resid + shift) = mean(resid) + shift` exactly; the
-model arm is indistinguishable from the addition and on Gemma is worse than it (h40).
+model arm is indistinguishable from the addition (h40, with the interval corrected at stage 45).
 
 What remains is the expensive version. Re-imposed at every decoding step at three times the norm, the
 same shift moves the era of Gemma's generated text in 0.84 of cases, with 0.30 of continuations
