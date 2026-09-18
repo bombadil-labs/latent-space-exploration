@@ -78,7 +78,7 @@ def h8_rows(res: dict, lex: dict, led) -> tuple[list[Row], dict]:
         reproduced=f"{comp.treatment.value:.4f}/{V}; gain over the MEASURED lexical floor "
                    f"{comp.reported_value:+.4f} (floor {comp.floor.stimulus:.4f}/{V})",
         tolerance=f"+-{LOCAL_TOLERANCE} (local, §1A); arm band "
-                  f"+-{registry.arm_tolerance('composition', comp.treatment.n, {'levels': (3, 3, 2)}):.4f}",
+                  f"+-{registry.arm_tolerance('composition', comp.treatment.n, {'n_variants': V}):.4f}",
         verdict=REPRODUCED if abs(comp.treatment.value - 2.81) <= LOCAL_TOLERANCE else FAILED,
         detail=("PUBLISHED" if ref is None else f"ledger: {ref}")
                + "; §6 now met with a measured floor, and the floor is the finding: "
@@ -222,11 +222,17 @@ def h29_rows(led, path: str = "results/h29_arms_reimpose3.0.json") -> tuple[list
     null_base = prior["base"]["era_as_target"]
     prov = dict(ctl.get("asserted_stack", {}).get(str(blob["meta"]["read_layer"]), {})
                 .get("provenance", {}))
+    # NOTHING here may overwrite a field the stack signed (`types.STACK_PROV_KEYS`) -- editing one
+    # after the fact is exactly the case `ProvenanceNotFromStack` exists to catch, and the first
+    # draft of this function overwrote `template` with the generation's chat format and would have
+    # broken its own signature. The generation's own fields go in under their own names, which also
+    # records spec §2a's template mismatch rather than hiding it: the directions are fit on raw
+    # `lead + span` text and applied inside a chat template.
     prov.update({"direction_held_out": "scene (leave-one-scene-out)",
-                 "template": blob["meta"]["prompt_format"],
-                 "patch_layer": blob["meta"]["patch_layer"],
-                 "read_layer": blob["meta"]["read_layer"],
-                 "scale": blob["meta"]["scale"]})
+                 "generation_prompt_format": blob["meta"]["prompt_format"],
+                 "generation_patch_layer": blob["meta"]["patch_layer"],
+                 "generation_read_layer": blob["meta"]["read_layer"],
+                 "generation_scale": blob["meta"]["scale"]})
 
     detail, claim, ref = [], None, None
     try:
@@ -310,9 +316,103 @@ def h29_rows(led, path: str = "results/h29_arms_reimpose3.0.json") -> tuple[list
 # ================================================================================================
 # 3: h39
 # ================================================================================================
-def h39_rows() -> tuple[list[Row], dict]:
-    row = R.h39_as_logged()
-    return [row], row.extra
+def h39_rows(led, path: str = "results/h39_gemma_clock_arms.json") -> tuple[list[Row], dict]:
+    """h39 as §1A restates it: **gain over the measured stimulus floor**, never the raw score.
+
+    The treatment is the per-subject shared-clock Spearman on the v2 experimental prompts; the
+    floor is the same statistic on the grid's own control prompts, which carry the interval phrase
+    with the t0 state at every timepoint -- i.e. exactly what the phrase alone gives away, which is
+    the leak h32/h35 measured and h39 published a raw score over anyway. `shuffled_stimulus` is the
+    experimental state span with its words shuffled.
+    """
+    p = REPO / path
+    if not p.exists():
+        row = R.h39_as_logged()
+        return [row], row.extra
+    blob = json.loads(p.read_text())
+    m = blob["measures"]
+    if any("incomplete" in m.get(t, {}) for t in ("exp", "ctrl", "shuf")):
+        row = R.h39_as_logged()
+        row.detail = ("the re-extraction did not complete: "
+                      + json.dumps({t: m[t].get("incomplete") for t in m}) + ". " + row.detail)
+        row.extra["partial_extraction"] = m
+        return [row], row.extra
+
+    subjects = sorted(m["exp"]["per_subject"])
+    treat = np.array([m["exp"]["per_subject"][s] for s in subjects])
+    floor = np.array([m["ctrl"]["per_subject"][s] for s in subjects])
+    shuf = np.array([m["shuf"]["per_subject"][s] for s in subjects])
+    inst = instruments.build("discrimination", n=200, d=64, m=len(subjects),
+                             floor=float(floor.mean()))
+    prov = dict(blob["meta"]["provenance"]["exp"])
+    prov.update({"direction_held_out": "subject (every centroid is built from the OTHER subjects)"})
+    detail, claim, ref = [], None, None
+    try:
+        claim = inst.claim(
+            treatment=Measured(treat, label=f"h39 Gemma shared clock, per subject "
+                                            f"@L{blob['meta']['layer']}"),
+            arms={"floor": Arm(floor, expected_null=float(floor.mean()),
+                               tolerance=inst.tolerance(len(floor)),
+                               justification="the grid's own control prompts: the interval phrase "
+                                             "with the t0 state at every timepoint. A MEASURED "
+                                             "stimulus floor -- what the phrase alone gives away "
+                                             "-- and the arm whose ratio h39 reported as 2.50 "
+                                             "before publishing the raw score anyway"),
+                  "shuffled_stimulus": Arm(
+                      shuf, expected_null=float(floor.mean()),
+                      tolerance=inst.tolerance(len(shuf)),
+                      justification="the experimental state span with its words shuffled inside "
+                                    "the span: same tokens, same length, no order. h38 extracted "
+                                    "this arm and never scored it, which is why piece 4's "
+                                    "demonstration on h38's cache was refused too")},
+            floor=Floor(stimulus=float(floor.mean()), estimator=0.0),
+            selection=Selection(axis=None,
+                                rule=f"pre-registered layer {blob['meta']['layer']}; no sweep"),
+            provenance=prov, stage="h39", report_as="gain_over_floor",
+            notes=["§1A restates this target as gain over the measured floor precisely because the "
+                   "grid is flagged: 221 of 240 v2 state spans restate the interval. The raw "
+                   f"treatment is {treat.mean():.4f} and the floor is {floor.mean():.4f}.",
+                   "this is NOT h39's logged 0.767: that number is a Spearman over nine per-Δt "
+                   "shared NORMS with no per-subject breakdown, and `discrimination` needs a "
+                   "per-item statistic. The statistic here is the shared-clock predictor of "
+                   "`scripts/time_translation_discrimination.py`, per subject, which is the form "
+                   "h38 used and the form the instrument was calibrated for."])
+        ref = publish(led, claim,
+                      "h39 Gemma clock, re-extracted and reported as gain over the MEASURED "
+                      "stimulus floor (piece 5)",
+                      "h39 Gemma clock, §1A's restatement",
+                      {"logged_raw_m3_spearman": 0.767, "logged_raw_m1_frac_shared": 0.501,
+                       "logged_raw_m7_ratio": 2.50})
+        detail.append("PUBLISHED" if ref is None else f"ledger: {ref}")
+    except CoreError as ex:
+        detail.append(f"{type(ex).__name__} -- {str(ex).splitlines()[0][:160]}")
+    off = [k for k, a in claim.arms.items() if a.off_null] if claim is not None else []
+    detail.append(f"arms: floor {floor.mean():.4f}, shuffled_stimulus {shuf.mean():.4f}, both "
+                  f"declared at the measured floor {floor.mean():.4f} "
+                  f"+-{inst.tolerance(len(floor)):.4f}"
+                  + (f"; OFF NULL: {off}" if off else "; neither off its null"))
+    summary = {"subjects": subjects, "layer": blob["meta"]["layer"],
+               "treatment": float(treat.mean()), "floor": float(floor.mean()),
+               "shuffled_stimulus": float(shuf.mean()),
+               "gain": float((treat - floor).mean()),
+               "arm_tolerance": float(inst.tolerance(len(treat))),
+               "per_subject": {"exp": m["exp"]["per_subject"], "ctrl": m["ctrl"]["per_subject"],
+                               "shuf": m["shuf"]["per_subject"]},
+               "claim": None if claim is None else {"id": claim.id,
+                                                    "reported": claim.reported_value,
+                                                    "render": claim.render(), "refusal": ref}}
+    rows = [Row(target="h39 Gemma clock, corrected", source="h39",
+                logged="0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (RAW, on a "
+                       "flagged grid)",
+                reproduced=f"gain over the measured floor {summary['gain']:+.4f} "
+                           f"(treatment {treat.mean():.4f}, floor {floor.mean():.4f}, "
+                           f"shuffled {shuf.mean():.4f}) over {len(subjects)} subjects",
+                tolerance=f"arm band +-{inst.tolerance(len(treat)):.4f} at m={len(subjects)} "
+                          "subjects (measured, piece 4)",
+                verdict=REPRODUCED if claim is not None and ref is None else REFUSED,
+                detail="; ".join(detail),
+                claim_id="" if claim is None else claim.id, extra=summary)]
+    return rows, summary
 
 
 # ================================================================================================
@@ -361,7 +461,7 @@ def main() -> None:
         summary["h29"] = s
 
     if "h39" in parts:
-        r, s = h39_rows()
+        r, s = h39_rows(led)
         rows += r
         summary["h39"] = s
 
