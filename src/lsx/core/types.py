@@ -621,6 +621,15 @@ class Claim:
             raise CalibrationStale(
                 f"the calibration report is for {self.calibration.instrument!r}, not "
                 f"{self.instrument!r}")
+        # Piece 2 left this open: `registry.CALIBRATION_KEYS` is populated on import of
+        # `lsx.core.instruments`, so `from lsx.core.types import Claim` alone left a STALE measured
+        # report acceptable. `types` cannot import `instruments` at module level (cycle), but it
+        # can here, once, when the table is empty -- which is the only case the hole existed in.
+        if not registry.CALIBRATION_KEYS:
+            try:
+                from . import instruments as _instruments   # noqa: F401  (registers the keys)
+            except Exception:  # noqa: BLE001 -- a partially-imported package must not break Claim
+                pass
         expected_key = registry.CALIBRATION_KEYS.get(self.instrument)
         if (expected_key is not None and not self.calibration.hand_declared_report
                 and self.calibration.key != expected_key):

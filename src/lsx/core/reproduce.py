@@ -42,10 +42,27 @@ DATA_DIRS = [REPO / "results", pathlib.Path("/home/user/latent-space-exploration
 PROMPT_DIRS = [REPO / "prompts", pathlib.Path("/home/user/latent-space-exploration/prompts")]
 
 LOCAL_TOLERANCE = 0.02
-# Measured in piece 3 (see results/notes/core_p3.md and spec §1A). Set to None until measured: no
-# remote target may be graded before the number exists, which is a pre-registration gap to close,
-# not a licence to pick a tolerance that fits.
-REMOTE_TOLERANCE: float | None = None
+
+# MEASURED in piece 3 (results/remote_tolerance.json, spec §1A). h29's re-imposed era shift at
+# scale 3.0 on Gemma-2-9B-it was run twice, end to end, nothing changed. The two runs are
+# **identical**: the same 55 of 72 generations survived, every continuation matched character for
+# character, and not one era readout flipped. Measured spread: **0.000**.
+#
+# A tolerance of exactly zero is not usable -- it would refuse a re-run that differs by a single
+# item -- so the number below is the statistic's own RESOLUTION, one item in 55, which is the
+# smallest difference a fraction over 55 surviving generations can express. That is a consequence
+# of the measurement rather than a choice: the spread is smaller than the resolution, so the
+# resolution is the binding constraint.
+#
+# What it does NOT bound: both runs hit the same pinned deployment within one session. Cross-session
+# or cross-deployment variation (a redeployment, different bf16 kernels) is unmeasured, and the next
+# remote grade should re-measure rather than inherit this number.
+REMOTE_TOLERANCE: float | None = 1.0 / 55.0        # 0.0182
+REMOTE_SPREAD_MEASURED = 0.0
+REMOTE_TOLERANCE_BASIS = ("two identical end-to-end re-runs of h29 reimpose@3.0 on NDIF "
+                          "(spread 0.000 on era-target, leaves-e1 and theme-kept, 0 of 55 items "
+                          "flipped, continuations character-identical); tolerance = 1/55, the "
+                          "resolution of the statistic")
 
 
 def data(name: str) -> pathlib.Path:
@@ -472,12 +489,126 @@ def h14_claim(res: dict) -> tuple[Claim, dict]:
         floor=Floor(stimulus=0.0, estimator=0.0),
         selection=Selection(axis=None, rule="pre-registered patch 14 / read 20; no sweep"),
         provenance=dict(res["stack"].provenance, direction_held_out="scene"),
-        grid=res["grid"], stage="h14",
+        grid=res["grid"], stage="h14", report_as="gain_over_floor",
         patch_layer=res["patch_layer"], readout_layer=res["read_layer"],
         notes=[f"paraphrase-noise sd of the gain (within era-pair x theme cell, 4 scenes): "
-               f"{paraphrase_sd:.4f}; 3-sigma arm tolerance at n={n}: {inst.tolerance(n):.4f}"])
+               f"{paraphrase_sd:.4f}; 3-sigma arm tolerance at n={n}: {inst.tolerance(n):.4f}",
+               "the theme grid is FLAGGED leaky (era recoverable 0.89 against a permutation null "
+               "of 0.31), so §6 forbids a raw score. The stimulus floor of this quantity is 0: the "
+               "treatment and the pass-through read the SAME span text with the same readout, so "
+               "whatever the wording gives away is in both arms and cancels in the difference. "
+               "That is an argument, not a measurement, and it is recorded here as one."])
     return claim, {"paraphrase_sd": paraphrase_sd, "tolerance": inst.tolerance(n),
                    "gain": float(np.mean(gain)), "passthrough": pt_value,
                    "model": float(np.mean(res["model_shift"])),
                    "gain_rand": float(np.mean(gain_rand)),
                    "zero_shift_error": res["shift_zero_shift_error"]}
+
+
+# ================================================================================================
+# target: h4, the role lens on held-out domains
+# ================================================================================================
+def rotated_holonic_grid(path: pathlib.Path) -> tuple[Grid, dict]:
+    """`prompts/holonic_v1_rotated.json` -> Grid. Six role spans per item, position-balanced by
+    rotation, which is the grid h4's directions were estimated from."""
+    from ..extract import parse_roles
+    g = json.loads(path.read_text())
+    items = []
+    for key, marked in g["prompts"].items():
+        domain, rot = key.split("/")
+        p = parse_roles(marked)
+        items.append(Item(text=p.text, factors={"domain": domain, "rot": rot},
+                          spans={r: p.spans[r][0] for r in g["roles"]}))
+    # `rot` is a position label, not a stimulus factor: its bag-of-tokens recoverability is 1.00 by
+    # construction (the six rotations are the same six spans in six orders) and flagging it would
+    # be the alarm-fatigue case piece 1 named. Declared, so the report records it rather than
+    # firing on it.
+    return Grid(items=items, name=path.stem, declared_leaks=("rot", "domain")), g
+
+
+def h4(lm, *, layer: int = 20, scale: float = 1.0, n_rand: int = 2,
+       progress: Callable[[str], None] = lambda s: None) -> dict:
+    """h4's role lens, re-run through the core with the `permutation` arm it never had.
+
+    `selector` requires random, no_patch AND permutation; h4 shipped a random control only. The
+    permutation arm here permutes the ROLE LABELS within each training domain before the direction
+    is averaged, so it is a direction fit by the same code on the same vectors carrying no role
+    identity -- not a relabelling of the ranking, which is the h6 trap.
+    """
+    from ..model import Patch
+    from ..steer import add_vector
+    from ..extract import parse_roles
+
+    path = prompt("holonic_v1_rotated.json")
+    grid, g = rotated_holonic_grid(path)
+    roles = g["roles"]
+    R = len(roles)
+    domains = sorted({it.factors["domain"] for it in grid.items})
+
+    progress("extracting the rotated holonic stack through build_stack")
+    stack = ex.build_stack(lm, grid, layers=[layer], batch_size=4)
+
+    acts = np.stack([stack.vectors(r, layer) for r in roles], axis=1)      # [item, role, d]
+    idx_of = {(it.factors["domain"], it.factors["rot"]): i for i, it in enumerate(grid.items)}
+    avg = {d: np.mean([acts[idx_of[(d, f"rot{k}")]] for k in range(R)], axis=0) for d in domains}
+
+    lead, spans = {}, {}
+    for d in domains:
+        marked = g["prompts"][f"{d}/rot0"]
+        p = parse_roles(marked)
+        lead[d] = marked.split(" First,")[0]
+        spans[d] = {r: p.text[p.spans[r][0][0]:p.spans[r][0][1]] for r in roles}
+
+    rng = np.random.default_rng(0)
+    perm_rng = np.random.default_rng(17)
+    out = {"role": [], "rand": [], "permutation": [], "no_patch": [],
+           "stack": stack, "grid": grid, "layer": layer, "n_candidates": R}
+
+    for d in domains:
+        train = [x for x in domains if x != d]
+        M = np.mean([avg[x] for x in train], axis=0)                 # [role, d]
+        dirs = M - M.mean(0, keepdims=True)
+        Mp = np.mean([avg[x][perm_rng.permutation(R)] for x in train], axis=0)
+        dirs_perm = Mp - Mp.mean(0, keepdims=True)
+
+        prefix = f"{lead[d]} First,"
+        cands = [f" {spans[d][r]}." for r in roles]
+        base = np.array([lm.logprob(prefix, c) for c in cands])
+
+        def ranks(vec, *, expect_move: bool) -> float:
+            patches = [Patch(layer, add_vector(vec, scale))]
+            sc = ex.asserted_patched_logprob(lm, prefix, cands, patches,
+                                             base=base if expect_move else None)
+            return sc - base
+
+        from .checks import midrank
+        zero = ranks(np.zeros(dirs.shape[1]), expect_move=False)
+        for Ri, Rname in enumerate(roles):
+            out["no_patch"].append(midrank(zero, Ri))
+            out["role"].append(midrank(ranks(dirs[Ri], expect_move=True), Ri))
+            out["permutation"].append(midrank(ranks(dirs_perm[Ri], expect_move=True), Ri))
+            nrm = float(np.linalg.norm(dirs[Ri]))
+            for _ in range(n_rand):
+                v = rng.normal(size=dirs.shape[1])
+                v *= nrm / np.linalg.norm(v)
+                out["rand"].append(midrank(ranks(v, expect_move=True), Ri))
+        progress(f"domain {d} done ({len(out['role'])}/{len(domains) * R} role items)")
+    return out
+
+
+def h4_claim(res: dict) -> tuple[Claim, dict]:
+    inst = instruments.build("selector", n=400, d=64, n_candidates=res["n_candidates"])
+    t = np.asarray(res["role"], dtype=float)
+    claim = inst.claim(
+        treatment=Measured(t, label=f"h4 role lens rank/{res['n_candidates']} @L{res['layer']}"),
+        arms={"random": np.asarray(res["rand"], float),
+              "no_patch": np.asarray(res["no_patch"], float),
+              "permutation": np.asarray(res["permutation"], float)},
+        floor=Floor(stimulus=float((res["n_candidates"] + 1) / 2),
+                    estimator=float((res["n_candidates"] + 1) / 2)),
+        selection=Selection(axis=None, rule="pre-registered layer 20, scale 1.0; no sweep"),
+        provenance=dict(res["stack"].provenance, direction_held_out="domain (leave-one-domain-out)"),
+        grid=res["grid"], stage="h4")
+    return claim, {"role": float(t.mean()), "random": float(np.mean(res["rand"])),
+                   "no_patch": float(np.mean(res["no_patch"])),
+                   "permutation": float(np.mean(res["permutation"])), "n": int(t.size)}

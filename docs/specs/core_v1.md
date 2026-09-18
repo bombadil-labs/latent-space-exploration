@@ -27,9 +27,23 @@ The core is finished when it does both of these, and not before.
 **A. Reproduction.** Re-run through the core, these surviving claims come back within tolerance.
 **Tolerance is per target, set from measured re-run variance, not one number for all.** Local
 targets: ±0.02 (stage 39's re-run reproduced stage 8 to two decimals, so this is measured). Remote
-targets: **unmeasured** — the first task of piece 3 is to re-run one remote target twice and set the
-tolerance from the spread. Stage 29 lost 17 of 72 jobs and stage 37 hit bf16 ties, so ±0.03 on a
-fraction over ~55 surviving generations is almost certainly tighter than the noise.
+targets: **±0.018, measured in piece 3 and written in here after the fact.** Stage 29's re-imposed
+era shift at scale 3.0 on Gemma-2-9B-it was run twice end to end, nothing changed between them. The
+two runs are *identical*: the same 55 of 72 generations survived (the 17 losses are the same 17, so
+they are a property of the generation, not of the queue), every continuation matched character for
+character, and not one era readout flipped. **Measured spread 0.000** on era-target, leaves-e1 and
+theme-kept. A tolerance of exactly zero is unusable — it would refuse a re-run differing by a single
+item — so the number is the statistic's own *resolution*, one item in 55; the spread is smaller than
+the resolution, so the resolution binds. This bounds within-session re-run noise against a pinned
+deployment only; cross-deployment variation is unmeasured and the next remote grade re-measures.
+`results/remote_tolerance.json`.
+
+**The second measured tolerance, which §2a asks for and piece 2 could not supply: `readout_shift`'s
+paraphrase-noise interval.** Piece 2 shipped `sqrt(2/d)` as a deliberate stand-in because the
+instrument's own null spread is 0 by construction. Measured in piece 3 on the stage-14
+configuration: within each (era-pair × theme) cell the four scenes are four wordings of the same
+content, so the within-cell spread of the gain *is* paraphrase noise. See `results/notes/core_p3.md`
+for the value and `config={"readout_sd": ...}`, which is where it now enters the registry.
 
 Two targets are restated because the core would refuse them as originally logged, which is the point:
 stage 16's "peak layer 16" was an argmax on the scoring data, and stage 39's numbers are raw scores
@@ -102,6 +116,23 @@ tensors) and nothing is pinned — record local and NDIF-reported versions; and 
 since directions are fit on raw `lead + span` text and applied inside chat templates on instruct
 models — record the template alongside padding side.
 
+**A third, raised by piece 1 and closed by piece 3: explicit `position_ids` under left padding.**
+`build_stack` passes them; no script in `scripts/` does, and four remote scripts batch more than one
+text per job. **Measured, and it is not a live bug.** Locally on Qwen2.5-1.5B a left-padded batch
+matches a batch-of-one at cosine 1.000000 at every layer with and without explicit `position_ids`,
+and the same check is sensitive: scrambling the positions moves the last-token vector to cosine
+0.691, and setting them all to zero to 0.713. The reason is that RoPE attention depends on position
+*differences*, and left padding offsets every real token of a row by the same `n_pad`, so a uniform
+shift cancels — confirmed directly (positions `+50` and `+500` both give cosine 1.000000).
+On NDIF (`google/gemma-2-9b-it`, the `tracer.invoke` idiom that
+`ndif_recompose_gen`/`ndif_recompose_sweep`/`ndif_time_translation_extract` use, left padding) the
+shortest of four items carried 41 tokens of padding and matched its batch-of-one extraction at
+cosine 0.999979 (last token), 0.999990 (a marked span), 0.999997 (whole-text mean); the worst of
+twelve item×pooling pairs was 0.999943. `ndif_factors` cannot be exposed at all — it pads **right**.
+**No logged hour falls.** Explicit `position_ids` stay in `build_stack` as correctness that does not
+depend on the architecture staying RoPE; the check itself (`results/posid_remote.json`) is the
+standing evidence.
+
 ## 3. Types
 
 ```python
@@ -170,6 +201,17 @@ three false negatives.
 axis is not in a declared held-out set is refused. `Direction.held_out` governs *fitting*; nothing in
 the original draft stopped `min(claim(l) for l in layers)` — twenty-nine valid Claims, one quoted.
 Stage 38's `L* = argmax` and stage 16's "peak layer 16" are both this failure.
+
+**Piece 3 decision (written in after the fact, and marked as such): a swept axis must carry the
+curve the core computed, enforced at the ledger and not at `Claim` construction.** Piece 2 built
+`Instrument.sweep`, which records the curve as a fact, and left the choice of making it mandatory to
+piece 3 on the grounds that it would refuse every §1A target until the sweeps were re-run. With the
+targets in hand the cost is not that: of the §1A rows, exactly one — stage 16 — is a swept claim,
+and it is the row the spec already restates as a refusal. Every other target is a single
+pre-registered layer with `axis=None`, which needs no curve. So the requirement costs one target
+that was already refusable and buys the retirement of a regex over the caller's prose. It is
+enforced in `lsx.core.ledger.check_sweep_executed` — at *publication*, so that a `Claim` can still
+be built and inspected, which is the same line §3 draws for `Sketch`.
 
 `Claim.render()` is the only path to a printable number, and it always prints treatment, every arm,
 the floor, and the effect size together. There is no way to quote a treatment number alone.
