@@ -214,6 +214,29 @@ class Grid:
 # --------------------------------------------------------------------------------------------
 # Stack / Direction / Readout / Probe / Sketch
 # --------------------------------------------------------------------------------------------
+# The exact provenance fields `extract.build_stack` writes. The stack signature is computed over
+# THESE keys only, so that a Claim may add its own (calibration_key, the direction's held-out axis)
+# without invalidating the binding between the Claim and the extraction it came from.
+STACK_PROV_KEYS: tuple[str, ...] = (
+    "model", "layers", "pooling", "grid_hash", "grid_name", "code_version", "tokenizer_padding",
+    "span_policy", "template", "lib_versions", "batch_size", "leak", "acts_digest",
+    "equivalence_min_cos", "equivalence_item_rule")
+
+
+def stack_signature(prov: dict) -> str:
+    """A hash over the stack's own provenance fields, including a digest of the activations.
+
+    This is not a security boundary -- anyone who reads this file can call it -- and it is not
+    meant to be one. It is the thing that was missing: a Claim that reaches the ledger must carry
+    provenance that a real `build_stack` wrote, so an extraction that never ran the §7 assertions
+    cannot be wrapped in a well-formed Claim by accident. Editing any recorded field afterwards
+    (the model, the padding side, the library versions) breaks the signature rather than the
+    silence.
+    """
+    core = {k: prov.get(k) for k in STACK_PROV_KEYS if k in prov}
+    return _hash({"stack_v1": core})
+
+
 @dataclass
 class Stack:
     """Grid x Model x layers -> activations. Built only by `lsx.core.extract.build_stack`."""

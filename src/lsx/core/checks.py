@@ -110,6 +110,33 @@ class ProvenanceIncomplete(CoreError):
     """Provenance is missing a field that makes a stack or claim re-identifiable. (spec §7.6)"""
 
 
+# --- piece 3: refusals that happen at PUBLICATION, not at Claim construction -----------------
+# The contract gates publication, not thought (spec §3). These three fire when a Claim tries to
+# reach `results/ledger.jsonl`, which is the only place a number becomes a result.
+class ProvenanceNotFromStack(CoreError):
+    """The Claim's provenance did not come from `extract.build_stack`. Pieces 1 and 2 both flagged
+    this as the last structural hole: every assertion in §7 guards the one extraction path, and
+    nothing stopped a hand-rolled extraction being wrapped in a well-formed `Claim`."""
+
+
+class HandDeclaredCalibration(CoreError):
+    """The instrument's calibration report was hand-declared rather than measured. Piece 2 stamped
+    these so they could not pass for measured ones; refusing them at the ledger is what makes the
+    stamp mean something (spec §5)."""
+
+
+class SweepNotExecuted(CoreError):
+    """A Claim whose selection axis was swept carries no core-computed curve, only the caller's
+    prose about how the value was chosen. Piece 2 built `Instrument.sweep` and left the decision
+    to make it mandatory to piece 3 (spec §4)."""
+
+
+class LedgerConflict(CoreError):
+    """An append would overwrite a different result under the same id, or withdraw an id that is
+    not in the ledger. `id` is the provenance hash, so the same experiment re-run is recognised
+    rather than duplicated (spec §9)."""
+
+
 # --------------------------------------------------------------------------------------------
 # plumbing assertions (spec §7)
 # --------------------------------------------------------------------------------------------

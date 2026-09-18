@@ -29,7 +29,7 @@ import torch
 from ..extract import tokens_in_span
 from ..model import LM, Patch
 from . import checks
-from .types import Grid, Stack
+from .types import Grid, Stack, stack_signature
 
 _CORE_DIR = pathlib.Path(__file__).parent
 
@@ -152,8 +152,14 @@ def build_stack(lm: LM, grid: Grid, layers: Iterable[int] | None = None, *, batc
             "grid_name": grid.name, "code_version": code_version(),
             "tokenizer_padding": padding_side, "span_policy": span_policy,
             "template": chat_template(lm), "lib_versions": lib_versions(),
-            "batch_size": batch_size, "leak": grid.leak.summary()}
+            "batch_size": batch_size, "leak": grid.leak.summary(),
+            "acts_digest": hashlib.sha256(np.ascontiguousarray(acts).tobytes()).hexdigest()[:16],
+            "equivalence_min_cos": (min(equivalence.values()) if equivalence else None),
+            "equivalence_item_rule": "shortest item in each batch"}
     checks.assert_provenance(prov)
+    # the binding piece 3's ledger requires: a Claim whose provenance does not carry a signature
+    # this function wrote cannot be published (spec §7, §9).
+    prov["stack_signature"] = stack_signature(prov)
     return Stack(acts=acts, grid_hash=grid.hash, span_names=span_names, layers=layer_list,
                  provenance=prov,
                  checks={"batched_vs_single_min_cos": equivalence,
@@ -211,6 +217,31 @@ def asserted_patched_forward(lm: LM, texts: Sequence[str], *, patch_layer: int,
     base, after = readout(pooled(base_hs)), readout(pooled(patched_hs))
     checks.assert_moved_candidates(base, after, batch=len(texts), atol=atol)
     return np.asarray(after) - np.asarray(base)
+
+
+@torch.no_grad()
+def asserted_patched_logprob(lm: LM, lead: str, candidates: Sequence[str],
+                             patches: list[Patch] | None = None,
+                             base: np.ndarray | None = None,
+                             atol: float = 1e-6) -> np.ndarray:
+    """Teacher-forced log p(candidate | lead) for every candidate under a patch, with the h34/h36
+    moved-candidates assertion on the way.
+
+    Every local selector battery in `scripts/` (`stage5_factors`, `stage6_factors`,
+    `time_translation_selector`) scores its candidates through `LM.logprob` one at a time, and the
+    assertion that caught h34 -- the number of candidates whose score changed equals the number of
+    candidates -- has never been on that path. It is here. Candidates are scored ONE PER FORWARD,
+    exactly as the frozen scripts do, so that padding cannot change the numbers being compared; the
+    assertion is over the set, not over a batch dimension.
+
+    `base` (the unpatched scores) is optional: when the patch is the zero vector -- the no-patch arm
+    -- nothing is expected to move, so the assertion is skipped and the caller gets the scores.
+    """
+    scores = np.array([lm.logprob(lead, c, patches or []) for c in candidates], dtype=np.float64)
+    if base is not None and patches:
+        checks.assert_moved_candidates(np.asarray(base, dtype=np.float64), scores,
+                                       batch=len(candidates), atol=atol)
+    return scores
 
 
 def capture_residual(lm: LM, text: str, layer: int) -> np.ndarray:

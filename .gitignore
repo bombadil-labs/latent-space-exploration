@@ -13,3 +13,5 @@ prompts/holonic_candidates.jsonl
 .claude/worktrees/
 
 .claude/settings.local.json
+cache
+results/*.json.partial

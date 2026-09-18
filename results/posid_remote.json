@@ -1,0 +1,43 @@
+{
+ "model": "google/gemma-2-9b-it",
+ "block": 19,
+ "padding_side": "left",
+ "token_lengths": [
+  51,
+  10,
+  15,
+  40
+ ],
+ "per_item": {
+  "0": {
+   "last_token": 0.9999674558639526,
+   "marked_span": 0.9999883770942688,
+   "whole_text_mean": 0.9999985694885254,
+   "n_tokens": 51,
+   "n_pad_in_batch": 0
+  },
+  "1": {
+   "last_token": 0.9999785423278809,
+   "marked_span": 0.999989926815033,
+   "whole_text_mean": 0.999996542930603,
+   "n_tokens": 10,
+   "n_pad_in_batch": 41
+  },
+  "2": {
+   "last_token": 0.9999741911888123,
+   "marked_span": 0.999991238117218,
+   "whole_text_mean": 0.999998152256012,
+   "n_tokens": 15,
+   "n_pad_in_batch": 36
+  },
+  "3": {
+   "last_token": 0.9999426007270813,
+   "marked_span": 0.9999875426292419,
+   "whole_text_mean": 0.9999984502792358,
+   "n_tokens": 40,
+   "n_pad_in_batch": 11
+  }
+ },
+ "min_cosine": 0.9999426007270813,
+ "verdict": "equivalent"
+}
