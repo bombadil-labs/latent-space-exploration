@@ -1,0 +1,120 @@
+{
+ "layers": [
+  0,
+  2,
+  4,
+  6,
+  8,
+  10,
+  12,
+  14,
+  16,
+  18,
+  20,
+  22,
+  24,
+  26,
+  28
+ ],
+ "summary": {
+  "curve": {
+   "0": 2.7316666666666665,
+   "2": 2.4634722222222223,
+   "4": 2.1995833333333334,
+   "6": 2.183611111111111,
+   "8": 2.1008333333333336,
+   "10": 1.9838888888888888,
+   "12": 1.9013888888888888,
+   "14": 1.8144444444444445,
+   "16": 1.7320833333333334,
+   "18": 1.7897222222222222,
+   "20": 1.8633333333333333,
+   "22": 2.1594444444444445,
+   "24": 2.3891666666666667,
+   "26": 2.491527777777778,
+   "28": 2.734027777777778
+  },
+  "treatment": 2.169212962962963,
+  "random": 3.4790092592592594,
+  "no_patch": 3.4677777777777776,
+  "permutation": 3.516842592592593,
+  "role_identity_retained": 1.3447777777777778,
+  "n": 108000,
+  "arm_tolerance": 0.015590239111558088,
+  "cluster_bands": {
+   "random": 0.038579239084652044,
+   "no_patch": 0.0788739904073138,
+   "permutation": 0.07358246754972217
+  },
+  "n_domains": 40,
+  "curve_step4_mean": 2.206510416666667,
+  "peak_layer": "16",
+  "peak_value": 1.7320833333333334,
+  "refusal": null
+ },
+ "claim_id": "80ab67181ac5ef2e",
+ "render": "selector [80ab67181ac5ef2e] h16 role_rank/6, all pairs x all swept layers\n  treatment = 2.1692  (raw 2.1692, n=108000)\n  arm no_patch           3.4678   declared null 3.5000  +-0.0789\n  arm permutation        3.5168   declared null 3.5000  +-0.0736\n  arm random             3.4790   declared null 3.5000  +-0.0386\n  semantic null      1.3448   (role identity retained (no role-centering): the lens can read which ROLE a vector is without carrying any relation, and h16 logs it at 1.37 against the role-centred 2.21. It is not a plumbing arm and is not expected at chance -- it is the question 'is this a relation or is it role identity?' as a number (spec \u00a74))\n  floor              stimulus 3.5000 / estimator 3.5168\n  effect             -1.3308  n=108000  z=-284.01\n  selection          axis=layer rule=\"full curve reported: 15 points on 'layer', swept and recorded by the core (not selected)\" held_out=True executed=True\n  calibration        selector [f9555bfc4b686d9a] 6 tests PASS: noise 3.5362+-0.0957 vs null 3.5; sensitivity [3.0175, 2.4975, 1.655, 1.06]; self-floor 3.3850; invariance scale d=0, rotation d=0; known-zero 3.5\n  grid leak          domain recoverable 1.00 (permutation null 0.01); rot recoverable 0.00 (permutation null 0.14); domain~length position r=+0.14; domain~start position r=+0.25; rot~length position r=+0.00; rot~start position r=+0.00; nothing flagged",
+ "logged": {
+  "role_rank_all_layers": 2.21,
+  "null_seed1": 3.53,
+  "null_seed2": 3.49,
+  "mean_target_baseline": 3.45,
+  "role_identity_retained": 1.37,
+  "peak_layer_as_logged": 16,
+  "peak_value_as_logged": 1.73,
+  "curve_as_logged": {
+   "0": 2.73,
+   "4": 2.2,
+   "10": 1.98,
+   "16": 1.73,
+   "20": 1.86,
+   "24": 2.39,
+   "28": 2.73
+  }
+ },
+ "stack_checks": {
+  "equivalence_min_cos": 0.9999999999969595,
+  "rule": "shortest item in each batch"
+ },
+ "provenance": {
+  "model": "Qwen/Qwen2.5-1.5B",
+  "layers": [
+   0,
+   2,
+   4,
+   6,
+   8,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "pooling": "mean",
+  "grid_hash": "859b1fa5a323f256",
+  "grid_name": "holonic_v2_rotated",
+  "code_version": "b5890efe83d41cae",
+  "tokenizer_padding": "right",
+  "span_policy": "auto",
+  "template": "44d5f08f3f72b837",
+  "lib_versions": {
+   "torch": "2.14.0+cu130",
+   "transformers": "5.17.0",
+   "numpy": "2.4.6",
+   "nnsight": "0.7.0"
+  },
+  "batch_size": 4,
+  "acts_digest": "1d05a0c3aaf3d951",
+  "equivalence_min_cos": 0.9999999999969595,
+  "equivalence_item_rule": "shortest item in each batch",
+  "stack_signature": "305615f1560d0f9a"
+ },
+ "wall_seconds": 639.3,
+ "ledger_refusal": null,
+ "published": true
+}

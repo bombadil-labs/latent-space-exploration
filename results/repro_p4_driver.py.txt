@@ -1,0 +1,182 @@
+"""Piece 4: the §1A reproduction table re-run with the new coverage."""
+import json
+import os
+import sys
+import time
+
+WT = "/home/user/latent-space-exploration/.claude/worktrees/agent-afc2152e0feb3c19e"
+sys.path.insert(0, WT + "/src")
+os.environ.setdefault("HF_HOME", "/home/user/latent-space-exploration/cache/hf")
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("HF_HUB_DISABLE_XET", "1")
+
+import numpy as np
+
+from lsx import LM
+from lsx.core import instruments, ledger, registry, reproduce
+from lsx.core.checks import CoreError
+from lsx.core.reproduce import DEFERRED, FAILED, LOCAL_TOLERANCE, REFUSED, REPRODUCED, Row
+
+t0 = time.time()
+
+
+def log(m):
+    print(f"[{time.time() - t0:7.1f}s] {m}", flush=True)
+
+
+led = ledger.Ledger()
+rows: list[Row] = []
+summary: dict = {}
+published: list[str] = []
+
+
+def publish(claim, note, reproduces, logged):
+    """Offer a claim to the real ledger and record what happened."""
+    if claim is None:
+        return None
+    refusal = ledger.would_refuse(claim)
+    if refusal:
+        return refusal
+    led.append(claim, note=note, reproduces=reproduces, logged=logged)
+    published.append(claim.id)
+    return None
+
+
+lm = LM.from_pretrained("Qwen/Qwen2.5-1.5B")
+log("model loaded")
+
+# ---------------------------------------------------------------- h8 ------------------------
+log("h8: three-factor battery")
+res8 = reproduce.h8(lm, progress=log)
+np.savez(WT + "/results/repro_p4_h8_arrays.npz",
+         composed=np.asarray(res8["composed"]), composed_none=np.asarray(res8["composed_none"]),
+         **{f"B_{n}_{c}": np.asarray(v) for n, d in res8["B"].items() for c, v in d.items()})
+log("checkpointed h8 arrays")
+claims8, _ = reproduce.h8_claims(res8)
+c8 = claims8[0]
+V = res8["n_variants"]
+comp = float(np.mean(res8["composed"]))
+none8 = float(np.mean(res8["composed_none"]))
+summary["h8"] = {"composed": comp, "composed_no_patch": none8, "n_variants": V}
+ref8 = publish(c8, "h8 composed, re-run through the core (piece 4)", "h8 composed 2.81/18",
+               {"composed": 2.81, "no_patch": 9.50})
+rows.append(Row(target="h8 three-factor battery, composed", source="h8 (re-verified h39)",
+                logged="2.81/18, no-patch 9.50",
+                reproduced=f"{comp:.3f}/{V}, no-patch {none8:.3f}",
+                tolerance=f"+-{LOCAL_TOLERANCE} (local, §1A)",
+                verdict=REPRODUCED if abs(comp - 2.81) <= LOCAL_TOLERANCE else FAILED,
+                detail=f"through `composition` against its declared null of {(V + 1) / 2:.2f}; "
+                       f"|delta| {abs(comp - 2.81):.3f}"
+                       + (f"; ledger: {ref8}" if ref8 else "; PUBLISHED to the ledger"),
+                claim_id=c8.id))
+
+for name, logged_v in (("era", 1.25), ("voice", 1.24), ("tense", 1.03)):
+    b = res8["B"][name]
+    t = float(np.mean(b["factor"]))
+    sel = instruments.build("selector", n=400, d=64, n_candidates=3)
+    try:
+        sel.claim(treatment=reproduce.Measured(np.asarray(b["factor"]), label=f"h8 {name}"),
+                  arms={"random": np.asarray(b["rand"]), "no_patch": np.asarray(b["none"])},
+                  floor=reproduce.Floor(stimulus=2.0, estimator=2.0),
+                  selection=reproduce.Selection(axis=None, rule="pre-registered layer 14"),
+                  provenance=dict(res8["stack"].provenance), grid=res8["grid"], stage="h8")
+        v, detail = FAILED, "the core ACCEPTED a battery with no permutation arm"
+    except CoreError as e:
+        v, detail = REFUSED, f"{type(e).__name__}: {str(e).splitlines()[0][:110]}"
+    rows.append(Row(target=f"h8 {name} lens", source="h8", logged=f"{logged_v}/3",
+                    reproduced=f"{t:.3f}/3", tolerance=f"+-{LOCAL_TOLERANCE}",
+                    verdict=v, detail=detail))
+    summary.setdefault("h8_lenses", {})[name] = {"value": t, "no_patch": float(np.mean(b["none"])),
+                                                 "random": float(np.mean(b["rand"]))}
+
+# ---------------------------------------------------------------- h14 -----------------------
+log("h14: gain over the norm-matched pass-through")
+res14 = reproduce.h14(lm, progress=log)
+np.savez(WT + "/results/repro_p4_h14_arrays.npz",
+         **{k: np.asarray(v) for k, v in res14.items()
+            if isinstance(v, np.ndarray) or (isinstance(v, list) and k.endswith("_cases") is False)})
+log("checkpointed h14 arrays")
+c14, s14 = reproduce.h14_claim(res14)
+summary["h14"] = s14
+ref14 = publish(c14, "h14 negative target, re-run through the core (piece 4)",
+                "h14 no gain over pass-through", {"gain": -0.111})
+rows.append(Row(target="h14 era shift, gain over norm-matched pass-through",
+                source="h14 (withdrawn at h40)",
+                logged="-0.111 (model 0.889 vs pass-through 1.000)",
+                reproduced=f"{s14['gain']:.4f} (model {s14['model']:.3f} vs pass-through "
+                           f"{s14['passthrough']:.3f})",
+                tolerance=f"+-{s14['tolerance']:.4f} (paraphrase-noise, measured)",
+                verdict=REPRODUCED if abs(s14["gain"] - (-0.111)) <= s14["tolerance"] else FAILED,
+                detail=f"zero-shift error {s14['zero_shift_error']:.0g}; random arm "
+                       f"{s14['gain_rand']:+.3f}"
+                       + (f"; ledger: {ref14}" if ref14 else "; PUBLISHED to the ledger"),
+                claim_id=c14.id))
+
+# ---------------------------------------------------------------- h4 ------------------------
+log("h4: role lens on held-out domains")
+res4 = reproduce.h4(lm, progress=log)
+np.savez(WT + "/results/repro_p4_h4_arrays.npz",
+         **{k: np.asarray(v) for k in ("role", "rand", "permutation", "no_patch")
+            for v in [res4[k]]})
+log("checkpointed h4 arrays")
+c4, s4 = reproduce.h4_claim(res4)
+summary["h4"] = s4
+ref4 = publish(c4, "h4 role lens, re-run through the core (piece 4)", "h4 1.69/6",
+               {"role": 1.69, "random": 3.25})
+rows.append(Row(target="h4 role lens, held-out domains", source="h4",
+                logged="1.69/6 (n=48), random 3.25, chance 3.5",
+                reproduced=f"{s4['role']:.3f}/6 (n={s4['n']}), random {s4['random']:.3f}, "
+                           f"permutation {s4['permutation']:.3f}, no-patch {s4['no_patch']:.3f}",
+                tolerance=f"+-{LOCAL_TOLERANCE} (local, §1A)",
+                verdict=REPRODUCED if abs(s4["role"] - 1.69) <= LOCAL_TOLERANCE else FAILED,
+                detail=f"|delta| {abs(s4['role'] - 1.69):.3f}; the `permutation` arm h4 never had "
+                       "is computed here"
+                       + (f"; ledger: {ref4}" if ref4 else "; PUBLISHED to the ledger"),
+                claim_id=c4.id))
+
+# ---------------------------------------------------------------- h16 -----------------------
+log("h16: from the curve computed earlier")
+h16 = json.load(open(WT + "/results/repro_h16.json"))
+summary["h16"] = h16["summary"]
+s16 = h16["summary"]
+rows.append(reproduce.h16_as_logged())
+curve = s16["curve"]
+rows.append(Row(target="h16 relation selector, as the full layer curve (§1A's restatement)",
+                source="h16",
+                logged="2.21/6 over all pairs and layers; null 3.49/3.53; mean-target 3.45",
+                reproduced=f"{s16['treatment']:.3f}/6 over {len(curve)} layers "
+                           f"(n={s16['n']}), permutation {s16['permutation']:.3f}, "
+                           f"mean-target {s16['no_patch']:.3f}, random {s16['random']:.3f}",
+                tolerance=f"+-{LOCAL_TOLERANCE} (local, §1A); arm band "
+                          f"+-{s16['arm_tolerance']:.3f} at n={s16['n']}",
+                verdict=(REFUSED if s16["refusal"] else
+                         (REPRODUCED if abs(s16["treatment"] - 2.21) <= LOCAL_TOLERANCE
+                          else FAILED)),
+                detail=(f"curve computed by Instrument.sweep, peak {s16['peak_value']:.3f} at "
+                        f"layer {s16['peak_layer']}; |delta| "
+                        f"{abs(s16['treatment'] - 2.21):.3f}. " + (s16["refusal"] or ""))))
+
+# ---------------------------------------------------------------- h29, h39, h37 --------------
+rows.append(reproduce.h29_from_logged())
+rows.append(reproduce.h39_as_logged())
+rows.append(Row(target="h37 70B matched pair selector", source="h37",
+                logged="era 1.50 base / 1.06 instruct @26; no-patch 2.00",
+                reproduced="not re-derived",
+                tolerance=f"+-{reproduce.REMOTE_TOLERANCE:.4f} remote",
+                verdict=DEFERRED,
+                detail="the Llama-3.1-70B direction stacks are not cached and §11.3 says defer "
+                       "rather than re-extract. It is no longer blocked by the remote path: "
+                       "`lsx.core.remote` would now carry it (results/ndif_probe_asserted.json)."))
+
+table = reproduce.table(rows)
+print(table, flush=True)
+counts: dict = {}
+for r in rows:
+    counts[r.verdict] = counts.get(r.verdict, 0) + 1
+log(f"verdicts: {counts}; published {len(published)} rows to the ledger")
+
+with open(WT + "/results/repro_summary_p4.json", "w") as f:
+    json.dump({"table": table, "rows": [r.__dict__ for r in rows], "summary": summary,
+               "verdict_counts": counts, "published": published,
+               "wall_seconds": round(time.time() - t0, 1)}, f, indent=1, default=str)
+log("wrote results/repro_summary_p4.json")

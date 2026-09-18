@@ -1,0 +1,64 @@
+"""Piece 4, item 4: h16's layer curve computed by the core instead of asserted to it."""
+import json
+import os
+import sys
+import time
+
+WT = "/home/user/latent-space-exploration/.claude/worktrees/agent-afc2152e0feb3c19e"
+sys.path.insert(0, WT + "/src")
+os.environ.setdefault("HF_HOME", "/home/user/latent-space-exploration/cache/hf")
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("HF_HUB_DISABLE_XET", "1")
+
+import numpy as np
+
+from lsx import LM
+from lsx.core import ledger, reproduce
+
+STEP = int(os.environ.get("H16_STEP", "2"))
+LAYERS = tuple(range(0, 29, STEP))
+t0 = time.time()
+
+
+def log(msg):
+    print(f"[{time.time() - t0:7.1f}s] {msg}", flush=True)
+
+
+lm = LM.from_pretrained("Qwen/Qwen2.5-1.5B")
+log(f"model loaded, {lm.n_layers} layers, d={lm.d_model}; sweeping {LAYERS}")
+res = reproduce.h16(lm, layers=LAYERS, progress=log)
+log("computing the claim")
+claim, summary = reproduce.h16_claim(res)
+log(f"refusal: {summary['refusal']}")
+if claim is not None:
+    print(claim.render(), flush=True)
+
+out = {
+    "layers": list(LAYERS),
+    "summary": summary,
+    "claim_id": "" if claim is None else claim.id,
+    "render": "" if claim is None else claim.render(),
+    "logged": {"role_rank_all_layers": 2.21, "null_seed1": 3.53, "null_seed2": 3.49,
+               "mean_target_baseline": 3.45, "role_identity_retained": 1.37,
+               "peak_layer_as_logged": 16, "peak_value_as_logged": 1.73,
+               "curve_as_logged": {"0": 2.73, "4": 2.20, "10": 1.98, "16": 1.73, "20": 1.86,
+                                   "24": 2.39, "28": 2.73}},
+    "stack_checks": {"equivalence_min_cos": res["stack"].provenance["equivalence_min_cos"],
+                     "rule": res["stack"].provenance["equivalence_item_rule"]},
+    "provenance": {k: v for k, v in res["stack"].provenance.items() if k != "leak"},
+    "wall_seconds": round(time.time() - t0, 1),
+}
+out["ledger_refusal"] = None if claim is None else ledger.would_refuse(claim)
+out["published"] = False
+if claim is not None and out["ledger_refusal"] is None:
+    ledger.Ledger().append(
+        claim, note="h16 as the full layer curve, computed by the core (piece 4)",
+        reproduces="h16 relation selector, section 1A's restatement",
+        logged={"step4_mean_as_published": 2.21, "step2_mean_in_the_repo_json": 2.1692,
+                "peak_layer_refused": 16, "peak_value_refused": 1.73,
+                "role_identity_retained": 1.37})
+    out["published"] = True
+log(f"ledger refusal: {out['ledger_refusal']}  published: {out['published']}")
+with open(WT + "/results/repro_h16.json", "w") as f:
+    json.dump(out, f, indent=1, default=str)
+log("wrote results/repro_h16.json")

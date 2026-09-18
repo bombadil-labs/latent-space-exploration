@@ -1,0 +1,318 @@
+{
+ "table": "| target | source | logged | reproduced | tolerance | verdict | note |\n|---|---|---|---|---|---|---|\n| h8 three-factor battery, composed | h8 (re-verified h39) | 2.81/18, no-patch 9.50 | 2.806/18, no-patch 9.500 | +-0.02 (local, \u00a71A) | **reproduced** | through `composition` against its declared null of 9.50; |delta| 0.004; PUBLISHED to the ledger |\n| h8 era lens | h8 | 1.25/3 | 1.250/3 | +-0.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h8 voice lens | h8 | 1.24/3 | 1.236/3 | +-0.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h8 tense lens | h8 | 1.03/3 | 1.028/3 | +-0.02 | **REFUSED** | MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation'] |\n| h14 era shift, gain over norm-matched pass-through | h14 (withdrawn at h40) | -0.111 (model 0.889 vs pass-through 1.000) | -0.1111 (model 0.889 vs pass-through 1.000) | +-0.1128 (paraphrase-noise, measured) | **reproduced** | zero-shift error 0; random arm +0.000; PUBLISHED to the ledger |\n| h4 role lens, held-out domains | h4 | 1.69/6 (n=48), random 3.25, chance 3.5 | 1.688/6 (n=48), random 3.406, permutation 3.542, no-patch 3.500 | +-0.02 (local, \u00a71A) | **reproduced** | |delta| 0.002; the `permutation` arm h4 never had is computed here; PUBLISHED to the ledger |\n| h16 relation selector, 'peak layer 16' | h16 | 1.73/6 at layer 16 (curve mean 2.21, null 3.5) | not published | n/a -- refused before grading | **REFUSED** | SelectionOnScoringData -- the reported value was chosen along 'layer' by 'peak layer 16 (argmax over the sweep)' on the scoring data. Report the c |\n| h16 relation selector, as the full layer curve (\u00a71A's restatement) | h16 | \u00a71A says 2.21; the repo's own stage-3 JSON says 2.1692 over its 15 layers and 2.2065 over the 8 step-4 layers | 2.1692 over 15 layers, 2.2065 over the step-4 8; permutation 3.517, mean-target 3.468, random 3.479, role-identity-retained 1.345 | +-0.02 (local, \u00a71A); arm bands cluster-robust over 40 domains, not the i.i.d. +-0.0156 at n=108000 | **reproduced** | curve computed by Instrument.sweep, 15 points; worst per-layer disagreement with the logged JSON 0.0001. |delta| 0.0000 against the JSON's own step-2 mean and 0.0035 against \u00a71A's 2.21, which is the SAME CURVE averaged over step-4 layers. PUBLISHED to the ledger. |\n| h29 era shift in generation, 3x re-imposed | h29 | 0.84 era->target / 0.91 leaves e1 / 0.53 theme kept, lex 0.30, n=55/72 | 0.8364 / 0.9091 / 0.5273, lex 0.30 (n=55/72) | +-0.0182 remote (measured, piece 3); arm band +-0.1907 at n=55 | **REFUSED** | MissingArm -- top1_accuracy requires arms ['random', 'no_patch']; missing ['random', 'no_patch']; at the ledger, separately: ProvenanceIncomplete |\n| h39 Gemma clock, corrected | h39 | 0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (raw) | read back from the logged JSON: 0.500 / 0.767 / 2.501 -- NOT re-derived | n/a -- not gradable without the floor | **deferred** | `discrimination` is BUILT and calibrated (piece 4), so reason 1 of piece 3's two is closed. The grid is flagged leaky (interval recoverable 0.92 (permutation null 0.40); FLAGGED [...), so \u00a76 requires gain over the MEASURED floor, and the Gemma v2/v3 stacks are not cached (\u00a711.3: defer, do not re-extract). The logged JSON carries aggregates only -- nine per-\u0394t shared norms -- so there are no per-item values to grade either. The instrument is exercised on h38's cached per-subject values instead (see extra). |\n| h37 70B matched pair selector | h37 | era 1.50 base / 1.06 instruct @26; no-patch 2.00 | not re-derived | +-0.0182 remote | **deferred** | the Llama-3.1-70B direction stacks are not cached and \u00a711.3 says defer rather than re-extract. It is no longer blocked by the remote path: `lsx.core.remote` would now carry it (results/ndif_probe_asserted.json). |",
+ "rows": [
+  {
+   "target": "h8 three-factor battery, composed",
+   "source": "h8 (re-verified h39)",
+   "logged": "2.81/18, no-patch 9.50",
+   "reproduced": "2.806/18, no-patch 9.500",
+   "tolerance": "+-0.02 (local, \u00a71A)",
+   "verdict": "reproduced",
+   "detail": "through `composition` against its declared null of 9.50; |delta| 0.004; PUBLISHED to the ledger",
+   "claim_id": "eb9bb692bc985d8b",
+   "extra": {}
+  },
+  {
+   "target": "h8 era lens",
+   "source": "h8",
+   "logged": "1.25/3",
+   "reproduced": "1.250/3",
+   "tolerance": "+-0.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h8 voice lens",
+   "source": "h8",
+   "logged": "1.24/3",
+   "reproduced": "1.236/3",
+   "tolerance": "+-0.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h8 tense lens",
+   "source": "h8",
+   "logged": "1.03/3",
+   "reproduced": "1.028/3",
+   "tolerance": "+-0.02",
+   "verdict": "REFUSED",
+   "detail": "MissingArm: selector requires arms ['random', 'no_patch', 'permutation']; missing ['permutation']",
+   "claim_id": "",
+   "extra": {}
+  },
+  {
+   "target": "h14 era shift, gain over norm-matched pass-through",
+   "source": "h14 (withdrawn at h40)",
+   "logged": "-0.111 (model 0.889 vs pass-through 1.000)",
+   "reproduced": "-0.1111 (model 0.889 vs pass-through 1.000)",
+   "tolerance": "+-0.1128 (paraphrase-noise, measured)",
+   "verdict": "reproduced",
+   "detail": "zero-shift error 0; random arm +0.000; PUBLISHED to the ledger",
+   "claim_id": "40fdebdce44586bd",
+   "extra": {}
+  },
+  {
+   "target": "h4 role lens, held-out domains",
+   "source": "h4",
+   "logged": "1.69/6 (n=48), random 3.25, chance 3.5",
+   "reproduced": "1.688/6 (n=48), random 3.406, permutation 3.542, no-patch 3.500",
+   "tolerance": "+-0.02 (local, \u00a71A)",
+   "verdict": "reproduced",
+   "detail": "|delta| 0.002; the `permutation` arm h4 never had is computed here; PUBLISHED to the ledger",
+   "claim_id": "e327e35569f99c96",
+   "extra": {}
+  },
+  {
+   "target": "h16 relation selector, 'peak layer 16'",
+   "source": "h16",
+   "logged": "1.73/6 at layer 16 (curve mean 2.21, null 3.5)",
+   "reproduced": "not published",
+   "tolerance": "n/a -- refused before grading",
+   "verdict": "REFUSED",
+   "detail": "SelectionOnScoringData -- the reported value was chosen along 'layer' by 'peak layer 16 (argmax over the sweep)' on the scoring data. Report the c",
+   "claim_id": "",
+   "extra": {
+    "curve": {
+     "0": 2.73,
+     "4": 2.2,
+     "10": 1.98,
+     "16": 1.73,
+     "20": 1.86,
+     "24": 2.39,
+     "28": 2.73
+    }
+   }
+  },
+  {
+   "target": "h16 relation selector, as the full layer curve (\u00a71A's restatement)",
+   "source": "h16",
+   "logged": "\u00a71A says 2.21; the repo's own stage-3 JSON says 2.1692 over its 15 layers and 2.2065 over the 8 step-4 layers",
+   "reproduced": "2.1692 over 15 layers, 2.2065 over the step-4 8; permutation 3.517, mean-target 3.468, random 3.479, role-identity-retained 1.345",
+   "tolerance": "+-0.02 (local, \u00a71A); arm bands cluster-robust over 40 domains, not the i.i.d. +-0.0156 at n=108000",
+   "verdict": "reproduced",
+   "detail": "curve computed by Instrument.sweep, 15 points; worst per-layer disagreement with the logged JSON 0.0001. |delta| 0.0000 against the JSON's own step-2 mean and 0.0035 against \u00a71A's 2.21, which is the SAME CURVE averaged over step-4 layers. PUBLISHED to the ledger.",
+   "claim_id": "80ab67181ac5ef2e",
+   "extra": {
+    "step2": 2.169212962962963,
+    "step4": 2.206510416666667,
+    "logged_step2": 2.1692037037037037,
+    "logged_step4": 2.2065104166666667,
+    "worst_per_layer_delta": 0.0001388888888889106,
+    "cluster_bands": {
+     "random": 0.038579239084652044,
+     "no_patch": 0.0788739904073138,
+     "permutation": 0.07358246754972217
+    },
+    "iid_band": 0.015590239111558088
+   }
+  },
+  {
+   "target": "h29 era shift in generation, 3x re-imposed",
+   "source": "h29",
+   "logged": "0.84 era->target / 0.91 leaves e1 / 0.53 theme kept, lex 0.30, n=55/72",
+   "reproduced": "0.8364 / 0.9091 / 0.5273, lex 0.30 (n=55/72)",
+   "tolerance": "+-0.0182 remote (measured, piece 3); arm band +-0.1907 at n=55",
+   "verdict": "REFUSED",
+   "detail": "MissingArm -- top1_accuracy requires arms ['random', 'no_patch']; missing ['random', 'no_patch']; at the ledger, separately: ProvenanceIncomplete",
+   "claim_id": "",
+   "extra": {
+    "era_target": 0.8363636363636363,
+    "leaves_e1": 0.9090909090909091,
+    "theme_kept": 0.5272727272727272,
+    "lexical_floor": 0.3,
+    "n": 55,
+    "n_attempted": 72,
+    "null_era_target": 0.3333333333333333,
+    "null_leaves_e1": 0.6666666666666666,
+    "null_theme_kept": 0.3333333333333333,
+    "arm_tolerance": 0.19069251784911845,
+    "arms_present": [
+     "shift"
+    ],
+    "arms_required": [
+     "random",
+     "no_patch"
+    ]
+   }
+  },
+  {
+   "target": "h39 Gemma clock, corrected",
+   "source": "h39",
+   "logged": "0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (raw)",
+   "reproduced": "read back from the logged JSON: 0.500 / 0.767 / 2.501 -- NOT re-derived",
+   "tolerance": "n/a -- not gradable without the floor",
+   "verdict": "deferred",
+   "detail": "`discrimination` is BUILT and calibrated (piece 4), so reason 1 of piece 3's two is closed. The grid is flagged leaky (interval recoverable 0.92 (permutation null 0.40); FLAGGED [...), so \u00a76 requires gain over the MEASURED floor, and the Gemma v2/v3 stacks are not cached (\u00a711.3: defer, do not re-extract). The logged JSON carries aggregates only -- nine per-\u0394t shared norms -- so there are no per-item values to grade either. The instrument is exercised on h38's cached per-subject values instead (see extra).",
+   "claim_id": "",
+   "extra": {
+    "instrument_built": true,
+    "leak": "interval recoverable 0.92 (permutation null 0.40); FLAGGED ['interval']",
+    "logged_reread": {
+     "frac_shared": 0.499749006661459,
+     "spearman_norm_logdt": 0.7666666666666537,
+     "phrase_ratio": 2.500825781926466
+    },
+    "instrument_demo": {
+     "model": "Qwen/Qwen2.5-1.5B",
+     "source": "results/clock_gain_v1_discrim_{A,D}.json",
+     "per_layer": {
+      "0": {
+       "treatment": 0.7100667408231367,
+       "floor": 0.7060066740823135,
+       "gain": 0.004060066740823147
+      },
+      "8": {
+       "treatment": 0.922246941045606,
+       "floor": 0.4347608453837597,
+       "gain": 0.4874860956618464
+      },
+      "14": {
+       "treatment": 0.9607341490545048,
+       "floor": 0.5222469410456061,
+       "gain": 0.43848720800889873
+      },
+      "20": {
+       "treatment": 0.9769744160177973,
+       "floor": 0.5861512791991099,
+       "gain": 0.3908231368186874
+      },
+      "27": {
+       "treatment": 0.9598442714126805,
+       "floor": 0.7932703003337039,
+       "gain": 0.1665739710789766
+      }
+     },
+     "subjects": 8,
+     "declared_null": 0.5222469410456061,
+     "calibration_null": 0.0,
+     "calibration_key": "65af3fe21d5d2a87",
+     "arm_tolerance_at_8_subjects": 0.37499999999999994,
+     "refusal": "MissingArm: discrimination requires arms ['shuffled_stimulus', 'floor']; missing ['shuffled_stimulus']",
+     "treatment": 0.9607341490545048,
+     "floor_value": 0.5222469410456061,
+     "gain": 0.43848720800889873,
+     "logged": {
+      "arm_D_L14": 0.961,
+      "arm_A_L14": 0.522
+     }
+    }
+   }
+  },
+  {
+   "target": "h37 70B matched pair selector",
+   "source": "h37",
+   "logged": "era 1.50 base / 1.06 instruct @26; no-patch 2.00",
+   "reproduced": "not re-derived",
+   "tolerance": "+-0.0182 remote",
+   "verdict": "deferred",
+   "detail": "the Llama-3.1-70B direction stacks are not cached and \u00a711.3 says defer rather than re-extract. It is no longer blocked by the remote path: `lsx.core.remote` would now carry it (results/ndif_probe_asserted.json).",
+   "claim_id": "",
+   "extra": {}
+  }
+ ],
+ "summary": {
+  "h8": {
+   "composed": 2.8055555555555554,
+   "composed_no_patch": 9.5,
+   "n_variants": 18
+  },
+  "h8_lenses": {
+   "era": {
+    "value": 1.25,
+    "no_patch": 2.0,
+    "random": 2.0
+   },
+   "voice": {
+    "value": 1.2361111111111112,
+    "no_patch": 2.0,
+    "random": 2.25
+   },
+   "tense": {
+    "value": 1.0277777777777777,
+    "no_patch": 1.5,
+    "random": 1.4444444444444444
+   }
+  },
+  "h14": {
+   "paraphrase_sd": 0.3191423692521127,
+   "tolerance": 0.11283386673105501,
+   "gain": -0.1111111111111111,
+   "passthrough": 1.0,
+   "model": 0.8888888888888888,
+   "gain_rand": 0.0,
+   "zero_shift_error": 0.0
+  },
+  "h4": {
+   "role": 1.6875,
+   "random": 3.40625,
+   "no_patch": 3.5,
+   "permutation": 3.5416666666666665,
+   "n": 48
+  },
+  "h16": {
+   "curve": {
+    "0": 2.7316666666666665,
+    "2": 2.4634722222222223,
+    "4": 2.1995833333333334,
+    "6": 2.183611111111111,
+    "8": 2.1008333333333336,
+    "10": 1.9838888888888888,
+    "12": 1.9013888888888888,
+    "14": 1.8144444444444445,
+    "16": 1.7320833333333334,
+    "18": 1.7897222222222222,
+    "20": 1.8633333333333333,
+    "22": 2.1594444444444445,
+    "24": 2.3891666666666667,
+    "26": 2.491527777777778,
+    "28": 2.734027777777778
+   },
+   "treatment": 2.169212962962963,
+   "random": 3.4790092592592594,
+   "no_patch": 3.4677777777777776,
+   "permutation": 3.516842592592593,
+   "role_identity_retained": 1.3447777777777778,
+   "n": 108000,
+   "arm_tolerance": 0.015590239111558088,
+   "cluster_bands": {
+    "random": 0.038579239084652044,
+    "no_patch": 0.0788739904073138,
+    "permutation": 0.07358246754972217
+   },
+   "n_domains": 40,
+   "curve_step4_mean": 2.206510416666667,
+   "peak_layer": "16",
+   "peak_value": 1.7320833333333334,
+   "refusal": null
+  }
+ },
+ "verdict_counts": {
+  "reproduced": 4,
+  "REFUSED": 5,
+  "deferred": 2
+ },
+ "published": [
+  "eb9bb692bc985d8b",
+  "40fdebdce44586bd",
+  "e327e35569f99c96"
+ ],
+ "wall_seconds": 2097.7,
+ "h16_regrade": {
+  "step2": 2.169212962962963,
+  "step4": 2.206510416666667,
+  "logged_step2": 2.1692037037037037,
+  "logged_step4": 2.2065104166666667,
+  "worst_per_layer_delta": 0.0001388888888889106,
+  "cluster_bands": {
+   "random": 0.038579239084652044,
+   "no_patch": 0.0788739904073138,
+   "permutation": 0.07358246754972217
+  },
+  "iid_band": 0.015590239111558088
+ }
+}
