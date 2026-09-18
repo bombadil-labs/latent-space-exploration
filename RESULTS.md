@@ -2064,6 +2064,49 @@ therefore not a random subsample and the arms' n differ.** That is an open cavea
 **Still unbuilt/unfixed:** h37 not re-derived; `registry.arm_tolerance`'s independent unit;
 `crosstalk`, `depth_gain` and `generality` instruments (`generality` still has no null).
 
+## 2026-09-18 — PHASE 2 GATE: cannot be met as written, and one claim cannot be met at all
+
+Inventory in `docs/specs/phase2_v1.md`, written by hand (Fable's monthly budget is exhausted; phase 2
+contains no new measurement, so the planner rule does not bind). Grounded in three things checked
+rather than recalled: the ledger's actual rows, the registry's actual instruments, and what is
+actually cached on disk.
+
+**The eleven standing writeup claims, by verdict: 4 done, 3 derivable, 4 needing an instrument that
+does not exist, 3 needing remote re-extraction, 1 blocked, 0 must-withdraw.** Nothing in the writeup
+is unsupportable on its face. What is missing is instrumentation and provenance, not evidence.
+
+The ledger covers **h4, h8, h14, h16, h29 and h39 only**. Five of seven declared instruments are
+built; `crosstalk`, `depth_gain` and `generality` are not. Local `.npz` stacks are cached for every
+replication family; **no** Llama-70B stack is, and neither are h27's or h33's generation arms.
+
+**Claim 6 (abstraction as a quotient) is blocked, not merely expensive.** `generality` is refused for
+having *no null*, and designing that null is a new measurement — it means deciding what population a
+"general" feature is general against, and h42 already showed the companion ordering claim collapses
+once its permutation null is drawn. Phase 2's charter is "no new science", so claim 6 cannot become a
+ledger row inside phase 2 **at any budget**. Its honest outcomes are NOT-DERIVED with that reason, or
+withdrawal. It is not to be restated until it clears a floor it was never measured against.
+
+**Per `docs/PROGRAM.md`'s one rule, this is recorded rather than routed around.** The gate says
+*ledger row or withdrawn*; seven claims are neither. The three options — raise the budget, amend the
+gate to allow an explicit **NOT-DERIVED** marking with a named blocker, or cut the writeup to what
+the core can carry — are in §4 of the spec. **The recommendation is to amend the gate, and to build
+`crosstalk` alone**, because the diagonal is what "the factors are separate directions" *means* and
+h47 showed the null's cross-talk is partly diagonal too — the load-bearing claim is also the one most
+at risk of being geometry. **That decision is the user's and the program waits on it.**
+
+**What does not wait, because it is valid under all three options:** the derivable batch (spec §5) —
+the two stage-41 skip-path rows via `readout_shift` + `PassthroughArm`, and h8's battery re-fit on
+the four cached replication stacks and the GPT-authored grid, each with its **measured lexical
+floor** rather than chance. Expected: 3 claims to DONE, ~7 new rows. Running now.
+
+**Two hazards named while they are still cheap.** (1) `registry.arm_tolerance` computes a 3σ i.i.d.
+band from the item count and is wrong for any arm whose randomness is a *draw* — it refuses clean
+arms, has bitten two targets, and the derivable batch adds ~7 rows with exactly that structure. It
+is being fixed as part of this batch: an `Arm` declares its independent unit. (2) **The cached
+`.npz` stacks are gitignored and will not survive this container.** Every derivable row depends on
+them; if they are lost the batch becomes hours of local re-extraction. That is why the batch runs
+before the gate decision rather than after it.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
