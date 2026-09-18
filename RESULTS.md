@@ -2212,6 +2212,52 @@ phase-2 budget for one agent**, and the overrun bought the guard in (1) rather t
 Not tested: anything remote, anything needing an unbuilt instrument, and — the point of the hour —
 anything the ledger would accept.
 
+## 2026-09-18 (hour 49) — The band fix's own permissive direction, closed the hour after it opened (agent, open problem 4j)
+
+Note: `results/notes/phase2_unit_band.md`. **179 tests pass** (175 + 4). Rediscovery harness: **14
+cases, 11 caught pure, 3 needing a model fixture.**
+
+h48 replaced a band that was wrong by *refusing clean arms* with one that could be wrong by
+*admitting dirty ones*: `cluster_evidence` computed a design effect `deff` and nothing used it, so an
+arm that passed the clustering p-gate was banded flatly on `k`, the cluster count, no matter how
+weak the clustering was. The gate decided **whether** an arm could widen its band and never **how
+much**. `n_independent` is now `clamp(round(n / deff), k, n)` — measured, not asserted.
+
+| case | n | k | measured ICC | old band (flat on k) | new band (on n/deff) | outcome |
+|---|---|---|---|---|---|---|
+| h8 permutation arm | 72 | 4 | ≈ 1 | 4 units, ±1.2247 | **4 units, ±1.2247** | **unchanged, bit-identical** |
+| planted partial clustering | 72 | 6 | +0.194 (p = 0.007) | 6 units, ±1.0000 — **admits** an arm 0.70 off its null | 23 units, ±0.5108 | **refused (`ArmOffNull`)** |
+
+The h8 case is unchanged by construction, not by luck: `mbar = n/k` always, so at ICC = 1,
+`n/deff = n/mbar = k` exactly for any cluster sizing. That is pinned in a test. **Rediscovery case
+13** plants the bug this fix closes — an arm off its null whose *partial* clustering passes the
+p-gate and which the k-flat band would have waved through — with a positive control at the same
+clustering that still publishes.
+
+**The degenerate branch, decided rather than defaulted.** The permutation p-gate and the
+method-of-moments ICC are different statistics and can disagree on a noisy draw: real clustering,
+ICC ≤ 0, `deff = 1`, `n_eff = n`. That yields **no widening at all** — back to the tight per-item
+band. Deliberate: between refusing a clean arm (safe, and fixed by more draws, which is what h47
+did) and silently admitting a dirty one inside an unearned band, the fix fails toward the first.
+
+**The bug the agent hit is the same shape as the six before it.** `Instrument.claim` attaches the
+measured tolerance with `dataclasses.replace(arm, tolerance=...)`, which rebuilds the `Arm` carrying
+the *already-resolved* `n_independent` and re-runs the resolver — which then refused, with "the unit
+cannot be two numbers", an arm that had never lied. Case 12's honest positive control was what
+surfaced it. **The guard's first act was to refuse a clean arm: exactly the failure it was written to
+stop, one level up.** Fixed by making re-resolution a no-op on an already-resolved arm.
+
+**What I found reading the diff.** That no-op keyed on the mere *presence* of recorded evidence, which
+would let `replace(arm, scores=<other>)` inherit a band another arm's clustering earned — the guard
+whose entire purpose is to be unbypassable, bypassable. Not reachable today (the core's only
+`replace` on an `Arm` touches `tolerance`), so it is closed while still theoretical rather than after
+it costs a retraction: the short-circuit now keys on a digest of the exact scores the clustering was
+measured on, a mismatch makes the arm re-earn its band, and a test pins it.
+
+Cost: ≈143k agent tokens, 11 min, local CPU. **Open problem 4j is closed. 4i and 4k stand**, and the
+phase-2 gate decision is still outstanding. Not tested: anything remote; no row in the repo yet
+declares an independent unit, so both bands remain exercised only by tests and planted cases.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
@@ -2235,7 +2281,9 @@ anything the ledger would accept.
    inside their bands, sign test p ≈ 3e-8). The uncentered cosine ranking is partly a norm ranking.
    Not tuned away — centering would make the floor and the treatment different procedures — and at
    ~60–100 draws it would begin refusing rows. A defect of this readout's null, open.
-4j. **`checks.cluster_evidence` computes a design effect that nothing uses** (h48). The band is taken
+4j. ~~**`checks.cluster_evidence` computes a design effect that nothing uses**~~ (h48) closed at h49:
+   the band is now `clamp(round(n/deff), k, n)`, h8's case is unchanged, and rediscovery case 13
+   plants the arm the old k-flat band admitted. Original text: The band is taken
    on the cluster count, so the guard decides *whether* an arm may widen its band but never *how
    much*; where clustering is partial the honest effective n is `n/deff` ≫ k, and banding on k is
    over-wide — the permissive direction. Latent, not active: no row declares a reduced unit yet.
