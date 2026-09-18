@@ -195,6 +195,10 @@ class PassthroughArm(Arm):
     computed: bool = True
     zero_shift_error: float = 0.0
     norm_matched: bool = False
+    # False only for `from_recorded_offline`: the arithmetic is §2a's, and it ran in ANOTHER
+    # process. Recorded so that no reader of a row has to guess which of the two this is.
+    recomputed: bool = True
+    source: str = ""
 
     @staticmethod
     def _shifted(base: np.ndarray, shift: np.ndarray, target_norms: np.ndarray | None
@@ -233,7 +237,53 @@ class PassthroughArm(Arm):
         scores = np.asarray(readout(cls._shifted(base, shift, match_norms)), dtype=np.float64)
         return cls(scores=scores, expected_null=expected_null, tolerance=tolerance,
                    justification=justification, zero_shift_error=err,
-                   norm_matched=match_norms is not None)
+                   norm_matched=match_norms is not None, source="computed in this process")
+
+    @classmethod
+    def from_recorded_offline(cls, *, scores, expected_null: float, justification: str,
+                              identity_error: float | None, source: str,
+                              identity_tol: float = 1e-4, tolerance: float | None = None,
+                              n_independent: int | None = None, unit: str = "",
+                              clusters=None, norm_matched: bool = False) -> "PassthroughArm":
+        """§2a's arm as an EARLIER process computed it, admitted only against that run's own
+        offline-identity gate.
+
+        Phase 2 needs this and it is the weakest thing phase 2 ships, so it says so in its own
+        constructor. h41's pass-through (`F_par`) is exactly §2a's arithmetic -- the observed
+        displacement projected on the direction, added to the base pre-norm residual, read through
+        the same final-norm-and-unembedding code as the treatment, with no forward pass -- but the
+        residuals it was computed from were never cached, and re-running the forwards that produce
+        them is ~2.7 h of local CPU. What IS cached is the per-candidate readouts and, per case,
+        the run's own identity check: `F_delta`, the same offline path fed the FULL observed
+        displacement, must reproduce the treatment's own patched forward. That is the strongest
+        available analogue of `compute`'s zero-shift assertion -- it tests the same property, that
+        the arm is scored by the same readout code as the treatment, on the same base residual --
+        and it is a *weaker* check because it was run elsewhere.
+
+        So: this constructor REQUIRES that identity error, refuses without it, and marks the arm
+        `recomputed=False` for every reader downstream. It is not a way to hand in a number: a
+        number with no identity gate behind it is still `PassthroughNotReproduced`.
+        """
+        if identity_error is None or not np.isfinite(identity_error):
+            raise PassthroughNotReproduced(
+                "a recorded pass-through arm needs the identity error of the run that computed "
+                "it (the offline readout fed the full observed displacement, against the "
+                "treatment's own forward). Without it this is a hand-declared number, which is "
+                "the h14 failure with a label on it (spec §2a).")
+        err = float(identity_error)
+        if err > float(identity_tol):
+            raise PassthroughNotReproduced(
+                f"the recorded offline readout does not reproduce its own treatment: max |error| "
+                f"{err:.3g} against a tolerance of {identity_tol:.3g}. The ARM is wrong, not the "
+                "claim.")
+        if not source:
+            raise PassthroughNotReproduced(
+                "a recorded pass-through arm must name where the arithmetic ran; an arm whose "
+                "provenance is 'somewhere' cannot be checked by anyone later.")
+        return cls(scores=np.asarray(scores, dtype=np.float64), expected_null=expected_null,
+                   tolerance=tolerance, justification=justification, zero_shift_error=err,
+                   norm_matched=norm_matched, recomputed=False, source=source,
+                   n_independent=n_independent, unit=unit, clusters=clusters)
 
 
 # --------------------------------------------------------------------------------------------
@@ -279,8 +329,11 @@ class Instrument:
     def invariances(self) -> tuple[str, ...]:
         return self.spec.invariances
 
-    def tolerance(self, n: int) -> float:
-        return self.spec.arm_tolerance(n, self.config)
+    def tolerance(self, n: int, n_independent: int | None = None) -> float:
+        """The 3-sigma band, over INDEPENDENT UNITS. `n_independent=None` means one item is one
+        unit, which is what `resolved_null_tol` wants (a synthetic calibration fixture really does
+        draw its items independently) and what every caller before phase 2 meant."""
+        return self.spec.arm_tolerance(n, self.config, n_independent=n_independent)
 
     @property
     def resolved_null_tol(self) -> float:
@@ -382,7 +435,7 @@ class Instrument:
                 if a.expected_null is None:
                     raise ValueError("unreachable: Arm refuses a missing null at construction")
                 built[arm_name] = a if a.tolerance is not None else replace(
-                    a, tolerance=self.tolerance(a.n))
+                    a, tolerance=self.tolerance(a.n, a.effective_n))
             else:
                 scores = np.atleast_1d(np.asarray(a, dtype=np.float64))
                 built[arm_name] = Arm(scores, expected_null=self.declared_null,

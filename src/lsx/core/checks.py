@@ -62,6 +62,22 @@ class ArmOffNull(CoreError):
     """An arm is sitting away from the value it declared it should sit at. (h34, spec §4)"""
 
 
+class ArmUnitNotInDesign(CoreError):
+    """An arm declares fewer independent units than it has items, and the declaration is not
+    backed by the design. (phase 2, from h8's permutation arm and h16's pooled sweep)
+
+    `n_independent` exists because `registry.arm_tolerance` computes a 3-sigma i.i.d. band from
+    the ITEM count, which is wrong whenever an arm's randomness is a *draw* rather than an item:
+    h8's permutation arm has 72 "items" that are four scenes re-ranked eighteen ways, so `n`
+    counts repetitions and not evidence, and the band refuses clean arms. Declaring the unit
+    fixes that -- and the same declaration is the obvious way to widen a band until a row passes,
+    which spec §7 forbids outright. So a reduction must be READ OFF THE DESIGN and shown: the arm
+    hands in the per-item cluster labels, and the clustering it claims must be visible in the
+    arm's own scores against its own permutation null. A declaration with no design behind it is
+    refused here, as loudly as a wrong number would be.
+    """
+
+
 class MissingFloor(CoreError):
     """A Claim has no floor, or only one of the two required floors. (h28, spec §4)"""
 
@@ -291,6 +307,56 @@ def midrank(scores: Sequence[float], target: int) -> float:
         ranks[order[i:j + 1]] = (i + j) / 2 + 1
         i = j + 1
     return float(ranks[target])
+
+
+def cluster_evidence(values: Sequence[float], clusters: Sequence, *, draws: int = 999,
+                     seed: int = 0) -> dict:
+    """Is the declared clustering VISIBLE in these scores? Measured against its own permutation
+    null, never against an F table.
+
+    A declared independent unit is a claim about the design ("these 72 rows are four draws"), and
+    the only way it can be checked from the outside is that items inside a cluster agree more than
+    items across clusters do. The statistic is the ordinary one-way between-cluster mean square
+    ratio; the null is the same statistic with the cluster LABELS shuffled among the items, which
+    is the project's own rule (h32: estimate the instrument's floor before believing its reading)
+    applied to a design declaration.
+
+    Returns `p`, the fraction of shuffles at or above the observed ratio (so small `p` means the
+    clustering is real), the observed design effect `deff = 1 + (mbar - 1) * icc`, and the pieces
+    it is built from. A constant arm -- every score identical -- has NO evidence of clustering by
+    construction, and this returns `p = 1.0` for it rather than a convenient nan: a constant arm
+    sits exactly where it sits and a wider band around it can only hide an arm that is off its
+    null.
+    """
+    v = np.asarray(values, dtype=np.float64)
+    lab = np.asarray(list(clusters), dtype=object)
+    n = v.size
+    groups = sorted({str(x) for x in lab}, key=str)
+    k = len(groups)
+    idx = {g: np.array([i for i in range(n) if str(lab[i]) == g]) for g in groups}
+
+    def ratio(x: np.ndarray) -> float:
+        grand = float(x.mean())
+        ss_b = float(sum(len(ix) * (x[ix].mean() - grand) ** 2 for ix in idx.values()))
+        ss_w = float(sum(((x[ix] - x[ix].mean()) ** 2).sum() for ix in idx.values()))
+        if ss_b + ss_w <= 0:
+            return 0.0
+        return ss_b / (ss_b + ss_w)        # the between-cluster share of the total variance
+
+    obs = ratio(v)
+    rng = np.random.default_rng(seed)
+    null = np.array([ratio(v[rng.permutation(n)]) for _ in range(int(draws))])
+    p = float((1 + int(np.sum(null >= obs - 1e-15))) / (draws + 1)) if v.std() > 0 else 1.0
+
+    sizes = np.array([len(ix) for ix in idx.values()], dtype=np.float64)
+    mbar = float(sizes.mean())
+    ms_b = (obs * float(((v - v.mean()) ** 2).sum())) / max(k - 1, 1)
+    ms_w = ((1 - obs) * float(((v - v.mean()) ** 2).sum())) / max(n - k, 1)
+    icc = 0.0 if (ms_b + (mbar - 1) * ms_w) <= 0 else (ms_b - ms_w) / (ms_b + (mbar - 1) * ms_w)
+    return {"n": int(n), "k": int(k), "between_share": float(obs), "p": float(p),
+            "null_mean_share": float(null.mean()), "icc": float(icc),
+            "deff": float(1.0 + (mbar - 1) * max(icc, 0.0)), "mean_cluster_size": mbar,
+            "draws": int(draws)}
 
 
 # --------------------------------------------------------------------------------------------

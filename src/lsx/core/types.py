@@ -17,7 +17,8 @@ from typing import Callable, Sequence
 import numpy as np
 
 from . import registry
-from .checks import (ArmOffNull, CalibrationFailed, CalibrationReport, CalibrationStale,
+from .checks import (ArmOffNull, ArmUnitNotInDesign, CalibrationFailed, CalibrationReport,
+                     CalibrationStale, cluster_evidence,
                      EffectSizeUnverified, HeldOutNotDeclared, HeldOutViolated, MissingArm,
                      MissingCalibration, MissingFloor, NullDeclaredLate, PassthroughNotComputed,
                      RawScoreOnLeakyGrid, SelectionOnScoringData, UnassertedForward)
@@ -418,13 +419,78 @@ class Arm:
     expected_null: float | None = None
     tolerance: float | None = None     # None -> the instrument's MEASURED tolerance at this arm's n
     justification: str = ""
+    # --- the independent unit (phase 2) ---------------------------------------------------
+    # `n` counts rows; `n_independent` counts EVIDENCE. They differ whenever an arm's randomness
+    # is a draw rather than an item -- h8's permutation arm is four scenes re-ranked eighteen ways
+    # and h16's pooled sweep is one curve read at fifteen layers -- and the registry's i.i.d. band
+    # at `n` then refuses clean arms. Default None means "one item is one unit", which is the old
+    # behaviour exactly.
+    #
+    # It is also the obvious way to widen a band until a row publishes, which spec §7 forbids, so
+    # a reduction must come with the design it was read off: `clusters`, one label per item, and
+    # the clustering has to be visible in the arm's own scores (`checks.cluster_evidence`).
+    n_independent: int | None = None
+    unit: str = ""                     # what ONE independent unit is, in the design's words
+    clusters: tuple | None = None      # per-item label of the independent unit
     seq: int = field(default_factory=lambda: next(_SEQ))
+    unit_evidence: dict | None = field(default=None, repr=False)
 
     def __post_init__(self):
         self.scores = np.atleast_1d(np.asarray(self.scores, dtype=np.float64))
         if self.expected_null is None:
             raise ArmOffNull("every arm must declare where it should sit (expected_null); "
                              "an arm with no declared null cannot be off it")
+        self._resolve_unit()
+
+    def _resolve_unit(self) -> None:
+        n = self.n
+        if self.clusters is not None:
+            self.clusters = tuple(self.clusters)
+            if len(self.clusters) != n:
+                raise ArmUnitNotInDesign(
+                    f"the arm declares {len(self.clusters)} cluster labels for {n} scores; the "
+                    "labels are per ITEM, so a reader can check the declaration against the data")
+            k = len({str(c) for c in self.clusters})
+            if self.n_independent is not None and int(self.n_independent) != k:
+                raise ArmUnitNotInDesign(
+                    f"the arm declares n_independent={self.n_independent} but hands in "
+                    f"{k} distinct cluster labels. The unit is read off the design; it cannot be "
+                    "two numbers.")
+            self.n_independent = k
+        if self.n_independent is None:
+            return
+        self.n_independent = int(self.n_independent)
+        if not 1 <= self.n_independent <= n:
+            raise ArmUnitNotInDesign(
+                f"n_independent={self.n_independent} is not between 1 and this arm's {n} items; "
+                "an arm cannot carry more evidence than it has rows")
+        if self.n_independent == n:
+            return
+        # --- a WIDER band than the item count gives. It has to be earned. -------------------
+        if not self.unit:
+            raise ArmUnitNotInDesign(
+                f"the arm bands on {self.n_independent} independent units instead of its {n} "
+                "items, which WIDENS its tolerance, and says nothing about what a unit is. Name "
+                "the unit (unit='one permutation draw, shared by all items of a scene').")
+        if self.clusters is None:
+            raise ArmUnitNotInDesign(
+                f"the arm bands on {self.n_independent} independent units ({self.unit!r}) instead "
+                f"of its {n} items and hands in no cluster labels, so the declaration cannot be "
+                "checked against anything. A wider band is a claim about the DESIGN: pass "
+                "clusters=[unit label per item] and the core will test it (spec §7 -- when h47's "
+                "arm read off its null the fix was more draws, not a wider band).")
+        ev = cluster_evidence(self.scores, self.clusters)
+        self.unit_evidence = ev
+        if ev["p"] > 0.05:
+            raise ArmUnitNotInDesign(
+                f"the arm declares {self.n_independent} independent units ({self.unit!r}) over "
+                f"{n} items, but the clustering is not in the scores: the declared units hold "
+                f"{ev['between_share']:.3f} of the variance where shuffled labels hold "
+                f"{ev['null_mean_share']:.3f} on average (permutation p = {ev['p']:.3f} over "
+                f"{ev['draws']} draws, ICC {ev['icc']:+.3f}). Items inside a declared unit do not "
+                "agree more than items across units do, so the unit is not in the design and the "
+                "wider band it buys is not earned. This is the widening spec §7 forbids, and it "
+                "is refused with the same numbers a wrong value would be.")
 
     @property
     def value(self) -> float:
@@ -433,6 +499,11 @@ class Arm:
     @property
     def n(self) -> int:
         return int(self.scores.size)
+
+    @property
+    def effective_n(self) -> int:
+        """The count the tolerance bands on: independent units when declared, items otherwise."""
+        return int(self.n_independent) if self.n_independent else self.n
 
     @property
     def resolved_tolerance(self) -> float:
@@ -603,7 +674,17 @@ class Claim:
         # --- arm tolerances: MEASURED, per instrument and per arm size ----------------------
         for name, a in self.arms.items():
             if a.tolerance is None:
-                a.tolerance = spec.arm_tolerance(a.n, self.config)
+                a.tolerance = spec.arm_tolerance(a.n, self.config,
+                                                 n_independent=a.effective_n)
+                if a.effective_n < a.n:
+                    self.notes.append(
+                        f"arm {name!r} bands on {a.effective_n} independent units ({a.unit}) "
+                        f"rather than its {a.n} items; the clustering is measured, not asserted "
+                        f"(between-unit share of variance "
+                        f"{(a.unit_evidence or {}).get('between_share', float('nan')):.3f} vs "
+                        f"{(a.unit_evidence or {}).get('null_mean_share', float('nan')):.3f} "
+                        f"under shuffled labels, p = "
+                        f"{(a.unit_evidence or {}).get('p', float('nan')):.3f})")
                 if a.n == 1:
                     self.notes.append(
                         f"arm {name!r} was handed in as a single pooled number, so its tolerance is "
@@ -721,10 +802,15 @@ class Claim:
         for k, a in sorted(self.arms.items()):
             line = (f"  arm {k:<18} {a.value:.4f}   declared null {a.expected_null:.4f}"
                     f"  +-{a.resolved_tolerance:.4f}")
+            if a.effective_n < a.n:
+                line += f"  [banded on {a.effective_n} units of {a.n} items: {a.unit}]"
             if a.off_null:
                 line += "  OFF NULL"
             if getattr(a, "computed", False):
-                line += ("  [COMPUTED offline arithmetic, zero-shift error "
+                where = ("COMPUTED" if getattr(a, "recomputed", True) else
+                         "RECORDED (offline arithmetic run elsewhere: "
+                         f"{getattr(a, 'source', '?')})")
+                line += (f"  [{where} offline arithmetic, identity error "
                          f"{getattr(a, 'zero_shift_error', 0.0):.1g}"
                          f"{', norm-matched' if getattr(a, 'norm_matched', False) else ''}]")
             lines.append(line)
@@ -751,7 +837,11 @@ class Claim:
                 "report_as": self.report_as,
                 "arms": {k: {"value": a.value, "expected_null": a.expected_null,
                              "tolerance": a.resolved_tolerance, "off_null": a.off_null,
-                             "computed": bool(getattr(a, "computed", False))}
+                             "n": a.n, "n_independent": a.effective_n, "unit": a.unit,
+                             "unit_evidence": a.unit_evidence,
+                             "computed": bool(getattr(a, "computed", False)),
+                             "recomputed_here": bool(getattr(a, "recomputed", True)),
+                             "offline_source": getattr(a, "source", "")}
                          for k, a in self.arms.items()},
                 "semantic_null": (None if self.semantic_null is None else
                                   {"value": self.semantic_null.value,

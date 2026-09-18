@@ -691,6 +691,78 @@ def case_11_swept_axis_with_no_curve() -> Verdict:
                    _named(told), f"rule={story.rule!r}", ctl)
 
 
+def case_12_band_widened_without_a_design_reason() -> Verdict:
+    """Phase 2's own bug, planted before its fix was trusted.
+
+    `Arm.n_independent` exists because `registry.arm_tolerance` bands on the item count and an
+    arm's randomness is sometimes a draw rather than an item (h47: 72 rows that are 4 scenes x 18
+    re-rankings). The fix hands the caller a dial that makes any arm's tolerance as wide as they
+    like, and spec §7's rule is explicit -- when h47's arm read off its null the fix was more
+    draws, not a wider band. So this case feeds the core an arm that is genuinely off its null and
+    a declaration that would let it pass, and records what fires.
+
+    Three configurations, one core entry point (`Instrument.claim`) and no flag saying what to
+    look for:
+
+      * an arm 0.45 off its null, banded on its items -> must be refused (`ArmOffNull`);
+      * the SAME arm declaring 6 independent units, with cluster labels that are noise -> the
+        widened band would admit it, and the core must refuse the DECLARATION;
+      * an arm with the same reduction whose clustering is real (a per-cluster offset, which is
+        what a shared permutation draw does to the items that share it) -> must publish, or the
+        check is just a ban on the feature.
+    """
+    from . import checks, instruments
+    from .types import Arm, Floor, Measured, Selection
+
+    inst = instruments.build("selector", n=200, d=32, n_candidates=3)
+    rng = np.random.default_rng(7)
+    n, k = 72, 6
+    lab = [f"draw{i % k}" for i in range(n)]
+
+    def claim_with(perm: Arm):
+        treat = np.clip(np.round(rng.normal(1.3, 0.6, size=n)), 1, 3)
+        return inst.claim(
+            treatment=Measured(treat, label="harness lens"),
+            arms={"random": np.full(n, 2.0), "no_patch": np.full(n, 2.0), "permutation": perm},
+            floor=Floor(stimulus=2.0, estimator=2.0),
+            selection=Selection(axis=None, rule="pre-registered layer 14; no sweep"),
+            provenance={"grid_hash": "harness_v1"}, stage="harness")
+
+    # an arm that really is off its null: 2.45 against 2.00, band +-0.289 at n=72
+    off = rng.normal(0.0, 0.35, size=n)
+    off = 2.45 + (off - off.mean())
+    tight = _refusal(lambda: claim_with(Arm(off, expected_null=2.0)))
+
+    # the same numbers, relabelled into six "draws" that are not in the data
+    widened = _refusal(lambda: claim_with(Arm(
+        off, expected_null=2.0, n_independent=k, clusters=tuple(lab),
+        unit="one permutation draw, shared by the twelve items fitted from it")))
+
+    # the reduction earned: a real per-cluster offset, and an arm ON its null
+    base = rng.normal(0.0, 0.25, size=n)
+    offsets = rng.normal(0.0, 0.45, size=k)
+    real = 2.0 + (base - base.mean()) + np.array([offsets[i % k] for i in range(n)])
+    honest = _refusal(lambda: claim_with(Arm(
+        real, expected_null=2.0, n_independent=k, clusters=tuple(lab),
+        unit="one permutation draw, shared by the twelve items fitted from it")))
+
+    caught = (isinstance(tight, checks.ArmOffNull)
+              and isinstance(widened, checks.ArmUnitNotInDesign))
+    detail = (f"arm at {off.mean():.3f} against a declared 2.000: banded on 72 items -> "
+              f"{_named(tight)}; the same arm banded on 6 declared 'draws' -> {_named(widened)}")
+    ctl = ("an arm whose declared units carry a real between-unit offset publishes"
+           if honest is None else f"FAILED: {_named(honest)}")
+    if caught:
+        return Verdict(12, "an arm band widened by a declared unit the design does not have",
+                       CAUGHT,
+                       "Arm -> ArmUnitNotInDesign (the declared clustering is tested against its "
+                       "own permutation null before it is allowed to widen anything); the "
+                       "un-widened arm is refused by ArmOffNull",
+                       detail, ctl)
+    return Verdict(12, "an arm band widened by a declared unit the design does not have",
+                   NOT_CAUGHT, _named(widened), detail, ctl)
+
+
 def _tmp_ledger():
     """A throwaway ledger file. The harness must never touch `results/ledger.jsonl`: these are
     demonstrations that a mechanism fires, not results (the same line piece 3 drew for its
@@ -709,7 +781,8 @@ PURE_CASES = {3: case_3_rank1_ties_no_no_patch, 4: case_4_best_layer_on_scoring_
               7: case_7_leaky_grid_raw_score, 8: case_8_readout_after_patch_no_passthrough,
               9: case_9_hand_declared_calibration_published,
               10: case_10_provenance_not_from_a_stack,
-              11: case_11_swept_axis_with_no_curve}
+              11: case_11_swept_axis_with_no_curve,
+              12: case_12_band_widened_without_a_design_reason}
 
 
 def run_all(lm=None) -> list[Verdict]:

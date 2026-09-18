@@ -277,7 +277,8 @@ def _bag(text: str) -> dict:
     return {w: 1.0 for w in set(re.findall(r"[a-z']+", text.lower()))}
 
 
-def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None = None) -> dict:
+def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None = None,
+                     gridspec: dict | None = None) -> dict:
     """What the WORDS give away, on h8's own candidates: a bag-of-tokens predictor run through the
     identical ranking, leave-one-scene-out. No model, no activations.
 
@@ -305,11 +306,20 @@ def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None 
     reads too low is the most dangerous object in this file, because every gain is computed against
     it. Measured: 10.24/18 against chance 9.50.
     """
-    path = path or prompt("narrative_factors_v2.json")
-    g = json.loads(path.read_text())
-    F = g["factors"]
+    # PHASE 2: `gridspec` is the same three fields read off a grid file that does not spell them
+    # the same way (`narrative_factors_v1` has 'eras'/'voices' and no 'factors' key, and the theme
+    # grids have two factors, not three). Nothing about the predictor changes -- it is the same
+    # function of {factors, scenes, spans} -- and with `gridspec=None` this is byte-for-byte the
+    # path piece 5 measured h8's floor on. The floor a replication is graded against has to be
+    # measured on that replication's OWN grid; borrowing h8's would be the leak report of one grid
+    # standing in for another's.
+    if gridspec is None:
+        path = path or prompt("narrative_factors_v2.json")
+        g = json.loads(path.read_text())
+        F, S, spans = g["factors"], g["scenes"], g["spans"]
+    else:
+        F, S, spans = gridspec["factors"], gridspec["scenes"], gridspec["spans"]
     names = list(F)
-    S, spans = g["scenes"], g["spans"]
     combos = list(itertools.product(*[F[n] for n in names]))
     vocab = sorted({w for span in spans.values() for w in _bag(span)})
     col = {w: i for i, w in enumerate(vocab)}
@@ -324,7 +334,12 @@ def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None 
     from .checks import midrank
 
     out = {"composed": [], "B": {n: [] for n in names}, "n_variants": len(combos),
-           "permuted": permute_seed is not None}
+           "permuted": permute_seed is not None,
+           # PHASE 2: which held-out scene each item came from, appended in lockstep with the
+           # ranks. The floor's per-item ranks are PAIRED with the treatment's -- both loops are
+           # `for scene: for combo:` -- and a paired gain is a much stronger statement than a
+           # difference of two means, but only if the pairing is checked rather than assumed.
+           "scene": []}
     rng = None if permute_seed is None else np.random.default_rng(permute_seed)
     for s in S:
         train = [x for x in S if x != s]
@@ -345,6 +360,7 @@ def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None 
 
         for c in combos:
             d = sum(D[n][c[i]] for i, n in enumerate(names))
+            out["scene"].append(s)
             out["composed"].append(midrank(cos_scores(d, combos), combos.index(c)))
             for i, n in enumerate(names):
                 sub = [cc for cc in combos

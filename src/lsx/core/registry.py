@@ -81,17 +81,34 @@ class InstrumentSpec:
         fn = self.calibration_null or self.null
         return float(fn(config or {}))
 
-    def arm_tolerance(self, n: int, config: dict | None = None, z: float = Z_ARM) -> float:
-        """z * the standard error of an n-item arm under this instrument's own null.
+    def arm_tolerance(self, n: int, config: dict | None = None, z: float = Z_ARM,
+                      n_independent: int | None = None) -> float:
+        """z * the standard error of an arm under this instrument's own null, over the arm's
+        INDEPENDENT UNITS -- which default to its items and are not always its items.
 
         This is the measurement piece 1 asked for. It is per-instrument *and* per-arm-size: a
         6-candidate selector arm over 40 items has a null standard error of 0.27, so piece 1's flat
         0.15 would have raised `ArmOffNull` on roughly one clean arm in three; the same arm over
         400 items has 0.085, where 0.15 would have let a real 0.14 drift through in silence. Both
         directions of that error are failures of the same kind.
+
+        **Phase 2's correction, and the third failure of the same kind.** Dividing by the ITEM
+        count assumes the items are independent draws from the null, and for any arm whose
+        randomness is a draw rather than an item they are not: h8's permutation arm has 72 items
+        that are four scenes re-ranked eighteen ways, and h16's pooled sweep is one curve read at
+        fifteen layers. `n` counts repetitions, not evidence, and the band comes out too TIGHT --
+        so the failure is a refusal of a clean arm, which is the dangerous direction: two targets
+        were bitten (core_p5 §4, core_p4 on h16) and both were caught by hand. The arm now declares
+        its unit (`types.Arm.n_independent`) and this bands on that.
+
+        What stops the declaration from becoming a way to widen a band until a row publishes is
+        NOT here -- a number passed in is a number -- it is at `Arm`, which requires the unit to be
+        named and the per-item cluster labels handed in, and refuses a reduction whose clustering
+        is not visible in the arm's own scores (`checks.ArmUnitNotInDesign`).
         """
         sd = float(self.null_item_sd(config or {}))
-        return z * sd / math.sqrt(max(int(n), 1))
+        units = n if n_independent is None else int(n_independent)
+        return z * sd / math.sqrt(max(int(units), 1))
 
 
 def _mid(config: dict, key: str, default: int) -> float:
@@ -311,8 +328,9 @@ def required_arms(instrument: str) -> tuple[str, ...]:
     return spec(instrument).required_arms
 
 
-def arm_tolerance(instrument: str, n: int, config: dict | None = None) -> float:
-    return spec(instrument).arm_tolerance(n, config)
+def arm_tolerance(instrument: str, n: int, config: dict | None = None,
+                  n_independent: int | None = None) -> float:
+    return spec(instrument).arm_tolerance(n, config, n_independent=n_independent)
 
 
 def table() -> str:

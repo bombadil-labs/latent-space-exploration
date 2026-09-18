@@ -1,0 +1,90 @@
+{
+ "role": {
+  "which": "role",
+  "n_cases": 48,
+  "n_units": 8,
+  "treatment_margin": 1.8565810362497965,
+  "passthrough": 0.019920539855957035,
+  "gain": 1.8366604963938393,
+  "lb90_cluster": 1.5650129000345867,
+  "lb90_item": 1.562979186375936,
+  "sign_fraction": 0.9166666666666666,
+  "random": 0.26695380210876457,
+  "no_patch": 0.0,
+  "readout_sd": 0.8143232663614626,
+  "identity_error": 3.4332275390625e-05,
+  "recompute_vs_logged_max_abs": {
+   "A": 0.0,
+   "F_par": 0.0,
+   "R0": 0.0,
+   "N": 0.0
+  },
+  "ranks": {
+   "A": 1.6875,
+   "F_par": 3.2291666666666665,
+   "R0": 3.1041666666666665,
+   "N": 3.5
+  },
+  "arm_band": {
+   "passthrough": 0.3526123177808743,
+   "random": 0.3526123177808743,
+   "no_patch": 0.3526123177808743
+  },
+  "source": "selector_direct_path_role.json",
+  "claim_id": "7ef307b304d47d09",
+  "render": "readout_shift [7ef307b304d47d09] h41 role lens @L20: gain over the skip path\n  gain over stimulus floor = 1.8367  (raw 1.8367, n=48)\n  arm no_patch           0.0000   declared null 0.0000  +-0.3526\n  arm passthrough        0.0199   declared null 0.0199  +-0.3526  [RECORDED (offline arithmetic run elsewhere: scripts/selector_direct_path.py -> results/selector_direct_path_role.json) offline arithmetic, identity error 3e-05]\n  arm random             0.2670   declared null 0.0000  +-0.3526\n  floor              stimulus 0.0000 / estimator 0.0000\n  effect             1.8367  n=48  z=11.26\n  selection          axis=None rule='pre-registered patch layer 20, readout at the unembedding; no sweep' held_out=False executed=False\n  calibration        readout_shift [7b3b209a4e66c18d] 6 tests PASS: noise -0.0000+-0.0000 vs null 0.0; sensitivity [0.2519, 0.5039, 1.0077, 2.0154]; self-floor 0.0000; invariance scale d=0, rotation d=0; known-zero 0\n  grid leak          domain recoverable 1.00 (permutation null 0.06); rot recoverable 0.00 (permutation null 0.10); domain~length position r=+0.29; domain~start position r=+0.02; rot~length position r=+0.00; rot~start position r=+0.00; nothing flagged",
+  "notes": [
+   "pass-through arm: declared unit 'one held-out domain: the six role cases inside a domain share one leave-one-domain-out fit, one prompt and one candidate set' REFUSED, banded on all 48 items (the tighter band): the arm declares 8 independent units ('one held-out domain: the six role cases inside a domain share one leave-one-domain-out fit, one prompt and one candidate ",
+   "random arm: declared unit 'one held-out domain: the six role cases inside a domain share one leave-one-domain-out fit, one prompt and one candidate set' REFUSED, banded on all 48 items (the tighter band): the arm declares 8 independent units ('one held-out domain: the six role cases inside a domain share one leave-one-domain-out fit, one prompt and one candidate ",
+   "the pass-through arm is RECORDED, not recomputed here: \u00a72a's arithmetic ran inside scripts/selector_direct_path.py and the residuals it needs were never cached. It is admitted against that run's own offline identity gate -- the same offline path fed the FULL observed displacement reproduces the treatment's forward to 3.4e-05 nats, against the 1e-4 the run registered. That is the closest available analogue of the zero-shift assertion and it is weaker than it.",
+   "the stimulus floor of this quantity is 0 by cancellation: treatment and pass-through read the SAME candidate texts with the SAME readout, so whatever the wording gives away is in both arms and subtracts out. That is an argument, not a measurement, and it is recorded as one (h14's row carries the same one).",
+   "90% lower bound on the gain: +1.5630 resampling the 48 cases, which is the form the record carries, and +1.5650 resampling the 8 independent units instead. The case bootstrap is the narrower interval because it pretends to more evidence than the design has.",
+   "per-case readout noise, measured from the random arm: sd 0.8143 nats",
+   "the random direction's own direct path (offline Gaussian at the pre-norm residual, unpaired): +0.0782 nats"
+  ]
+ },
+ "composed": {
+  "which": "composed",
+  "n_cases": 72,
+  "n_units": 4,
+  "treatment_margin": 3.827852744682163,
+  "passthrough": 0.21433826209672915,
+  "gain": 3.613514482585433,
+  "lb90_cluster": 3.009641535141889,
+  "lb90_item": 3.2512703038508595,
+  "sign_fraction": 1.0,
+  "random": 0.044836184557746434,
+  "no_patch": 0.0,
+  "readout_sd": 1.052984227506014,
+  "identity_error": 3.0517578125e-05,
+  "recompute_vs_logged_max_abs": {
+   "A": 0.0,
+   "F_par": 0.0,
+   "R0": 0.0,
+   "N": 0.0
+  },
+  "ranks": {
+   "A": 2.8055555555555554,
+   "F_par": 6.875,
+   "R0": 9.402777777777779,
+   "N": 9.5
+  },
+  "arm_band": {
+   "passthrough": 0.3722861438759904,
+   "random": 0.3722861438759904,
+   "no_patch": 0.3722861438759904
+  },
+  "source": "selector_direct_path_factors.json",
+  "claim_id": "451a83545b749a1e",
+  "render": "readout_shift [451a83545b749a1e] h41 three-factor composition @L14: gain over the skip path\n  gain over stimulus floor = 3.6135  (raw 3.6135, n=72)\n  arm no_patch           0.0000   declared null 0.0000  +-0.3723\n  arm passthrough        0.2143   declared null 0.2143  +-0.3723  [RECORDED (offline arithmetic run elsewhere: scripts/selector_direct_path.py -> results/selector_direct_path_factors.json) offline arithmetic, identity error 3e-05]\n  arm random             0.0448   declared null 0.0000  +-0.3723\n  floor              stimulus 0.0000 / estimator 0.0000\n  effect             3.6135  n=72  z=16.12\n  selection          axis=None rule='pre-registered patch layer 14, readout at the unembedding; no sweep' held_out=False executed=False\n  calibration        readout_shift [7b3b209a4e66c18d] 6 tests PASS: noise -0.0000+-0.0000 vs null 0.0; sensitivity [0.2519, 0.5039, 1.0077, 2.0154]; self-floor 0.0000; invariance scale d=0, rotation d=0; known-zero 0\n  grid leak          era recoverable 1.00 (permutation null 0.31); scene recoverable 1.00 (permutation null 0.24); tense recoverable 0.78 (permutation null 0.48); voice recoverable 1.00 (permutation null 0.30); era~length position r=+0.01; scene~length position r=+0.08; tense~length position r=+0.00; voice~length position r=-0.18; FLAGGED ['era', 'scene', 'tense', 'voice']",
+  "notes": [
+   "pass-through arm: declared unit 'one held-out scene: the eighteen composed cases inside a scene share one leave-one-scene-out fit, one lead and one 18-candidate set' REFUSED, banded on all 72 items (the tighter band): the arm declares 4 independent units ('one held-out scene: the eighteen composed cases inside a scene share one leave-one-scene-out fit, one lead and one 18-can",
+   "random arm: declared unit 'one held-out scene: the eighteen composed cases inside a scene share one leave-one-scene-out fit, one lead and one 18-candidate set' REFUSED, banded on all 72 items (the tighter band): the arm declares 4 independent units ('one held-out scene: the eighteen composed cases inside a scene share one leave-one-scene-out fit, one lead and one 18-can",
+   "the pass-through arm is RECORDED, not recomputed here: \u00a72a's arithmetic ran inside scripts/selector_direct_path.py and the residuals it needs were never cached. It is admitted against that run's own offline identity gate -- the same offline path fed the FULL observed displacement reproduces the treatment's forward to 3.1e-05 nats, against the 1e-4 the run registered. That is the closest available analogue of the zero-shift assertion and it is weaker than it.",
+   "the stimulus floor of this quantity is 0 by cancellation: treatment and pass-through read the SAME candidate texts with the SAME readout, so whatever the wording gives away is in both arms and subtracts out. That is an argument, not a measurement, and it is recorded as one (h14's row carries the same one).",
+   "90% lower bound on the gain: +3.2513 resampling the 72 cases, which is the form the record carries, and +3.0096 resampling the 4 independent units instead. The case bootstrap is the narrower interval because it pretends to more evidence than the design has.",
+   "per-case readout noise, measured from the random arm: sd 1.0530 nats",
+   "the random direction's own direct path (offline Gaussian at the pre-norm residual, unpaired): -0.0727 nats"
+  ]
+ }
+}
