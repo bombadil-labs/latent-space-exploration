@@ -175,3 +175,143 @@ def shift_known_zero(f: ShiftFixture) -> ShiftFixture:
     """Analytically zero: no shift at all and no block contribution, so the treatment is the
     unpatched readout and the pass-through is the unpatched readout."""
     return replace(f, shift=np.zeros_like(f.shift), extra=np.zeros_like(f.extra), amplitude=0.0)
+
+
+# --------------------------------------------------------------------------------------------
+# accuracy fixtures: `top1_accuracy` (piece 4)
+#
+# `top1_accuracy` reuses `RankFixture` deliberately -- an accuracy over k candidate directions and
+# a rank over k candidate directions read the SAME object, and h29's era readout is literally
+# `argmax_e cos(u, d_e)`. The generators above therefore apply unchanged, which is worth stating as
+# a limitation and not only as economy: `selector`, `composition` and `top1_accuracy` now share
+# `rank_noise`/`rank_plant` and `instruments.cosine_scores`, so an error in either breaks three
+# instruments at once and their calibrations are not independent evidence. Piece 2 named that
+# hazard for two instruments; piece 4 adds a third to the same family and does not pretend
+# otherwise.
+#
+# One generator IS new, because the accuracy statistic has a failure mode the rank statistic does
+# not: the tied field.
+# --------------------------------------------------------------------------------------------
+def rank_partial_tie(f: RankFixture, rng: np.random.Generator, n_tied: int = 2) -> RankFixture:
+    """The target ties with `n_tied - 1` other candidates, for every item, and nothing else moves.
+
+    A top-1 accuracy written as `argmax == target` awards a full hit to whichever candidate numpy's
+    argmax happens to return first, which is the h34 rank-1-on-ties failure wearing the other hat:
+    a dead readout would score 1.0 on half its items and 0.0 on the rest, averaging to something
+    that looks like a real effect. The shipped statistic splits the hit over the tied set (1/T), so
+    this fixture must read exactly `n_tied ** -1`.
+
+    Written before the statistic, like everything else in this file.
+    """
+    acts = f.acts.copy()
+    dirs = f.dirs.copy()
+    # make the first `n_tied` directions identical, and point every item at the tied block so the
+    # target is always inside it
+    dirs[:n_tied] = dirs[0]
+    target = rng.integers(0, n_tied, size=f.n)
+    return replace(f, acts=acts, dirs=dirs, target=target)
+
+
+# --------------------------------------------------------------------------------------------
+# ordered-target fixtures: `discrimination` (piece 4)
+#
+# h39's shape. Each SUBJECT (street, mountain, mayfly, ...) is described at m ordered intervals
+# (1 day ... 1 000 000 years), and the question is whether a scalar read off the residual orders
+# those intervals. The per-item statistic is therefore per SUBJECT, and the aggregate is the mean
+# over subjects -- which is what `time_translation_discrimination.py` reports as `shared_mean`.
+#
+# The fixture carries a `floor` readout beside the treatment one because this instrument's null is
+# the MEASURED FLOOR and not chance (spec §8): on a leaky grid the words alone order the intervals,
+# and §6 requires the claim to report gain over that, never the raw score.
+# --------------------------------------------------------------------------------------------
+@dataclass
+class OrderedFixture:
+    """`S` subjects x `m` ordered levels of activation, one readout direction, one ordered target.
+
+    `acts[s, j]` is the pooled residual for subject `s` at level `j`; `y[j]` is the level's ordered
+    value (log Δt). `floor_scores[s, j]` is what a stimulus-only predictor gives for the same cell:
+    the thing the treatment has to beat.
+    """
+    acts: np.ndarray            # [S, m, d]
+    direction: np.ndarray       # [d]
+    y: np.ndarray               # [m], strictly increasing
+    floor_scores: np.ndarray    # [S, m]
+
+    @property
+    def n(self) -> int:
+        return len(self.acts)
+
+    @property
+    def m(self) -> int:
+        return self.acts.shape[1]
+
+
+def ordered_noise(shape: tuple[int, int, int], rng: np.random.Generator) -> OrderedFixture:
+    """(S, m, d) of pure Gaussian activations: the residual knows nothing about the level order.
+
+    The floor readout is drawn the same way, so on this fixture BOTH the treatment and the floor are
+    at chance and the declared calibration null is 0. That is deliberate and it is the one thing
+    this battery cannot check for a caller: see `registry`'s `calibration_null` note.
+    """
+    S, m, d = shape
+    return OrderedFixture(acts=rng.normal(size=(S, m, d)), direction=unit(rng.normal(size=d)),
+                          y=np.arange(m, dtype=np.float64),
+                          floor_scores=rng.normal(size=(S, m)))
+
+
+def ordered_plant(f: OrderedFixture, a: float) -> OrderedFixture:
+    """Push each cell `a` units along the readout direction IN PROPORTION to its level value.
+
+    This is the only geometry a "the residual carries the interval" claim can mean: the component
+    along the readout direction is monotone in the target. Nothing else changes -- same subjects,
+    same levels, same noise, same direction.
+    """
+    scale = float(np.linalg.norm(f.acts, axis=-1).mean())
+    z = (f.y - f.y.mean()) / (np.std(f.y) + 1e-12)              # [m]
+    return replace(f, acts=f.acts + a * scale * z[None, :, None] * f.direction[None, None, :])
+
+
+def ordered_rescale(f: OrderedFixture, rng: np.random.Generator) -> OrderedFixture:
+    """Per-cell positive rescaling. A rank correlation of a projection is NOT invariant to this in
+    general -- rescaling a cell rescales its projection -- so this is the transform that tells us
+    whether the statistic reads the direction or the magnitude. `discrimination` claims scale
+    invariance in the per-LAYER sense (one scalar for the whole stack), which is `ordered_rescale`
+    with a single draw; the per-cell form is declared NOT claimed and measured anyway.
+    """
+    c = rng.uniform(0.2, 5.0, size=(f.n, f.m, 1))
+    return replace(f, acts=f.acts * c)
+
+
+def ordered_layer_rescale(f: OrderedFixture, rng: np.random.Generator) -> OrderedFixture:
+    """One scalar on the whole stack: what changing layer or model scale does."""
+    return replace(f, acts=f.acts * float(rng.uniform(0.2, 5.0)))
+
+
+def ordered_rotate(f: OrderedFixture, rng: np.random.Generator) -> OrderedFixture:
+    Q = random_rotation(f.acts.shape[-1], rng)
+    return replace(f, acts=f.acts @ Q, direction=f.direction @ Q)
+
+
+def ordered_monotone_target(f: OrderedFixture, rng: np.random.Generator) -> OrderedFixture:
+    """Reparameterise the target by a strictly increasing nonlinear map.
+
+    This is the invariance the h39 statistic actually leans on and nobody has ever tested: the
+    target is `log Δt`, and the choice of log base -- or of Δt itself, or of grid index -- must not
+    change the number. A Pearson correlation would move here; a rank correlation may not.
+    """
+    return replace(f, y=np.exp((f.y - f.y.mean()) / (np.std(f.y) + 1e-12)))
+
+
+def ordered_floor(f: OrderedFixture, rng: np.random.Generator) -> OrderedFixture:
+    """Self-floor: the instrument's own floor used as the treatment. Activations redrawn with no
+    relation to the level order, so the statistic must read its null (spec §5)."""
+    scale = float(np.linalg.norm(f.acts, axis=-1, keepdims=True).mean())
+    return replace(f, acts=rng.normal(size=f.acts.shape) * scale)
+
+
+def ordered_known_zero(f: OrderedFixture) -> OrderedFixture:
+    """Analytically the null: within each subject every level has the IDENTICAL activation, so the
+    readout is constant and every level is tied. A rank correlation against a constant is 0/0, and
+    a statistic that returns 1.0, or NaN, on a dead readout is the h34 failure in this instrument's
+    costume. Must read exactly 0."""
+    return replace(f, acts=np.repeat(f.acts[:, :1], f.m, axis=1))
