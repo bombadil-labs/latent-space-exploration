@@ -332,3 +332,35 @@ def test_a_complete_discrimination_claim_reports_gain_over_the_measured_floor():
     # both arms took their null from the registry, i.e. from the MEASURED floor
     assert claim.arms["floor"].expected_null == pytest.approx(floor_value)
     assert claim.arms["shuffled_stimulus"].expected_null == pytest.approx(floor_value)
+
+
+# ---------------------------------------------------------------------------------------------
+# h16's cluster-robust arm band (piece 4)
+# ---------------------------------------------------------------------------------------------
+def test_the_cluster_band_counts_independent_units_not_repetitions():
+    """`registry.arm_tolerance(n)` assumes independent items. Pooling a sweep breaks that: the same
+    items are re-scored at every layer and for every role pair, so n grows while the evidence does
+    not. The cluster band is measured from the spread of the independent units' own means."""
+    from lsx.core.reproduce import _cluster_tolerance
+
+    rng = np.random.default_rng(0)
+    per_domain = rng.normal(3.5, 0.30, size=40)          # 40 independent fits
+    reps = 2700                                          # 30 role pairs x 15 layers x 6 rotations
+    values = np.repeat(per_domain, reps) + rng.normal(0, 0.01, size=40 * reps)
+    groups = np.repeat(np.arange(40), reps)
+
+    cluster = _cluster_tolerance(values, groups)
+    iid = registry.spec("selector").arm_tolerance(len(values), {"n_candidates": 6})
+    assert cluster == pytest.approx(3 * per_domain.std(ddof=1) / np.sqrt(40), rel=0.05)
+    assert cluster > 7 * iid, (cluster, iid)   # 0.113 against 0.0156, measured
+
+    # duplicating every score must not move the band -- which is the whole point
+    doubled = _cluster_tolerance(np.concatenate([values, values]),
+                                 np.concatenate([groups, groups]))
+    assert doubled == pytest.approx(cluster, rel=1e-9)
+    assert registry.spec("selector").arm_tolerance(2 * len(values), {"n_candidates": 6}) < iid
+
+
+def test_the_cluster_band_refuses_to_be_computed_from_one_cluster():
+    from lsx.core.reproduce import _cluster_tolerance
+    assert _cluster_tolerance(np.ones(100), np.zeros(100)) == float("inf")
