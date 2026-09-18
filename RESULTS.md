@@ -1862,6 +1862,65 @@ retraction, and exercises `withdraw()` in tests instead. `docs/specs/core_v1.md`
 places (§1A tolerances, §2a position-ids verdict, §4 sweep decision), each marked in the text as
 written in after the fact. Cost: ~370k agent tokens, ~2 h 45 min, 168 NDIF jobs.
 
+## 2026-09-18 (hour 46) — PHASE 1 piece 4: coverage closed, and the core starts refusing our own reporting (agent)
+
+143 tests, harness 12 of 12. Both new instruments pass the full six-test battery.
+
+| instrument | null | measured per-item sd | 3σ band | note |
+|---|---|---|---|---|
+| `top1_accuracy` | **1/k** (0.3333 at k=3) | 0.4714 Bernoulli (MC 0.4693) | ±0.1907 at n=55 | *not* a rank midpoint: a rank's null grows with k, an accuracy's shrinks |
+| `discrimination` | the **measured floor** | 0.3536 (MC 0.3381) | ±0.3750 at 8 subjects | claims scale, rotation and monotone-target invariance; explicitly *not* cell-rescale (Δ 0.0493) |
+
+`discrimination`'s battery runs at chance rather than at the caller's floor, so **the battery does not
+verify that floor** — now stated in the spec. `generality` stays unbuilt: `discrimination` did not
+make it cheap, and it still has no null.
+
+**The remote hole is closed, and the assertion caught the real bug on a real call.** `Probe` refuses
+unasserted forwards; `src/lsx/core/remote.py` ran live on Gemma-2-9B-it. Batched-vs-single on the
+shortest item (13 tokens of padding) 0.9999925; a whole-tensor patch moves 3 of 3; **the hour-36
+idiom moved 1 of 3 and `MovedCandidates` fired — the first time that assertion has caught that bug on
+an actual NDIF call**, rather than on a reconstruction. No-patch moves 0 of 3.
+
+**Four bugs the agent found in its own code before publishing, and two of them are the same lesson
+again.** (1) The known-zero point read 0 for the wrong reason: a dead readout scored ±0.548 per
+subject off 4e-16 of floating-point rounding, with the signs cancelling in the mean; closed with a
+tolerance derived from the dot-product error bound. (2) `calibration_key` hashed only top-level
+source, so *that very fix* changed the arithmetic and left every cached report valid. (3) The first
+closure walker missed calls inside comprehensions, so the fix for a hole that hid a dependency was
+itself hiding a dependency. (4) A planted-signal generator tied candidates without making them win,
+saturating both sensitivity curves. **That is the fourth and fifth time in this build that a fix has
+carried a version of the bug it was fixing.**
+
+**§1A re-run: 4 reproduced, 5 refused, 2 deferred, 0 failed. Nothing withdrawn.** Hour 16 is now
+reproduced *and published* — the core computes its layer curve per item, which is what
+`Selection.executed` requires. Hour 29 moved the other way, from deferred to **refused**: its
+instrument now exists, and the refusal is about the data.
+
+**THREE FINDINGS ABOUT OUR OWN LOGGED NUMBERS.** I verified the first directly rather than taking it
+on report.
+
+1. **Hour 29's published battery has one arm.** Checked: `recompose_gen_gemma9b.json` and
+   `recompose_gen_llama70b.json` carry `base`, `rand` and `shift`, but **every sweep file at every
+   other scale — 0.5, 2.0, 3.0 and both prefix runs — contains only `shift`.** So the headline 0.84
+   at 3× re-imposed has **no random control and no no-patch baseline at its own scale**; the controls
+   exist only at 1.0. This violates `CLAUDE.md`'s first non-negotiable. The claim is not refuted —
+   the lexical check moving 0.00 → 0.30 across scales is real evidence — but the number is
+   under-controlled and the writeup now says so.
+2. **Hour 16's "2.21" and the repo's own JSON (2.1692) are two different aggregates of one curve**,
+   a step-4 and a step-2 average, used interchangeably in the record. The core matches every layer to
+   0.0001; the discrepancy is in how we summarised, not in what was measured.
+3. **Hour 8 reports gain over *chance*, not over a measured floor**, which §6 requires on a grid with
+   a measured leak.
+
+**PHASE 1 GATE STILL DOES NOT CLOSE — but no longer on coverage.** Every instrument the targets need
+now exists. What blocks it is that five §1A targets are refused on *reporting* grounds: missing arms,
+raw scores on leaky grids, and aggregates chosen after the fact. That is the core working as
+designed, and closing the gate now means going back and re-running those batteries with their
+controls, not adjusting the core.
+
+Cost: ~515k agent tokens, ~2 h 10 min, 7 NDIF jobs. Files: `src/lsx/core/remote.py`,
+`tests/test_core_{instruments_p4,remote}.py`, `results/notes/core_p4.md`, calibration reports.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

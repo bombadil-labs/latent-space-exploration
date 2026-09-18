@@ -1,6 +1,6 @@
 # Narrative factors are directions: measuring, moving, and composing story structure in transformer activations
 
-*Fourth draft, after 42 logged stages. Every number below is in `RESULTS.md` with its control and
+*Fourth draft, after 46 logged stages. Every number below is in `RESULTS.md` with its control and
 file reference; Checkpoint 2 at the top of that file lists what was withdrawn and when. The calculus
 these results support is in `docs/ALGEBRA.md`. The four measurement instruments this project found
 broken, and what they invalidated, are in `docs/INSTRUMENTS.md` — read that first if you are
@@ -48,7 +48,10 @@ matched null, eleven things stand, six fell, and two are partial.
    (voice > era > theme), at two layer pairs.
 8. **Recomposition is real, and only in generation.** At three times the norm, re-imposed at every
    decoding step, an era shift moves the era of Gemma-2-9B-it's *generated text* in 0.84 of cases,
-   0.30 of continuations gain target-era vocabulary, and prose stays intact. This is now the only
+   0.30 of continuations gain target-era vocabulary, and prose stays intact. **Under-controlled
+   (stage 46):** the random and no-patch arms were run only at the matched-norm scale, so the 0.84
+   figure has no control at its own scale. The lexical check rising from 0.00 to 0.30 across scales
+   is the evidence that survives that; the headline fraction awaits a re-run with its arms. This is now the only
    evidence for recomposition: the representational version of this claim, which looked like its
    foundation and was far cheaper, was withdrawn at stage 40 as vector addition (see below).
 9. **Gauges compose; engines do not — and the boundary between them is a magnitude.** At matched
