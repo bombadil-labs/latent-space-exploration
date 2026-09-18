@@ -329,3 +329,41 @@ def test_a_band_cannot_be_inherited_by_an_arm_with_different_scores():
         return                                  # refused outright is also correct
     assert other.effective_n == other.n, (
         "an arm holding different scores inherited a band earned by the original's clustering")
+
+
+# ================================================================================================
+# phase2_qwen: the LIVE path, through build_stack -- this is what the cached-npz path in this
+# file (h8_replication_rows) cannot do, and what closes ProvenanceNotFromStack.
+# ================================================================================================
+def test_live_replication_rows_carry_a_real_stack_signature(tiny_lm):
+    """`h8_replication_rows_live` builds through `extract.build_stack`, not a frozen script's
+    `.npz` -- so, unlike every row `h8_replication_rows` (the cached path) produces, its claims
+    must carry a `stack_signature` the ledger's `check_provenance_from_stack` accepts."""
+    from lsx.core import ledger as ledger_mod
+
+    rows, claims, cosine = phase2.h8_replication_rows_live(
+        tiny_lm, "narrative_mood_v1", model="tiny", n_perm=4, n_rand=2, curve_step=8)
+    assert rows and claims
+    built = [r for r in rows if r["status"] == "built"]
+    assert len(built) == len(claims)
+    for claim in claims:
+        assert claim.provenance.get("stack_signature")
+        # does not raise: this is the exact refusal phase2_v1.md §0 hit on the cached path
+        ledger_mod.check_provenance_from_stack(claim)
+    # the tiny model's width (32) never matches the cached Qwen2.5-1.5B stack (1536) for this
+    # grid, so the comparison must report the mismatch rather than silently skip or crash.
+    assert cosine["grid"] == "narrative_mood_v1"
+    if cosine.get("compared"):
+        assert "shape_mismatch" in cosine or cosine.get("n_pairs", 0) == 0
+
+
+def test_live_and_cached_paths_share_the_same_battery_core():
+    """`h8_replication_rows` (cached) and `h8_replication_rows_live` (build_stack) must both run
+    through `_replication_rows_core` -- the thing phase2_qwen's task exists to prevent is a SECOND,
+    parallel extraction-to-claim path that quietly drifts from the first."""
+    import inspect
+
+    src_cached = inspect.getsource(phase2.h8_replication_rows)
+    src_live = inspect.getsource(phase2.h8_replication_rows_live)
+    assert "_replication_rows_core(" in src_cached
+    assert "_replication_rows_core(" in src_live

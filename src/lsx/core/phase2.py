@@ -571,11 +571,104 @@ def h8_replication_rows(stack_name: str, *, n_perm: int = 32, n_rand: int = 8, s
                         curve_step: int = 2) -> list[dict]:
     """Every row this stack carries: one `selector` per factor, one `composition` over the joint
     variants. Each reports GAIN OVER ITS OWN MEASURED LEXICAL FLOOR (spec §6), never over chance.
+
+    This is the CACHED path: `X` comes from a frozen script's `.npz`, not from `build_stack`, so
+    none of these rows carries a stack signature and the ledger refuses them with
+    `ProvenanceNotFromStack` (see the module docstring). `h8_replication_rows_live` is the same
+    battery on a real `Stack` -- it shares `_replication_rows_core` with this function rather than
+    reimplementing the battery, which is the thing spec phase2_qwen §"FIND THE EXISTING PATH"
+    warns against.
     """
     grid_name, model = GRID_OF_STACK[stack_name]
     gridspec = normalized_grid(grid_name)
     X = load_stack_matrix(stack_name, gridspec)
     n_layers = next(iter(X.values())).shape[0]
+    prov_base = {"model": model, "grid": grid_name, "stack": f"results/{stack_name}.npz",
+                 "n_layers": n_layers, "pooling": "as cached by scripts/",
+                 "direction_held_out": "scene (leave-one-scene-out)",
+                 "code_version": "lsx.core.phase2.readout_battery",
+                 "readout": "cosine of the candidate's own residual against the level direction, "
+                            "mid-ranked -- the READOUT analogue of h8's patched log-prob selector"}
+    rows, _claims = _replication_rows_core(
+        X, n_layers, gridspec, model, stack_name, prov_base,
+        is_replication=stack_name in REPLICATIONS,
+        n_perm=n_perm, n_rand=n_rand, seed=seed, curve_step=curve_step)
+    return rows
+
+
+def stack_matrix_from_build_stack(lm, gridspec: dict, *, batch_size: int = 8) -> tuple[dict, object]:
+    """`{span key: [layer, d]}` extracted THROUGH `extract.build_stack` -- every §7 assertion runs
+    -- rather than read from a frozen script's cached `.npz`. This is the path `reproduce.h8`
+    already uses for `narrative_factors_v2` (`stack = ex.build_stack(lm, grid, layers=[layer],
+    batch_size=8)`); the only difference here is `layers=None`, which stores every layer so the
+    depth curve and the layer-0 floor need no second extraction -- the forward pass already
+    computes every hidden state regardless of how many `build_stack` is told to keep.
+
+    Returns `(X, stack)`: `X` has exactly the shape `load_stack_matrix` returns, so
+    `_replication_rows_core`, `readout_battery` and `layer_curve` run UNCHANGED on either path.
+    """
+    from . import extract as ex
+
+    grid = phase2_grid(gridspec)
+    stack = ex.build_stack(lm, grid, layers=None, batch_size=batch_size)
+    span_idx = stack.span_names.index("span")
+    X = {key: np.asarray(stack.acts[i, span_idx], dtype=np.float64)
+         for i, key in enumerate(gridspec["spans"])}
+    return X, stack
+
+
+def h8_replication_rows_live(lm, grid_name: str, *, model: str = "Qwen2.5-1.5B",
+                             n_perm: int = 32, n_rand: int = 8, seed: int = 0,
+                             curve_step: int = 2, batch_size: int = 8) -> tuple[list[dict], dict]:
+    """`h8_replication_rows`'s battery, extracted LIVE through `build_stack` so the rows carry a
+    real stack signature and can reach `results/ledger.jsonl`.
+
+    Returns `(rows, cosine_report)`: `cosine_report` compares this live extraction against the
+    cached `.npz` for the same grid, item by item and layer by layer, wherever that cached stack
+    exists -- the check phase2_qwen §CONSTRAINTS 1 asks for.
+    """
+    gridspec = normalized_grid(grid_name)
+    X, stack = stack_matrix_from_build_stack(lm, gridspec, batch_size=batch_size)
+    n_layers = next(iter(X.values())).shape[0]
+    prov_base = dict(stack.provenance, direction_held_out="scene (leave-one-scene-out)")
+    stack_tag = f"build_stack:{grid_name}:{model} (live, {stack.provenance.get('acts_digest')})"
+
+    cosine_report = {"grid": grid_name, "compared": False}
+    cached_name = f"stacks_qwen2.5_1.5b_{grid_name}"
+    try:
+        cached_X = load_stack_matrix(cached_name, gridspec)
+    except FileNotFoundError:
+        cached_X = None
+    if cached_X is not None:
+        cos = []
+        for key in gridspec["spans"]:
+            a, b = X[key], cached_X[key]
+            if a.shape != b.shape:
+                cosine_report["shape_mismatch"] = [key, list(a.shape), list(b.shape)]
+                continue
+            num = np.sum(a * b, axis=-1)
+            den = np.linalg.norm(a, axis=-1) * np.linalg.norm(b, axis=-1) + 1e-12
+            cos.append(num / den)
+        if cos:
+            cos = np.concatenate(cos)
+            cosine_report.update(compared=True, cached_stack=f"results/{cached_name}.npz",
+                                 n_pairs=int(cos.size), mean_cosine=float(cos.mean()),
+                                 min_cosine=float(cos.min()),
+                                 max_cosine=float(cos.max()))
+
+    rows, claims = _replication_rows_core(
+        X, n_layers, gridspec, model, stack_tag, prov_base,
+        is_replication=False, n_perm=n_perm, n_rand=n_rand, seed=seed, curve_step=curve_step)
+    return rows, claims, cosine_report
+
+
+def _replication_rows_core(X: dict, n_layers: int, gridspec: dict, model: str, stack_tag: str,
+                           prov_base: dict, *, is_replication: bool, n_perm: int, n_rand: int,
+                           seed: int, curve_step: int) -> list[dict]:
+    """The battery and claim construction shared by the cached path (`h8_replication_rows`) and
+    the live path (`h8_replication_rows_live`): everything downstream of having `X` in hand.
+    """
+    grid_name = gridspec["name"]
     layer = mid_depth(n_layers)
     names = list(gridspec["factors"])
     V = int(np.prod([len(v) for v in gridspec["factors"].values()]))
@@ -595,21 +688,16 @@ def h8_replication_rows(stack_name: str, *, n_perm: int = 32, n_rand: int = 8, s
     grid = phase2_grid(gridspec)
     scenes = batt["composed"]["scene"]
     if lex["scene"] != scenes:
-        raise ValueError(f"{stack_name}: the lexical floor's items are not the battery's items "
+        raise ValueError(f"{stack_tag}: the lexical floor's items are not the battery's items "
                          "in the same order; a paired gain would be pairing the wrong rows")
 
-    prov_base = {"model": model, "grid": grid_name, "stack": f"results/{stack_name}.npz",
-                 "layers": [layer], "n_layers": n_layers, "pooling": "as cached by scripts/",
-                 "direction_held_out": "scene (leave-one-scene-out)",
-                 "code_version": "lsx.core.phase2.readout_battery",
-                 "readout": "cosine of the candidate's own residual against the level direction, "
-                            "mid-ranked -- the READOUT analogue of h8's patched log-prob selector"}
+    prov_base = dict(prov_base, layers=prov_base.get("layers", [layer]))
     rule = (f"pre-registered mid-depth layer {layer} of {n_layers} "
             f"(the rule round(0.5*(L-1)) was fixed before any score was computed and is h8's own "
             f"layer 14 of 29); the full depth curve is recorded in this row and no value from it "
             f"entered the reported number")
 
-    rows = []
+    rows, claims = [], []
     specs = [("composed", None, V)] + [("lens", n, len(gridspec["factors"][n])) for n in names]
     for kind, factor, k in specs:
         b = batt["composed"] if kind == "composed" else batt["B"][factor]
@@ -648,7 +736,7 @@ def h8_replication_rows(stack_name: str, *, n_perm: int = 32, n_rand: int = 8, s
                                               "test, not just plumbing)"),
                 "permutation": perm_arm}
         gain_items = treat - floor_items
-        row = {"stack": stack_name, "model": model, "grid": grid_name, "kind": kind,
+        row = {"stack": stack_tag, "model": model, "grid": grid_name, "kind": kind,
                "factor": factor or "composed", "k": k, "layer": layer, "n_layers": n_layers,
                "n_items": int(treat.size), "treatment": float(treat.mean()),
                "floor_lexical": float(floor_items.mean()),
@@ -672,7 +760,7 @@ def h8_replication_rows(stack_name: str, *, n_perm: int = 32, n_rand: int = 8, s
                "permutation_arm": perm_info, "random_arm": rand_info,
                "curve": layer_curve(X, gridspec, n_layers=n_layers, what=kind, factor=factor,
                                     step=curve_step),
-               "is_replication": stack_name in REPLICATIONS}
+               "is_replication": is_replication}
         try:
             claim = inst.claim(
                 treatment=Measured(treat, label=f"{model} {grid_name} "
@@ -725,11 +813,12 @@ def h8_replication_rows(stack_name: str, *, n_perm: int = 32, n_rand: int = 8, s
             row["status"] = "built"
             row["arm_bands"] = {kk: a.resolved_tolerance for kk, a in claim.arms.items()}
             row["arms_off_null"] = [kk for kk, a in claim.arms.items() if a.off_null]
+            claims.append(claim)
         except CoreError as e:
             row["status"] = "REFUSED"
             row["refusal"] = f"{type(e).__name__}: {str(e).splitlines()[0]}"
         rows.append(row)
-    return rows
+    return rows, claims
 
 
 def run(out_dir: pathlib.Path | None = None, *, n_perm: int = 32, curve_step: int = 2) -> dict:
