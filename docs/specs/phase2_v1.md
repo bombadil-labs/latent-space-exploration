@@ -9,6 +9,24 @@ by its own definition.** The inventory is below; §4 states the decision that ne
 Opus rather than a Fable planner because Fable's monthly budget is exhausted; phase 2 contains no new
 measurement, so the planner rule does not bind.
 
+## 0. CORRECTION (h48) — the DERIVABLE column was wrong
+
+The batch in §5 ran and produced 27 measurements. **The ledger refused every one of them with
+`ProvenanceNotFromStack`:** each is provenanced to a frozen script's cached `.npz` or
+`selector_direct_path_*.json`, not to `build_stack`. h29 hit the same refusal at h47 and cleared it
+only by re-extracting the whole grid, and that route is not open here — four of the five replication
+models are not in the local HF cache, and h41's residuals were never cached.
+
+**"Cached data + existing instrument" is not sufficient for a ledger row, and §2's verdict set
+omitted the binding constraint: provenance.** Corrected counts: **4 DONE, 0 DERIVABLE, 4
+NEEDS-INSTRUMENT, 6 NEEDS-DATA, 1 BLOCKED.** Rows 2b, 4c and 4b move from DERIVABLE to NEEDS-DATA.
+
+This strengthens rather than weakens §4's conclusion: the gate cannot be met as written, and now
+there is no batch that can be done cheaply first. §6.6's warning about the gitignored `.npz` stacks
+also turns out to understate the problem — those stacks cannot reach the ledger even while they exist.
+
+---
+
 ## 1. What exists today (verified, not recalled)
 
 - **Ledger:** 17 claim rows — 13 standing, 4 withdrawn — covering stages **h4, h8, h14, h16, h29,

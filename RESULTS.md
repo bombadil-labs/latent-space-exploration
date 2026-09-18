@@ -2107,6 +2107,111 @@ is being fixed as part of this batch: an `Arm` declares its independent unit. (2
 them; if they are lost the batch becomes hours of local re-extraction. That is why the batch runs
 before the gate decision rather than after it.
 
+## 2026-09-18 (hour 48) — PHASE 2 derivable batch: the arm-band fix, 27 measurements, and NOT ONE of them reached the ledger (agent, spec `docs/specs/phase2_v1.md` §5)
+
+Note: `results/notes/phase2_derivable.md`. 175 tests pass (152 + 23). Rediscovery harness now 13
+cases (10 pure + 3 model), all caught.
+
+**The headline is the failure, and it invalidates my own spec.** All 27 claims this batch built were
+refused by the ledger with **`ProvenanceNotFromStack`**: every one is provenanced to a frozen script's
+cached `.npz` or `selector_direct_path_*.json`, not to `build_stack`. That is the same refusal h29 hit
+at h47, and h29 only cleared it by re-extracting the whole grid. Re-extraction is **not available
+here**: four of the five replication models are not in the local HF cache, and h41's residuals were
+never cached at all. **So `docs/specs/phase2_v1.md`'s three DERIVABLE rows are not derivable — they
+are NEEDS-DATA, and offline they are not even that.** The inventory's count is now **4 done, 0
+derivable, 4 needing an instrument, 6 needing data, 1 blocked.** I wrote that spec; the error is mine,
+and it is the same error the whole project keeps making — *the number was available and I read that as
+the claim being available.* Provenance is the thing the core exists to require.
+
+The measurements are still real and are recorded as measurements, outside the ledger.
+
+**(1) `registry.arm_tolerance` — fixed, with a guard that cost more design than the fix.** An `Arm`
+now declares `n_independent` and the registry bands on units rather than items. The hazard is obvious:
+the same declaration is the easiest possible way to widen a band until a row publishes. So a reduction
+must be **read off the design and shown** — the arm names its unit and hands in one cluster label per
+item, and `Arm` refuses (`ArmUnitNotInDesign`) when the declared clustering is not visible in the
+arm's own scores against its own permutation null (999 shuffles, refused at p > 0.05). A constant arm
+returns p = 1.0 and can never buy a wider band. **Rediscovery case 12** plants exactly the abuse: an
+arm 0.45 off its null, refused at the item count; the same numbers relabelled into six "draws" that
+are not in the data, refused as a design claim; and a positive control with a real between-unit
+offset that publishes.
+
+Piece 4's lesson checked explicitly and it very nearly landed a seventh time: the calibration key
+hashes the statistic, null and invariances and does **not** cover `arm_tolerance` — but
+`Instrument.resolved_null_tol`, the battery's own pass threshold, *is* `arm_tolerance(n)`. A change to
+the default path would have left all 19 cached reports "valid" under a different threshold. The
+default path is bit-identical and a test now pins the threshold to seven decimals per instrument.
+
+**(2) The two stage-41 rows** (writeup claims 2b, 4c), `readout_shift` + `PassthroughArm`:
+
+| row | treatment | pass-through | gain | 90% LB (cases) | 90% LB (units) | sign | random | no-patch |
+|---|---|---|---|---|---|---|---|---|
+| role lens, L20, 48 cases / 8 domains | +1.8566 | +0.0199 | **+1.8367** | +1.5630 | +1.5650 | 0.92 | +0.2670 | 0.0000 |
+| 3-factor composition, L14, 72 cases / 4 scenes | +3.8279 | +0.2143 | **+3.6135** | +3.2513 | +3.0096 | 1.00 | +0.0448 | 0.0000 |
+
+Reproducing the logged +1.837 / +3.614 and LB +1.563 / +3.251. **A caveat the record did not carry:
+the published "90% lower bound" is a bootstrap over *cases*; resampling the design's actual units
+costs the composed row 0.24 nats** (3.251 → 3.010). The conclusion is unchanged and the number is not.
+
+**(3) h8's battery on the cached replication grids** (claim 4b) — 25 rows, gain over each grid's
+**own** measured lexical floor. Ranks, so negative gain = better than floor; `clears` means the gain
+is also outside the arm band.
+
+| grid / model | composed | era | voice | tense / theme |
+|---|---|---|---|---|
+| factors_v2, Qwen-1.5B | 1.2361 vs floor 2.8472 (**−1.61**) | clears | 1.0000 vs 1.0278 (−0.03) **no** | tense 1.0000 vs 1.0278 **no** |
+| factors_v1, Qwen-1.5B | 1.1944 vs 2.2222 (−1.03) | clears | −0.03 **no** | — |
+| factors_v1, Qwen-0.5B | 1.4167 vs 2.2222 (−0.81) | clears | −0.03 **no** | — |
+| factors_v1, Pythia-1.4B | 1.2778 vs 2.2222 (−0.94) | clears | −0.03 **no** | — |
+| factors_v1, Gemma-2-9B-it | 1.0278 vs 2.2222 (−1.19) | clears | −0.03 **no** | — |
+| theme_v1, GPT-J-6B | 1.1111 vs 2.5556 (−1.44) | clears | — | theme clears |
+| factors_gpt_v1, Qwen-1.5B | 1.4167 vs 3.0833 (−1.67) | clears | clears (−0.31) | — |
+| theme_gpt_v1, Qwen-1.5B | 1.0556 vs 1.6667 (−0.61) | clears | — | theme 1.0278 vs 1.0833 **no** |
+
+**Era and the composed rows clear their lexical floors on all four model families and on both
+GPT-authored grids. Seven of 25 rows do not: `voice` on every single factor grid, the reference
+grid's `tense`, and `theme` on the GPT theme grid.** "Does not clear" here means *indistinguishable
+from the floor*, not worse than it — voice's gain is −0.0278 with a treatment of exactly 1.0000
+against a floor of 1.0278, which is a readout at its ceiling, not a readout failing. **h47's finding
+replicates across five grids and four model families: era is the factor that survives its words;
+voice and tense do not separate from theirs.**
+
+**A second, stricter floor that nobody asked for: 12 of 25 rows do not clear the same readout taken
+at the shallowest cached layer**, including GPT-J's era and theme, which read exactly 1.0000 at both
+depths. This also falsifies a line in the core spec — §6's "layer 0 *is* the bag-of-tokens check" is
+not true for this readout; the shallow-layer floor is the harder one.
+
+**Arms off their nulls, and the one that was not fixed.** Gemma's voice random arm read 1.583 against
+2.000 and the row was refused; fixed with **eight pooled draws, not a wider band** (→ 1.986), applied
+to every row. The GPT grid's voice permutation arm read 1.823 at eight draws; at **32** draws it reads
+1.930 inside ±0.124, and 32 is now the setting everywhere. But the residue is real and is left in
+place: **the permutation arm sits below its null on 25 of 25 rows** (mean −0.117, every one inside its
+band, sign test p ≈ 3e-8). The mechanism is that the uncentered cosine ranking is partly a *norm*
+ranking. It was **not tuned away** — centering would silently make the floor and the treatment
+different procedures — and at ~60–100 draws it would start refusing rows. Recorded as a defect of this
+readout's null.
+
+**What the agent got wrong, in its own words.** It had **the sign of `gain` backwards** in its first
+table, which printed a clean and entirely plausible result in which era *failed* its floor by a full
+rank; it was caught only because era's floor happens to be exactly chance. It also shipped a
+single-draw random arm and an eight-draw permutation arm, and learned both were under-powered only
+because two rows were refused — *the other 23 were never evidence of power.*
+
+**What I found reading the diff rather than the report.** `checks.cluster_evidence` computes the
+design effect `deff = 1 + (mbar − 1)·icc` and **nothing uses it**: the band is taken on `k`, the
+cluster count. So the guard decides *whether* an arm may widen its band but never *how much*. Where
+clustering is partial the honest effective n is `n/deff`, which can be far larger than `k`, and
+banding on `k` is **over-wide — the permissive direction, the one that hides an off-null arm.** The
+i.i.d. band was wrong by refusing clean arms; this replaces it with a band that can be wrong by
+admitting dirty ones, and the quantity that would fix it is already being computed. Also: **no row in
+this batch actually declared a reduced unit**, so the whole mechanism is exercised only by its tests
+and its planted case. Open.
+
+**Cost: ≈353k agent tokens, 41 min, local CPU only. That is more than twice `PROGRAM.md`'s 150k
+phase-2 budget for one agent**, and the overrun bought the guard in (1) rather than more rows.
+Not tested: anything remote, anything needing an unbuilt instrument, and — the point of the hour —
+anything the ledger would accept.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
