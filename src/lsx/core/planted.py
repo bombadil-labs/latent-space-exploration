@@ -192,22 +192,27 @@ def shift_known_zero(f: ShiftFixture) -> ShiftFixture:
 # One generator IS new, because the accuracy statistic has a failure mode the rank statistic does
 # not: the tied field.
 # --------------------------------------------------------------------------------------------
-def rank_partial_tie(f: RankFixture, rng: np.random.Generator, n_tied: int = 2) -> RankFixture:
-    """The target ties with `n_tied - 1` other candidates, for every item, and nothing else moves.
+def rank_partial_tie(f: RankFixture, rng: np.random.Generator, n_tied: int = 2,
+                     amplitude: float = 3.0) -> RankFixture:
+    """The target ties with `n_tied - 1` other candidates AT THE TOP, for every item.
 
     A top-1 accuracy written as `argmax == target` awards a full hit to whichever candidate numpy's
     argmax happens to return first, which is the h34 rank-1-on-ties failure wearing the other hat:
-    a dead readout would score 1.0 on half its items and 0.0 on the rest, averaging to something
-    that looks like a real effect. The shipped statistic splits the hit over the tied set (1/T), so
-    this fixture must read exactly `n_tied ** -1`.
+    on a wholly tied field it reads 1.0 or 0.0 depending on nothing but which tied candidate the
+    labelling calls correct. The shipped statistic splits the hit over the tied set (1/T), so this
+    fixture must read exactly `n_tied ** -1`.
 
-    Written before the statistic, like everything else in this file.
+    Written before the statistic, like everything else in this file -- and then corrected by it,
+    which is the ordering working rather than failing. The first version made the first `n_tied`
+    directions identical and stopped there, so the tied pair did not necessarily WIN: four
+    unrelated candidates were still in the race and the statistic read 0.091, not 0.5. A tie that
+    is not at the top is not the h34 configuration. The activations are now pushed along the shared
+    direction so the tied block takes the top places outright.
     """
-    acts = f.acts.copy()
     dirs = f.dirs.copy()
-    # make the first `n_tied` directions identical, and point every item at the tied block so the
-    # target is always inside it
     dirs[:n_tied] = dirs[0]
+    scale = float(np.linalg.norm(f.acts, axis=-1).mean())
+    acts = f.acts + amplitude * scale * dirs[0]
     target = rng.integers(0, n_tied, size=f.n)
     return replace(f, acts=acts, dirs=dirs, target=target)
 

@@ -450,11 +450,30 @@ def _source_closure(fn: Callable, _seen: set | None = None) -> list[str]:
         return [f"{key[0]}.{key[1]}"]
     out = [src]
     globs = getattr(fn, "__globals__", {})
-    for name in sorted(getattr(getattr(fn, "__code__", None), "co_names", ())):
+    for name in sorted(_referenced_names(getattr(fn, "__code__", None))):
         dep = globs.get(name)
         if callable(dep) and str(getattr(dep, "__module__", "")).startswith("lsx."):
             out.extend(_source_closure(dep, seen))
     return out
+
+
+def _referenced_names(code, _depth: int = 0) -> set:
+    """Every global name a code object reads, INCLUDING inside its nested code objects.
+
+    Comprehensions, lambdas and inner functions each compile to their own code object, and their
+    names do not appear in the enclosing `co_names`. This bit the first version of the closure
+    within the hour: `selector_rank` calls `midrank` inside a list comprehension, so a walker that
+    read only the top-level `co_names` found `cosine_scores` and missed `midrank` -- i.e. editing
+    the tie rule that h34 turned on would still not have re-calibrated the instrument that depends
+    on it. The fix for a hole that hid a dependency was itself hiding a dependency.
+    """
+    if code is None or _depth > 8:
+        return set()
+    names = set(getattr(code, "co_names", ()))
+    for const in getattr(code, "co_consts", ()):
+        if hasattr(const, "co_names"):
+            names |= _referenced_names(const, _depth + 1)
+    return names
 
 
 def calibration_key(stat: Callable, declared_null, invariances=()) -> str:

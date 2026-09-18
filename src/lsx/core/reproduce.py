@@ -294,34 +294,127 @@ def h16_as_logged() -> Row:
 
 def h39_as_logged() -> Row:
     """h39's corrected Gemma clock: 0.501 / 0.767 / 2.50 are raw scores on a grid whose leak check
-    flags 221 of 240 state spans. §1A says the core must not print them bare."""
+    flags 221 of 240 state spans. §1A says the core must not print them bare, and restates the
+    target as **gain over the measured stimulus floor**.
+
+    Piece 3 refused this row for two independent reasons. Piece 4 closes the first and cannot close
+    the second:
+
+      1. *`discrimination` was declared and not built*, so no Claim could be graded through it at
+         all. It is built now, it passes the six-test battery, and §3 below shows it computing a
+         real gain over a real floor from h38's cached per-subject values.
+      2. *The grid is flagged leaky, so §6 requires gain over the measured floor* -- and measuring
+         that floor needs the Gemma stacks, which are not cached. §11.3 says defer rather than
+         re-extract, and 0.767 is a rank correlation over nine per-Δt shared norms with no
+         per-subject breakdown in the logged JSON, so there is nothing to grade per item either.
+
+    So the verdict moves from REFUSED-for-two-reasons to **deferred**: the instrument exists, the
+    data does not. That is a smaller gap than it was and it is still a gap.
+    """
     from .types import LeakReport
     # the leak report h35/h38 measured on this grid, restated as the core's own object
     leak = LeakReport(recoverability={"interval": 0.92}, null_value={"interval": 0.40},
                       position_corr={}, flagged=("interval",),
                       notes=["h32/h35: 221 of 240 v2 state spans restate the interval; h38 measured "
                              "layer-14 discrimination 0.961 -> 0.522 with the phrase removed"])
-    sel = instruments.build("selector", n=200, d=32, n_candidates=6)
-    prov = {"grid_hash": "time_translation_v2", "model": "google/gemma-2-9b-it",
-            "layers": [20], "pooling": "mean", "template": None, "tokenizer_padding": "left",
-            "code_version": "scripts/ndif_time_translation_extract.py (frozen)", "lib_versions": {}}
-    try:
-        registry.spec("discrimination")
-        instruments.build("discrimination")
-        built = True
-    except Exception:  # noqa: BLE001
-        built = False
+    logged = json.loads(data("time_translation_gemma_auditfix_measures.json").read_text())
+    m1 = logged["m1_m2_decomposition"]["20"]["per_dt"]
+    frac_shared = float(np.mean([v["frac_shared"] for v in m1.values()]))
+    spearman_logged = float(logged["m3_clock_geometry"]["20"]["spearman_norm_logdt"])
+    ratio = float(logged["m7_phrase_control"]["20"]["mean_ratio"])
+
+    inst = instruments.build("discrimination", n=200, d=64, m=9)
+    built = inst.calibration.passed
+    demo = discrimination_on_h38_cache()
+
     return Row(target="h39 Gemma clock, corrected", source="h39",
                logged="0.501 shared-variance / 0.767 Spearman / 2.50 phrase-only ratio (raw)",
-               reproduced="not published",
-               tolerance="n/a -- refused before grading",
-               verdict=REFUSED,
-               detail=("`discrimination` is declared in the registry and NOT built (spec §8/§11.4), "
-                       "so no Claim can be graded through it; and the grid is flagged leaky "
-                       f"({leak.summary()[:70]}...), so §6 requires gain over the measured floor, "
-                       "never the raw score. Stacks for the v3 grid are not cached, so the gain "
-                       "cannot be measured here (§11.3: defer, do not re-extract)."),
-               extra={"instrument_built": built, "leak": leak.summary()})
+               reproduced=f"read back from the logged JSON: {frac_shared:.3f} / "
+                          f"{spearman_logged:.3f} / {ratio:.3f} -- NOT re-derived",
+               tolerance="n/a -- not gradable without the floor",
+               verdict=DEFERRED,
+               detail=("`discrimination` is BUILT and calibrated (piece 4), so reason 1 of piece "
+                       "3's two is closed. The grid is flagged leaky "
+                       f"({leak.summary()[:60]}...), so §6 requires gain over the MEASURED floor, "
+                       "and the Gemma v2/v3 stacks are not cached (§11.3: defer, do not "
+                       "re-extract). The logged JSON carries aggregates only -- nine per-Δt shared "
+                       "norms -- so there are no per-item values to grade either. The instrument "
+                       "is exercised on h38's cached per-subject values instead (see extra)."),
+               extra={"instrument_built": built, "leak": leak.summary(),
+                      "logged_reread": {"frac_shared": frac_shared,
+                                        "spearman_norm_logdt": spearman_logged,
+                                        "phrase_ratio": ratio},
+                      "instrument_demo": demo})
+
+
+def discrimination_on_h38_cache() -> dict:
+    """`discrimination` run on real per-subject numbers: h38's clock arms A and D, Qwen2.5-1.5B.
+
+    Not an §1A row -- §1A's discrimination target is h39's Gemma clock -- but the nearest real data
+    the instrument can reach, and the point of doing it is that a calibrated instrument which has
+    never touched a measurement is only half-checked.
+
+    Arm D is the full state text and arm A is the same text with the interval phrase removed, which
+    is a *measured stimulus floor* rather than a declared one: h38 built arm A precisely so the
+    floor could be measured rather than argued. The gain is `D - A` per subject and the claim
+    reports `gain_over_floor`.
+
+    It is REFUSED, twice, and both refusals are about h38's battery rather than the instrument:
+    there is no `shuffled_stimulus` arm in the cached discrimination JSONs (arm B was extracted but
+    never run through the discrimination script), and the provenance is a frozen script's output
+    rather than a `Stack`.
+    """
+    out: dict = {"model": "Qwen/Qwen2.5-1.5B", "source": "results/clock_gain_v1_discrim_{A,D}.json"}
+    try:
+        A = json.loads(data("clock_gain_v1_discrim_A.json").read_text())
+        D = json.loads(data("clock_gain_v1_discrim_D.json").read_text())
+    except FileNotFoundError as e:
+        return {"unavailable": str(e)}
+    layers = sorted(set(A) & set(D), key=int)
+    subjects = sorted(D[layers[0]]["per_subject"])
+    per_layer = {}
+    for l in layers:
+        treat = np.array([D[l]["per_subject"][s]["shared_spearman"] for s in subjects])
+        floor = np.array([A[l]["per_subject"][s]["shared_spearman"] for s in subjects])
+        per_layer[l] = {"treatment": float(treat.mean()), "floor": float(floor.mean()),
+                        "gain": float((treat - floor).mean())}
+    out["per_layer"] = per_layer
+    out["subjects"] = len(subjects)
+
+    l = "14"
+    treat = np.array([D[l]["per_subject"][s]["shared_spearman"] for s in subjects])
+    floor = np.array([A[l]["per_subject"][s]["shared_spearman"] for s in subjects])
+    inst = instruments.build("discrimination", n=200, d=64, m=9, floor=float(floor.mean()))
+    out["declared_null"] = inst.declared_null
+    out["calibration_null"] = inst.calibration_null
+    out["calibration_key"] = inst.key
+    out["arm_tolerance_at_8_subjects"] = float(inst.tolerance(len(subjects)))
+    try:
+        claim = inst.claim(
+            treatment=Measured(treat, label=f"h38 clock arm D, shared Spearman @L{l}"),
+            arms={"floor": Arm(floor, expected_null=float(floor.mean()),
+                               tolerance=inst.tolerance(len(floor)),
+                               justification="arm A: the same state text with the interval phrase "
+                                             "removed. A MEASURED stimulus floor, which is what h38 "
+                                             "built arm A for")},
+            floor=Floor(stimulus=float(floor.mean()), estimator=0.0),
+            selection=Selection(axis=None, rule=f"pre-registered layer {l}; no sweep"),
+            provenance={"model": "Qwen/Qwen2.5-1.5B", "layers": [int(l)], "pooling": "mean",
+                        "grid_hash": "clock_gain_v1", "template": None,
+                        "tokenizer_padding": "right",
+                        "code_version": "scripts/time_translation_discrimination.py (frozen)",
+                        "lib_versions": {}},
+            stage="h38", report_as="gain_over_floor")
+        out["claim"] = {"reported_gain": claim.reported_value, "id": claim.id,
+                        "render": claim.render()}
+        out["refusal"] = None
+    except CoreError as e:
+        out["refusal"] = f"{type(e).__name__}: {str(e).splitlines()[0]}"
+        out["treatment"] = float(treat.mean())
+        out["floor_value"] = float(floor.mean())
+        out["gain"] = float((treat - floor).mean())
+        out["logged"] = {"arm_D_L14": 0.961, "arm_A_L14": 0.522}
+    return out
 
 
 # ================================================================================================
@@ -740,7 +833,7 @@ def h16(lm, *, layers: Sequence[int] = tuple(range(0, 29, 2)), ridge: float = 10
     return out
 
 
-def h16_claim(res: dict) -> tuple[Claim, dict]:
+def h16_claim(res: dict) -> tuple[Claim | None, dict]:
     """The restated §1A target: the curve, reported whole, with the semantic null §4 names.
 
     Three things the logged form did not have, all of them required by the core:
@@ -772,33 +865,133 @@ def h16_claim(res: dict) -> tuple[Claim, dict]:
     arms = {name: np.concatenate([per[l][key] for l in layers])
             for name, key in (("random", "random"), ("no_patch", "mean"),
                               ("permutation", "permutation"))}
-    claim = inst.claim(
-        treatment=Measured(treat, label="h16 role_rank/6, all pairs x all swept layers"),
-        arms={"random": Arm(arms["random"], expected_null=float((res["n_candidates"] + 1) / 2),
-                            tolerance=inst.tolerance(len(arms["random"])),
-                            justification="a Gaussian prediction of matched norm, ranked by the "
-                                          "same code against the same six candidates"),
-              "no_patch": Arm(arms["no_patch"],
-                              expected_null=float((res["n_candidates"] + 1) / 2),
-                              tolerance=inst.tolerance(len(arms["no_patch"])),
-                              justification="the training-mean target: the prediction with no "
-                                            "relation applied at all"),
-              "permutation": Arm(arms["permutation"],
-                                 expected_null=float((res["n_candidates"] + 1) / 2),
-                                 tolerance=inst.tolerance(len(arms["permutation"])),
-                                 justification="h16's own null: the src->dst pairing permuted "
-                                               "within the training fold, held-out rows untouched")},
-        semantic_null=sem,
-        floor=Floor(stimulus=float((res["n_candidates"] + 1) / 2),
-                    estimator=float(np.mean(arms["permutation"]))),
-        selection=selection,
-        provenance=dict(res["stack"].provenance,
-                        direction_held_out="domain (leave-one-domain-out)"),
-        grid=res["grid"], stage="h16")
-    return claim, {"curve": dict(selection.curve), "treatment": float(treat.mean()),
-                   "random": float(arms["random"].mean()),
-                   "no_patch": float(arms["no_patch"].mean()),
-                   "permutation": float(arms["permutation"].mean()),
-                   "role_identity_retained": float(sem.value), "n": int(treat.size),
-                   "peak_layer": min(selection.curve, key=lambda k: selection.curve[k]),
-                   "peak_value": min(selection.curve.values())}
+    summary = {"curve": dict(selection.curve), "treatment": float(treat.mean()),
+               "random": float(arms["random"].mean()),
+               "no_patch": float(arms["no_patch"].mean()),
+               "permutation": float(arms["permutation"].mean()),
+               "role_identity_retained": float(sem.value), "n": int(treat.size),
+               "arm_tolerance": float(inst.tolerance(len(arms["random"]))),
+               "peak_layer": min(selection.curve, key=lambda k: selection.curve[k]),
+               "peak_value": min(selection.curve.values())}
+
+    def build() -> Claim:
+        return inst.claim(
+            treatment=Measured(treat, label="h16 role_rank/6, all pairs x all swept layers"),
+            arms={"random": Arm(arms["random"],
+                                expected_null=float((res["n_candidates"] + 1) / 2),
+                                tolerance=inst.tolerance(len(arms["random"])),
+                                justification="a Gaussian prediction of matched norm, ranked by "
+                                              "the same code against the same six candidates"),
+                  "no_patch": Arm(arms["no_patch"],
+                                  expected_null=float((res["n_candidates"] + 1) / 2),
+                                  tolerance=inst.tolerance(len(arms["no_patch"])),
+                                  justification="the training-mean target: the prediction with no "
+                                                "relation applied at all"),
+                  "permutation": Arm(arms["permutation"],
+                                     expected_null=float((res["n_candidates"] + 1) / 2),
+                                     tolerance=inst.tolerance(len(arms["permutation"])),
+                                     justification="h16's own null: the src->dst pairing permuted "
+                                                   "within the training fold, held-out rows "
+                                                   "untouched")},
+            semantic_null=sem,
+            floor=Floor(stimulus=float((res["n_candidates"] + 1) / 2),
+                        estimator=float(np.mean(arms["permutation"]))),
+            selection=selection,
+            provenance=dict(res["stack"].provenance,
+                            direction_held_out="domain (leave-one-domain-out)"),
+            grid=res["grid"], stage="h16")
+
+    # The claim is built inside a try because h16's own baselines are what is under test here, and
+    # one of them does not survive the contract. Reported, not caught-and-hidden: `summary` carries
+    # the refusal and the numbers that produced it either way.
+    try:
+        claim = build()
+        summary["refusal"] = None
+    except CoreError as e:
+        claim = None
+        summary["refusal"] = f"{type(e).__name__}: {str(e).splitlines()[0]}"
+    return claim, summary
+
+
+# ================================================================================================
+# target: h29, the era shift in generation -- the statistic that had no instrument
+# ================================================================================================
+def h29_from_logged() -> Row:
+    """h29's 3x re-imposed era shift, re-derived per item and graded through `top1_accuracy`.
+
+    Piece 3 reproduced these numbers twice, bit-identically, and could not put them anywhere: the
+    registry shipped a rank, a joint rank and a projection gain, and h29's statistic is an
+    ACCURACY. `top1_accuracy` exists now, so the number can be computed by the core -- and the row
+    still cannot be published, for two reasons that are both about h29's battery rather than about
+    the instrument:
+
+      * the logged run carries ONE arm. `ndif_recompose_sweep.py` at scale 3.0 emits the `shift`
+        condition and nothing else, so there is no random-direction arm and no no-patch arm.
+        `CLAUDE.md`'s first non-negotiable -- "every battery reports treatment, random AND
+        no-patch" -- is not met by a number that is in `RESULTS.md` today, and `MissingArm` is the
+        core saying so without being told to look.
+      * the provenance is a frozen script's JSON, not a `Stack`, so `ProvenanceNotFromStack` fires
+        at the ledger even if the arms existed.
+
+    The verdict is therefore REFUSED and no longer `deferred (no instrument)`. What changed is
+    which of the two sentences is true: "the core cannot compute this" has become "the core
+    computes it and will not publish it".
+    """
+    path = data("recompose_sweep_reimpose_3.0.json")
+    blob = json.loads(path.read_text())
+    scored = [r for r in blob["rows"] if "era_read" in r]
+    n_attempted = len(blob["rows"])
+    era = np.array([float(r["era_read"] == r["e2"]) for r in scored])
+    leaves = np.array([float(r["era_read"] != r["e1"]) for r in scored])
+    theme = np.array([float(r["theme_read"] == r["t"]) for r in scored])
+    lex_rows = [r for r in scored if r["lex_era"] not in (None, "none", "-")]
+    lex = np.array([float(r["lex_era"] == r["e2"]) for r in lex_rows])
+
+    inst = instruments.build("top1_accuracy", n=400, d=64, n_candidates=3)
+    prov = {"model": blob["meta"]["model"], "layers": [blob["meta"]["patch_layer"],
+                                                       blob["meta"]["read_layer"]],
+            "pooling": "generated text", "grid_hash": blob["meta"]["grid"],
+            "template": blob["meta"].get("prompt_format"), "tokenizer_padding": "left",
+            "code_version": "scripts/ndif_recompose_sweep.py (frozen)", "lib_versions": {},
+            "direction_held_out": "scene"}
+    detail_bits = []
+    try:
+        claim = inst.claim(
+            treatment=Measured(era, label="h29 era reads as target, 3x re-imposed @ scale 3.0"),
+            arms={},
+            floor=Floor(stimulus=float(lex.mean()), estimator=1.0 / 3.0),
+            selection=Selection(axis=None, rule="pre-registered scale 3.0, patch 14 / read 20"),
+            provenance=prov, stage="h29", report_as="raw")
+        verdict, claim_id = FAILED, claim.id
+        detail_bits.append("the core ACCEPTED a one-armed battery")
+    except CoreError as e:
+        verdict, claim_id = REFUSED, ""
+        detail_bits.append(f"{type(e).__name__} -- {str(e).splitlines()[0][:150]}")
+
+    # ... and what it would still be refused for once the arms existed.
+    prov_refusal = None
+    try:
+        ledger.check_provenance_from_stack(
+            type("_P", (), {"provenance": prov, "instrument": "top1_accuracy"})())
+    except CoreError as e:
+        prov_refusal = type(e).__name__
+    detail_bits.append(f"at the ledger, separately: {prov_refusal}")
+
+    tol = inst.tolerance(len(era))
+    return Row(target="h29 era shift in generation, 3x re-imposed", source="h29",
+               logged="0.84 era->target / 0.91 leaves e1 / 0.53 theme kept, lex 0.30, n=55/72",
+               reproduced=f"{era.mean():.4f} / {leaves.mean():.4f} / {theme.mean():.4f}, "
+                          f"lex {lex.mean():.2f} (n={len(scored)}/{n_attempted})",
+               tolerance=f"+-{REMOTE_TOLERANCE:.4f} remote (measured, piece 3); arm band "
+                         f"+-{tol:.4f} at n={len(era)}",
+               verdict=verdict, detail="; ".join(detail_bits),
+               claim_id=claim_id,
+               extra={"era_target": float(era.mean()), "leaves_e1": float(leaves.mean()),
+                      "theme_kept": float(theme.mean()), "lexical_floor": float(lex.mean()),
+                      "n": len(scored), "n_attempted": n_attempted,
+                      "null_era_target": 1.0 / 3.0,
+                      "null_leaves_e1": 2.0 / 3.0,
+                      "null_theme_kept": 1.0 / 3.0,
+                      "arm_tolerance": float(tol),
+                      "arms_present": sorted({r["cond"] for r in blob["rows"]}),
+                      "arms_required": list(registry.required_arms("top1_accuracy"))})

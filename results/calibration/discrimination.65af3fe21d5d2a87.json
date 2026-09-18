@@ -1,0 +1,66 @@
+{
+ "declared_null": 0.0,
+ "degenerate": false,
+ "hand_declared_passed": null,
+ "instrument": "discrimination",
+ "invariance": [
+  {
+   "after": 0.8614166666666668,
+   "before": 0.8614166666666668,
+   "claimed": true,
+   "name": "scale"
+  },
+  {
+   "after": 0.8614166666666668,
+   "before": 0.8614166666666668,
+   "claimed": true,
+   "name": "rotation"
+  },
+  {
+   "after": 0.8614166666666668,
+   "before": 0.8614166666666668,
+   "claimed": true,
+   "name": "monotone_target"
+  },
+  {
+   "after": 0.8121666666666667,
+   "before": 0.8614166666666668,
+   "claimed": false,
+   "name": "cell_rescale"
+  }
+ ],
+ "invariance_failed": false,
+ "invariance_tol": 1e-06,
+ "key": "65af3fe21d5d2a87",
+ "known_zero_failed": false,
+ "known_zero_value": 0.0,
+ "noise_failed": false,
+ "noise_sd": 0.02453797899572099,
+ "noise_value": 0.008562500000000002,
+ "notes": [
+  "cell_rescale: not claimed as an invariance; measured change 0.04925 (genuinely not invariant, as declared)"
+ ],
+ "self_floor_failed": false,
+ "self_floor_value": 0.036333333333333336,
+ "sensitivity_amplitudes": [
+  0.02,
+  0.05,
+  0.1,
+  0.2
+ ],
+ "sensitivity_failed": false,
+ "sensitivity_values": [
+  0.18800000000000006,
+  0.3890833333333334,
+  0.6381666666666668,
+  0.8614166666666668
+ ],
+ "tests_run": [
+  "noise",
+  "sensitivity",
+  "degeneracy",
+  "self_floor",
+  "invariance",
+  "known_zero"
+ ]
+}

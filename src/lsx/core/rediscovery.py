@@ -555,12 +555,161 @@ def case_8_readout_after_patch_no_passthrough() -> Verdict:
 
 
 # --------------------------------------------------------------------------------------------
+# bugs 9, 10 and 11: the three PUBLICATION refusals piece 3 added.
+#
+# Piece 3 tested these directly -- "call `append` on a claim with a hand-declared report, expect
+# `HandDeclaredCalibration`" -- and said in its own handover that it should not have: §1B's test is
+# "fed a known-bad configuration, the core refuses WITHOUT being told what to look for", and a test
+# that names the exception it wants is being told. These three cases feed the ledger a
+# configuration that is bad in the way the project has actually been bad, and record what fired.
+#
+# Each carries its positive control, because a ledger that refuses everything is no ledger.
+# --------------------------------------------------------------------------------------------
+def _publishable_claim(**over):
+    """A claim that is correct in every way the ledger checks, so a case can break exactly one."""
+    from . import checks, instruments
+    from .types import Arm, Floor, Measured, Selection, stack_signature
+
+    inst = instruments.build("selector", n=200, d=32, n_candidates=6)
+    rng = np.random.default_rng(3)
+    n = 60
+    treat = np.clip(np.round(rng.normal(2.1, 1.0, size=n)), 1, 6)
+    arms = {name: np.clip(np.round(rng.normal(3.5, 1.7, size=n)), 1, 6)
+            for name in ("random", "no_patch", "permutation")}
+    prov = {"model": "Qwen/Qwen2.5-1.5B", "layers": [20], "pooling": "mean",
+            "grid_hash": "harness_v1", "code_version": "harness", "tokenizer_padding": "left",
+            "template": None, "lib_versions": {"torch": "x", "transformers": "y"},
+            "acts_digest": "deadbeefdeadbeef", "span_policy": "end_relative"}
+    prov = dict(prov, **over.pop("provenance_extra", {}))
+    if over.pop("sign_provenance", True):
+        prov["stack_signature"] = stack_signature(prov)
+    if "tamper" in over:
+        prov[over["tamper"]] = "TAMPERED"
+        over.pop("tamper")
+    kw = dict(treatment=Measured(treat, label="harness selector"), arms=arms,
+              floor=Floor(stimulus=3.5, estimator=3.5),
+              selection=Selection(axis=None, rule="pre-registered layer 20; no sweep"),
+              provenance=prov, stage="harness")
+    kw.update(over)
+    claim = inst.claim(**kw)
+    if "calibration_override" in over:
+        claim.calibration = over["calibration_override"]
+    return claim
+
+
+def case_9_hand_declared_calibration_published() -> Verdict:
+    """A claim carrying a PROMISE that the battery would pass, offered to the ledger."""
+    from . import checks, ledger
+    from .types import Arm, Claim, EffectSize, Floor, Measured, Selection, stack_signature
+
+    led = ledger.Ledger(path=_tmp_ledger())
+
+    good = _publishable_claim()
+    ok = _refusal(lambda: led.append(good, note="harness positive control"))
+
+    # the same claim in every respect, except that its calibration is a hand-declared report --
+    # which is what every §11.4 instrument and every hand-built claim in this repo carries.
+    prov = dict(good.provenance)
+    prov.pop("calibration_key", None)
+    prov.pop("stack_signature", None)
+    prov["stack_signature"] = stack_signature(prov)
+    promised = Claim(instrument="selector", treatment=good.treatment, arms=good.arms,
+                     floor=good.floor, selection=good.selection, effect=good.effect,
+                     calibration=checks.CalibrationReport.hand_declared(
+                         "selector", passed=True, note="battery would pass"),
+                     provenance=prov, config=dict(good.config), stage="harness")
+    hand = _refusal(lambda: led.append(promised))
+
+    caught = isinstance(hand, checks.HandDeclaredCalibration)
+    ctl = ("a measured report publishes" if ok is None else f"FAILED: {_named(ok)}")
+    if caught:
+        return Verdict(9, "a hand-declared calibration report offered to the ledger", CAUGHT,
+                       "Ledger.append -> HandDeclaredCalibration", str(hand).splitlines()[0], ctl)
+    return Verdict(9, "a hand-declared calibration report offered to the ledger", NOT_CAUGHT,
+                   _named(hand), "the ledger graded a promise", ctl)
+
+
+def case_10_provenance_not_from_a_stack() -> Verdict:
+    """Two shapes: provenance that `build_stack` never wrote, and provenance edited afterwards."""
+    from . import checks, ledger
+
+    led = ledger.Ledger(path=_tmp_ledger())
+    ok = _refusal(lambda: led.append(_publishable_claim(), note="harness positive control"))
+
+    unsigned = _refusal(lambda: led.append(_publishable_claim(sign_provenance=False)))
+    # signed, then a recorded field changed -- the padding side, which is h39's field
+    tampered = _publishable_claim()
+    tampered.provenance["tokenizer_padding"] = "right"
+    edited = _refusal(lambda: led.append(tampered))
+
+    caught = (isinstance(unsigned, checks.ProvenanceNotFromStack)
+              and isinstance(edited, checks.ProvenanceNotFromStack))
+    detail = f"unsigned: {_named(unsigned)}; padding side edited after signing: {_named(edited)}"
+    ctl = ("a signed, unedited stack publishes" if ok is None else f"FAILED: {_named(ok)}")
+    if caught:
+        return Verdict(10, "a hand-rolled extraction wrapped in a well-formed Claim", CAUGHT,
+                       "Ledger.append -> ProvenanceNotFromStack (absent signature, and a "
+                       "signature that no longer matches the fields it is attached to)",
+                       detail, ctl)
+    return Verdict(10, "a hand-rolled extraction wrapped in a well-formed Claim", NOT_CAUGHT,
+                   _named(unsigned), detail, ctl)
+
+
+def case_11_swept_axis_with_no_curve() -> Verdict:
+    """h16's shape: an axis was swept, and what reaches the ledger is prose about the sweep.
+
+    The prose passes the `Selection` regex -- deliberately, since piece 2 left a test asserting
+    that it does -- so this case is exactly the gap between "the caller says they reported the
+    curve" and "the core has the curve".
+    """
+    from . import checks, instruments, ledger
+    from .types import Selection
+
+    led = ledger.Ledger(path=_tmp_ledger())
+
+    story = Selection(axis="layer", rule="we looked at the curve and quoted layer 16",
+                      held_out=True)
+    told = _refusal(lambda: led.append(_publishable_claim(selection=story)))
+
+    inst = instruments.build("selector", n=200, d=32, n_candidates=6)
+    curve = {0: 2.73, 4: 2.20, 10: 1.98, 16: 1.73, 20: 1.86, 24: 2.39, 28: 2.73}
+    executed = inst.sweep("layer", list(curve), lambda l: curve[int(l)])
+    ok = _refusal(lambda: led.append(_publishable_claim(selection=executed)))
+    unswept = _refusal(lambda: led.append(_publishable_claim()))
+
+    caught = isinstance(told, checks.SweepNotExecuted)
+    ctl = (f"a core-computed curve publishes ({len(curve)} points)"
+           if ok is None and unswept is None
+           else f"FAILED: {_named(ok)} / {_named(unswept)}")
+    if caught:
+        return Verdict(11, "a swept axis carried as the caller's prose, not as a curve", CAUGHT,
+                       "Ledger.append -> SweepNotExecuted; the same claim with a curve from "
+                       "Instrument.sweep publishes",
+                       f"prose that passes the Selection regex: {story.rule!r} -> {_named(told)}",
+                       ctl)
+    return Verdict(11, "a swept axis carried as the caller's prose, not as a curve", NOT_CAUGHT,
+                   _named(told), f"rule={story.rule!r}", ctl)
+
+
+def _tmp_ledger():
+    """A throwaway ledger file. The harness must never touch `results/ledger.jsonl`: these are
+    demonstrations that a mechanism fires, not results (the same line piece 3 drew for its
+    hand-declared reports)."""
+    import pathlib
+    import tempfile
+    return pathlib.Path(tempfile.mkdtemp(prefix="lsx_harness_")) / "ledger.jsonl"
+
+
+# --------------------------------------------------------------------------------------------
 
 MODEL_CASES = {1: case_1_batch_row_patch, 2: case_2_absolute_spans_left_padding,
                7.5: case_7p5_post_norm_last_hidden_state}
 PURE_CASES = {3: case_3_rank1_ties_no_no_patch, 4: case_4_best_layer_on_scoring_data,
               5: case_5_residual_norm_no_floor, 6: case_6_degenerate_crosstalk_rank,
-              7: case_7_leaky_grid_raw_score, 8: case_8_readout_after_patch_no_passthrough}
+              7: case_7_leaky_grid_raw_score, 8: case_8_readout_after_patch_no_passthrough,
+              9: case_9_hand_declared_calibration_published,
+              10: case_10_provenance_not_from_a_stack,
+              11: case_11_swept_axis_with_no_curve}
 
 
 def run_all(lm=None) -> list[Verdict]:

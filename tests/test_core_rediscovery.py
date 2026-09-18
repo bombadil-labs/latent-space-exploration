@@ -37,6 +37,10 @@ def test_every_wired_case_is_caught(verdicts):
     (1, "MovedCandidates"), (2, "BatchEquivalence"), (3, "MissingArm"), (4, "SelectionOnScoringData"),
     (5, "MissingFloor"), (6, "CalibrationFailed"), (7, "RawScoreOnLeakyGrid"),
     (7.5, "PostNormResidual"), (8, "MissingArm"),
+    # piece 4: the three PUBLICATION refusals, which piece 3 added and tested directly rather than
+    # through the harness -- and said so in its handover. §1B's standard is "refuses without being
+    # told what to look for", and a test that names the exception it wants is being told.
+    (9, "HandDeclaredCalibration"), (10, "ProvenanceNotFromStack"), (11, "SweepNotExecuted"),
 ])
 def test_the_named_mechanism_fired(verdicts, bug, mechanism):
     assert mechanism in verdicts[bug].mechanism, verdicts[bug].render()
@@ -222,3 +226,32 @@ def test_leak_report_is_computed_at_construction_and_cached_by_hash():
     assert leaky.leak.leaky and "interval" in leaky.leak.flagged
     assert leaky.hash and leaky.hash != rediscovery._clean_grid().hash
     assert not rediscovery._clean_grid().leak.leaky
+
+
+# --- piece 4: the ledger is covered by the harness, not only by direct tests -------------------
+def test_the_harness_covers_the_three_publication_refusals(verdicts):
+    """Piece 3 closed with "there is no harness case for these, and there should be"."""
+    for bug in (9, 10, 11):
+        assert verdicts[bug].ok, verdicts[bug].render()
+        assert "Ledger.append" in verdicts[bug].mechanism, verdicts[bug].render()
+
+
+def test_the_harness_never_writes_to_the_real_ledger(tmp_path):
+    """A harness case is a demonstration that a mechanism fires, not a result. If one of these ever
+    appended to `results/ledger.jsonl` it would be a fabricated row, which is the one thing the
+    ledger exists to make impossible."""
+    from lsx.core import ledger
+    real = ledger.DEFAULT_PATH
+    before = real.read_text() if real.exists() else ""
+    for bug in (9, 10, 11):
+        rediscovery.PURE_CASES[bug]()
+    after = real.read_text() if real.exists() else ""
+    assert before == after
+
+
+def test_a_swept_claim_with_a_curve_publishes_and_one_with_prose_does_not():
+    """The positive control of case 11, asserted here too: the refusal must cost exactly the prose
+    path and nothing else."""
+    v = rediscovery.PURE_CASES[11]()
+    assert "FAILED" not in v.positive_control, v.render()
+    assert "curve publishes" in v.positive_control

@@ -180,10 +180,47 @@ def test_h16_peak_layer_is_refused_by_the_core():
     assert "SelectionOnScoringData" in row.detail
 
 
-def test_h39_raw_scores_on_a_leaky_grid_are_refused():
+def test_h39_is_deferred_now_that_discrimination_exists_but_its_floor_cannot_be_measured():
+    """Piece 3 refused this row for two reasons; piece 4 closes one of them and not the other.
+
+    The instrument is built and calibrated, so "no Claim can be graded through it" is no longer
+    true. The grid is still flagged leaky, §6 still requires gain over the MEASURED floor, and the
+    Gemma stacks that would measure it are still not cached -- so the row is deferred on data.
+    """
     row = reproduce.h39_as_logged()
-    assert row.verdict == reproduce.REFUSED
-    assert row.extra["instrument_built"] is False       # `discrimination` is declared, not built
+    assert row.verdict == reproduce.DEFERRED
+    assert row.extra["instrument_built"] is True
+    assert "not cached" in row.detail
+
+
+def test_discrimination_reproduces_h38s_logged_floor_and_treatment():
+    """The instrument, on real numbers rather than on its fixtures.
+
+    h38 logged the arm-D clock at 0.961 and the arm-A floor (same text, interval phrase removed) at
+    0.522 for layer 14. The instrument re-derives both from the cached per-subject values, and
+    reports the difference as gain, because §6 forbids the raw score on this grid.
+    """
+    demo = reproduce.discrimination_on_h38_cache()
+    assert demo["per_layer"]["14"]["treatment"] == pytest.approx(0.961, abs=0.001)
+    assert demo["per_layer"]["14"]["floor"] == pytest.approx(0.522, abs=0.001)
+    assert demo["gain"] == pytest.approx(0.4385, abs=0.001)
+    # and it is refused, for h38's battery rather than for the instrument
+    assert "MissingArm" in demo["refusal"] and "shuffled_stimulus" in demo["refusal"]
+
+
+def test_the_known_zero_point_holds_on_real_data_at_layer_zero():
+    """§5's known-zero point, arriving unasked on a real measurement.
+
+    For Qwen and Gemma layer 0 IS the bag of static embeddings -- which h38 discovered the hard way
+    -- so a state-text readout and a bag-of-the-same-words floor are the same object there and the
+    gain must be zero. Measured on the cached arms: 0.004, against an arm band of 0.375 at eight
+    subjects. This is the one calibration point the battery cannot fake, because nothing here is
+    synthetic.
+    """
+    demo = reproduce.discrimination_on_h38_cache()
+    assert abs(demo["per_layer"]["0"]["gain"]) < demo["arm_tolerance_at_8_subjects"]
+    assert demo["per_layer"]["0"]["gain"] == pytest.approx(0.004, abs=0.01)
+    assert demo["per_layer"]["14"]["gain"] > 10 * abs(demo["per_layer"]["0"]["gain"])
 
 
 def test_a_selector_with_a_non_default_candidate_count_is_not_stale():
