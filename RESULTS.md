@@ -1731,6 +1731,66 @@ Tests 52 passed in 0.54 s. Files: `src/lsx/core/{__init__,types,checks,extract,r
 `tests/test_core_rediscovery.py`, `results/notes/core_p1.md`. `scripts/` untouched, as the spec
 requires. Cost: ~190k agent tokens, ~45 min, no downloads, no NDIF.
 
+## 2026-09-18 (hour 44) — PHASE 1 piece 2: the registry and calibration battery, and the fix reproduced its own bug (agent)
+
+Three instruments shipped per the rescoped §11, with `crosstalk`, `depth_gain` and `generality`
+declared but unimplemented. Nulls come from config, never from the caller. 82 tests, harness still
+9 of 9.
+
+| instrument | null | arm tolerance, measured 3σ | invariances |
+|---|---|---|---|
+| `selector` | (k+1)/2 — 3.50 at k=6, 2.00 at k=3 | 0.810 (k=6, n=40); 0.447 (k=3, n=30); 0.122 (k=3, n=400) | scale, rotation |
+| `composition` | (V+1)/2 — 9.50 at hour 8's V=18 | 2.461 (n=40) | scale, rotation |
+| `readout_shift` | **0.0 gain** over pass-through, a difference never a ratio | 0.084 (d=1536, n=40) | scale, rotation |
+
+Tolerances are 3·sd/√n with sd measured, and the closed forms were checked against Monte Carlo from
+the real statistic (0.821 vs 0.816; 1.712 vs 1.708; 5.252 vs 5.188). **Piece 1's flat 0.15 default
+would fire on 55.3% of clean hour-4-shaped arms; the measured band fires on 0.1%.** That is the
+difference between a contract and a nuisance.
+
+**The fix reproduced the bug it was fixing.** The first calibration failure was not sensitivity but
+**self-floor, on both rank instruments, because `run_calibration`'s own `null_tol` was a flat 0.1** —
+piece 1's unmeasured-tolerance bug reappearing *inside* the code written to prevent it. It now uses
+the same measured 3σ band. Worth recording as its own lesson: a fix that hard-codes a threshold
+inherits the failure mode it was written to remove.
+
+**A statistic was rejected by its own noise test.** `readout_shift` failed noise at −0.129: the
+cosine form is biased negative whenever the blocks do work orthogonal to the readout direction,
+because a cosine is a *fraction*. The instrument was changed to a projection readout. The cosine
+version is kept as `cosine_readout_gain` with a test asserting the battery refuses it.
+
+**Blast radius of that, checked directly, and it is small.** The scalar-cosine bias applies to
+patched readouts. Hours 29 and 33 read *generated text with no patch in force*
+(`era_read = argmax_e cos(u, d_e)` is a classification over unpatched output), so they are not
+exposed. The patched cosine readouts are `stage7_shift.py` and `ndif_shift.py`, which produced hours
+14 and 23 — **already withdrawn at hour 40 for the pass-through reason.** No standing claim moves.
+Piece 3 must still re-derive any scalar-cosine target as a projection or margin before comparing it
+to a logged number.
+
+**The core now reproduces one of our own retractions.** Harness bug 8 computes a pass-through gain of
+**−0.1112** where hour 40 logged −0.111, independently, from the reconstruction rather than from the
+saved numbers.
+
+**Closed from piece 1's unprotected list:** arm tolerance (measured); the placeholder arm table
+(now the registry); the three missing calibration tests; and the pass-through catch, which now
+*computes* the arm and asserts exact reproduction of the unpatched readout at zero shift inside the
+constructor. **Partly closed:** `Direction.held_out` is verified against a fitter witness, though
+hand-built directions remain unverified; `EffectSize` is recomputed and refused on verdict
+disagreement, which kills a fabricated z of 4.1 on hour 14's scores. **Left open, with reasons:** the
+selection check is still a regex over the caller's prose. The agent added `Instrument.sweep`, which
+records a core-computed curve so that "this was not a choice" is true by fact rather than by
+assertion, and noted that making it mandatory would refuse every §1A target until piece 3 re-runs the
+sweeps — so piece 3 owns that call.
+
+**Piece 3 must differ in three ways**, per the agent: refuse to grade on a hand-declared calibration
+report, which is the last hole; measure **two** tolerances, the remote re-run spread *and*
+`readout_shift`'s paraphrase-noise interval, since §2a's gain is reported with the latter; and
+reproduce hour 8 through `composition` against its null of 9.50 rather than as three selector calls.
+
+Files: `src/lsx/core/{planted,registry,instruments}.py`, `tests/test_core_registry.py` (30 tests),
+`results/calibration/*.json`, `results/notes/core_p2.md`. Cost: ~225k agent tokens, ~55 min, no
+downloads, no NDIF. `scripts/` untouched.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
