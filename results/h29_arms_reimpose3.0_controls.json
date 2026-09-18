@@ -1,0 +1,20 @@
+{
+ "patch_reaches_batch": {
+  "n_texts": 4,
+  "moved_shift": 4,
+  "moved_rand": 4,
+  "batch_row_bug": {
+   "caught": true,
+   "mechanism": "MovedCandidates",
+   "message": "patch moved 1/4 sequences; a patch that reaches one row of a padded batch is the h34 signature (deltas [1.035002, 0.0, 0.0, 0.0])"
+  },
+  "padding_side": "left",
+  "lib_versions": {
+   "torch": "2.14.0+cu130",
+   "transformers": "5.17.0",
+   "nnsight": "0.7.0",
+   "numpy": "2.5.3",
+   "ndif_reported": null
+  }
+ }
+}
