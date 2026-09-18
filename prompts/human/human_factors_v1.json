@@ -1,0 +1,47 @@
+{
+ "_note": "Human-written factor grid. Scene held constant across all 18 cells; only era, voice and tense vary. See GRID_INSTRUCTIONS.md.",
+ "author": "<your name>",
+ "scene_description": "<one line: the situation you are writing 18 ways>",
+ "lead": "A moment from a story:",
+ "factors": {
+  "era": [
+   "medieval",
+   "1920s",
+   "farfuture"
+  ],
+  "voice": [
+   "terse",
+   "ornate",
+   "child"
+  ],
+  "tense": [
+   "past",
+   "present"
+  ]
+ },
+ "key_order": [
+  "era",
+  "voice",
+  "tense"
+ ],
+ "spans": {
+  "medieval|terse|past": "",
+  "medieval|terse|present": "",
+  "medieval|ornate|past": "",
+  "medieval|ornate|present": "",
+  "medieval|child|past": "",
+  "medieval|child|present": "",
+  "1920s|terse|past": "",
+  "1920s|terse|present": "",
+  "1920s|ornate|past": "",
+  "1920s|ornate|present": "",
+  "1920s|child|past": "",
+  "1920s|child|present": "",
+  "farfuture|terse|past": "",
+  "farfuture|terse|present": "",
+  "farfuture|ornate|past": "",
+  "farfuture|ornate|present": "",
+  "farfuture|child|past": "",
+  "farfuture|child|present": ""
+ }
+}
