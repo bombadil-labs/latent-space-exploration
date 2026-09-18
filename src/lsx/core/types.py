@@ -16,22 +16,24 @@ from typing import Callable, Sequence
 
 import numpy as np
 
-from .checks import (ArmOffNull, CalibrationFailed, CalibrationReport, HeldOutNotDeclared,
-                     MissingArm, MissingCalibration, MissingFloor, NullDeclaredLate,
+from . import registry
+from .checks import (ArmOffNull, CalibrationFailed, CalibrationReport, CalibrationStale,
+                     EffectSizeUnverified, HeldOutNotDeclared, HeldOutViolated, MissingArm,
+                     MissingCalibration, MissingFloor, NullDeclaredLate, PassthroughNotComputed,
                      RawScoreOnLeakyGrid, SelectionOnScoringData)
 
-# Plumbing arms are declared here, NOT by the caller (spec §4). This is the minimum declaration
-# piece 1 needs; piece 2's instrument registry supersedes it and adds nulls and invariances.
+# Plumbing arms are declared in the REGISTRY, not by the caller and no longer by a placeholder
+# table here (spec §4, §8). This name is kept because the harness and the tests read it, but it is
+# now a view onto `registry.REGISTRY`, which also carries each instrument's null, the measured
+# tolerance around it, and its claimed invariances.
 REQUIRED_ARMS: dict[str, tuple[str, ...]] = {
-    "selector": ("random", "no_patch", "permutation"),
-    "composition": ("random", "no_patch"),
-    "readout_shift": ("random", "no_patch", "passthrough"),
-    "crosstalk": ("permutation",),
-    "discrimination": ("shuffled_stimulus", "floor"),
-    "depth_gain": ("shuffled_stimulus", "floor"),
-}
+    name: spec.required_arms for name, spec in registry.REGISTRY.items()}
 
 _SEQ = itertools.count()
+
+# Piece 1's default, kept ONLY as the fallback for arms whose instrument has no measured null
+# spread. Every registry instrument supplies its own, from `registry.InstrumentSpec.arm_tolerance`.
+LEGACY_TOLERANCE = 0.15
 
 
 def _hash(obj) -> str:
@@ -237,15 +239,51 @@ class Direction:
     vecs: dict[int, np.ndarray]
     held_out: dict
     provenance: dict = field(default_factory=dict)
+    fit_witness: dict | None = None   # {'axis': ..., 'fit_values': [...]} recorded by the fitter
 
     def __post_init__(self):
         if not self.held_out or "axis" not in self.held_out or "unseen" not in self.held_out:
             raise HeldOutNotDeclared(
                 "Direction requires held_out={'axis': ..., 'unseen': ...}: what this direction "
                 "never saw. h1-h3 fitted on everything and scored on the same data.")
+        # Piece 1 declared the held-out axis and never verified it. A witness is what the fitter
+        # actually used; when one is present the declaration is CHECKED against it, and a fit that
+        # saw what it said it had not seen is refused rather than recorded.
+        if self.fit_witness:
+            axis = self.fit_witness.get("axis")
+            if axis != self.held_out["axis"]:
+                raise HeldOutViolated(
+                    f"the fit was left-one-out over {axis!r} but the direction declares its "
+                    f"held-out axis as {self.held_out['axis']!r}")
+            seen = set(self.fit_witness.get("fit_values", ()))
+            overlap = sorted(seen & set(self.held_out["unseen"]))
+            if overlap:
+                raise HeldOutViolated(
+                    f"the direction declares it never saw {sorted(self.held_out['unseen'])} along "
+                    f"{axis!r}, but the fit used {overlap}. The declaration was the only thing "
+                    "standing between this and h1-h3, and it was never checked until now.")
 
     def vec(self, layer: int) -> np.ndarray:
         return self.vecs[layer]
+
+    @property
+    def verified(self) -> bool:
+        """True when the fit recorded a witness and the declaration was checked against it."""
+        return bool(self.fit_witness)
+
+
+def fit_leave_one_out(vectors_by_value: dict, unseen, axis: str, layer: int = 0) -> Direction:
+    """The sanctioned fitter: mean of the vectors of every value of `axis` EXCEPT `unseen`, with a
+    witness recording exactly which values were used. There is no constructor that fits on
+    everything (spec §3), and now no way to claim a hold-out the fit did not honour.
+    """
+    unseen = set(np.atleast_1d(np.asarray(list(unseen), dtype=object)).tolist())
+    used = [v for v in vectors_by_value if v not in unseen]
+    if not used:
+        raise HeldOutViolated(f"holding out {sorted(unseen)} along {axis!r} leaves nothing to fit on")
+    vec = np.mean([np.mean(np.atleast_2d(vectors_by_value[v]), axis=0) for v in used], axis=0)
+    return Direction(vecs={layer: vec}, held_out={"axis": axis, "unseen": set(unseen)},
+                     fit_witness={"axis": axis, "fit_values": sorted(used, key=str)})
 
 
 @dataclass
@@ -326,7 +364,7 @@ class Arm:
     """
     scores: np.ndarray
     expected_null: float | None = None
-    tolerance: float = 0.15
+    tolerance: float | None = None     # None -> the instrument's MEASURED tolerance at this arm's n
     justification: str = ""
     seq: int = field(default_factory=lambda: next(_SEQ))
 
@@ -341,8 +379,18 @@ class Arm:
         return float(np.mean(self.scores))
 
     @property
+    def n(self) -> int:
+        return int(self.scores.size)
+
+    @property
+    def resolved_tolerance(self) -> float:
+        """Piece 1's unmeasured 0.15 survives only as the fallback for an arm on an instrument the
+        registry does not know, and it is named as such wherever it is used."""
+        return LEGACY_TOLERANCE if self.tolerance is None else float(self.tolerance)
+
+    @property
     def off_null(self) -> bool:
-        return abs(self.value - self.expected_null) > self.tolerance
+        return abs(self.value - self.expected_null) > self.resolved_tolerance
 
 
 @dataclass
@@ -365,21 +413,73 @@ _CHOOSING = re.compile(r"\b(argmax|argmin|best|peak|max over|min over|chosen|cho
 
 @dataclass
 class Selection:
-    """What was swept and how the reported value was chosen (spec §4)."""
+    """What was swept and how the reported value was chosen (spec §4).
+
+    `rule` is prose, and a regex over prose is the weakest check in the contract: a caller who
+    writes "we looked at the curve and quoted layer 16" passes it. `from_sweep` is the honest
+    path -- the core runs the sweep and records the curve it computed, so the rule is a FACT about
+    what happened rather than a description of it. `curve` is what piece 3's ledger should require
+    of any claim whose axis was swept.
+    """
     axis: str | None
     rule: str
     held_out: bool = False
+    curve: dict | None = None
+
+    @classmethod
+    def from_sweep(cls, axis: str, curve: dict) -> "Selection":
+        """Recorded by `Instrument.sweep`, never written by hand."""
+        return cls(axis=axis, curve=dict(curve), held_out=True,
+                   rule=f"full curve reported: {len(curve)} points on {axis!r}, swept and recorded "
+                        f"by the core (not selected)")
+
+    @property
+    def executed(self) -> bool:
+        return self.curve is not None
 
     @property
     def is_a_choice(self) -> bool:
+        if self.executed:
+            return False      # the core ran the sweep and reported all of it; there is no choice
         return bool(self.axis) and bool(_CHOOSING.search(self.rule))
 
 
 @dataclass
 class EffectSize:
+    """Piece 1 recorded this and asserted nothing about it: the z could be anything.
+
+    `against()` computes it from the scores and the declared null and stamps `computed=True`. A
+    hand-supplied effect size is still accepted -- there are legacy shapes the core cannot
+    recompute -- but for a registry instrument the `Claim` now RECOMPUTES the z from the treatment
+    scores and refuses if the two disagree about the verdict: a different sign, or significance
+    claimed where the recomputation finds none. The exact value may legitimately differ (a caller's
+    standard error can come from paraphrases rather than from items); the verdict may not.
+    """
     size: float
     n: int
     z: float
+    computed: bool = False
+    against_null: float | None = None
+
+    @classmethod
+    def against(cls, values, null: float, *, fallback_item_sd: float | None = None
+                ) -> "EffectSize":
+        v = np.atleast_1d(np.asarray(values, dtype=np.float64))
+        n = int(v.size)
+        size = float(v.mean() - null)
+        sd = float(v.std(ddof=1)) if n > 1 else 0.0
+        if sd <= 0:
+            # A constant arm has no spread of its own; fall back to the instrument's measured
+            # per-item null spread rather than reporting an infinite z.
+            sd = float(fallback_item_sd) if fallback_item_sd else 0.0
+        se = sd / np.sqrt(n) if sd > 0 and n > 0 else 0.0
+        z = 0.0 if se == 0 else size / se
+        return cls(size=size, n=n, z=float(z), computed=True, against_null=float(null))
+
+    @property
+    def verdict(self) -> int:
+        """-1 / 0 / +1: significantly below its null, indistinguishable, significantly above."""
+        return 0 if abs(self.z) < 2.0 else int(np.sign(self.z))
 
 
 @dataclass
@@ -400,6 +500,7 @@ class Claim:
     readout_layer: int | None = None
     companion: "Claim | None" = None
     stage: str = ""
+    config: dict = field(default_factory=dict)   # e.g. {"n_candidates": 6}: fixes the null
     notes: list[str] = field(default_factory=list)
     id: str = field(init=False, default="")
 
@@ -408,8 +509,19 @@ class Claim:
             raise TypeError("treatment must be a Measured (a Sketch is deliberately un-ledgerable; "
                             "call .measured() to stamp it)")
 
+        # --- the registry knows this instrument, or the Claim does not exist ----------------
+        spec = registry.spec(self.instrument)         # raises UnknownInstrument
+        null = spec.null_value(self.config)
+        if np.isnan(null):
+            raise registry.InstrumentNotImplemented(
+                f"{self.instrument} has no declared null ({spec.null_doc}); the core must not ship "
+                "an instrument that cannot state its own (spec §8)")
+        if not spec.implemented:
+            self.notes.append(f"{self.instrument} is DECLARED but not built (spec §11.4): "
+                              + "; ".join(spec.notes))
+
         # --- required arms, from the registry, not from the caller -------------------------
-        required = list(REQUIRED_ARMS.get(self.instrument, ()))
+        required = list(spec.required_arms)
         if (self.patch_layer is not None and self.readout_layer is not None
                 and self.readout_layer >= self.patch_layer and "passthrough" not in required):
             required.append("passthrough")
@@ -422,12 +534,35 @@ class Claim:
                        "not the blocks between them compute anything (h14/h40)")
             raise MissingArm(f"{self.instrument} requires arms {required}; missing {missing}{why}")
 
+        # --- the pass-through arm must have been COMPUTED, not declared ---------------------
+        pt = self.arms.get("passthrough")
+        if pt is not None and not getattr(pt, "computed", False):
+            raise PassthroughNotComputed(
+                "the `passthrough` arm is a hand-declared number. §2a's arm is OFFLINE ARITHMETIC "
+                "-- readout(base_resid_at_read_layer + shift), scored with the same readout code as "
+                "the treatment -- and it must reproduce the unpatched readout exactly at zero "
+                "shift. Build it with instruments.PassthroughArm.compute(...); a declared one is "
+                "the h14 failure with a label on it.")
+
+        # --- arm tolerances: MEASURED, per instrument and per arm size ----------------------
+        for name, a in self.arms.items():
+            if a.tolerance is None:
+                a.tolerance = spec.arm_tolerance(a.n, self.config)
+                if a.n == 1:
+                    self.notes.append(
+                        f"arm {name!r} was handed in as a single pooled number, so its tolerance is "
+                        f"the full one-item null spread ({a.tolerance:.3f}); per-item scores would "
+                        "make this check n times tighter")
+
         # --- every arm at its declared null ------------------------------------------------
         off = {k: (a.value, a.expected_null) for k, a in self.arms.items() if a.off_null}
         if off:
             raise ArmOffNull(
                 "arm(s) off their declared null: "
-                + "; ".join(f"{k} reads {v:.3f} where it declared {e:.3f}" for k, (v, e) in off.items())
+                + "; ".join(f"{k} reads {v:.3f} where it declared {e:.3f} "
+                            f"(tolerance {self.arms[k].resolved_tolerance:.3f}, measured from "
+                            f"{self.instrument}'s own null at n={self.arms[k].n})"
+                            for k, (v, e) in off.items())
                 + ". An arm off its null is a bug until proven otherwise (h34: no_patch 2.00 looked "
                   "fine, random 1.22 was the tell).")
 
@@ -454,11 +589,40 @@ class Claim:
         if self.calibration is None:
             raise MissingCalibration(f"no calibration report for {self.instrument}; a missing report "
                                      "blocks Claim construction (spec §5)")
+        if (self.calibration.instrument != self.instrument
+                and not self.calibration.hand_declared_report):
+            raise CalibrationStale(
+                f"the calibration report is for {self.calibration.instrument!r}, not "
+                f"{self.instrument!r}")
+        expected_key = registry.CALIBRATION_KEYS.get(self.instrument)
+        if (expected_key is not None and not self.calibration.hand_declared_report
+                and self.calibration.key != expected_key):
+            raise CalibrationStale(
+                f"{self.instrument}'s calibration report was produced under key "
+                f"{self.calibration.key} but the instrument now hashes to {expected_key}: its "
+                "source, its declared null or its declared invariances changed since. Re-calibrate "
+                "(spec §5: a stale report blocks Claim construction).")
         if not self.calibration.passed and self.companion is None:
             raise CalibrationFailed(
                 f"{self.instrument} failed its own calibration ({'; '.join(self.calibration.failures)}). "
                 "A failing statistic may still be reported, but only alongside a passing companion, "
                 "and the Claim records the failure (h6/h38, spec §5).")
+
+        # --- the effect size has something behind it ---------------------------------------
+        if not self.effect.computed and spec.implemented:
+            recomputed = EffectSize.against(self.treatment.values, null,
+                                            fallback_item_sd=spec.null_item_sd(self.config))
+            if recomputed.verdict != self.effect.verdict:
+                raise EffectSizeUnverified(
+                    f"the declared effect (size {self.effect.size:+.3f}, z {self.effect.z:+.2f}) "
+                    f"and the one recomputed from the treatment scores against {self.instrument}'s "
+                    f"declared null {null:.3f} (size {recomputed.size:+.3f}, z {recomputed.z:+.2f}) "
+                    "disagree about the verdict. EffectSize was the one number in the contract with "
+                    "no assertion behind it; the assertion is on the VERDICT, not the value, "
+                    "because a caller's standard error may legitimately come from paraphrases "
+                    "rather than items.")
+            self.notes.append(f"effect size was caller-supplied; recomputed z {recomputed.z:+.2f} "
+                              f"agrees on the verdict")
 
         # --- semantic null declared before the treatment was computed ----------------------
         if self.semantic_null is not None:
@@ -473,6 +637,7 @@ class Claim:
         self.id = _hash({"instrument": self.instrument, "provenance": self.provenance,
                          "grid": self.grid.hash if self.grid else None,
                          "selection": [self.selection.axis, self.selection.rule],
+                         "config": self.config,
                          "calibration": self.calibration.key})
 
     # ---------------------------------------------------------------------------------------
@@ -487,9 +652,18 @@ class Claim:
         head = (f"{self.instrument} [{self.id}] {self.treatment.label or ''}\n"
                 f"  {'gain over stimulus floor' if self.report_as == 'gain_over_floor' else 'treatment'}"
                 f" = {self.reported_value:.4f}  (raw {self.treatment.value:.4f}, n={self.treatment.n})")
-        arms = "\n".join(f"  arm {k:<18} {a.value:.4f}   declared null {a.expected_null:.4f}"
-                         f"{'  OFF NULL' if a.off_null else ''}"
-                         for k, a in sorted(self.arms.items()))
+        lines = []
+        for k, a in sorted(self.arms.items()):
+            line = (f"  arm {k:<18} {a.value:.4f}   declared null {a.expected_null:.4f}"
+                    f"  +-{a.resolved_tolerance:.4f}")
+            if a.off_null:
+                line += "  OFF NULL"
+            if getattr(a, "computed", False):
+                line += ("  [COMPUTED offline arithmetic, zero-shift error "
+                         f"{getattr(a, 'zero_shift_error', 0.0):.1g}"
+                         f"{', norm-matched' if getattr(a, 'norm_matched', False) else ''}]")
+            lines.append(line)
+        arms = "\n".join(lines)
         if self.semantic_null is not None:
             arms += (f"\n  semantic null      {self.semantic_null.value:.4f}   "
                      f"({self.semantic_null.justification})")
@@ -497,7 +671,7 @@ class Claim:
                 f"{self.floor.estimator:.4f}\n"
                 f"  effect             {self.effect.size:.4f}  n={self.effect.n}  z={self.effect.z:.2f}\n"
                 f"  selection          axis={self.selection.axis} rule={self.selection.rule!r} "
-                f"held_out={self.selection.held_out}\n"
+                f"held_out={self.selection.held_out} executed={self.selection.executed}\n"
                 f"  calibration        {self.calibration.summary()}")
         if self.grid is not None:
             tail += f"\n  grid leak          {self.grid.leak.summary()}"
@@ -511,17 +685,23 @@ class Claim:
                 "treatment": self.treatment.value, "reported": self.reported_value,
                 "report_as": self.report_as,
                 "arms": {k: {"value": a.value, "expected_null": a.expected_null,
-                             "off_null": a.off_null} for k, a in self.arms.items()},
+                             "tolerance": a.resolved_tolerance, "off_null": a.off_null,
+                             "computed": bool(getattr(a, "computed", False))}
+                         for k, a in self.arms.items()},
                 "semantic_null": (None if self.semantic_null is None else
                                   {"value": self.semantic_null.value,
                                    "justification": self.semantic_null.justification}),
                 "floor": {"stimulus": self.floor.stimulus, "estimator": self.floor.estimator},
-                "effect": {"size": self.effect.size, "n": self.effect.n, "z": self.effect.z},
+                "effect": {"size": self.effect.size, "n": self.effect.n, "z": self.effect.z,
+                           "computed": self.effect.computed},
                 "selection": {"axis": self.selection.axis, "rule": self.selection.rule,
-                              "held_out": self.selection.held_out},
+                              "held_out": self.selection.held_out,
+                              "executed": self.selection.executed, "curve": self.selection.curve},
                 "provenance": dict(self.provenance,
                                    grid_hash=self.grid.hash if self.grid else
                                    self.provenance.get("grid_hash"),
                                    calibration_key=self.calibration.key),
                 "calibration_passed": self.calibration.passed,
+                "calibration_hand_declared": self.calibration.hand_declared_report,
+                "config": dict(self.config), "notes": list(self.notes),
                 "status": "standing"}

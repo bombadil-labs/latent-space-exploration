@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import hashlib
 import inspect
+import json
+import pathlib
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Sequence
 
@@ -80,6 +82,28 @@ class NullDeclaredLate(CoreError):
 
 class HeldOutNotDeclared(CoreError):
     """A Direction was fitted without declaring what it never saw. (spec §3)"""
+
+
+class HeldOutViolated(CoreError):
+    """A Direction's fit actually saw something it declared it had never seen. (spec §3)"""
+
+
+class PassthroughNotComputed(CoreError):
+    """A pass-through arm was declared rather than computed from the residual arithmetic. (§2a)"""
+
+
+class PassthroughNotReproduced(CoreError):
+    """A pass-through arm does not reproduce the unpatched readout at zero shift; the ARM is wrong,
+    not the claim. (spec §2a)"""
+
+
+class EffectSizeUnverified(CoreError):
+    """A caller-supplied effect size disagrees with the one recomputed from the scores. (spec §4)"""
+
+
+class CalibrationStale(CoreError):
+    """The calibration report was produced by a different version of the statistic, its null or its
+    declared invariances. (spec §5)"""
 
 
 class ProvenanceIncomplete(CoreError):
@@ -237,54 +261,134 @@ def midrank(scores: Sequence[float], target: int) -> float:
 
 
 # --------------------------------------------------------------------------------------------
-# calibration (spec §5) -- the minimum battery piece 1 needs to make `Claim` honest.
-# Piece 2 owns the full five-test battery (self-floor, scale/rotation invariance, known-zero) and
-# the cache. What is here is the part without which the Claim contract cannot refuse bug 6.
+# calibration (spec §5) -- the full battery.
+#
+# Piece 1 shipped noise + sensitivity, which is what the `Claim` contract needed to refuse bug
+# 6. Piece 2 EXTENDS that rather than replacing it: the two original tests are unchanged and
+# are still the ones that fail first, joined by self-floor, scale/rotation invariance, a
+# known-zero point, an explicit degeneracy flag, and the on-disk cache keyed by
+# `calibration_key` (source + declared null + declared invariances), so that editing one
+# instrument re-calibrates that one alone.
 # --------------------------------------------------------------------------------------------
+
+@dataclass
+class InvarianceResult:
+    name: str
+    claimed: bool
+    before: float
+    after: float
+
+    @property
+    def delta(self) -> float:
+        return abs(self.after - self.before)
+
+    def failed(self, tol: float) -> bool:
+        """Only a CLAIMED invariance can fail. An invariance the instrument explicitly does not
+        claim is measured and recorded (so "we never tested it" and "it is genuinely not
+        invariant" stay distinguishable), but it cannot fail a calibration."""
+        return self.claimed and self.delta > tol
+
+
 @dataclass
 class CalibrationReport:
     instrument: str
     key: str
     declared_null: float | None = None
     noise_value: float | None = None
+    noise_sd: float = 0.0
     noise_failed: bool = False
     sensitivity_amplitudes: tuple[float, ...] = ()
     sensitivity_values: tuple[float, ...] = ()
     sensitivity_failed: bool = False
+    self_floor_value: float | None = None
+    self_floor_failed: bool = False
+    invariance: tuple[InvarianceResult, ...] = ()
+    invariance_failed: bool = False
+    invariance_tol: float = 1e-6
+    known_zero_value: float | None = None
+    known_zero_failed: bool = False
+    degenerate: bool = False
     tests_run: tuple[str, ...] = ()
     notes: list[str] = field(default_factory=list)
     hand_declared_passed: bool | None = None
 
+    # ---- verdict -------------------------------------------------------------------------
     @property
     def passed(self) -> bool:
         if self.hand_declared_passed is not None:
             return self.hand_declared_passed
-        return not (self.noise_failed or self.sensitivity_failed)
+        return not bool(self.failures)
+
+    @property
+    def hand_declared_report(self) -> bool:
+        return self.hand_declared_passed is not None
 
     @property
     def failures(self) -> list[str]:
         out = []
         if self.noise_failed:
-            out.append(f"noise: returned {self.noise_value:.4f} against declared null {self.declared_null}")
+            out.append(f"noise: returned {self.noise_value:.4f} against declared null "
+                       f"{self.declared_null}")
         if self.sensitivity_failed:
             out.append(f"sensitivity: {np.round(self.sensitivity_values, 4).tolist()} over planted "
                        f"sizes {list(self.sensitivity_amplitudes)} -- not monotone and moving")
+        if self.degenerate:
+            out.append("degenerate: the statistic returns the same value on noise and on every "
+                       "planted signal, so it cannot distinguish them (h6)")
+        if self.self_floor_failed:
+            out.append(f"self-floor: the instrument on its own floor as treatment returned "
+                       f"{self.self_floor_value:.4f}, not its null {self.declared_null}")
+        if self.invariance_failed:
+            bad = [f"{r.name} moved the statistic by {r.delta:.4g}"
+                   for r in self.invariance if r.failed(self.invariance_tol)]
+            out.append("invariance: claimed but not held -- " + "; ".join(bad))
+        if self.known_zero_failed:
+            out.append(f"known-zero: the analytically-zero configuration returned "
+                       f"{self.known_zero_value:.6g}, not {self.declared_null}")
         return out
 
     @classmethod
     def hand_declared(cls, instrument: str, passed: bool, note: str = "") -> "CalibrationReport":
-        """An explicitly hand-asserted report, for tests and for instruments whose calibration piece
-        2 owns. It is recorded as hand-declared in the ledger so it cannot pass as a measured one."""
+        """An explicitly hand-asserted report, for tests and for instruments whose calibration is
+        not built. It is recorded as hand-declared in the ledger so it cannot pass as a measured
+        one -- and piece 3's ledger should refuse to grade a §1A target on one."""
         return cls(instrument=instrument, key=f"hand:{instrument}", hand_declared_passed=passed,
                    tests_run=("hand_declared",), notes=[note] if note else [])
 
     def summary(self) -> str:
         if self.hand_declared_passed is not None:
             return f"hand-declared {'pass' if self.hand_declared_passed else 'FAIL'} ({self.instrument})"
-        return (f"{self.instrument}: noise {self.noise_value:.4f} vs null {self.declared_null}"
+        inv = ", ".join(f"{r.name}{'' if r.claimed else ' (not claimed)'} d={r.delta:.3g}"
+                        for r in self.invariance) or "none"
+        return (f"{self.instrument} [{self.key}] {len(self.tests_run)} tests "
+                f"{'PASS' if self.passed else 'FAIL'}: noise {self.noise_value:.4f}"
+                f"+-{self.noise_sd:.4f} vs null {self.declared_null}"
                 f"{' FAIL' if self.noise_failed else ''}; sensitivity "
                 f"{np.round(self.sensitivity_values, 4).tolist()}"
-                f"{' FAIL' if self.sensitivity_failed else ''}")
+                f"{' FAIL' if self.sensitivity_failed else ''}; self-floor "
+                f"{'n/a' if self.self_floor_value is None else format(self.self_floor_value, '.4f')}"
+                f"{' FAIL' if self.self_floor_failed else ''}; invariance {inv}"
+                f"{' FAIL' if self.invariance_failed else ''}; known-zero "
+                f"{'n/a' if self.known_zero_value is None else format(self.known_zero_value, '.3g')}"
+                f"{' FAIL' if self.known_zero_failed else ''}"
+                f"{'; DEGENERATE' if self.degenerate else ''}")
+
+    # ---- cache shape ---------------------------------------------------------------------
+    def to_dict(self) -> dict:
+        d = {k: v for k, v in self.__dict__.items() if k != "invariance"}
+        d["invariance"] = [dict(r.__dict__) for r in self.invariance]
+        for k in ("sensitivity_amplitudes", "sensitivity_values", "tests_run"):
+            d[k] = list(d[k])
+        return d
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "CalibrationReport":
+        d = dict(d)
+        d["invariance"] = tuple(InvarianceResult(**r) for r in d.get("invariance", []))
+        for k in ("sensitivity_amplitudes", "sensitivity_values", "tests_run"):
+            if k in d:
+                d[k] = tuple(d[k])
+        return cls(**d)
 
 
 def calibration_key(stat: Callable, declared_null, invariances=()) -> str:
@@ -301,33 +405,158 @@ def calibration_key(stat: Callable, declared_null, invariances=()) -> str:
     return h.hexdigest()[:16]
 
 
-def run_calibration(stat: Callable[[np.ndarray], float], *, shape: tuple[int, ...],
-                    declared_null: float, plant: Callable[[np.ndarray, float], np.ndarray],
+def run_calibration(stat: Callable, *, shape: tuple[int, ...] | None = None,
+                    declared_null: float, plant: Callable,
                     name: str = "", amplitudes: Sequence[float] = (0.5, 1.0, 2.0, 4.0),
                     null_tol: float = 0.1, seed: int = 0,
-                    invariances: Sequence[str] = ()) -> CalibrationReport:
-    """Noise test AND synthetic-signal sensitivity test.
+                    invariances: Sequence[str] = (), not_invariances: Sequence[str] = (),
+                    noise_fn: Callable | None = None,
+                    transforms: dict | None = None,
+                    self_floor: Callable | None = None,
+                    known_zero: Callable | None = None,
+                    noise_repeats: int = 8,
+                    invariance_tol: float = 1e-6,
+                    known_zero_tol: float = 1e-9) -> CalibrationReport:
+    """The §5 battery. Piece 1's two tests, unchanged, plus three more and a degeneracy flag.
 
-    Noise alone is not a calibration: the broken cross-talk rank returned its chance value 2.0 on
-    noise *and* on everything else (h6). A statistic that cannot distinguish planted signal from
-    noise fails calibration even when its null is perfect.
+    * **noise** -- `noise_repeats` independent draws of matched shape and scale; the statistic must
+      return its declared null within `null_tol`. The spread of those draws is also the measured
+      run-to-run noise of the statistic and is reported.
+    * **sensitivity** -- a planted effect of known size must move the statistic, monotonically in
+      the planted size. Noise alone is not enough: h6's cross-talk rank returned its chance value
+      2.0 on noise *and* on everything else.
+    * **degeneracy** -- if the statistic returns the *same number* across noise draws and across
+      every planted amplitude, it is flagged degenerate outright. This is spec §1B bug 6's word
+      ("flags it as degenerate") made a field, rather than an inference from the sensitivity line.
+    * **self-floor** -- the instrument applied to its own floor as treatment must read its null.
+    * **invariance** -- each claimed invariance is applied to a fixture WITH planted signal (a
+      statistic sitting at its null is trivially invariant to everything) and must not move the
+      statistic; each explicitly *unclaimed* invariance is applied and recorded, so "untested" and
+      "not invariant" stay distinguishable in the report.
+    * **known-zero** -- a configuration whose answer is analytically the null, checked at 1e-9.
+
+    `noise_fn`/`transforms`/`self_floor`/`known_zero` let the fixture be something richer than a
+    bare array (activations *and* candidate directions, say). Without them this is exactly piece
+    1's call signature running exactly piece 1's two tests.
     """
     rng = np.random.default_rng(seed)
-    noise = rng.normal(size=shape)
-    noise_value = float(stat(noise))
+    if noise_fn is None:
+        if shape is None:
+            raise ValueError("run_calibration needs either a `shape` or a `noise_fn`")
+
+        def noise_fn(r, _shape=shape):
+            return r.normal(size=_shape)
+
+    draws = [noise_fn(np.random.default_rng(seed + 1000 * i)) for i in range(max(noise_repeats, 1))]
+    noise_values = [float(stat(x)) for x in draws]
+    noise = draws[0]
+    noise_value = float(np.mean(noise_values))
+    noise_sd = float(np.std(noise_values))
     noise_failed = abs(noise_value - declared_null) > null_tol
 
     vals = tuple(float(stat(plant(noise, a))) for a in amplitudes)
-    moved = abs(vals[-1] - noise_value) > null_tol
+    moved = abs(vals[-1] - noise_values[0]) > null_tol
     monotone = all(
         (vals[i + 1] - vals[i]) * (vals[-1] - vals[0]) >= -1e-12 for i in range(len(vals) - 1))
     sensitivity_failed = not (moved and monotone)
+    degenerate = bool(np.ptp(np.asarray(noise_values + list(vals))) < 1e-12)
+
+    tests = ["noise", "sensitivity", "degeneracy"]
+
+    self_floor_value = None
+    self_floor_failed = False
+    if self_floor is not None:
+        self_floor_value = float(stat(self_floor(plant(noise, amplitudes[-1]), rng)))
+        self_floor_failed = abs(self_floor_value - declared_null) > null_tol
+        tests.append("self_floor")
+
+    results: list[InvarianceResult] = []
+    if transforms:
+        base_signal = plant(noise, amplitudes[-1])
+        before = float(stat(base_signal))
+        for inv_name, fn in transforms.items():
+            after = float(stat(fn(base_signal, np.random.default_rng(seed + 7))))
+            results.append(InvarianceResult(inv_name, inv_name in tuple(invariances), before, after))
+        tests.append("invariance")
+    invariance_failed = any(r.failed(invariance_tol) for r in results)
+
+    known_zero_value = None
+    known_zero_failed = False
+    if known_zero is not None:
+        known_zero_value = float(stat(known_zero(noise)))
+        known_zero_failed = abs(known_zero_value - declared_null) > known_zero_tol
+        tests.append("known_zero")
+
+    notes = []
+    for r in results:
+        if not r.claimed:
+            verdict = ("genuinely not invariant, as declared" if r.delta > invariance_tol else
+                       "no measurable effect -- the NOT-invariance declaration may be wrong")
+            notes.append(f"{r.name}: not claimed as an invariance; measured change "
+                         f"{r.delta:.4g} ({verdict})")
+    absent = [t for t, present in (("self_floor", self_floor is not None),
+                                   ("invariance", bool(transforms)),
+                                   ("known_zero", known_zero is not None)) if not present]
+    if absent:
+        notes.append("battery incomplete, tests not run: " + ", ".join(absent))
 
     return CalibrationReport(
         instrument=name or getattr(stat, "__name__", "anonymous"),
         key=calibration_key(stat, declared_null, invariances),
-        declared_null=declared_null, noise_value=noise_value, noise_failed=noise_failed,
+        declared_null=declared_null, noise_value=noise_value, noise_sd=noise_sd,
+        noise_failed=noise_failed,
         sensitivity_amplitudes=tuple(amplitudes), sensitivity_values=vals,
         sensitivity_failed=sensitivity_failed,
-        tests_run=("noise", "sensitivity"),
-        notes=["self-floor, scale/rotation invariance and the known-zero point are piece 2"])
+        self_floor_value=self_floor_value, self_floor_failed=self_floor_failed,
+        invariance=tuple(results), invariance_failed=invariance_failed,
+        invariance_tol=invariance_tol,
+        known_zero_value=known_zero_value, known_zero_failed=known_zero_failed,
+        degenerate=degenerate,
+        tests_run=tuple(tests), notes=notes)
+
+
+# --------------------------------------------------------------------------------------------
+# the calibration cache (spec §5): keyed by the instrument's own source + null + invariances, so
+# editing one instrument re-calibrates that one and only that one.
+# --------------------------------------------------------------------------------------------
+CALIBRATION_DIR = pathlib.Path(__file__).resolve().parents[3] / "results" / "calibration"
+
+
+def calibration_path(instrument: str, key: str, cache_dir=None) -> pathlib.Path:
+    return pathlib.Path(cache_dir or CALIBRATION_DIR) / f"{instrument}.{key}.json"
+
+
+def load_calibration(instrument: str, key: str, cache_dir=None) -> "CalibrationReport | None":
+    """The cached report for exactly this key, or None. A report under a DIFFERENT key is not
+    returned and not deleted: it is the record of what the previous version of the statistic did,
+    and a stale report must never be silently reused (spec §5)."""
+    p = calibration_path(instrument, key, cache_dir)
+    if not p.exists():
+        return None
+    try:
+        rep = CalibrationReport.from_dict(json.loads(p.read_text()))
+    except Exception:  # noqa: BLE001 -- a corrupt cache must re-calibrate, never crash
+        return None
+    return rep if rep.key == key else None
+
+
+def save_calibration(report: CalibrationReport, cache_dir=None) -> pathlib.Path:
+    p = calibration_path(report.instrument, report.key, cache_dir)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(report.to_dict(), indent=1, sort_keys=True, default=float))
+    return p
+
+
+def cached_calibration(instrument: str, key: str, run: Callable, *, cache_dir=None,
+                       refresh: bool = False) -> CalibrationReport:
+    if not refresh:
+        hit = load_calibration(instrument, key, cache_dir)
+        if hit is not None:
+            return hit
+    rep = run()
+    if rep.key != key:
+        raise CalibrationStale(
+            f"{instrument}: the report came back under key {rep.key} but the instrument hashes to "
+            f"{key}; the statistic, its null or its invariances changed mid-calibration")
+    save_calibration(rep, cache_dir)
+    return rep
