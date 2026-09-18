@@ -53,7 +53,8 @@ signature plus position, not a source-to-target relation.
 
 **What it invalidated.** All best-layer numbers from hours 1–2 and, with the constant-baseline
 finding, all pre-hour-3 relation claims. The relation survived only after role-centering (3.01 vs
-null 3.48–3.54, hour 3) and at forty domains (2.21, hour 16).
+null 3.48–3.54, hour 3) and at forty domains (2.21, hour 16 — that figure is the step-4 subsample;
+the full step-2 curve mean is 2.1692, hour 47).
 
 **Standing check.** "Best-layer numbers are dropped from here on" (hour 3); `WRITEUP.md` states
 they are never reported. Later sweeps report the full curve with a per-layer null (hour 5; hour 38

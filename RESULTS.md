@@ -43,6 +43,25 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
 - **Hour 28–35 discrimination numbers are inflated by copying.** At h38, with the interval phrase
   removed so the model cannot copy Δt from the prompt, h35's 0.961 at layer 14 falls to 0.522.
 
+- **Hour 8's comparisons to chance** (not its measurements). At h47 the lexical floor was measured
+  rather than assumed: only **era** clears it (1.25 against a floor of exactly chance, 2.00). **Tense
+  sits on its floor** (1.0278 both), **voice is worse than its floor** (1.2361 against 1.0278), and
+  the three-way composition's gain is **−0.04 of a rank inside a ±1.83 band**. The patch effect is
+  real (its no-patch arm is 9.50 exactly); what is withdrawn is "2.81 against chance 9.50" as
+  evidence that the factors compose *beyond what the words give away*. Four ledger rows withdrawn —
+  the first this ledger carries.
+- **Hour 39's Gemma clock** (the claim, not the extraction). At h47, per subject against the grid's
+  own t0 control prompts, the gain is **+0.067 inside a ±0.40 band**, with a shuffled-stimulus arm at
+  0.9693. At this design's resolution the clock is the interval phrase. Consistent with h38's
+  order-invariance, on a second model.
+- **Hour 29 moved the other way and is stronger** (h47): all three arms at its own scale —
+  treatment 0.8364, random 0.1429, no-patch 0.1111 against a declared null of 0.1111. The
+  under-controlled caveat added at h46 is lifted. Caveat that stands: 18% generation loss, unequal
+  across arms.
+- **Two record defects, not retractions** (h47): h8's tense lens is 1.03 of **2**, not of 3 (the h8
+  table had it right; the summaries did not), and h16's **2.21 is the step-4 subsample** of a curve
+  whose full step-2 mean is **2.1692**.
+
 **Stands, added or changed since Checkpoint 1.**
 10. **The gauge/engine boundary is a magnitude, and it is engine-specific.** At 3× norm re-imposed at
     every decoding step, an era shift moves the *generated* era on Gemma-2-9B-it: 0.84 read as
@@ -95,8 +114,8 @@ Deferred unchanged: cohere, commutator regimes, Shadow Walker adapter. Dropped: 
 **Stands, with controls (keep in the writeup).**
 1. Discourse position dominates pooled activations; the naive shape test measured template slots (h2, h3).
 2. Roles are domain-independent directions and causally usable as a lens (h4: 1.7/6 vs 3.3 random; layers 14–20).
-3. The source→target relation is a real, computed, mid-stack signal and, at 40 domains, a working *selector* (h16: 2.21 vs 3.5 null; peak layer 16).
-4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each a lens (1.1–1.3/3), three compose (2.8/18), cross-talk matrices diagonal, replicated on Qwen 0.5B/1.5B, Pythia 1.4B, GPT-J 6B, Gemma 9B-it (h5–h13).
+3. The source→target relation is a real, computed, mid-stack signal and, at 40 domains, a working *selector* (h16: **2.1692** over the full step-2 curve — the figure printed as 2.21 is the step-4 subsample, 2.2065 — vs 3.5 null; the peak-layer-16 form is refused for selecting on scoring data).
+4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each a lens (era and voice 1.2–1.3 of 3, tense 1.03 of **2**), three compose (2.8/18), cross-talk matrices diagonal, replicated on Qwen 0.5B/1.5B, Pythia 1.4B, GPT-J 6B, Gemma 9B-it (h5–h13).
 5. Factors differ in kind and depth: voice/tense lexical, era computed by layer 12, mood last-token, theme distributed and mid-passage (h6, h8, h9, h17).
 6. Recomposition: an era shift moves the address and keeps the form on two models (h14: 0.89/0.88 moved, theme 0.81/0.94 kept).
 7. Steering selects among competences the engine has: theme steers generation only at 9B-instruct (h10–h13); tuned models carry refusal as an unlisted factor (h12).
@@ -872,7 +891,7 @@ source/target pairing within training folds. Layers 0–28 step 4. `results/stag
 
 | | role_rank, all layers (chance 3.5) |
 |---|---|
-| **role-centered affine, 40 domains** | **2.21** |
+| **role-centered affine, 40 domains** | **2.21** (step-4 subsample; full step-2 curve mean 2.1692 — h47) |
 | same, 7 domains (hour 3) | 3.01 |
 | null, seeds 1 / 2 | 3.49 / 3.53 |
 | constant (mean-target) baseline, role-centered | 3.45 |
@@ -1920,6 +1939,130 @@ controls, not adjusting the core.
 
 Cost: ~515k agent tokens, ~2 h 10 min, 7 NDIF jobs. Files: `src/lsx/core/remote.py`,
 `tests/test_core_{instruments_p4,remote}.py`, `results/notes/core_p4.md`, calibration reports.
+
+## 2026-09-18 (hour 47) — PHASE 1 piece 5: the five refused batteries re-run; the gate closes, and three of our numbers mean less than the record said (agent)
+
+The five §1A targets piece 4 refused on *reporting* grounds were re-run with the arms they were
+missing. **Nothing failed a tolerance. Every number came back inside it. What moved is the floor
+under three of them.** Note: `results/notes/core_p5.md`. 152 tests pass; the rediscovery harness is
+12/12.
+
+**Phase 1's gate CLOSES, with one target outstanding and named.** §1B: 12 of 12. §1A: seven rows
+reproduced and published, one refused exactly as the spec predicts (h16's "peak layer 16",
+`SelectionOnScoringData` — that refusal *is* the acceptance test passing), one still deferred —
+**h37's 70B matched pair, whose direction stacks are not cached.** Not blocked by code, only by data
+and budget. The gate closes with that on the record rather than rounded off.
+
+**The three numbers whose floor moved.** Sign convention: gain = treatment − floor, and for a rank
+statistic lower is better, so a *negative* gain is better than floor.
+
+| target | treatment | measured lexical/stimulus floor | gain | arm band |
+|---|---|---|---|---|
+| h8 composed | 2.8056/18 | **2.8472** | **−0.0417** | ±1.8343 |
+| h8 era lens | 1.2500/3 | 2.0000 (exactly chance) | **−0.7500** | ±0.2887 |
+| h8 voice lens | 1.2361/3 | **1.0278** | **+0.2083** (worse than floor) | ±0.2887 |
+| h8 tense lens | 1.0278/**2** | 1.0278 | **+0.0000** (exactly on floor) | ±0.1768 |
+| h39 Gemma clock | 0.9895 | 0.9221 (the grid's own t0 control prompts) | **+0.0675** | ±0.4009 |
+
+The floor is a bag-of-tokens predictor fit by the same leave-one-scene-out arithmetic as
+`level_directions`, ranked through the identical `midrank`: activations swapped for word counts and
+nothing else. Its own permutation control goes to chance (10.24 against 9.50), so it is reading the
+words, not the procedure. **Only era clears its lexical floor.** The composed test's −0.04 of a rank
+is inside its own 3σ band of ±1.83: on this grid, "three narrative factors compose" is not separable
+from "the words differ". That is consistent with h5 — tense and voice are lexical — and it is the
+first time the composed test has been measured against anything but chance.
+
+**This does not retract the composed measurement.** 2.8056/18 against a no-patch arm sitting on 9.50
+exactly is a real effect of the patch. What is retracted is the *comparison*: −6.6944 was a gain over
+chance, and §6 requires a gain over the measured floor on a grid with a measured leak.
+
+**h39's clock is the interval phrase, to this design's resolution.** +0.067 against a ±0.40 band, and
+the shuffled-stimulus arm at 0.9693 says word order contributes nothing either — h38's
+order-invariance arriving on a second model. The row publishes and what it reports is a null. It is
+**not** a reproduction of the logged 0.767, and says so: 0.767 is a Spearman over nine per-Δt shared
+norms with no per-subject breakdown, and `discrimination` is a per-item instrument.
+
+**h29 is the one that got stronger, and it is writeup claim 8.** All three arms at scale 3.0,
+re-imposed, on Gemma-2-9B-it: treatment **0.8364 / 0.9091 / 0.5091** (n=55/72), lexical 0.30 on 10 of
+55 — reproducing the logged numbers to the digit — with **random 0.1429** (n=56/72) and **no-patch
+0.1111** (n=36/36) against a declared null of 0.1111. The under-controlled caveat added at hour 46 is
+lifted: the 0.84 now has its controls at its own scale and they sit where they should.
+
+Two things carried that row. The declared null is **0.1111, not 1/3**: an unpatched continuation is
+not uninformative about its own era, it keeps e1, and declaring 1/3 would have manufactured an
+`ArmOffNull` — piece 3's config-dependent-key bug in a new costume. The number used is h27's own
+published base arm (`era_other` 0.2222 split over two non-e1 targets), an independent prior
+measurement of the identical condition, and the no-patch arm came back at 0.1111 to the digit: a
+prediction tested, not restated. And the patch vectors, which came from a cached `.npz` that cannot
+reach the ledger, were re-derived through `remote.build_remote_stack` with every §7 assertion and
+matched the cached ones at cosine ≥ 0.999962 (L14) / ≥ 0.999956 (L20). The moved-candidates clause
+ran explicitly for the first time on a *generation* battery: shift 4/4, random 4/4, the h36
+`output[0]` idiom 1/4 with `MovedCandidates` firing; and per item, 55/55 shift and 56/56 random
+continuations differ from the same passage's greedy unpatched one.
+
+**Two defects in our own record, found by building the arms.**
+- **h8's tense lens is 1.03 of 2, not of 3.** `tense` has two levels; its null is 1.50. The h8 table
+  at line 504 had it right; Checkpoint 2's claim-4 summary, §1A of the core spec and piece 4's driver
+  all printed /3, and piece 4 built it as a 3-candidate instrument. The value
+  was always right; the denominator and the null were not. Under a 3-candidate declaration its
+  no-patch arm of exactly 1.50 would have read 0.50 off its null — **the refusal for the missing
+  permutation arm fired first and hid it for two pieces.**
+- **h16's "2.21" is the step-4 subsample** (recomputes to 2.2065) of a curve whose canonical step-2
+  mean is **2.1692**. Same curve, two aggregates, used interchangeably across `RESULTS.md`,
+  `WRITEUP.md` and `docs/INSTRUMENTS.md`. Both are now in the ledger row's `logged` field so it can
+  never happen silently again.
+
+**The ledger carries its first four withdrawals.** Two h8-composed rows that subtracted chance under
+the name `gain_over_floor`; two lens rows whose permutation arm was a single under-powered draw.
+Piece 3 declined to write a demonstration retraction because it would have been fabricated; these are
+not.
+
+**An id collision, and a general hazard.** h8's era and voice lenses agree on instrument, provenance,
+grid, selection, config and calibration key — the provenance never recorded *which factor was
+patched* — so they hash to the same `Claim.id` and the ledger refused the second with
+`LedgerConflict`. The right refusal for the wrong reason. Fixed by putting `factor` in the provenance
+(unsigned, so the stack signature is untouched). **Two claims differing only in which direction was
+patched are indistinguishable to `Claim.id` unless the caller says so, and nothing makes the caller.**
+
+**The methodological finding, and it arrived as a refusal.** Built as a single permutation draw, the
+voice arm read 2.347 against a null of 2.00 and a registry band of ±0.2887 — refused with
+`ArmOffNull`, crashing the run. An arm off its null is a bug until proven otherwise, so it was
+measured, not argued: six further independent draws give a per-draw sd of **0.349 for voice** —
+**one draw's one-sigma spread is larger than the whole three-sigma band the registry computes.** The
+band is 3σ on the per-*item* null spread over 72 items, but a permutation arm's 72 items are four
+draws (one per scene) × eighteen re-rankings. `n` counts repetitions, not evidence. The arm was never
+off its null; it was under-powered. **The fix is more evidence, not a wider band:** pooled over all
+seven draws with a cluster-robust `3·sd/√7` — era 2.153 (±0.179), voice 1.919 (±0.420), tense 1.411
+(±0.158). All three publish. Two consequences on the record rather than smoothed: a single-draw
+permutation arm on this design has almost no power (a ±0.42 band on a rank bounded in [1,3] would
+admit an arm reading *below* the treatment), so pooling reduces h8's defect without removing it; and
+**`registry.arm_tolerance` is wrong for any arm whose randomness is a draw rather than an item, and
+wrong in the dangerous direction — it refuses clean arms.** Second target bitten, both caught by
+hand. An `Arm` should declare its independent unit. This piece did not fix it.
+
+**Three bugs in the piece's own code, each caught by something the spec already demanded.** (1) The
+generation trace bound `rlm.model.generator.output.save()` *inside* the trace block; NDIF ships the
+block's source and refuses attribute paths through a class defined in `lsx.core.remote`. Twelve
+generations died that way — and `asserted_remote_patched_logprob`, two functions above, carries a
+five-line comment saying exactly this, written after piece 4 hit it on the wire. **The sixth time in
+this build that a fix has carried a version of the bug it was fixing, and the first time the fix was
+already in the file.** A test now greps for it. (2) The h29 claim set `provenance["template"]`, a
+*signed* field — the row would have been refused by the very check it was written to satisfy; the
+generation's fields now go in under their own names. (3) `hash()` seeded the shuffled-stimulus arm,
+randomised per process, and the extraction is resumable across processes — a single arm could have
+been assembled from two different shuffles. `hashlib.sha256` now, with a test. Plus one in the
+driver: a refusal on one lens aborted the whole battery, so the report would have named only its
+successes by construction.
+
+**Cost.** ≈ 3 h 10 min. Local: 3 096 + 3 456 patched log-prob forwards and a 240-prompt extraction
+with 15 layers × 5 arms. Remote: h29 — 180 generations attempted, **147 scored, 33 lost (18%)**,
+≈ 250 jobs; h39 — 720 texts at layer 20 in three arms, ≈ 290 jobs. **The loss is unequal across arms
+(0% base, 24% shift, 22% random), deterministic per item, and unexplained; the surviving sample is
+therefore not a random subsample and the arms' n differ.** That is an open caveat on the h29 row. No
+405B, nothing downloaded, no credentials printed.
+
+**Still unbuilt/unfixed:** h37 not re-derived; `registry.arm_tolerance`'s independent unit;
+`crosstalk`, `depth_gain` and `generality` instruments (`generality` still has no null).
 
 ## Open problems (ordered)
 

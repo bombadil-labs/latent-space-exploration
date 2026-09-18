@@ -26,10 +26,20 @@ matched null, eleven things stand, six fell, and two are partial.
    (90% lower bound 1.56, sign fraction 0.92), and a patch confined to positions that are never scored
    — where the direct path is removed by construction — still gains 0.32.
 3. The source→target relation between roles is real, computed by the stack, and, given forty
-   domains, a working selector (rank 2.21 of 6 vs 3.5 null; peak at layer 16 of 28).
+   domains, a working selector (rank **2.1692** of 6 vs 3.5 null, the mean of the full step-2 layer
+   curve; the "2.21" published earlier is the same curve averaged over its eight step-4 layers,
+   2.2065). **We report the curve, not its peak:** the "peak at layer 16" form selects a layer on
+   scoring data and is refused (stage 47).
 4. Narrative factors (era, voice, tense, mood, theme) are additive directions: each is a lens on
-   unseen scenes (1.1–1.4 of 3 vs ~2.0 random), three compose in one patch (2.8 of 18, chance 9.5),
-   and their cross-talk matrix is diagonal. Replicated on four model families and on grids written
+   unseen scenes (1.1–1.4 of 3 vs ~2.0 random; tense is 1.03 of **2**, not of 3), three compose in
+   one patch (2.8 of 18, chance 9.5), and their cross-talk matrix is diagonal. **Measured against a
+   lexical floor rather than against chance, only era survives (stage 47).** The floor is a
+   bag-of-tokens predictor fit and ranked by the identical arithmetic: era's floor is exactly chance
+   (2.00) against a treatment of 1.25, but tense sits *on* its floor (1.0278 both), voice is *worse*
+   than its floor (1.2361 against 1.0278), and the three-way composition's gain is −0.04 of a rank
+   inside a 3σ arm band of ±1.83. The composed patch has a real effect — its no-patch arm sits on
+   9.50 exactly — but on this grid "three factors compose" is not separable from "the words differ".
+   What is withdrawn is the comparison to chance, not the measurement. Replicated on four model families and on grids written
    by a second model author. The three-way composition is computation rather than geometry (stage 41:
    3.61 nats over the skip-path null, lower bound 3.25, sign fraction 1.00). **The diagonal itself is
    partly geometry:** the null's cross-talk is also diagonal (on-diagonal 0.40/0.45/0.49 against the
@@ -48,10 +58,14 @@ matched null, eleven things stand, six fell, and two are partial.
    (voice > era > theme), at two layer pairs.
 8. **Recomposition is real, and only in generation.** At three times the norm, re-imposed at every
    decoding step, an era shift moves the era of Gemma-2-9B-it's *generated text* in 0.84 of cases,
-   0.30 of continuations gain target-era vocabulary, and prose stays intact. **Under-controlled
-   (stage 46):** the random and no-patch arms were run only at the matched-norm scale, so the 0.84
-   figure has no control at its own scale. The lexical check rising from 0.00 to 0.30 across scales
-   is the evidence that survives that; the headline fraction awaits a re-run with its arms. This is now the only
+   0.30 of continuations gain target-era vocabulary, and prose stays intact. **Now controlled at its
+   own scale (stage 47),** which lifts the under-controlled caveat stage 46 added: the battery was
+   re-run with all three arms at scale 3.0, reproducing 0.8364 / 0.9091 / 0.5091 and the 0.30
+   lexical check to the digit, with **random 0.1429** and **no-patch 0.1111** against a declared null
+   of 0.1111 — the null taken from stage 27's own published base arm rather than from 1/k, and met to
+   the digit. One caveat stands: 18% of the generations were lost to NDIF returning empty results,
+   unequally across arms (0% base, 24% shift, 22% random) and deterministically per item, so the
+   surviving sample is not a random subsample. This is now the only
    evidence for recomposition: the representational version of this claim, which looked like its
    foundation and was far cheaper, was withdrawn at stage 40 as vector addition (see below).
 9. **Gauges compose; engines do not — and the boundary between them is a magnitude.** At matched
@@ -80,7 +94,13 @@ matched null, eleven things stand, six fell, and two are partial.
   words of the passage (structural residue 0.076, label-swap z 1.21) and does not transfer to the
   case where the model must supply the change itself (ρ 0.150, cosine 0.078). It is a **computed
   register detector** — how much change a passage describes, read order-invariantly, more
-  accurately than the embeddings alone allow — not a representation of elapsed time.
+  accurately than the embeddings alone allow — not a representation of elapsed time. **Stage 47
+  weakens even that, on Gemma-2-9B-it:** re-measured per subject against the grid's own t0 control
+  prompts, the layer-20 clock gains **+0.067** (0.9895 against a floor of 0.9221) inside an arm band
+  of ±0.40, and a shuffled-stimulus arm reads 0.9693 — at this design's resolution the Gemma clock is
+  the interval phrase, and word order contributes nothing. (This restates the target rather than
+  reproducing stage 39's 0.767, which was a Spearman over per-Δt shared norms with no per-subject
+  breakdown.)
 - **Absence as decoder-adjacent inactive features.**
 - **The five-regime commutator taxonomy** under greedy decoding.
 - **"Factors don't commute under generation" as a fact about factors:** any two matched-norm
@@ -148,9 +168,10 @@ Under it were two real objects. **Role identity** is a direction that transfers:
 the role direction as a patch selects that role's span in every one of eight domains (h4). The
 **relation** between roles, after removing position by design, role identity by centering, and
 domain address by ranking within a prompt, was a small signal at seven domains (3.0 vs 3.5 null,
-at chance in the embeddings, peaking at layer 20) and a working selector at forty (2.21; peak layer
-16; the embedding layer itself now below chance at 2.73, so part of the relation is lexical and the
-stack adds a rank on top). The relation was starved, not absent (h16). Thirty-two of the forty
+at chance in the embeddings, peaking at layer 20) and a working selector at forty (2.1692, the mean
+of the full step-2 layer curve; the curve peaks at layer 16 and we report it rather than select on
+it — see stage 47 — and the embedding layer itself is now below chance at 2.73, so part of the
+relation is lexical and the stack adds a rank on top). The relation was starved, not absent (h16). Thirty-two of the forty
 domains were generated by Gemma-2-9B-it from the schema spec and reviewed; the six that copied the
 example's wording were paraphrased, and role-centering removes what shared phrasing would add.
 
@@ -262,6 +283,12 @@ operator's source-specificity under patching is open. One depth control is missi
 at 0.43 was to be explained by a layer sweep, and the selector-level sweep that was run went down
 with the stage-34 retraction, so a generation-level sweep is still owed. Stage 8's `tense` random
 control reads 1.44, closer to its treatment than it should be, and has not been re-checked.
+**Most selector-level results are still reported against chance rather than against a measured
+lexical floor**; where the floor has been measured (stage 8, stage 47) two of four rows do not clear
+it. The arm-tolerance band used to accept controls assumes i.i.d. items and is wrong for any arm
+whose randomness is a *draw* — it refuses clean arms, and has now bitten two targets, both caught by
+hand. Stage 37's 70B matched-pair numbers have not been re-derived through the verified core, because
+their direction stacks are not cached.
 Llama-3.1-405B is not reachable with this key, so no base model above 70B has been tested.
 
 ## Next
