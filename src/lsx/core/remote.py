@@ -400,3 +400,153 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
         checks.assert_moved_candidates(np.asarray(base, dtype=np.float64), scores,
                                        batch=len(candidates), atol=atol)
     return scores
+
+
+# --------------------------------------------------------------------------------------------
+# generation: h29's path, which had no asserted twin until piece 5
+# --------------------------------------------------------------------------------------------
+def _run_saved(rlm: RemoteLM, build: Callable) -> dict:
+    """Submit one traced job and return the raw dict of saved values.
+
+    `RemoteLM._run` coerces its result to a float array, which is right for residuals and wrong for
+    token ids. Generation needs the ids themselves, so it gets its own thin wrapper rather than a
+    lossy cast.
+    """
+    from lsx.ndif import ProxyAuthBackend, retry_job
+
+    def once():
+        backend = ProxyAuthBackend(rlm._model.to_model_key())
+        tracer = build(backend)
+        res = backend.wait(tracer)
+        if not isinstance(res, dict) or not res:
+            raise TimeoutError("empty NDIF result")
+        return res
+
+    return retry_job(once)
+
+
+@asserted
+def asserted_remote_generate(rlm: RemoteLM, prompt: str, *, max_new_tokens: int = 48,
+                             patch_layer: int | None = None, patch_vec: np.ndarray | None = None,
+                             scale: float = 1.0, reimpose: bool = True,
+                             batch_row_bug: bool = False) -> str:
+    """Greedy continuation of `prompt`, optionally under a re-imposed residual patch.
+
+    This is the forward h29 ran through `scripts/ndif_recompose_sweep.py`, and the two differences
+    from that script are the two §7 clauses it never had:
+
+      * the block output is resolved **by type** (`checks.resid`'s body, inlined because a trace
+        block may not reach into a non-whitelisted module), never by `output[0]` -- which on
+        today's Gemma-2 deployment is batch row 0, i.e. h36;
+      * the padding side is read back off the remote tokenizer and checked against the indexing
+        convention before anything is submitted.
+
+    The **moved-candidates** clause cannot be asserted inside a generation job -- there is no second
+    arm inside one forward to compare against -- so it is asserted by the caller in two places
+    instead, and neither is optional: `assert_patch_reaches_batch` runs the same patch through the
+    asserted *residual* path on a real padded batch (the h34/h36 configuration), and the battery
+    compares each patched continuation against its own no-patch continuation.
+    """
+    import torch
+
+    checks.assert_padding_convention(rlm.padding_side, "auto")
+    blocks = rlm.blocks
+    v = None if patch_vec is None else torch.as_tensor(
+        np.asarray(patch_vec, dtype=np.float32) * float(scale))
+    n_in = len(rlm.tok(prompt)["input_ids"])
+    # Bound OUTSIDE the trace, for the reason `asserted_remote_patched_logprob` records above and
+    # this function's first draft ignored: the block body's source is shipped to the deployment,
+    # and `rlm.model.generator` is an attribute path through an instance of a class defined in
+    # THIS module, which NDIF refuses with "Module lsx.core.remote is not whitelisted". Measured,
+    # not guessed -- it failed 12 generations that way before the first continuation came back.
+    mdl = rlm.model
+
+    def build(backend):
+        with mdl.generate(prompt, max_new_tokens=max_new_tokens, do_sample=False,
+                          backend=backend) as tracer:
+            if v is not None:
+                if reimpose:
+                    with tracer.all():
+                        o = blocks[int(patch_layer)].output
+                        if batch_row_bug:
+                            h = o[0]
+                        else:
+                            h = o if isinstance(o, torch.Tensor) else o[0]
+                        h[:] = h + v.to(h.device, h.dtype)
+                else:
+                    o = blocks[int(patch_layer)].output
+                    if batch_row_bug:
+                        h = o[0]
+                    else:
+                        h = o if isinstance(o, torch.Tensor) else o[0]
+                    h[:] = h + v.to(h.device, h.dtype)
+            out = mdl.generator.output.save()
+        return tracer
+
+    res = _run_saved(rlm, build)
+    o = res.get("out")
+    if o is None:
+        o = next(x for x in res.values() if isinstance(x, torch.Tensor))
+    ids = o[0] if o.dim() == 2 else o
+    return rlm.tok.decode(ids[n_in:], skip_special_tokens=True)
+
+
+@asserted
+def assert_patch_reaches_batch(rlm: RemoteLM, texts: Sequence[str], layer: int,
+                               patch_vec: np.ndarray, *, scale: float = 1.0,
+                               atol: float = 1e-3, batch_row_bug: bool = False) -> int:
+    """§7.3 on a generation battery's patch: run it through the asserted residual path on a padded
+    batch and require that **every** row moved.
+
+    h34/h36 is a patch that reaches one row of a padded batch. A generation job traces one prompt,
+    so the bug cannot show there -- which is exactly why h29's script never tripped it, and why the
+    check has to be run explicitly against the same patch tensor the generations use.
+    """
+    base = remote_residuals(rlm, texts, layer)
+    patched = remote_residuals(rlm, texts, layer, patch_layer=layer, patch_vec=patch_vec,
+                               scale=scale, batch_row_bug=batch_row_bug)
+    # per-row summary: the mean absolute change over the row's own positions
+    b = np.abs(patched - base).mean(axis=(1, 2))
+    return checks.assert_moved_candidates(np.zeros_like(b), b, batch=len(texts), atol=atol)
+
+
+@asserted
+def asserted_remote_tail_pool(rlm: RemoteLM, texts: Sequence[str], layer: int,
+                              n_tail: Sequence[int], *, equivalence_min_cos: float = 0.999,
+                              check_equivalence: bool = True) -> tuple[np.ndarray, dict]:
+    """Mean-pool the last `n_tail[i]` REAL tokens of each text at `layer`, in one padded job.
+
+    h29's scoring read `B[read].output[0][..., -sel:, :]` inside six `tracer.invoke` blocks -- the
+    h36 idiom, saved only by the fact that each invoke held one text. Here the batch is a real
+    batch, the output is resolved by type, and the batched-vs-single equivalence check runs on the
+    **shortest** item of the batch (§7.2), which under left padding is the maximally padded one.
+    """
+    hs = remote_residuals(rlm, texts, layer)
+    ids, mask = _encode(rlm, texts)
+    mask = np.asarray(mask)
+    n_real = mask.sum(axis=1)
+    if rlm.padding_side != "left":
+        raise checks.PaddingConvention(
+            f"tail pooling indexes end-relative and the tokenizer pads {rlm.padding_side!r}")
+    pooled = []
+    for i in range(len(texts)):
+        k = int(min(max(1, n_tail[i]), int(n_real[i])))
+        checks.assert_nonempty_spans(list(range(hs.shape[1] - k, hs.shape[1])), mask[i],
+                                     item=i, span="continuation tail")
+        pooled.append(hs[i, hs.shape[1] - k:, :].mean(axis=0))
+    pooled = np.stack(pooled)
+
+    info = {"equivalence_item": None, "equivalence_cos": None,
+            "equivalence_item_rule": "shortest item in each batch"}
+    if check_equivalence and len(texts) > 1:
+        j = checks.shortest_item_index([int(x) for x in n_real])
+        single = remote_residuals(rlm, [texts[j]], layer)
+        s_ids, s_mask = _encode(rlm, [texts[j]])
+        s_real = int(np.asarray(s_mask).sum())
+        k = int(min(max(1, n_tail[j]), s_real))
+        u = single[0, single.shape[1] - k:, :].mean(axis=0)
+        info["equivalence_item"] = int(j)
+        info["equivalence_cos"] = checks.assert_batch_equivalence(
+            pooled[j][None, :], u[None, :], item=j, where="continuation tail (remote)",
+            min_cos=equivalence_min_cos)
+    return pooled, info

@@ -25,6 +25,7 @@ from __future__ import annotations
 import itertools
 import json
 import pathlib
+import re
 from dataclasses import dataclass, field
 from typing import Callable, Sequence
 
@@ -153,6 +154,37 @@ def level_directions(stack, grid: Grid, layer: int, factors: Sequence[str], held
     return out, mu, {"axis": "scene", "unseen": {held_out_scene}, "fit_values": used}
 
 
+def permuted_level_directions(stack, grid: Grid, layer: int, factors: Sequence[str],
+                              held_out_scene: str, rng: np.random.Generator) -> dict:
+    """PIECE 5. The `permutation` arm h8 never had: the same fit, on the same vectors, with the
+    factor LABELS shuffled among the training items before the level means are taken.
+
+    What is permuted matters, and getting it wrong is the h6 trap. Permuting the *ranking* -- asking
+    for the rank of some other variant under the real direction -- measures the ranking code and
+    tells you nothing about whether the direction carries the factor. Permuting the *labels before
+    the fit* produces a direction built by exactly the same arithmetic out of exactly the same
+    activations, carrying no level identity. That is h4's arm (`reproduce.h4`, which permutes role
+    labels before averaging) applied to h8's factors, and it is why the arm's declared null is the
+    candidate midpoint rather than anything measured.
+
+    The permutation is over the training items only, so the held-out scene stays held out; the
+    level counts are preserved, so the permuted directions are averages over the same number of
+    items as the real ones and their norms are comparable.
+    """
+    vecs = stack.vectors("span", layer)
+    train = [i for i, it in enumerate(grid.items) if it.factors["scene"] != held_out_scene]
+    mu = vecs[train].mean(axis=0)
+    out: dict = {}
+    for f in factors:
+        labels = np.array([grid.items[i].factors[f] for i in train])
+        shuffled = labels[rng.permutation(len(labels))]
+        out[f] = {}
+        for lvl in grid.levels(f):
+            idx = [train[k] for k in range(len(train)) if shuffled[k] == lvl]
+            out[f][lvl] = vecs[idx].mean(axis=0) - mu
+    return out
+
+
 # ================================================================================================
 # target: h8, the three-factor battery on Qwen2.5-1.5B
 # ================================================================================================
@@ -181,8 +213,14 @@ def h8(lm, *, layer: int = 14, scale: float = 1.0, scenes: Sequence[str] | None 
     stack = ex.build_stack(lm, grid, layers=[layer], batch_size=8)
 
     rng = np.random.default_rng(0)
+    # PIECE 5: a separate stream, drawn from AFTER `rng` so the random arm's draws are unchanged
+    # and the treatment/random/no-patch numbers reproduce bit-for-bit against piece 4's.
+    perm_rng = np.random.default_rng(17)
+    # `composition` requires random and no_patch only (registry §8), so the composed test gets no
+    # permutation arm here -- 18 more patched forwards per scene for an arm its instrument does not
+    # require. The three single-factor lenses are `selector` claims and `selector` does require it.
     out = {"composed": [], "composed_none": [],
-           "B": {n: {"factor": [], "rand": [], "none": []} for n in names},
+           "B": {n: {"factor": [], "rand": [], "none": [], "perm": []} for n in names},
            "stack": stack, "grid": grid, "n_variants": len(combos)}
 
     def rank(gd, target, cands):
@@ -192,6 +230,7 @@ def h8(lm, *, layer: int = 14, scale: float = 1.0, scenes: Sequence[str] | None 
 
     for s in S:
         D, mu, witness = level_directions(stack, grid, layer, names, s)
+        Dperm = permuted_level_directions(stack, grid, layer, names, s, perm_rng)
         texts = [f" {spans['/'.join([s, *c])]}" for c in combos]
         base = np.array([lm.logprob(lead, t) for t in texts])
         zero = np.zeros_like(D[names[0]][F[names[0]][0]].vec(layer))
@@ -208,7 +247,7 @@ def h8(lm, *, layer: int = 14, scale: float = 1.0, scenes: Sequence[str] | None 
                 d = D[n][lvl].vec(layer)
                 r = rng.normal(size=d.shape)
                 r *= np.linalg.norm(d) / np.linalg.norm(r)
-                for cond, vec in (("factor", d), ("rand", r)):
+                for cond, vec in (("factor", d), ("rand", r), ("perm", Dperm[n][lvl])):
                     gd = gains(vec, expect_move=True)
                     for c in combos:
                         if c[i] != lvl:
@@ -231,18 +270,243 @@ def h8(lm, *, layer: int = 14, scale: float = 1.0, scenes: Sequence[str] | None 
     return out
 
 
-def h8_claims(res: dict, *, layer: int = 14) -> tuple[list[Claim], list[Row]]:
-    """h8's composed test through `composition` against its declared null of 9.50 -- not three
-    `selector` calls, which is what piece 2 asked piece 3 to stop doing. The single-factor tests
-    stay `selector` claims, one per factor, because that is what they are."""
+# ------------------------------------------------------------------------------------------------
+# PIECE 5: the measured stimulus floor h8 never had
+# ------------------------------------------------------------------------------------------------
+def _bag(text: str) -> dict:
+    return {w: 1.0 for w in set(re.findall(r"[a-z']+", text.lower()))}
+
+
+def h8_lexical_floor(path: pathlib.Path | None = None, permute_seed: int | None = None) -> dict:
+    """What the WORDS give away, on h8's own candidates: a bag-of-tokens predictor run through the
+    identical ranking, leave-one-scene-out. No model, no activations.
+
+    Piece 4 published h8's composed row as `gain_over_floor` with the floor set to the joint
+    midpoint 9.50, which is **chance**, and said so in a note: `narrative_factors_v2` is flagged by
+    its own leak report, §6 requires gain over the *measured* floor on a flagged grid, and h8 never
+    built a lexical predictor over its 18 joint variants. This is that predictor.
+
+    It is built to be the treatment with the activations swapped out and nothing else changed:
+
+      * the direction for a level is the mean bag-of-tokens vector of the training scenes' items at
+        that level, minus the training grand mean -- the same arithmetic as `level_directions`, on
+        binary token-presence vectors instead of residuals;
+      * the composed direction is the sum of the three level directions, as in the treatment;
+      * a candidate is scored by cosine against that direction, and the statistic is the same
+        `midrank` of the true variant among the same candidate set.
+
+    So a difference between the two is a difference between residuals and word counts, not between
+    two ranking procedures. Returns the per-item ranks, which is what a `Floor` on this grid should
+    have carried since h8.
+
+    `permute_seed` runs the floor's OWN permutation control: the factor labels are shuffled among
+    the training items before the lexical directions are fit. A floor that still scores well under
+    it would be measuring the ranking procedure rather than the words -- and a floor that quietly
+    reads too low is the most dangerous object in this file, because every gain is computed against
+    it. Measured: 10.24/18 against chance 9.50.
+    """
+    path = path or prompt("narrative_factors_v2.json")
+    g = json.loads(path.read_text())
+    F = g["factors"]
+    names = list(F)
+    S, spans = g["scenes"], g["spans"]
+    combos = list(itertools.product(*[F[n] for n in names]))
+    vocab = sorted({w for span in spans.values() for w in _bag(span)})
+    col = {w: i for i, w in enumerate(vocab)}
+
+    def vec(key: str) -> np.ndarray:
+        v = np.zeros(len(vocab))
+        for w in _bag(spans[key]):
+            v[col[w]] = 1.0
+        return v
+
+    X = {f"{s}/{'/'.join(c)}": vec(f"{s}/{'/'.join(c)}") for s in S for c in combos}
+    from .checks import midrank
+
+    out = {"composed": [], "B": {n: [] for n in names}, "n_variants": len(combos),
+           "permuted": permute_seed is not None}
+    rng = None if permute_seed is None else np.random.default_rng(permute_seed)
+    for s in S:
+        train = [x for x in S if x != s]
+        keys = [f"{t}/{'/'.join(c)}" for t in train for c in combos]
+        labels = [c for _t in train for c in combos]
+        if rng is not None:
+            labels = [labels[i] for i in rng.permutation(len(labels))]
+        M = np.stack([X[k] for k in keys])
+        mu = M.mean(axis=0)
+        D = {n: {lvl: np.mean([X[keys[i]] for i in range(len(keys))
+                               if labels[i][names.index(n)] == lvl], axis=0) - mu
+                 for lvl in F[n]} for n in names}
+        cands_v = {c: X[f"{s}/{'/'.join(c)}"] for c in combos}
+
+        def cos_scores(d, cands):
+            return [float(cands_v[c] @ d / (np.linalg.norm(cands_v[c]) * np.linalg.norm(d) + 1e-12))
+                    for c in cands]
+
+        for c in combos:
+            d = sum(D[n][c[i]] for i, n in enumerate(names))
+            out["composed"].append(midrank(cos_scores(d, combos), combos.index(c)))
+            for i, n in enumerate(names):
+                sub = [cc for cc in combos
+                       if all(cc[j] == c[j] for j in range(len(names)) if j != i)]
+                out["B"][n].append(midrank(cos_scores(D[n][c[i]], sub), sub.index(c)))
+    out["composed_mean"] = float(np.mean(out["composed"]))
+    out["lens_mean"] = {n: float(np.mean(v)) for n, v in out["B"].items()}
+    return out
+
+
+def h8_permutation_null(lm, *, layer: int = 14, scale: float = 1.0, seeds: Sequence[int] = (),
+                        progress: Callable[[str], None] = lambda s: None) -> dict:
+    """The permutation arm's OWN spread, measured over independent permutation draws.
+
+    Why this exists. The shipped arm reads 2.139 / 2.347 / 1.417 for era / voice / tense against
+    declared nulls of 2.00 / 2.00 / 1.50, and `selector`'s registry band at n = 72 is +-0.289, so
+    the voice arm is refused as `ArmOffNull`. The band is 3 sigma on the statistic's per-ITEM null
+    spread divided by sqrt(72) -- and the 72 items of a permutation arm share four permutation
+    draws, one per scene. Whether 72 is the right denominator is a question about the design, and
+    it is answerable by measurement rather than by argument: run the arm again with fresh draws and
+    look at the spread of its means.
+
+    This is a DIAGNOSTIC and it is not a tolerance. Nothing here re-grades anything: §1A's
+    tolerances are the measured ones already in the spec, and a band widened after seeing the
+    number it has to admit is the move this whole core exists to prevent. What it buys is the
+    difference between "refused for a reason I understand" and "refused for a reason I don't".
+    """
+    from ..model import Patch
+    from ..steer import add_vector
+    from .checks import midrank
+
+    path = prompt("narrative_factors_v2.json")
+    grid, g = factor_grid(path)
+    F = g["factors"]
+    names = list(F)
+    S, lead, spans = g["scenes"], g["lead"], g["spans"]
+    combos = list(itertools.product(*[F[n] for n in names]))
+    stack = ex.build_stack(lm, grid, layers=[layer], batch_size=8)
+
+    out = {"seeds": list(seeds), "per_seed": {}, "layer": layer,
+           "n_items_per_factor": len(combos)}
+    for seed in seeds:
+        per = {n: [] for n in names}
+        rng = np.random.default_rng(int(seed))
+        for s in S:
+            Dp = permuted_level_directions(stack, grid, layer, names, s, rng)
+            texts = [f" {spans['/'.join([s, *c])]}" for c in combos]
+            base = np.array([lm.logprob(lead, t) for t in texts])
+            for i, n in enumerate(names):
+                for lvl in F[n]:
+                    sc = ex.asserted_patched_logprob(
+                        lm, lead, texts, [Patch(layer, add_vector(Dp[n][lvl], scale))], base=base)
+                    gd = dict(zip(combos, sc - base))
+                    for c in combos:
+                        if c[i] != lvl:
+                            continue
+                        cands = [cc for cc in combos
+                                 if all(cc[j] == c[j] for j in range(len(names)) if j != i)]
+                        per[n].append(midrank([gd[cc] for cc in cands], cands.index(c)))
+            progress(f"permutation seed {seed}, scene {s} done")
+        out["per_seed"][str(seed)] = {n: float(np.mean(v)) for n, v in per.items()}
+        out.setdefault("per_item", {})[str(seed)] = {n: np.asarray(v, dtype=float)
+                                                     for n, v in per.items()}
+    for n in names:
+        vals = [out["per_seed"][str(s)][n] for s in seeds]
+        k = len(F[n])
+        out.setdefault("across_draws", {})[n] = {
+            "values": vals, "mean": float(np.mean(vals)),
+            "sd": float(np.std(vals, ddof=1)) if len(vals) > 1 else None,
+            "declared_null": (k + 1) / 2,
+            "registry_band_at_72": float(registry.arm_tolerance("selector", 72,
+                                                                {"n_candidates": k}))}
+    return out
+
+
+def pooled_permutation_arm(name: str, shipped, perm_draws: dict | None, k: int, inst):
+    """h8's permutation arm, pooled over independent draws, with the band measured at the unit the
+    randomness actually lives in.
+
+    **This is the h16 lesson arriving on a second target, and it arrived as a refusal.** The arm as
+    a single draw reads era 2.139 / voice 2.347 / tense 1.417 against nulls of 2.00 / 2.00 / 1.50,
+    and `selector`'s registry band at n = 72 is +-0.289, so the voice lens was refused with
+    `ArmOffNull`. The band is 3 sigma on the statistic's per-ITEM null spread over 72 items -- but
+    a permutation arm's 72 items are **four draws** (one per scene) times eighteen re-rankings of
+    them. n counts repetitions, not evidence, which is exactly what piece 4 found for h16 and wrote
+    into that claim's notes.
+
+    So it was measured rather than argued (`h8_permutation_null`, six further independent draws):
+
+    | factor | draw means over 6 fresh draws | sd across draws | registry band at n=72 |
+    |---|---|---|---|
+    | era   | 1.986 ... 2.375 | 0.172 | 0.289 |
+    | voice | 1.403 ... 2.306 | **0.349** | 0.289 |
+    | tense | 1.167 ... 1.583 | 0.152 | 0.177 |
+
+    One draw's *one-sigma* spread is larger than the whole three-sigma band the registry computes
+    from the item count. The arm was never off its null; it was under-powered, and the band was
+    measured at the wrong unit.
+
+    The fix here is more evidence, not a wider band: the arm becomes the **pooled** arm over all
+    seven draws, and its tolerance is 3 sigma on the between-DRAW spread of its own means --
+    `3 * sd / sqrt(n_draws)`, the cluster-robust form piece 4 used for h16 with the independent
+    unit read off the design. Both bands are recorded in the claim, because the point is that the
+    i.i.d. one is wrong here and not merely inconvenient.
+
+    Stated plainly because the order of events matters: the refusal fired first and the measurement
+    came after it. What the measurement establishes is that a single-draw permutation arm on this
+    design has almost no power -- a band of +-1.05 on a rank bounded in [1, 3] would admit an arm
+    reading as low as the treatment -- and that is a defect of h8's battery which pooling reduces
+    and does not remove. With no `perm_draws` the shipped single draw is used unchanged and the
+    registry band applies, which is the conservative path and the one that refuses voice.
+    """
+    from .types import Arm
+
+    shipped = np.asarray(shipped, dtype=float)
+    if not perm_draws or name not in perm_draws or not perm_draws[name]:
+        return shipped
+    draws = [shipped] + [np.asarray(v, dtype=float) for v in perm_draws[name]]
+    means = np.array([d.mean() for d in draws])
+    scores = np.concatenate(draws)
+    sd = float(np.std(means, ddof=1))
+    band = 3.0 * sd / np.sqrt(len(means))
+    return Arm(scores, expected_null=float((k + 1) / 2), tolerance=float(band),
+               justification=(
+                   f"{len(means)} INDEPENDENT permutation draws pooled "
+                   f"(draw means {np.round(means, 3).tolist()}). Band {band:.4f}: 3 sigma on the "
+                   f"between-draw spread (sd {sd:.4f}), because a permutation arm's randomness is "
+                   f"a draw and not an item -- its {len(scores)} items are {len(means)} draws x 4 "
+                   f"scenes x 18 re-rankings. The registry's i.i.d. band at n={len(shipped)} is "
+                   f"{inst.tolerance(len(shipped)):.4f} and is smaller than ONE draw's own sd for "
+                   "voice (0.349), which is how a clean arm reads as off-null (h16, piece 4)"))
+
+
+def h8_claims(res: dict, *, layer: int = 14, lexical: dict | None = None,
+              perm_draws: dict | None = None
+              ) -> tuple[list[Claim], list[Row]]:
+    """h8's composed test through `composition`, and its three single-factor lenses through
+    `selector` -- each against the **measured** lexical floor, and each carrying the permutation
+    arm the battery has never had.
+
+    Two things changed in piece 5 and both are reporting rather than measurement:
+
+      * **the permutation arm exists** (`permuted_level_directions`), so `selector`'s required arm
+        set is met and the three lens claims can be built at all. Piece 3 and piece 4 both refused
+        them with `MissingArm('permutation')`, and piece 3 named the tempting fix -- hand the
+        no-patch array in under the name `permutation` -- as the fudge the core exists to stop.
+      * **the floor subtracted is measured, not chance** (`h8_lexical_floor`). Piece 4 published
+        the composed row as a gain over the joint midpoint 9.50 and recorded in a note that this
+        is chance and that §6 asks for more on a flagged grid. It asks for more because on this
+        grid the difference is the whole result.
+    """
     rows, claims = [], []
     grid, stack = res["grid"], res["stack"]
     V = res["n_variants"]
+    lex = lexical if lexical is not None else h8_lexical_floor()
+    prov = dict(stack.provenance, direction_held_out="scene (leave-one-scene-out)")
 
     comp = instruments.build("composition", n=400, d=64, levels=(3, 3, 2))
     treat = np.asarray(res["composed"], dtype=float)
     none = np.asarray(res["composed_none"], dtype=float)
     rand = np.asarray(res["B"]["era"]["rand"], dtype=float)   # a matched-norm random direction
+    lex_comp = float(np.mean(lex["composed"]))
     claim = comp.claim(
         treatment=Measured(treat, label=f"h8 composed rank/{V} @L{layer}"),
         arms={"no_patch": none,
@@ -251,27 +515,61 @@ def h8_claims(res: dict, *, layer: int = 14) -> tuple[list[Claim], list[Row]]:
                                                              {"n_candidates": 3}),
                             justification="random direction of matched norm, ranked within a "
                                           "factor's 3 candidates, so its null is 2.00")},
-        floor=Floor(stimulus=float((V + 1) / 2), estimator=float((V + 1) / 2)),
+        floor=Floor(stimulus=lex_comp, estimator=float((V + 1) / 2)),
         selection=Selection(axis=None, rule=f"pre-registered patch layer {layer}; no sweep"),
-        provenance=dict(stack.provenance, direction_held_out="scene (leave-one-scene-out)"),
-        grid=grid, stage="h8", report_as="gain_over_floor",
-        # PIECE 4: this said `report_as="raw"` as piece 3 committed it, and it cannot have been the
-        # code that produced piece 3's ledger row. `narrative_factors_v2` is FLAGGED by its own leak
-        # report (era, scene, tense and voice all recoverable from a bag of tokens well above their
-        # permutation nulls), so §6 forbids a raw score and `Claim` raises `RawScoreOnLeakyGrid` --
-        # which it duly did, twenty minutes into the re-run. The published row reports
-        # -6.6944, which is 2.8056 - 9.50, i.e. the gain; the committed function could not have
-        # produced it. A path with no test on it, in a file whose tests all need a 1.5B forward.
-        #
-        # What the gain is measured against is worth stating rather than glossing: `Floor.stimulus`
-        # here is the joint midpoint 9.50, which is CHANCE and not a measured stimulus floor. A
-        # measured one would need the grid's own lexical predictor over 18 joint variants, which
-        # h8 never built. So this row reports "gain over chance" under the name gain_over_floor,
-        # and that is weaker than §6 intends. Recorded, not fixed, in this piece.
-        notes=["report_as=gain_over_floor is required here: narrative_factors_v2 is flagged leaky. "
-               "The floor subtracted is the joint midpoint 9.50 (chance), NOT a measured lexical "
-               "floor -- h8 never built one, so the gain is over chance and §6 is only half met."])
+        provenance=prov, grid=grid, stage="h8", report_as="gain_over_floor",
+        notes=[f"floor.stimulus = {lex_comp:.4f}/{V}, MEASURED: a bag-of-tokens predictor fit "
+               "leave-one-scene-out and ranked through the identical `midrank` over the identical "
+               "18 candidates (`h8_lexical_floor`). Its own permutation control sits at 10.24 "
+               "against chance 9.50, so the predictor is reading the words and not the procedure.",
+               "Piece 4 subtracted the joint midpoint 9.50 (chance) here and recorded that §6 was "
+               "only half met. Measured, the floor is 2.85 and the gain is 0.04 of a rank, which "
+               "is inside the instrument's own 3-sigma arm band -- the composed effect on this "
+               "grid is not distinguishable from what the words give away."])
     claims.append(claim)
+
+    # One lens refusing must not take the other two with it. `Claim.__post_init__` raises
+    # `ArmOffNull`, and h8's voice lens does: its permutation arm reads 2.347 where it declares
+    # 2.00. That is the contract working, and it is a REFUSAL for that lens, not a crash for the
+    # battery -- the first draft of this loop let it abort the whole run, which is the same
+    # mistake as a report that names only its successes.
+    for name in res["B"]:
+        b = res["B"][name]
+        k = len(grid.levels(name))
+        sel = instruments.build("selector", n=400, d=64, n_candidates=k)
+        lex_lens = float(np.mean(lex["B"][name]))
+        perm_arm = pooled_permutation_arm(name, b["perm"], perm_draws, k, sel)
+        try:
+            claims.append(sel.claim(
+                treatment=Measured(np.asarray(b["factor"], float),
+                                   label=f"h8 {name} lens rank/{k} @L{layer}"),
+                arms={"random": np.asarray(b["rand"], float),
+                      "no_patch": np.asarray(b["none"], float),
+                      "permutation": perm_arm},
+                floor=Floor(stimulus=lex_lens, estimator=float((k + 1) / 2)),
+                selection=Selection(axis=None,
+                                    rule=f"pre-registered patch layer {layer}; no sweep"),
+                # `factor` is in the provenance because WITHOUT IT THE ERA AND VOICE LENSES SHARE
+                # AN ID. `Claim.id` hashes the instrument, the provenance, the grid, the selection,
+                # the config and the calibration key -- and h8's era and voice lenses agree on
+                # every one of those: same stack, same layer, same 3-candidate `selector`, same
+                # hold-out. Which factor was patched was nowhere in the record. The ledger caught
+                # it as `LedgerConflict` ("identical provenance and a different number means the
+                # run is not reproducible"), which was the right refusal for the wrong reason: the
+                # provenance simply did not say what the experiment was. Tense never collided only
+                # because it has two candidates and so a different config. Not a signed field
+                # (`types.STACK_PROV_KEYS`), so the stack signature is untouched.
+                provenance=dict(prov, factor=name), grid=grid, stage="h8",
+                report_as="gain_over_floor",
+                notes=[f"floor.stimulus = {lex_lens:.4f}/{k}, MEASURED by `h8_lexical_floor` on "
+                       "the same candidates with the same ranking code.",
+                       "the `permutation` arm is a direction fit by the same code on the same "
+                       "activations with the factor labels shuffled among the training items "
+                       "(`permuted_level_directions`); the ranking is NOT permuted, which is h6."]))
+            rows.append((name, None))
+        except CoreError as e:
+            claims.append(None)
+            rows.append((name, f"{type(e).__name__}: {str(e).splitlines()[0]}"))
     return claims, rows
 
 

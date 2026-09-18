@@ -1,0 +1,93 @@
+{
+ "patch_reaches_batch": {
+  "n_texts": 4,
+  "moved_shift": 4,
+  "moved_rand": 4,
+  "batch_row_bug": {
+   "caught": true,
+   "mechanism": "MovedCandidates",
+   "message": "patch moved 1/4 sequences; a patch that reaches one row of a padded batch is the h34 signature (deltas [1.035002, 0.0, 0.0, 0.0])"
+  },
+  "padding_side": "left",
+  "lib_versions": {
+   "torch": "2.14.0+cu130",
+   "transformers": "5.17.0",
+   "nnsight": "0.7.0",
+   "numpy": "2.5.3",
+   "ndif_reported": null
+  }
+ },
+ "asserted_stack": {
+  "14": {
+   "provenance": {
+    "model": "google/gemma-2-9b-it",
+    "layers": [
+     14
+    ],
+    "pooling": "mean",
+    "grid_hash": "666190d8ecaf66df",
+    "grid_name": "narrative_theme_v1",
+    "code_version": "fe5bbedd41aac049",
+    "tokenizer_padding": "left",
+    "span_policy": "auto",
+    "template": null,
+    "lib_versions": {
+     "torch": "2.14.0+cu130",
+     "transformers": "5.17.0",
+     "nnsight": "0.7.0",
+     "numpy": "2.5.3",
+     "ndif_reported": null
+    },
+    "batch_size": 4,
+    "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+    "remote": true,
+    "acts_digest": "278e46250c513493",
+    "equivalence_min_cos": 0.9999967887181179,
+    "equivalence_item_rule": "shortest item in each batch",
+    "stack_signature": "0b2fedf251e5ebc9"
+   },
+   "min_cos_shift_vector_vs_cached_npz": 0.9999619126319885,
+   "n_compared": 24,
+   "batched_vs_single_min_cos": 0.9999967887181179
+  },
+  "20": {
+   "provenance": {
+    "model": "google/gemma-2-9b-it",
+    "layers": [
+     20
+    ],
+    "pooling": "mean",
+    "grid_hash": "666190d8ecaf66df",
+    "grid_name": "narrative_theme_v1",
+    "code_version": "fe5bbedd41aac049",
+    "tokenizer_padding": "left",
+    "span_policy": "auto",
+    "template": null,
+    "lib_versions": {
+     "torch": "2.14.0+cu130",
+     "transformers": "5.17.0",
+     "nnsight": "0.7.0",
+     "numpy": "2.5.3",
+     "ndif_reported": null
+    },
+    "batch_size": 4,
+    "leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+    "remote": true,
+    "acts_digest": "25fd48dd73437748",
+    "equivalence_min_cos": 0.9999968234740263,
+    "equivalence_item_rule": "shortest item in each batch",
+    "stack_signature": "82eb9e477d177c38"
+   },
+   "min_cos_shift_vector_vs_cached_npz": 0.9999560117721558,
+   "n_compared": 24,
+   "batched_vs_single_min_cos": 0.9999968234740263
+  }
+ },
+ "grid_leak": "era recoverable 0.89 (permutation null 0.31); scene recoverable 0.94 (permutation null 0.22); theme recoverable 0.50 (permutation null 0.28); era~length position r=+0.35; scene~length position r=-0.02; theme~length position r=-0.31; FLAGGED ['era', 'scene', 'theme']",
+ "read_direction_source": "asserted build_remote_stack",
+ "scoring_equivalence": {
+  "n_batches": 25,
+  "min_cos": 0.9999974853972131,
+  "rule": "shortest item in each batch"
+ }
+}
