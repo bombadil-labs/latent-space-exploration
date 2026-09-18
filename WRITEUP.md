@@ -39,7 +39,11 @@ matched null, eleven things stand, six fell, and two are partial.
    than its floor (1.2361 against 1.0278), and the three-way composition's gain is −0.04 of a rank
    inside a 3σ arm band of ±1.83. The composed patch has a real effect — its no-patch arm sits on
    9.50 exactly — but on this grid "three factors compose" is not separable from "the words differ".
-   What is withdrawn is the comparison to chance, not the measurement. Replicated on four model families and on grids written
+   What is withdrawn is the comparison to chance, not the measurement. **The split replicates
+   (stage 48):** on the readout analogue of the same battery, era and the composed span clear their
+   grids' own measured lexical floors in every case, while **voice fails to separate from its floor
+   on all five factor grids** and theme fails on one — 7 of 25 rows indistinguishable from what the
+   words give away, and 12 of 25 against a stricter shallow-layer floor. Replicated on four model families and on grids written
    by a second model author. The three-way composition is computation rather than geometry (stage 41:
    3.61 nats over the skip-path null, lower bound 3.25, sign fraction 1.00). **The diagonal itself is
    partly geometry:** the null's cross-talk is also diagonal (on-diagonal 0.40/0.45/0.49 against the
