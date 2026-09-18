@@ -745,7 +745,7 @@ def _role_rank_per_item(C: np.ndarray, pred: np.ndarray, dst_idx: int) -> np.nda
 
 def h16_role_rank(acts: np.ndarray, domains: np.ndarray, roles: Sequence[str], *,
                   ridge: float = 10.0, role_center: bool = True, null_seed: int | None = None,
-                  arm: str = "operator", seed: int = 0) -> np.ndarray:
+                  arm: str = "operator", seed: int = 0, return_groups: bool = False):
     """h16's statistic, PER ITEM: leave-one-domain-out affine operator, role-centred, mid-ranked.
 
     `acts` is [n_prompts, n_roles, d] at ONE layer, grand-mean removed. Returns one rank per
@@ -765,6 +765,7 @@ def h16_role_rank(acts: np.ndarray, domains: np.ndarray, roles: Sequence[str], *
     R = len(roles)
     uniq = sorted(set(domains.tolist()))
     out: list[float] = []
+    who: list = []                # which DOMAIN each score came from; see `_cluster_tolerance`
     for g in uniq:
         tr, te = domains != g, domains == g
         C = acts
@@ -793,8 +794,35 @@ def h16_role_rank(acts: np.ndarray, domains: np.ndarray, roles: Sequence[str], *
                     op = fit_affine(S_tr, O_tr, 0, roles[si], roles[di], n_spin=0, ridge=ridge,
                                     low_rank=None)
                     pred = op(S[te])
-                out.extend(_role_rank_per_item(Cn[te_idx], pred, di).tolist())
-    return np.asarray(out, dtype=np.float64)
+                vals = _role_rank_per_item(Cn[te_idx], pred, di)
+                out.extend(vals.tolist())
+                who.extend([g] * len(vals))
+    values = np.asarray(out, dtype=np.float64)
+    return (values, np.asarray(who)) if return_groups else values
+
+
+def _cluster_tolerance(values: np.ndarray, groups: np.ndarray, z: float = 3.0) -> float:
+    """A 3-sigma arm band from the spread of DOMAIN means, measured rather than assumed.
+
+    `registry.arm_tolerance(n)` is `3 * sd_item / sqrt(n)`, which is right when the n items are
+    independent. h16's arms are not: the same 240 prompts are re-ranked for 30 ordered role pairs
+    at 15 layers, so the pooled arm has n = 108 000 scores over 40 independent fits and the
+    i.i.d. band comes out at +-0.016. Every one of the three plumbing arms sits 0.02-0.03 from
+    chance and is refused by it -- which is piece 2's finding in reverse. Piece 2 measured a flat
+    0.15 firing on 55 % of clean arms because it was too loose for some shapes and too tight for
+    others; this is a *measured* band that is too tight because the n counts repetitions rather
+    than evidence.
+
+    The independent unit of this design is the DOMAIN: leave-one-domain-out means all 6 rotations,
+    30 pairs and 15 layers of one domain share a fit and a text. So the band is measured from the
+    between-domain spread of the arm's own means. This is a cluster-robust standard error, and it
+    is reported ALONGSIDE the i.i.d. band rather than instead of it, because the point is that the
+    i.i.d. band is wrong and not merely inconvenient.
+    """
+    per = np.array([values[groups == g].mean() for g in sorted(set(np.asarray(groups).tolist()))])
+    if len(per) < 2:
+        return float("inf")
+    return float(z * per.std(ddof=1) / np.sqrt(len(per)))
 
 
 def h16(lm, *, layers: Sequence[int] = tuple(range(0, 29, 2)), ridge: float = 10.0,
@@ -822,11 +850,14 @@ def h16(lm, *, layers: Sequence[int] = tuple(range(0, 29, 2)), ridge: float = 10
            "n_candidates": len(roles), "ridge": ridge, "per_layer": {}}
     for layer in layers:
         a = acts_at(layer)
-        row = {arm: h16_role_rank(a, domains, roles, ridge=ridge, arm=arm)
-               for arm in ("operator", "mean", "random")}
+        row = {}
+        for arm in ("operator", "mean", "random"):
+            row[arm], groups = h16_role_rank(a, domains, roles, ridge=ridge, arm=arm,
+                                             return_groups=True)
         row["permutation"] = h16_role_rank(a, domains, roles, ridge=ridge, null_seed=1)
         row["role_identity_retained"] = h16_role_rank(a, domains, roles, ridge=ridge,
                                                       role_center=False)
+        row["groups"] = groups
         out["per_layer"][int(layer)] = row
         progress(f"layer {layer}: operator {row['operator'].mean():.3f} "
                  f"perm {row['permutation'].mean():.3f} mean {row['mean'].mean():.3f}")
@@ -865,12 +896,19 @@ def h16_claim(res: dict) -> tuple[Claim | None, dict]:
     arms = {name: np.concatenate([per[l][key] for l in layers])
             for name, key in (("random", "random"), ("no_patch", "mean"),
                               ("permutation", "permutation"))}
+    groups = np.concatenate([per[l]["groups"] for l in layers])
+    bands = {name: _cluster_tolerance(v, groups) for name, v in arms.items()}
+    iid_band = inst.tolerance(len(treat))
     summary = {"curve": dict(selection.curve), "treatment": float(treat.mean()),
                "random": float(arms["random"].mean()),
                "no_patch": float(arms["no_patch"].mean()),
                "permutation": float(arms["permutation"].mean()),
                "role_identity_retained": float(sem.value), "n": int(treat.size),
-               "arm_tolerance": float(inst.tolerance(len(arms["random"]))),
+               "arm_tolerance": float(iid_band),
+               "cluster_bands": {k: float(v) for k, v in bands.items()},
+               "n_domains": int(len(set(groups.tolist()))),
+               "curve_step4_mean": float(np.mean([v for k, v in selection.curve.items()
+                                                  if int(k) % 4 == 0])),
                "peak_layer": min(selection.curve, key=lambda k: selection.curve[k]),
                "peak_value": min(selection.curve.values())}
 
@@ -879,27 +917,44 @@ def h16_claim(res: dict) -> tuple[Claim | None, dict]:
             treatment=Measured(treat, label="h16 role_rank/6, all pairs x all swept layers"),
             arms={"random": Arm(arms["random"],
                                 expected_null=float((res["n_candidates"] + 1) / 2),
-                                tolerance=inst.tolerance(len(arms["random"])),
+                                tolerance=bands["random"],
                                 justification="a Gaussian prediction of matched norm, ranked by "
-                                              "the same code against the same six candidates"),
+                                              "the same code against the same six candidates. "
+                                              f"Band {bands['random']:.4f}: 3 sigma on the "
+                                              "between-DOMAIN spread, because leave-one-domain-out "
+                                              "makes the domain the independent unit and the "
+                                              f"i.i.d. band at n={len(treat)} ({iid_band:.4f}) "
+                                              "counts repetitions rather than evidence"),
                   "no_patch": Arm(arms["no_patch"],
                                   expected_null=float((res["n_candidates"] + 1) / 2),
-                                  tolerance=inst.tolerance(len(arms["no_patch"])),
+                                  tolerance=bands["no_patch"],
                                   justification="the training-mean target: the prediction with no "
-                                                "relation applied at all"),
+                                                "relation applied at all. Band "
+                                                f"{bands['no_patch']:.4f}, between-domain"),
                   "permutation": Arm(arms["permutation"],
                                      expected_null=float((res["n_candidates"] + 1) / 2),
-                                     tolerance=inst.tolerance(len(arms["permutation"])),
+                                     tolerance=bands["permutation"],
                                      justification="h16's own null: the src->dst pairing permuted "
                                                    "within the training fold, held-out rows "
-                                                   "untouched")},
+                                                   "untouched. Band "
+                                                   f"{bands['permutation']:.4f}, between-domain")},
             semantic_null=sem,
             floor=Floor(stimulus=float((res["n_candidates"] + 1) / 2),
                         estimator=float(np.mean(arms["permutation"]))),
             selection=selection,
             provenance=dict(res["stack"].provenance,
                             direction_held_out="domain (leave-one-domain-out)"),
-            grid=res["grid"], stage="h16")
+            grid=res["grid"], stage="h16",
+            notes=[f"arm bands are CLUSTER-ROBUST: 3 sigma on the spread of {len(set(groups.tolist()))} "
+                   f"domain means, {bands}. The i.i.d. band `registry.arm_tolerance` would give at "
+                   f"n={len(treat)} is {iid_band:.4f}, and it is wrong here rather than merely "
+                   "tight: the same 240 prompts are re-ranked for 30 role pairs at "
+                   f"{len(layers)} layers, so n counts repetitions and not evidence.",
+                   "the curve is reported whole; its step-2 mean is "
+                   f"{float(treat.mean()):.4f} and its step-4 mean is "
+                   f"{float(np.mean([v for k, v in selection.curve.items() if int(k) % 4 == 0])):.4f}. "
+                   "§1A's target of 2.21 is the second aggregate and this repo's own "
+                   "results/stage3_qwen1.5b_v2_rolecentered.json is the first, at 2.1692."])
 
     # The claim is built inside a try because h16's own baselines are what is under test here, and
     # one of them does not survive the contract. Reported, not caught-and-hidden: `summary` carries

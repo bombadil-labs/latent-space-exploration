@@ -13,7 +13,7 @@
  "equivalence": {
   "1:span": 0.9999924753594935
  },
- "stack_signature": "3514728360119b7e",
+ "stack_signature": "7fd2db4035f28a06",
  "acts_shape": [
   3,
   1,
@@ -54,7 +54,7 @@
  ],
  "probe_sketch": "<Sketch probe 20->20 n=3 mean=-52.0625 sd=16.0588 -- NOT a result, cannot be ledgered>",
  "probe_refuses_unasserted": "Probe was given '<lambda>' from module '__main__', which is not one of the asserted forwards. Every remote forward goes through `lsx.core.remote` and every local one through `lsx.core.extract.asserted_*` (spec \u00a77): the moved-candidates assertion that caught h34 is worth nothing if a Probe can route around it.",
- "wall_seconds": 24.4,
+ "wall_seconds": 452.0,
  "provenance": {
   "model": "google/gemma-2-9b-it",
   "layers": [
@@ -62,8 +62,11 @@
   ],
   "pooling": "mean",
   "grid_hash": "d5d8874853352ba7",
+  "grid_name": "ndif_probe_v1",
+  "code_version": "f568d5403771fb02",
   "tokenizer_padding": "left",
-  "code_version": "4684b41c8bea681d",
+  "span_policy": "auto",
+  "template": null,
   "lib_versions": {
    "torch": "2.14.0+cu130",
    "transformers": "5.17.0",
@@ -71,10 +74,12 @@
    "numpy": "2.5.3",
    "ndif_reported": null
   },
-  "equivalence_min_cos": 0.9999924753594935,
-  "equivalence_item_rule": "shortest item in each batch",
+  "batch_size": 3,
+  "leak": "leak report not computed",
   "remote": true,
   "acts_digest": "39af1f4e2d32b520",
-  "stack_signature": "3514728360119b7e"
+  "equivalence_min_cos": 0.9999924753594935,
+  "equivalence_item_rule": "shortest item in each batch",
+  "stack_signature": "7fd2db4035f28a06"
  }
 }
