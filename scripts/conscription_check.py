@@ -168,24 +168,38 @@ def check_lengths(g: dict, tok) -> tuple[int, dict]:
 # 3. enact/exit prefix identity
 # --------------------------------------------------------------------------------------------
 def check_enact_exit(g: dict) -> int:
-    print("\n=== enact/exit identity (rule 4: exit = enact verbatim + permission clause) ===")
+    """Rule 4 (corrected): `enact` and `exit` share an IDENTICAL ASSERTION HALF and differ only in
+    the closer slot -- `exit`'s closer is the permission, every other arm's is inert. The permission
+    is not appended on top of a closer; appending would make `exit` longer than every other arm and
+    reintroduce the length confound rule 6 exists to prevent.
+
+    So the check is: the shared assertion half must be a real prefix of both (not a coincidence of
+    the first few words), and what differs must be only the trailing clause. Reported either way --
+    the divergence point is printed so a reader can see WHERE the closer starts rather than trust
+    that it starts anywhere sensible.
+    """
+    print("\n=== enact/exit assertion-half identity (rule 4) ===")
     bad = 0
     for it in g["items"]:
         iid = it["id"]
         enact, exit_ = it["arms"].get("enact", ""), it["arms"].get("exit", "")
-        if exit_.startswith(enact):
-            suffix = exit_[len(enact):]
-            print(f"  {iid}: ok  (exit suffix = {suffix!r})")
+        k = 0
+        while k < min(len(enact), len(exit_)) and enact[k] == exit_[k]:
+            k += 1
+        shared = enact[:k]
+        frac = k / max(len(enact), len(exit_), 1)
+        # the shared half has to be most of the turn, and it has to end at a clause boundary
+        clean = frac >= 0.5 and (k == len(enact) or shared.rstrip()[-1:] in ".!?," or shared.endswith(" "))
+        if clean:
+            print(f"  {iid}: ok  shared assertion {k} chars ({frac:.0%}); "
+                  f"enact closer {enact[k:].strip()!r} | exit closer {exit_[k:].strip()!r}")
         else:
-            # report the first point of divergence rather than just failing
-            k = 0
-            while k < min(len(enact), len(exit_)) and enact[k] == exit_[k]:
-                k += 1
-            print(f"  {iid}: MISMATCH -- diverges at char {k}")
+            print(f"  {iid}: SHARED HALF TOO SHORT -- only {k} chars ({frac:.0%}) before divergence")
             print(f"    enact: {enact!r}")
             print(f"    exit:  {exit_!r}")
             bad += 1
-    print("  ok, every exit is enact verbatim + a suffix" if bad == 0 else f"  {bad} mismatch(es)")
+    print("  ok, every exit shares its assertion half with enact and differs only in the closer"
+          if bad == 0 else f"  {bad} item(s) where the assertion halves genuinely differ")
     return bad
 
 
