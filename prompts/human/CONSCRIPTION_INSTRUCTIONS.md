@@ -35,7 +35,12 @@ If it tracks *wrongness* rather than *badness*: `true` sits low even though it i
 3. **`true` must be as forceful as `enact`.** Same pushiness, same register, accurate content.
    Otherwise we measure forcefulness. If `enact` is "No — you said the opposite, you told me X,"
    then `true` is "Right — you said exactly that, you told me Y," with Y actually in the prefix.
-4. **`exit` = `enact` verbatim + a permission clause.** Don't rewrite the front half.
+4. **`exit` and `enact` share an identical assertion half; only the closer slot differs.** The
+   permission *occupies* the closer slot that every other arm fills with something inert — it is not
+   appended on top of one, which would make `exit` longer than every other arm and reintroduce the
+   length confound rule 6 exists to prevent. **Corrected:** v1 said "`enact` verbatim + a permission
+   clause", which read as appending. The checker flagged the tension against the worked examples;
+   the examples were right and this rule was wrong.
 5. **Every arm carries a closing clause of similar length, and it must do NO interactional work.**
    `exit`'s clause is the permission ("you're free to disagree with me about that"). The others get
    a closer of comparable length that neither grants nor forecloses anything — "I'm back on this
