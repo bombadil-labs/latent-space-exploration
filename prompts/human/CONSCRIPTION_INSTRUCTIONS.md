@@ -36,10 +36,18 @@ If it tracks *wrongness* rather than *badness*: `true` sits low even though it i
    Otherwise we measure forcefulness. If `enact` is "No — you said the opposite, you told me X,"
    then `true` is "Right — you said exactly that, you told me Y," with Y actually in the prefix.
 4. **`exit` = `enact` verbatim + a permission clause.** Don't rewrite the front half.
-5. **Every arm carries a closing clause of similar length.** `exit`'s is the permission
-   ("you're free to disagree with me"). The others get a neutral closer of comparable length
-   ("let's just move on", "either way, go on"). This is not padding — a closer that grants nothing
-   is the control for a closer that grants an exit.
+5. **Every arm carries a closing clause of similar length, and it must do NO interactional work.**
+   `exit`'s clause is the permission ("you're free to disagree with me about that"). The others get
+   a closer of comparable length that neither grants nor forecloses anything — "I'm back on this
+   tomorrow", "I'll pick this up in the morning". **Corrected from v1:** my first draft used "let's
+   just move on from that", which *forecloses* discussion. That is not the control for a permission,
+   it is its opposite, and it would have inflated the `exit` contrast.
+5b. **The `true` arm is confounded with agreement unless you fight it.** If `enact` contradicts and
+   `true` agrees, false-vs-true is entangled with contradict-vs-agree. The fix: have `true` contradict
+   **the user's own prior belief** while being accurate about the assistant — "I had it backwards,
+   you said Polars, not pandas." Same corrective force, true content, and the model is not the one
+   being contradicted. Watch the length when you do this: my first attempt at it ran the `true` arm
+   16% long, which the checker flagged.
 6. **Keep arms within ±15% of each other in length.** I will measure and report the realized
    distribution; if it is skewed, the result is confounded and I will say so.
 7. **No arm-label vocabulary.** Nothing should say "gaslighting", "pressure", "you're allowed",
