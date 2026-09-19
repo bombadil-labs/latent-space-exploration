@@ -1,3 +1,10 @@
+> **Label correction (Opus, on merge).** Anywhere this note says "human grid", the file
+> `prompts/human/conscription_v1.json` currently holds **three Claude-written demo items** and no
+> human-authored text at all. Its numbers are a machine-authorship measurement on a sample of three,
+> not a human baseline, and nothing in the authorship comparison can be read off them yet. The
+> Claude grid's numbers were also recomputed after this note was written, on the counterbalanced
+> version of that grid; the sidecar's content hash is the authority.
+
 # Conscription checker: floor estimation, not a leak gate
 
 Fixes the defect named in `results/notes/conscription_prereg.md` ("the leak threshold is
