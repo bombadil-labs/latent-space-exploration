@@ -1,3 +1,13 @@
+> **CORRECTION (Opus, on merge).** Section 3 below calls layer 0 "the bag-of-embeddings
+> baseline" and "the embedding layer". **It is neither.** `scripts/painaxis_extract.py`'s own
+> docstring is correct — layer index i is the residual *after block i* — so layer 0 is the output
+> of the first transformer block, one full attention+MLP in. Checked directly: every prompt in
+> S2_1P ends with the identical token "I feel:", so a true embedding readout at the final token
+> would have zero spread across sentences; the measured spread is 1.13. The finding survives in
+> weakened form — **after a single block, mean-pooled AUC is already 0.887** — but "before any
+> computation" is not what was measured, and the true lexical floor (`hidden_states[0]`) has
+> never been measured, by them or by us. That is the missing number.
+
 # Pain axis, Tier A: a faithful port run on Qwen2.5-1.5B-Instruct
 
 **Verdict up front: the port works, and the effect is present below 2B.** Held-out AUC peaks at
