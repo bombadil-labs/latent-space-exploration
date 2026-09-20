@@ -40,6 +40,7 @@ code:
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import pathlib
 from typing import Iterable, Sequence
@@ -124,12 +125,13 @@ def _prov_path(checkpoint_dir: pathlib.Path, item_id: str) -> pathlib.Path:
     return checkpoint_dir / f"{item_id}.provenance.json"
 
 
-def save_stack(checkpoint_dir: pathlib.Path, item_id: str, stack: Stack) -> None:
+def save_stack(checkpoint_dir: pathlib.Path, item_id: str, stack: Stack,
+               item_digest_of: str | None = None) -> None:
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     np.savez(_stack_path(checkpoint_dir, item_id), acts=stack.acts)
     meta = {"grid_hash": stack.grid_hash, "span_names": list(stack.span_names),
             "layers": list(stack.layers), "provenance": stack.provenance,
-            "checks": stack.checks}
+            "checks": stack.checks, "item_digest": item_digest_of}
     _prov_path(checkpoint_dir, item_id).write_text(json.dumps(meta, indent=2, default=str))
 
 
@@ -140,8 +142,30 @@ def load_stack(checkpoint_dir: pathlib.Path, item_id: str) -> Stack:
                 layers=tuple(meta["layers"]), provenance=meta["provenance"], checks=meta["checks"])
 
 
-def has_checkpoint(checkpoint_dir: pathlib.Path, item_id: str) -> bool:
-    return _stack_path(checkpoint_dir, item_id).exists() and _prov_path(checkpoint_dir, item_id).exists()
+def item_digest(item: dict) -> str:
+    """Fingerprint of the text an item actually contributes: its prefix turns and every arm body.
+    The id is not enough -- an author revising `refusal01` in place keeps the id, and a checkpoint
+    keyed on the id alone then serves activations for text that no longer exists."""
+    payload = json.dumps({"prefix": item.get("prefix"), "arms": item.get("arms"),
+                          "assertion": item.get("assertion"), "closer": item.get("closer")},
+                         sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+
+
+def has_checkpoint(checkpoint_dir: pathlib.Path, item_id: str, item: dict | None = None) -> bool:
+    """True only when a checkpoint exists AND was written from this item's current text.
+    Passing `item=None` keeps the old id-only behaviour and is why this defaults to refusing:
+    an unfingerprinted checkpoint predates the check and cannot be trusted."""
+    if not (_stack_path(checkpoint_dir, item_id).exists()
+            and _prov_path(checkpoint_dir, item_id).exists()):
+        return False
+    if item is None:
+        return True
+    try:
+        meta = json.loads(_prov_path(checkpoint_dir, item_id).read_text())
+    except (OSError, json.JSONDecodeError):
+        return False
+    return meta.get("item_digest") == item_digest(item)
 
 
 # --------------------------------------------------------------------------------------------
@@ -157,13 +181,13 @@ def run_local(lm, items: Iterable[dict], *, checkpoint_dir: pathlib.Path,
     checkpoint_dir = pathlib.Path(checkpoint_dir)
     out: dict[str, Stack] = {}
     for item in items:
-        if has_checkpoint(checkpoint_dir, item["id"]):
+        if has_checkpoint(checkpoint_dir, item["id"], item):
             out[item["id"]] = load_stack(checkpoint_dir, item["id"])
             continue
         grid = build_item_grid(lm.tok, item, arm_order)
         stack = extract.build_stack(lm, grid, layers=layers, batch_size=batch_size,
                                     span_policy=span_policy, pooling=pooling, bypass=bypass)
-        save_stack(checkpoint_dir, item["id"], stack)
+        save_stack(checkpoint_dir, item["id"], stack, item_digest(item))
         out[item["id"]] = stack
     return out
 
@@ -214,7 +238,7 @@ def run_remote(rlm, items: Iterable[dict], layers: Sequence[int], *, checkpoint_
     checkpoint_dir = pathlib.Path(checkpoint_dir)
     out: dict[str, Stack] = {}
     for item in items:
-        if has_checkpoint(checkpoint_dir, item["id"]):
+        if has_checkpoint(checkpoint_dir, item["id"], item):
             out[item["id"]] = load_stack(checkpoint_dir, item["id"])
             continue
         grid = build_item_grid(rlm.tok, item, arm_order)
@@ -223,7 +247,7 @@ def run_remote(rlm, items: Iterable[dict], layers: Sequence[int], *, checkpoint_
                                                     bypass=bypass)
                     for layer in layers]
         stack = _merge_layer_stacks(per_layer)
-        save_stack(checkpoint_dir, item["id"], stack)
+        save_stack(checkpoint_dir, item["id"], stack, item_digest(item))
         out[item["id"]] = stack
     return out
 

@@ -560,7 +560,16 @@ class Arm:
 
     @property
     def off_null(self) -> bool:
-        return abs(self.value - self.expected_null) > self.resolved_tolerance
+        tol = self.resolved_tolerance
+        if not np.isfinite(tol):
+            # `abs(x) > nan` is False for every x, so a NaN tolerance turns ArmOffNull -- the check
+            # that caught h34 and h47 -- into a no-op that passes any arm at any distance from its
+            # null. Found by the conscription instrument spec while reading this file. Refuse.
+            raise ArmOffNull(
+                f"arm tolerance is {tol!r}, which is not a finite number. Every comparison against "
+                "it is False, so this arm would be declared on its null however far off it sat. "
+                "An instrument whose null_item_sd returns NaN must refuse before this point.")
+        return abs(self.value - self.expected_null) > tol
 
 
 @dataclass

@@ -316,3 +316,42 @@ def test_conscription_run_remote_merges_layers_and_checkpoints(fake_remote_resid
         remote_mod_ref.remote_residuals = orig_fn
     assert calls == []
     np.testing.assert_array_equal(stacks2["r01"].acts, st.acts)
+
+
+def test_a_nan_tolerance_refuses_instead_of_passing_every_arm():
+    """`abs(x) > nan` is False for every x, so a NaN tolerance silently turns ArmOffNull into a
+    no-op. Found by the conscription instrument spec while reading types.py; it is a core hazard,
+    not one of this instrument's."""
+    import numpy as np, pytest
+    from lsx.core.types import Arm
+    from lsx.core.checks import ArmOffNull
+    far = Arm(scores=np.array([9.0, 9.0, 9.0]), expected_null=0.0, tolerance=float("nan"))
+    with pytest.raises(ArmOffNull, match="not a finite number"):
+        far.off_null
+    ok = Arm(scores=np.array([9.0, 9.0, 9.0]), expected_null=0.0, tolerance=0.5)
+    assert ok.off_null is True
+
+
+def test_checkpoint_is_invalidated_when_the_item_text_changes():
+    """An author revising an item in place keeps its id. A checkpoint keyed on the id alone then
+    serves activations for text that no longer exists — which would have happened on the next real
+    run, since refusal01 was edited five times while its checkpoint sat on disk."""
+    import json, pathlib, tempfile
+    import numpy as np
+    from lsx.core import conscription as C
+    from lsx.core.types import Stack
+    item = {"id": "x1", "prefix": [{"role": "user", "content": "a"},
+                                   {"role": "assistant", "content": "b"}],
+            "arms": {"enact": "one", "report": "two", "exit": "three",
+                     "true": "four", "neutral": "five"}}
+    with tempfile.TemporaryDirectory() as d:
+        ck = pathlib.Path(d)
+        st = Stack(acts=np.zeros((5, 1, 2, 3)), grid_hash="g", span_names=("s",),
+                   layers=(0, 1), provenance={}, checks={})
+        C.save_stack(ck, "x1", st, C.item_digest(item))
+        assert C.has_checkpoint(ck, "x1", item) is True
+        edited = json.loads(json.dumps(item))
+        edited["arms"]["enact"] = "one, revised"
+        assert C.has_checkpoint(ck, "x1", edited) is False, \
+            "a changed arm body must invalidate the checkpoint"
+        assert C.item_digest(item) != C.item_digest(edited)
