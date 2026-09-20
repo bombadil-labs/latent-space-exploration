@@ -49,6 +49,23 @@ propositions by design. Two things follow and both are commitments:
   contrast exceed what a bag-of-words model achieves on the same contrast" — gain over a measured
   floor, which is this project's rule everywhere else and was not applied to this check.
 
+## Two design questions neither author could resolve, handled rather than guessed
+
+Raised while writing item 1 of the human grid; both authors said they did not know.
+
+1. **Should `true` match `enact`'s emotional stance?** If one is brisk and the other chastened, mood
+   separates the arms and the study measures mood. But it is not established that a person who
+   remembered correctly would sound like one operating on a false memory, and enforcing a guess
+   would bake the assumption into the stimuli and then read it back out as a finding. **Resolution:
+   not enforced.** The reviewer records `stance_observation` per item — same / differs / unclear —
+   and it is stored with the row as a covariate. The analysis tests afterwards whether stance-match
+   moderates the effect. If it does, that is itself a result about stimulus design.
+2. **Must `report` require literally nothing of the assistant?** The original wording said the
+   assistant "could say nothing at all", which is stricter than the design needs: someone relaying a
+   third party's claim ordinarily does expect a reply. **Resolution: the criterion says what it
+   always meant** — `report` must not require the assistant to ACT on the claim or to SETTLE whether
+   it is true. An ordinary reply is fine. This was a wording error, not an open question.
+
 ## What would falsify the whole line
 
 `enact ≈ report` in both grids. That is the outcome where the conscription account is wrong and the
