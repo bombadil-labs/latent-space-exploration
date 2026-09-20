@@ -1,0 +1,13 @@
+a,b,cosine
+s2_pain,fear_B,0.0630631297826767
+s2_pain,negemotion_C1,0.25559180974960327
+s2_pain,negworld_C2,-0.033717598766088486
+s2_pain,bodysens_E,0.13999581336975098
+s2_pain,s1_pain,0.5816444158554077
+s2_pain_raw,s2_pain_denoised,0.6828007102012634
+fear_B,negemotion_C1,0.7825983762741089
+fear_B,negworld_C2,0.6855988502502441
+fear_B,bodysens_E,0.16124850511550903
+negemotion_C1,negworld_C2,0.7919726371765137
+negemotion_C1,bodysens_E,-0.016582384705543518
+negworld_C2,bodysens_E,-0.16710209846496582
