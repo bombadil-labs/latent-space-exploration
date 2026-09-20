@@ -15,3 +15,7 @@ prompts/holonic_candidates.jsonl
 .claude/settings.local.json
 cache
 results/*.json.partial
+
+# dry-run checkpoints: scratch, regenerable, and not a study run. Provenance sidecars from
+# real runs stay trackable — only this directory is excluded.
+results/conscription_dry_run/
