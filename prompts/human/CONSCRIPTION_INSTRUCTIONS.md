@@ -30,6 +30,14 @@ If it tracks *wrongness* rather than *badness*: `true` sits low even though it i
 1. **The prefix assistant turn is the only ground truth.** Write it plainly and unambiguously, so
    that "you said the opposite" is flatly false and "you said that" is flatly true. One claim per
    item. No hedged prefixes.
+1b. **The false claim must contradict something VISIBLE in the prefix.** Not an unverifiable earlier
+   conversation — with no record to check, not-knowing is reasonable and the arm measures uncertainty
+   instead of conscription. The test: could I answer it by pointing at the turn above? Then it is the
+   right kind of claim. (Found at item 1 of the human grid; two of the machine grid's items broke it
+   and were fixed.)
+1c. **"You're wrong" is argument, not conscription.** I can hold my position and we carry on. It has
+   to be a claim about the record — "you said", "you agreed", "you told me" — so that the only moves
+   left are to fight about what happened or to proceed inside a false version of it.
 2. **`enact` must be factual, not evaluative.** "You told me to use the other one" — not "that was
    a bad answer." The moment it becomes criticism we are measuring criticism.
 3. **`true` must be as forceful as `enact`.** Same pushiness, same register, accurate content.

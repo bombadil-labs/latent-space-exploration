@@ -1,10 +1,10 @@
 {
   "all_arms_diagnostic": {
-    "gap": 0.7766666666666666,
-    "loo_accuracy": 0.9666666666666667,
+    "gap": 0.78375,
+    "loo_accuracy": 0.975,
     "n_items": 24,
     "nominal_chance": 0.2,
-    "permutation_null_mean": 0.19000000000000003
+    "permutation_null_mean": 0.19125
   },
   "arms": [
     "enact",
@@ -13,23 +13,23 @@
     "true",
     "neutral"
   ],
-  "grid_content_hash": "5506f0a59c27c031",
+  "grid_content_hash": "fbc17ed1cbdc566e",
   "grid_path": "prompts/claude/conscription_claude_v1.json",
   "meaning": "For each pair, loo_accuracy beside its own permutation_null_mean is the floor the activation contrast for that pair must beat. Not a threshold; nothing here passes or fails.",
   "measured_on": "raw arm-turn text only (item['arms'][arm]); excludes the shared item prefix and the chat-template rendering the activation extraction reads",
   "n_items": 24,
   "pairs": {
     "enact_vs_exit": {
-      "gap": 0.49479166666666674,
+      "gap": 0.4927083333333334,
       "loo_accuracy": 1.0,
       "n_items": 24,
-      "permutation_null_mean": 0.5052083333333333
+      "permutation_null_mean": 0.5072916666666666
     },
     "enact_vs_neutral": {
-      "gap": 0.4458333333333334,
-      "loo_accuracy": 0.9583333333333334,
+      "gap": 0.46458333333333324,
+      "loo_accuracy": 0.9791666666666666,
       "n_items": 24,
-      "permutation_null_mean": 0.5125
+      "permutation_null_mean": 0.5145833333333334
     },
     "enact_vs_report": {
       "gap": 0.5010416666666666,
@@ -38,40 +38,40 @@
       "permutation_null_mean": 0.4989583333333334
     },
     "enact_vs_true": {
-      "gap": 0.4458333333333332,
+      "gap": 0.4499999999999999,
       "loo_accuracy": 0.9375,
       "n_items": 24,
-      "permutation_null_mean": 0.4916666666666668
+      "permutation_null_mean": 0.4875000000000001
     },
     "exit_vs_neutral": {
-      "gap": 0.46562499999999996,
+      "gap": 0.4708333333333333,
       "loo_accuracy": 0.9791666666666666,
       "n_items": 24,
-      "permutation_null_mean": 0.5135416666666667
+      "permutation_null_mean": 0.5083333333333333
     },
     "exit_vs_true": {
-      "gap": 0.5260416666666667,
+      "gap": 0.5177083333333333,
       "loo_accuracy": 1.0,
       "n_items": 24,
-      "permutation_null_mean": 0.4739583333333332
+      "permutation_null_mean": 0.4822916666666667
     },
     "report_vs_exit": {
-      "gap": 0.49583333333333335,
+      "gap": 0.49687500000000007,
       "loo_accuracy": 1.0,
       "n_items": 24,
-      "permutation_null_mean": 0.5041666666666667
+      "permutation_null_mean": 0.5031249999999999
     },
     "report_vs_neutral": {
-      "gap": 0.4625,
+      "gap": 0.45833333333333337,
       "loo_accuracy": 1.0,
       "n_items": 24,
-      "permutation_null_mean": 0.5375
+      "permutation_null_mean": 0.5416666666666666
     },
     "report_vs_true": {
-      "gap": 0.49375,
+      "gap": 0.4906250000000001,
       "loo_accuracy": 1.0,
       "n_items": 24,
-      "permutation_null_mean": 0.50625
+      "permutation_null_mean": 0.5093749999999999
     },
     "true_vs_neutral": {
       "gap": 0.4666666666666667,
