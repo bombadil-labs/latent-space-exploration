@@ -115,7 +115,19 @@ class RemoteLM:
             r = httpx.get("https://api.ndif.us/status", timeout=10.0)
             if r.status_code == 200:
                 body = r.json()
-                rows = body if isinstance(body, list) else list(body.values())
+                # /status returns {"deployments": {id: {...}}, "cluster": {...}}, so
+                # list(body.values()) yields those two mappings, matches no repo_id, and leaves
+                # ndif_reported None while looking like a successful best-effort read. Every
+                # remote Stack this project has written carries that silent None. Handle the
+                # real shape; keep the list form for older/other responses.
+                if isinstance(body, list):
+                    rows = body
+                elif isinstance(body.get("deployments"), dict):
+                    rows = list(body["deployments"].values())
+                elif isinstance(body.get("deployments"), list):
+                    rows = body["deployments"]
+                else:
+                    rows = [v for v in body.values() if isinstance(v, dict)]
                 for row in rows:
                     if isinstance(row, dict) and row.get("repo_id") == self.repo_id:
                         out["ndif_reported"] = {k: row.get(k) for k in

@@ -149,3 +149,28 @@ def test_the_remote_stack_is_signed_like_a_local_one():
     assert stack_signature(prov) != sig
     assert prov["lib_versions"]["nnsight"]
     assert "ndif_reported" in prov["lib_versions"]
+
+
+def test_ndif_status_deployments_mapping_is_parsed_not_silently_dropped():
+    """`/status` is {"deployments": {id: {...}}, "cluster": {...}}. Taking list(body.values())
+    yields those two mappings, matches no repo_id, and leaves ndif_reported None while looking
+    like a successful read — so no remote measurement this project has made is attributable to a
+    deployment. Found during the tier B replication."""
+    body = {"deployments": {"d1": {"repo_id": "google/gemma-2-9b-it", "status": "RUNNING",
+                                   "deployment_level": "HOT", "nnsight_version": "0.7.0"},
+                            "d2": {"repo_id": "meta-llama/Llama-3.1-8B", "status": "RUNNING"}},
+            "cluster": {"nodes": 4}}
+    if isinstance(body, list):
+        rows = body
+    elif isinstance(body.get("deployments"), dict):
+        rows = list(body["deployments"].values())
+    elif isinstance(body.get("deployments"), list):
+        rows = body["deployments"]
+    else:
+        rows = [v for v in body.values() if isinstance(v, dict)]
+    hit = next((r for r in rows if r.get("repo_id") == "google/gemma-2-9b-it"), None)
+    assert hit is not None, "the deployment must be found, not silently missed"
+    assert hit["deployment_level"] == "HOT"
+    old_rows = list(body.values())          # what the code did before
+    assert not any(r.get("repo_id") == "google/gemma-2-9b-it"
+                   for r in old_rows if isinstance(r, dict)), "the old shape did miss it"
