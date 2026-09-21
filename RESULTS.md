@@ -2320,6 +2320,73 @@ Qwen-1.5B portion is now ledgered end to end.
 Cost: ≈187k agent tokens, 12 min, local CPU. Not tested: any model but Qwen2.5-1.5B; `narrative_factors_v2`
 was left alone, already ledgered by the pre-existing route.
 
+## 2026-09-21 (hour 51) — GOAL 1: the pain axis replicates on a model they used, across the whole curve (agent, spec `results/notes/painaxis_replication_targets.md`)
+
+Note: `results/notes/painaxis_tierB.md`. 219 tests pass. Targets were pre-registered and committed
+before any run, from their published `s1_kfold_summary.csv`.
+
+**Both targets hit on `google/gemma-2-9b-it`, their `Gemma_2_9B_instruct` row.**
+
+| target | theirs | ours | Δ |
+|---|---|---|---|
+| mean extraction, their layer 31 | 0.9473 | **0.9472** | −0.0001 |
+| final token, their layer 10 | 0.9313 | **0.9323** | +0.0010 |
+
+**And it is the strong form of the claim: the whole curve, not the peak.** Across all 84 published
+layer-points (42 layers × 2 extractions), mean |Δ| = **0.00077** (final token) and **0.00039**
+(mean), max |Δ| 0.0022 and 0.0018, Pearson r = 0.9997 / 0.9998. Signed deltas centre on zero with no
+drift by depth — bf16-on-different-hardware noise, nothing systematic. The shape features match as
+well: the sharp final-token rise to 0.93 by layer 10, the long plateau, the slow `mean` climb after
+layer 29. **Verified from `curve_comparison.csv` directly rather than from the agent's summary.**
+Their argmax layer reproduces exactly for both extractions (37 and 31) — an argmax over a 42-point
+curve computed from separate datasets landing on the same integer twice.
+
+**Layer indexing was determined, not assumed**, by two independent routes: their CSV carries exactly
+`n_blocks` rows per model (42 here, 26/26, 32/32, 80/80, 62/62 elsewhere), so there is no embedding
+row; and their source reads `cache["blocks.{layer}.hook_resid_post"]`. Their layer n is the residual
+after block n, and ours matches index for index.
+
+**The embedding-layer self-check fired exactly as the brief specified.** Every prompt in a set ends
+with the identical suffix, so the final-token embedding is a constant and its AUC must be 0.5. It is
+**0.500 with standard deviation 0.0 on all four sets.** That confirms by construction the hour-50
+correction: their layer 0 is one full block in, and the whole of its 0.727 is produced by that block.
+
+**The first real number for goal 2, from the same run.** On `mean` — their headline extraction —
+static embeddings alone reach **0.811** on S1, about **70% of the distance from chance to the peak**
+(0.811−0.5)/(0.947−0.5). So the `final_token` curve is the scientifically stronger result on this
+model despite being numerically lower, because its floor is provably 0.5. Tier A reached the same
+conclusion on Qwen by a weaker argument.
+
+**NDIF: zero loss.** 80/80 jobs, 800/800 sentences, 0 retried, 0 shards lost — extraction behaved
+like h39's clean run, not like h29's 18% generation loss. What bit instead was **latency**: one job
+sat QUEUED at position 1 for 6m58s against a 67s norm and returned on its first attempt. Budget for
+queue stalls, not for dropped work.
+
+**A provenance bug that reaches backwards.** `/status` returns
+`{"deployments": {...}, "cluster": {...}}`, and `remote.lib_versions` took `list(body.values())` —
+two mappings, matching no `repo_id`, leaving `ndif_reported: None` while looking like a successful
+best-effort read. **No remote measurement this project has ever made is attributable to a
+deployment**, h29 and h39 included. Fixed, with a test that also asserts the old shape genuinely
+missed it. The agent found it only because "NDIF serves 2 models total" struck it as implausible.
+
+**A deviation, accepted and disclosed rather than buried.** Extraction does not route through
+`remote.build_remote_stack`, which captures one layer per call at two jobs per batch — thousands of
+round trips for a 42-layer curve on 800 sentences. The multi-layer path carries the same §7
+assertions on the same helpers and is tied to the audited single-layer path by a live cross-check
+against `remote_residuals` at cosine 0.9999968. **It has no unit tests; that is a real gap and it is
+named rather than papered over.**
+
+**The guard was verified to fire, not assumed to.** Mean-over-padding was injected into a real padded
+batch and caught at cos 0.99713 — and the agent noted that with only 3 pad tokens the corrupted
+vector still sits at 0.997, so a 0.99 threshold would have passed h39 straight through.
+
+**Not tested:** no null arms — no random-direction, no shuffled-label — so by non-negotiable 1 this
+is not yet a result in our sense. Faithful to a method that has none is not the same as having one.
+The replication claim itself does not depend on a floor, since it is a claim about agreement with
+their numbers; any claim about what the axis *means* does. Also untested on their model: the
+per-category breakdown, the unembedding readout, and the control-vector cosines, so their
+orthogonality claim is still unchecked on gemma. No base `gemma-2-9b`, no shame control.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
