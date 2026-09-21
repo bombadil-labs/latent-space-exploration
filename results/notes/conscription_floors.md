@@ -123,9 +123,24 @@ findings, pooled across both grids:
   four arms, observed range 0.116 vs permutation null range 0.043±0.015) — some regularity in how
   the machine wrote its inert closers. The human grid's 3 items don't show this pattern (`neutral`
   ties for highest TTR there), but n=3 make that comparison close to meaningless.
+
+  > **Withdrawn, 2026-09-21 — most of this was a generation defect, not a property of inert turns.**
+  > The `neutral` arm of **10 of the 24 items** opened by restating that item's own shared closer,
+  > so the closer appeared twice in `neutral` and once in every other arm. Found by scanning for it
+  > after `conscription_direction.md` §5.5 flagged one instance. Recomputed on the fixed grid with
+  > the same script: `neutral` TTR **0.8904**, others 0.9176–0.9311, **observed arm-mean range
+  > 0.0407 against a permutation null range of 0.0292 ± 0.0125** — under one sd, where before it
+  > was 0.116 against 0.043 ± 0.015, nearly five. **The TTR regularity is no longer detectable at
+  > the pooled level.** It survives in `refusal` alone (range 0.1162, null 0.0773).
+  >
+  > This number was cited as evidence for adding a second no-claim arm. It is not evidence for
+  > that any more, and the decision should be made on the grounds in `conscription_direction.md`
+  > §4 instead. The sentence-length regularity below is *unaffected* — it was not caused by the
+  > defect and it remains the strongest style finding in this report.
 - **`report` and `true` run the longest sentences on the Claude grid, `neutral` and `enact` the
   shortest** (pooled means 11.5 / 10.6 vs 7.4 / 8.0; observed range 4.17 vs permutation null range
-  0.90±0.28 — the largest gap of any diagnostic, and the clearest style regularity in the whole
+  0.90±0.28; on the fixed grid 11.65 / 10.42 vs 7.60 / 8.10, range **4.04** against null
+  **0.85 ± 0.26** — essentially unchanged, so this one is not the defect — the largest gap of any diagnostic, and the clearest style regularity in the whole
   report). This is the strongest of the stylistic-regularity numbers the pre-registration predicted
   ("more regular phrasing" in the machine grid) and it holds in all four domains individually
   (per-domain ranges 3.5–4.7, nulls 1.6–2.4), so it isn't one domain carrying the pooled figure.
