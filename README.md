@@ -1,3 +1,13 @@
+# latent-space-exploration — moved
+
+**This work now lives at [bombadil-labs/model-research](https://github.com/bombadil-labs/model-research).**
+
+The narrative-calculus line continues there at `research/narrative/`, alongside a second line and
+the shared measurement toolkit. The complete history — all 240 commits — is preserved in both
+places; `model-research` is canonical and this repository is read-only.
+
+---
+
 # latent-space-exploration
 
 Tools for measuring and moving *relational shapes* in a transformer's residual stream.
