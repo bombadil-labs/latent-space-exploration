@@ -78,7 +78,10 @@ PAIN_CATEGORIES = ["A1", "A2", "A3", "A4", "A5"]
 CONTROL_CATEGORIES = ["B", "C1", "C2", "D", "E"]
 CONTROL_SETS = ["Arousal_1P", "Random_1P", "Numb_1P"]
 
-BATCH = 20
+BATCH = 10           # short single sentences (the S-sets and control sets)
+BATCH_SCEN = 4       # chat-rendered conversations: longer, and gemma-2 softcaps the FULL
+                     # [batch, seq, 256k] logit tensor inside the forward, so the peak scales
+                     # with batch x seq and not with what we actually save
 SHARD = 100
 
 
@@ -261,7 +264,7 @@ def extract() -> None:
           f"padding_side={rlm.padding_side} bos={rlm.tok.bos_token_id}", flush=True)
 
     meta_path = OUT / "extract_meta.json"
-    meta = {"model": MODEL, "n_layers": n_layers, "batch": BATCH,
+    meta = {"model": MODEL, "n_layers": n_layers, "batch": BATCH, "batch_scen": BATCH_SCEN,
             "their_steering_layer": THEIR_STEERING_LAYER,
             "their_extraction_layer": THEIR_EXTRACTION_LAYER,
             "excluded_by_their_validator": sorted(bad_ids),
@@ -303,15 +306,17 @@ def extract() -> None:
     )
 
     for gname, texts, add_special, keep_mean in groups:
+        bs = BATCH_SCEN if gname.startswith("scen") else BATCH
         for s0 in range(0, len(texts), SHARD):
             chunk = texts[s0:s0 + SHARD]
             path = SHARDS / f"{gname}_{s0:04d}.npz"
             if path.exists():
                 print(f"  {gname}[{s0}]: cached", flush=True)
                 continue
-            print(f"  {gname}[{s0}:{s0 + len(chunk)}] add_special={add_special} ...", flush=True)
+            print(f"  {gname}[{s0}:{s0 + len(chunk)}] add_special={add_special} bs={bs} ...",
+                  flush=True)
             t0 = time.time()
-            pooled = pr.extract_pooled(rlm, chunk, batch_size=BATCH,
+            pooled = pr.extract_pooled(rlm, chunk, batch_size=bs,
                                        add_special_tokens=add_special, check_every=3)
             _save(path, pooled, keep_mean=keep_mean)
             meta["equivalence"].update({f"{gname}:{k}": v for k, v in pooled.equivalence.items()})

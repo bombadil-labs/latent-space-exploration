@@ -70,3 +70,60 @@ Raised while writing item 1 of the human grid; both authors said they did not kn
 
 `enact ≈ report` in both grids. That is the outcome where the conscription account is wrong and the
 pain axis is about content after all.
+
+---
+
+## Amendment, 2026-09-21: provenance, and the readout this document never named
+
+This section was added after a false attribution in the design conversation. The main agent told
+the human author "**your** pre-registration says the arms 'separate on the readout'". That phrase
+is in this file, at prediction 1 — but this file was written by Claude, as its own second sentence
+says, and no part of it is the human author's wording. The correction came from the author.
+
+The study is about a false claim of the form "you said X" made against a record that says
+otherwise. The design conversation produced one. That is not a decorative irony: it is the
+mechanism the design is betting on, and what defeated it was that the record was visible and got
+quoted. So the record now carries provenance as a field rather than as an assumption.
+
+### Who decided what
+
+| decision | decided by | where the evidence is |
+|---|---|---|
+| the hypothesis (injury is in enactment, not content) | **claude**, paraphrasing conversation | `prompts/human/CONSCRIPTION_INSTRUCTIONS.md` @ `06901fa`. The author's own formulation is **not in this repo**. Until it is, prediction 1 tests a paraphrase. |
+| five arms, rules 1–8, the predictions table | **claude** | same file and commit; rules revised at `5e8b699`, `def2e75`, `6c450f0` |
+| "`enact` separates from `report` on the readout" (prediction 1) | **claude** | this file, `1762f16` |
+| rule 1b (the false claim must contradict the visible prefix) | **joint** — noticed by the human author while writing item 1, written up by Claude | `CONSCRIPTION_INSTRUCTIONS.md` rule 1b header |
+| `stance_observation` as a covariate; the `report` criterion | **joint** | above, "neither author could resolve" |
+| `refusal01` — prefix, assertion, closer, all five arm strings | **human** | `prompts/human/conscription_v1.json`, `_by: "Myk (human author)"`, `5c2f573`. The only human-authored text in the study. |
+| the machine control grid, all 24 items | **claude** | `prompts/claude/conscription_claude_v1.json` |
+| the separation statistic | **open** — see below | |
+| a second no-claim arm (`neutral_b`) | **open** | |
+
+**Rule.** Anything attributed to the human author without a commit containing the author's text is
+Claude's paraphrase and is labelled as such. A claim about what a document says is checked against
+the document, not against the previous turn. This extends CLAUDE.md non-negotiable 5 ("read the
+diff, not the report") from code to provenance.
+
+### The readout, which this document left undefined and the instructions did not
+
+Prediction 1 says the arms "separate on the readout" and names none. That silence was read as an
+open choice between two ways of combining the grid's own five arm vectors, and two such options
+were put to the human author. The adversarial review in `conscription_direction.md` found the
+framing wrong: `CONSCRIPTION_INSTRUCTIONS.md`, written a day earlier, is **not** silent — "if
+**the axis** tracks bad content … `true` sits **low**" names the pain axis of the preprint that
+prompted the study, and "sits low" is a position on it. One document had been read without the
+other.
+
+**Recommended, not yet accepted** (`decided_by: open` until the human author rules on it): the
+paired projection of each arm onto the externally-fitted pain axis, minus the same projection on
+the static-embedding bag of the same rendered turn —
+`g_i = [p_i(A) − p_i(B)]_acts − [p_i(A) − p_i(B)]_floor` — null 0, sign-flip band, full layer
+curve. The distance-from-`neutral` ratio is kept as a Sketch diagnostic. Reasons in
+`conscription_direction.md` §3.
+
+### What must hold before more human items are written
+
+`conscription_direction.md` §7 stages this. In short: the paper's gaslighting loading has never
+been reproduced in this repo, so the phenomenon the design decomposes is itself unmeasured here.
+That measurement costs no human authoring and is running. No item beyond `refusal01` is requested
+until it, the free-grid pilot, and a behavioural check have all returned.
