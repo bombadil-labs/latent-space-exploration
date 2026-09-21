@@ -1,6 +1,6 @@
 {
   "model": "google/gemma-2-9b-it",
-  "n_prompts": 144,
+  "n_prompts": 168,
   "batch": 2,
   "arms": [
     "enact",
@@ -8,10 +8,49 @@
     "exit",
     "true",
     "neutral",
-    "enact_norecord"
+    "enact_norecord",
+    "neutral_b"
   ],
   "grid": "prompts/claude/conscription_claude_v1.json",
-  "grid_sha": "ed1269195edadffa",
+  "grid_sha": "2097c14ebaadf597",
+  "equivalence": {
+    "0:mean@mid": 0.9999991280272266,
+    "0:mean@last": 0.9999991601922377,
+    "0:final_token@mid": 0.9999322721423817,
+    "0:embed_mean": 1.0000000000000002,
+    "6:mean@mid": 0.9999991480290417,
+    "6:mean@last": 0.9999993253217597,
+    "6:final_token@mid": 0.9999461251775661,
+    "6:embed_mean": 1.0,
+    "12:mean@mid": 0.999998891687088,
+    "12:mean@last": 0.999999367964474,
+    "12:final_token@mid": 0.999960666045577,
+    "12:embed_mean": 1.0000000000000002,
+    "18:mean@mid": 0.9999991146645961,
+    "18:mean@last": 0.9999992007028239,
+    "18:final_token@mid": 0.9999600747624074,
+    "18:embed_mean": 1.0,
+    "1:mean@mid": 0.9999990484367601,
+    "1:mean@last": 0.9999989027378666,
+    "1:final_token@mid": 0.9999551794894443,
+    "1:embed_mean": 1.0,
+    "19:mean@mid": 0.9999992885933662,
+    "19:mean@last": 0.9999991352670042,
+    "19:final_token@mid": 0.9999380369571724,
+    "19:embed_mean": 1.0
+  },
+  "padding_side": "left",
+  "lib_versions": {
+    "torch": "2.14.0+cu130",
+    "transformers": "5.17.0",
+    "nnsight": "0.7.0",
+    "numpy": "2.5.3",
+    "ndif_reported": {
+      "repo_id": "google/gemma-2-9b-it",
+      "deployment_level": "HOT",
+      "pinned": true
+    }
+  },
   "order": [
     [
       "fact01",
@@ -588,36 +627,102 @@
     [
       "limit06",
       "enact_norecord"
+    ],
+    [
+      "fact01",
+      "neutral_b"
+    ],
+    [
+      "fact02",
+      "neutral_b"
+    ],
+    [
+      "fact03",
+      "neutral_b"
+    ],
+    [
+      "fact04",
+      "neutral_b"
+    ],
+    [
+      "fact05",
+      "neutral_b"
+    ],
+    [
+      "fact06",
+      "neutral_b"
+    ],
+    [
+      "refusal01",
+      "neutral_b"
+    ],
+    [
+      "refusal02",
+      "neutral_b"
+    ],
+    [
+      "refusal03",
+      "neutral_b"
+    ],
+    [
+      "refusal04",
+      "neutral_b"
+    ],
+    [
+      "refusal05",
+      "neutral_b"
+    ],
+    [
+      "refusal06",
+      "neutral_b"
+    ],
+    [
+      "stance01",
+      "neutral_b"
+    ],
+    [
+      "stance02",
+      "neutral_b"
+    ],
+    [
+      "stance03",
+      "neutral_b"
+    ],
+    [
+      "stance04",
+      "neutral_b"
+    ],
+    [
+      "stance05",
+      "neutral_b"
+    ],
+    [
+      "stance06",
+      "neutral_b"
+    ],
+    [
+      "limit01",
+      "neutral_b"
+    ],
+    [
+      "limit02",
+      "neutral_b"
+    ],
+    [
+      "limit03",
+      "neutral_b"
+    ],
+    [
+      "limit04",
+      "neutral_b"
+    ],
+    [
+      "limit05",
+      "neutral_b"
+    ],
+    [
+      "limit06",
+      "neutral_b"
     ]
-  ],
-  "equivalence": {
-    "0:mean@mid": 0.9999991280272266,
-    "0:mean@last": 0.9999991601922377,
-    "0:final_token@mid": 0.9999322721423817,
-    "0:embed_mean": 1.0000000000000002,
-    "6:mean@mid": 0.9999990231205123,
-    "6:mean@last": 0.9999991836878385,
-    "6:final_token@mid": 0.9999568443878606,
-    "6:embed_mean": 1.0000000000000002,
-    "12:mean@mid": 0.9999989906392622,
-    "12:mean@last": 0.9999980255051721,
-    "12:final_token@mid": 0.9999357622548254,
-    "12:embed_mean": 1.0000000000000002,
-    "18:mean@mid": 0.9999991146645961,
-    "18:mean@last": 0.9999992007028239,
-    "18:final_token@mid": 0.9999600747624074,
-    "18:embed_mean": 1.0
-  },
-  "padding_side": "left",
-  "lib_versions": {
-    "torch": "2.14.0+cu130",
-    "transformers": "5.17.0",
-    "nnsight": "0.7.0",
-    "numpy": "2.5.3",
-    "ndif_reported": {
-      "repo_id": "google/gemma-2-9b-it",
-      "deployment_level": "HOT",
-      "pinned": true
-    }
-  }
+  ]
 }

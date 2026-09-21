@@ -1,10 +1,17 @@
 # Step 2 pilot: the instrument sees the arms. The design's two central predictions come out backwards.
 
-**Verdict: conditional GO, and the condition is the one the review named.** 60 of 80 in-window
-contrasts clear their sign-flip band at p < 0.05, so the readout is not blind to these stimuli.
-But **prediction 1 separates in the wrong direction**, **prediction 2 fails outright**, and the
-controls in hand cannot separate any of it from wording. The missing control is exactly
-`neutral_b` — and the pilot is now the argument for it, which no prior number was.
+**Verdict: GO, and the design's two central predictions are FALSIFIED rather than unsupported.**
+69 of 96 in-window contrasts clear their sign-flip band. **Prediction 1 separates in the wrong
+direction**, **prediction 2 fails outright**, and — with the rewording floor now measured — both
+failures survive the control that would have explained them away.
+
+> **Updated after `neutral_b` (§2a).** The first version of this note said the controls in hand
+> could not separate these effects from wording, and called that the condition on the GO. The
+> floor has since been authored, extracted and measured. It is **0.076 on average across the
+> window (max 0.159)** and it **sits on its own null at 7 of 8 layers**. Design contrasts run four
+> to twenty times larger. So the effects are not wording, and the wrong-signed predictions are a
+> finding rather than an artefact. The condition is discharged; §2's caution about *structured*
+> wording still stands and is narrowed below.
 
 24 machine-authored items × 6 arms on `google/gemma-2-9b-it`, read at the generation token,
 projected onto the externally-fitted `s2` pain axis in scenario-pool z units, minus the same
@@ -32,7 +39,46 @@ no-record gaslighting items take. It is the clearest structural effect here afte
 says the two stimulus classes are **not** interchangeable: a false claim against a visible record
 is a different thing, on this axis, from the same claim floating free.
 
-## 2. Why this is not yet evidence of conscription
+## 2a. The rewording floor, measured
+
+`neutral_b` is a second no-claim turn per item: same closer, an independently written inert
+opening, neither a paraphrase of `neutral` (tests reject one opening containing the other) nor
+length-skewed (13.79 vs 15.21 words, a gap of 1.4 against 7.4 for `enact`–`report`). The paired
+difference `neutral − neutral_b` is how far two turns that assert nothing about the assistant sit
+apart on the readout — the honest "nothing happened" magnitude, which the sign-flip band is not.
+
+**It behaves as a reference arm should: it declares 0 and it sits there.**
+
+| layer | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|---|---|---|---|---|---|---|---|---|
+| `neutral − neutral_b` | +0.159 | +0.150 | +0.038 | +0.021 | +0.056 | +0.073 | +0.095 | −0.014 |
+| p | **0.034** | 0.076 | 0.585 | 0.790 | 0.472 | 0.446 | 0.256 | 0.853 |
+
+Off its null at 1 of 8 layers, at p = 0.034 — which is what 8 layers at α = 0.05 produce by
+chance. Mean |floor| **0.076**, max **0.159**.
+
+**Against it, 58 of 72 design contrast-layers clear.** The magnitudes are not close:
+
+| contrast | L13 | L16 | L17 | vs floor |
+|---|---|---|---|---|
+| `enact − report` | −0.127 | **−0.378** | **−0.476** | 4–34× |
+| `enact − exit` | **−0.894** | **−1.147** | **−0.911** | 12–65× |
+| `enact − true` | −0.064 | −0.148 | −0.025 | at the floor |
+| `exit − neutral` | **+1.138** | **+1.409** | **+1.473** | the largest in the grid |
+| `enact − enact_norecord` | **+0.970** | **+0.983** | **+1.286** | 10–92× |
+
+**AUTHORSHIP IS CONFOUNDED FOR THIS ARM.** `neutral_b` is machine-written and exists only on the
+machine grid, so it floors the machine grid and says nothing about the human one. A human
+`neutral_b` is the only way that stays clean, and it is 24 more turns from the human author.
+
+**What the floor does NOT rule out.** It is the floor for *minimal* rewording — two openings
+differing in content but matched in form. `exit` differs from every other arm by carrying the
+**identical closer string in all 24 items**, which is structured regularity of a different kind,
+and the floor as built does not bound it. That `exit` produces the largest contrast against
+everything remains the result most likely to be an artefact, and it is the one prediction 2
+depends on.
+
+## 2. Why the sign-flip band alone was not enough
 
 **The sign-flip band is not a rewording floor.** It scales with the rms of the per-item
 differences, not their spread (pinned in `tests/test_conscription_pilot.py`), so "p < 0.05" here
@@ -54,16 +100,22 @@ vocabulary-sensitive readout would do, and the floor subtracts only what a *pain
 on the bag* gives, not what a classifier would. Arm-label leakage for `enact` vs `exit` is LOO
 1.000 (`conscription_floors.md`).
 
-So the honest statement is: **the arms are distinguishable on this axis, the ordering is not the
-one the design predicted, and no measurement here separates "conscription" from "differently
-worded".**
+That was the argument for building `neutral_b`, and §2a is the answer to it: the floor is 0.076
+and the contrasts are 0.4 to 1.5, so **trivial** rewording is excluded. What survives from this
+section is the narrower worry about `exit`'s fixed closer, and the between-pair length
+correlation, which the floor does not address because the floor pair is length-matched.
+
+So the honest statement is now: **the arms are distinguishable on this axis by margins the
+rewording floor cannot explain, and the ordering is the opposite of the one the design
+predicted.**
 
 ## 3. What follows
 
-1. **`neutral_b` is now required, not optional.** The review demoted it to a nice-to-have on the
-   grounds that under projection `neutral` is no longer load-bearing. This pilot overturns that:
-   with 60 of 80 contrasts clearing, the quantity that decides everything is *how much two
-   no-claim turns differ*, and nothing in this repo measures it. Both grids need it.
+1. **`neutral_b` was required, is built, and paid for itself immediately.** The review demoted it
+   to a nice-to-have on the grounds that under projection `neutral` is no longer load-bearing.
+   The pilot overturned that and the measurement settled it: without the floor, 69 of 96 clearing
+   contrasts were uninterpretable; with it, they are a result. **The human grid still needs its
+   own**, because this one is machine-written and authorship is the study's measured factor.
 2. **Step 3 (behavioural) is now the discriminating experiment, not a supplement.** If `exit`
    sits above `enact` because the model reads the permission clause as escalation rather than
    relief, generation will show it and the axis will not.

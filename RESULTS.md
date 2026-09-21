@@ -2554,6 +2554,71 @@ machine-grid items × 6 arms, including an `enact_norecord` arm in the form rule
 **extracted but blocked** on a shared-GPU co-tenant holding 16.7 of the deployment's 20.3 GiB.
 
 
+## 2026-09-21 (hour 54) — GOAL 2 step 2: the conscription arms separate, and the design's two central predictions are falsified
+
+Note: `results/notes/conscription_pilot.md`. **261 tests pass.** 24 machine-authored items × 7
+arms on gemma-2-9b-it, read at the generation token, projected onto the externally-fitted `s2`
+pain axis in scenario-pool z units, minus the same paired projection on the static-embedding bag.
+
+**The free identity check passes exactly.** At the embedding layer the treatment *is* the floor,
+so the gain must be zero. Measured **+0.0000, band [+0.0000, +0.0000]**.
+
+**The rewording floor was built because the pilot demanded it, and it behaves.** `neutral_b` is a
+second no-claim turn per item — same closer, independently written inert opening, 13.79 vs 15.21
+words. `neutral − neutral_b` is **off its null at 1 of 8 window layers** (p = 0.034, which 8
+layers at α = 0.05 produce by chance), mean |floor| **0.076**, max **0.159**. A reference arm that
+declares 0 and sits there. This is what makes everything below readable; without it, 69 of 96
+clearing contrasts were uninterpretable.
+
+**Against that floor, the pre-registration's predictions fail — and fail as findings, not as
+noise.** 58 of 72 design contrast-layers exceed the floor, most by an order of magnitude.
+
+| prereg prediction | L16 / L17 | vs floor | verdict |
+|---|---|---|---|
+| **1.** `enact` separates from `report` | **−0.378 / −0.476** | 4–34× | **separates BACKWARDS.** `report` sits higher. Positive only at L10. |
+| **2.** `exit` sits below `enact` | `enact − exit` = **−1.147 / −0.911** | 12–65× | **fails outright.** `exit` is the highest arm in the grid. |
+| **3.** `true` sits below `enact` | **−0.148 / −0.025** | at the floor | **null.** |
+| *(added)* record vs no record | `enact − enact_norecord` = **+0.983 / +1.286** | 10–92× | the visible record is worth about a whole z. |
+
+**The one portable result does not depend on the conscription framing at all.** `enact_norecord`
+is the `enact` assertion as a bare user turn — the form all eighteen of the paper's no-record
+gaslighting items take, and the form rule 1b excluded by construction. A false claim against a
+**checkable** record sits **+1.0 to +1.3 z above** the same claim with none. Their stimulus class
+and this design's are not interchangeable, and that is a measured statement about their own
+material made with their own axis.
+
+**What is not excluded.** The floor bounds *minimal* rewording: two openings differing in content,
+matched in form. `exit` differs from every other arm by carrying the **identical closer string in
+all 24 items**, which is structured regularity of another kind and is not bounded here — and
+prediction 2 rests entirely on `exit`. Between the ten arm pairs, mean Δtokens correlates with
+mean gain at **r = +0.61** (+0.55 among the length-matched); the floor pair is length-matched so
+it does not address this. An item-level length control is vacuous by construction — within a pair
+Δlength is nearly constant, so arm identity and length are collinear, and my first attempt at one
+returned a residual mean of exactly zero, which is the tell.
+
+**Authorship is confounded for `neutral_b`.** It is machine-written and exists only on the machine
+grid, so it floors that grid and says nothing about the human one. A human `neutral_b` is the only
+way that stays clean.
+
+**Also closed: hour 52's named gap, in full.** All four `mean` cells gain over the embedding floor
+with cluster-bootstrap intervals excluding zero — S1_1P **+0.113 [0.022, 0.165]**, S1_3P **+0.074
+[0.004, 0.128]**, S2_1P **+0.047 [0.022, 0.147]**, S2_3P **+0.025 [0.002, 0.133]**. The four
+`final_token` cells sit against a **degenerate 0.5 floor** (every stimulus ends in the same
+token), so their large gains are gains over chance, not over vocabulary, and are **not** evidence
+about lexical content.
+
+**Where this leaves the design.** Predictions 1 and 2 are on the record and came out backwards on
+the free grid. Prediction 4 said the human grid would show a *larger* `enact`−`report` gap; to
+rescue prediction 1 it now has to show the *opposite sign*, which is a much stronger claim than
+the pre-registration made. The discriminating next experiment is behavioural — if `exit` sits
+highest because the model reads a permission clause as escalation rather than relief, generation
+shows it and the axis cannot.
+
+**Not done.** No behavioural arm. No human-grid comparison (one item exists). No grid-level
+random-direction arm. No per-domain breakdown. No bound on `exit`'s fixed-closer regularity.
+n = 24, one model, one authorship.
+
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.

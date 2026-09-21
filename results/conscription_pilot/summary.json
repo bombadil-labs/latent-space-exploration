@@ -10,25 +10,25 @@
     16,
     17
   ],
-  "n_rows": 430,
-  "cells_in_window": 80,
+  "n_rows": 516,
+  "cells_in_window": 96,
   "clearing_in_window": [
     {
       "layer": "10",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": 0.0741,
-      "gain_lo": -0.0502,
-      "gain_hi": 0.0501,
-      "gain_p": 0.0018
+      "gain_lo": -0.0495,
+      "gain_hi": 0.05,
+      "gain_p": 0.0012
     },
     {
       "layer": "10",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.2877,
-      "gain_lo": -0.1378,
-      "gain_hi": 0.1431,
+      "gain_lo": -0.1403,
+      "gain_hi": 0.1407,
       "gain_p": 0.0
     },
     {
@@ -36,8 +36,8 @@
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.3618,
-      "gain_lo": -0.173,
-      "gain_hi": 0.1734,
+      "gain_lo": -0.1779,
+      "gain_hi": 0.1767,
       "gain_p": 0.0
     },
     {
@@ -45,8 +45,8 @@
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 0.4243,
-      "gain_lo": -0.2477,
-      "gain_hi": 0.2508,
+      "gain_lo": -0.2498,
+      "gain_hi": 0.2459,
       "gain_p": 0.0002
     },
     {
@@ -54,17 +54,35 @@
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 0.3378,
-      "gain_lo": -0.2812,
-      "gain_hi": 0.2787,
-      "gain_p": 0.0156
+      "gain_lo": -0.285,
+      "gain_hi": 0.284,
+      "gain_p": 0.0204
+    },
+    {
+      "layer": "10",
+      "arm_a": "neutral",
+      "arm_b": "neutral_b",
+      "gain": 0.1585,
+      "gain_lo": -0.1469,
+      "gain_hi": 0.1486,
+      "gain_p": 0.0336
+    },
+    {
+      "layer": "10",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.2952,
+      "gain_lo": -0.1847,
+      "gain_hi": 0.1842,
+      "gain_p": 0.0016
     },
     {
       "layer": "11",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.4527,
-      "gain_lo": -0.235,
-      "gain_hi": 0.2262,
+      "gain_lo": -0.2356,
+      "gain_hi": 0.2336,
       "gain_p": 0.0
     },
     {
@@ -72,8 +90,8 @@
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.4991,
-      "gain_lo": -0.2324,
-      "gain_hi": 0.2381,
+      "gain_lo": -0.2356,
+      "gain_hi": 0.233,
       "gain_p": 0.0
     },
     {
@@ -81,8 +99,8 @@
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 0.602,
-      "gain_lo": -0.3471,
-      "gain_hi": 0.34,
+      "gain_lo": -0.3416,
+      "gain_hi": 0.3454,
       "gain_p": 0.0
     },
     {
@@ -90,26 +108,35 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.1495,
-      "gain_lo": -0.1373,
-      "gain_hi": 0.1336,
-      "gain_p": 0.03
+      "gain_lo": -0.1406,
+      "gain_hi": 0.1381,
+      "gain_p": 0.0318
     },
     {
       "layer": "11",
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 0.4106,
-      "gain_lo": -0.2852,
-      "gain_hi": 0.285,
-      "gain_p": 0.0034
+      "gain_lo": -0.278,
+      "gain_hi": 0.2833,
+      "gain_p": 0.004
+    },
+    {
+      "layer": "11",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.2993,
+      "gain_lo": -0.2035,
+      "gain_hi": 0.2067,
+      "gain_p": 0.0026
     },
     {
       "layer": "12",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.5952,
-      "gain_lo": -0.2609,
-      "gain_hi": 0.2567,
+      "gain_lo": -0.2563,
+      "gain_hi": 0.2613,
       "gain_p": 0.0
     },
     {
@@ -117,8 +144,8 @@
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.5636,
-      "gain_lo": -0.2475,
-      "gain_hi": 0.2514,
+      "gain_lo": -0.2504,
+      "gain_hi": 0.2502,
       "gain_p": 0.0
     },
     {
@@ -126,17 +153,17 @@
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 0.1996,
-      "gain_lo": -0.1689,
-      "gain_hi": 0.1697,
-      "gain_p": 0.0166
+      "gain_lo": -0.1692,
+      "gain_hi": 0.1638,
+      "gain_p": 0.0168
     },
     {
       "layer": "12",
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 0.7632,
-      "gain_lo": -0.3663,
-      "gain_hi": 0.3707,
+      "gain_lo": -0.3643,
+      "gain_hi": 0.3665,
       "gain_p": 0.0
     },
     {
@@ -144,35 +171,44 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.1777,
-      "gain_lo": -0.1511,
-      "gain_hi": 0.1542,
-      "gain_p": 0.021
+      "gain_lo": -0.1592,
+      "gain_hi": 0.1562,
+      "gain_p": 0.024
     },
     {
       "layer": "12",
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 0.4998,
-      "gain_lo": -0.3307,
-      "gain_hi": 0.3195,
-      "gain_p": 0.0026
+      "gain_lo": -0.3253,
+      "gain_hi": 0.3389,
+      "gain_p": 0.0016
+    },
+    {
+      "layer": "12",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.2059,
+      "gain_lo": -0.1607,
+      "gain_hi": 0.1653,
+      "gain_p": 0.0108
     },
     {
       "layer": "13",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": -0.1271,
-      "gain_lo": -0.0846,
-      "gain_hi": 0.0825,
-      "gain_p": 0.001
+      "gain_lo": -0.0823,
+      "gain_hi": 0.0817,
+      "gain_p": 0.0016
     },
     {
       "layer": "13",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.8937,
-      "gain_lo": -0.3865,
-      "gain_hi": 0.3778,
+      "gain_lo": -0.3836,
+      "gain_hi": 0.3851,
       "gain_p": 0.0
     },
     {
@@ -180,9 +216,9 @@
       "arm_a": "enact",
       "arm_b": "neutral",
       "gain": 0.2438,
-      "gain_lo": -0.1912,
-      "gain_hi": 0.1893,
-      "gain_p": 0.0088
+      "gain_lo": -0.194,
+      "gain_hi": 0.194,
+      "gain_p": 0.0126
     },
     {
       "layer": "13",
@@ -190,7 +226,7 @@
       "arm_b": "exit",
       "gain": -0.7666,
       "gain_lo": -0.3283,
-      "gain_hi": 0.3176,
+      "gain_hi": 0.3372,
       "gain_p": 0.0
     },
     {
@@ -198,8 +234,8 @@
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 0.3709,
-      "gain_lo": -0.2269,
-      "gain_hi": 0.2266,
+      "gain_lo": -0.2162,
+      "gain_hi": 0.2205,
       "gain_p": 0.0002
     },
     {
@@ -207,8 +243,8 @@
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 1.1376,
-      "gain_lo": -0.4987,
-      "gain_hi": 0.5062,
+      "gain_lo": -0.4997,
+      "gain_hi": 0.5076,
       "gain_p": 0.0
     },
     {
@@ -216,17 +252,17 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.3076,
-      "gain_lo": -0.2162,
-      "gain_hi": 0.2142,
-      "gain_p": 0.0046
+      "gain_lo": -0.2247,
+      "gain_hi": 0.2136,
+      "gain_p": 0.003
     },
     {
       "layer": "13",
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 0.9699,
-      "gain_lo": -0.503,
-      "gain_hi": 0.5007,
+      "gain_lo": -0.4995,
+      "gain_hi": 0.502,
       "gain_p": 0.0
     },
     {
@@ -234,26 +270,35 @@
       "arm_a": "enact_norecord",
       "arm_b": "neutral",
       "gain": -0.7261,
-      "gain_lo": -0.4796,
-      "gain_hi": 0.4924,
+      "gain_lo": -0.48,
+      "gain_hi": 0.4746,
       "gain_p": 0.0014
+    },
+    {
+      "layer": "13",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.2648,
+      "gain_lo": -0.1883,
+      "gain_hi": 0.1863,
+      "gain_p": 0.004
     },
     {
       "layer": "14",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": -0.2167,
-      "gain_lo": -0.1314,
-      "gain_hi": 0.1294,
-      "gain_p": 0.0
+      "gain_lo": -0.1284,
+      "gain_hi": 0.1276,
+      "gain_p": 0.0006
     },
     {
       "layer": "14",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.5509,
-      "gain_lo": -0.2535,
-      "gain_hi": 0.2509,
+      "gain_lo": -0.2487,
+      "gain_hi": 0.2555,
       "gain_p": 0.0
     },
     {
@@ -261,17 +306,17 @@
       "arm_a": "enact",
       "arm_b": "neutral",
       "gain": 0.2096,
-      "gain_lo": -0.183,
-      "gain_hi": 0.1868,
-      "gain_p": 0.0268
+      "gain_lo": -0.1781,
+      "gain_hi": 0.1833,
+      "gain_p": 0.0234
     },
     {
       "layer": "14",
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.3342,
-      "gain_lo": -0.177,
-      "gain_hi": 0.1709,
+      "gain_lo": -0.1769,
+      "gain_hi": 0.1717,
       "gain_p": 0.0
     },
     {
@@ -279,17 +324,17 @@
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 0.4263,
-      "gain_lo": -0.2721,
-      "gain_hi": 0.2722,
-      "gain_p": 0.0008
+      "gain_lo": -0.2761,
+      "gain_hi": 0.2709,
+      "gain_p": 0.001
     },
     {
       "layer": "14",
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 0.7605,
-      "gain_lo": -0.3654,
-      "gain_hi": 0.3506,
+      "gain_lo": -0.3514,
+      "gain_hi": 0.3548,
       "gain_p": 0.0
     },
     {
@@ -297,17 +342,17 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.2469,
-      "gain_lo": -0.2026,
-      "gain_hi": 0.203,
-      "gain_p": 0.0158
+      "gain_lo": -0.1975,
+      "gain_hi": 0.1983,
+      "gain_p": 0.01
     },
     {
       "layer": "14",
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 1.0544,
-      "gain_lo": -0.5102,
-      "gain_hi": 0.5068,
+      "gain_lo": -0.5059,
+      "gain_hi": 0.5023,
       "gain_p": 0.0
     },
     {
@@ -316,25 +361,34 @@
       "arm_b": "neutral",
       "gain": -0.8447,
       "gain_lo": -0.4801,
-      "gain_hi": 0.4609,
-      "gain_p": 0.0004
+      "gain_hi": 0.4714,
+      "gain_p": 0.0002
+    },
+    {
+      "layer": "14",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.2658,
+      "gain_lo": -0.2009,
+      "gain_hi": 0.2011,
+      "gain_p": 0.0072
     },
     {
       "layer": "15",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": -0.1717,
-      "gain_lo": -0.1422,
-      "gain_hi": 0.147,
-      "gain_p": 0.016
+      "gain_lo": -0.1428,
+      "gain_hi": 0.1369,
+      "gain_p": 0.0106
     },
     {
       "layer": "15",
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.3768,
-      "gain_lo": -0.1939,
-      "gain_hi": 0.185,
+      "gain_lo": -0.1911,
+      "gain_hi": 0.1924,
       "gain_p": 0.0
     },
     {
@@ -342,35 +396,35 @@
       "arm_a": "enact",
       "arm_b": "neutral",
       "gain": 0.1812,
-      "gain_lo": -0.1698,
-      "gain_hi": 0.1768,
-      "gain_p": 0.0396
+      "gain_lo": -0.1701,
+      "gain_hi": 0.1701,
+      "gain_p": 0.0356
     },
     {
       "layer": "15",
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.2051,
-      "gain_lo": -0.178,
-      "gain_hi": 0.1801,
-      "gain_p": 0.0242
+      "gain_lo": -0.1779,
+      "gain_hi": 0.1742,
+      "gain_p": 0.0218
     },
     {
       "layer": "15",
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 0.3529,
-      "gain_lo": -0.2518,
-      "gain_hi": 0.2514,
-      "gain_p": 0.0028
+      "gain_lo": -0.2503,
+      "gain_hi": 0.2434,
+      "gain_p": 0.0038
     },
     {
       "layer": "15",
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 0.558,
-      "gain_lo": -0.3019,
-      "gain_hi": 0.2905,
+      "gain_lo": -0.2911,
+      "gain_hi": 0.2856,
       "gain_p": 0.0
     },
     {
@@ -378,8 +432,8 @@
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 1.1799,
-      "gain_lo": -0.5816,
-      "gain_hi": 0.5876,
+      "gain_lo": -0.5882,
+      "gain_hi": 0.584,
       "gain_p": 0.0
     },
     {
@@ -387,17 +441,26 @@
       "arm_a": "enact_norecord",
       "arm_b": "neutral",
       "gain": -0.9987,
-      "gain_lo": -0.5464,
-      "gain_hi": 0.5388,
+      "gain_lo": -0.539,
+      "gain_hi": 0.5458,
       "gain_p": 0.0
+    },
+    {
+      "layer": "15",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.254,
+      "gain_lo": -0.1955,
+      "gain_hi": 0.1936,
+      "gain_p": 0.008
     },
     {
       "layer": "16",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": -0.3777,
-      "gain_lo": -0.1941,
-      "gain_hi": 0.1842,
+      "gain_lo": -0.193,
+      "gain_hi": 0.1958,
       "gain_p": 0.0
     },
     {
@@ -405,8 +468,8 @@
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -1.1471,
-      "gain_lo": -0.4926,
-      "gain_hi": 0.4788,
+      "gain_lo": -0.4869,
+      "gain_hi": 0.492,
       "gain_p": 0.0
     },
     {
@@ -414,17 +477,17 @@
       "arm_a": "enact",
       "arm_b": "neutral",
       "gain": 0.2614,
-      "gain_lo": -0.2106,
-      "gain_hi": 0.2108,
-      "gain_p": 0.014
+      "gain_lo": -0.2153,
+      "gain_hi": 0.214,
+      "gain_p": 0.0166
     },
     {
       "layer": "16",
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.7694,
-      "gain_lo": -0.3553,
-      "gain_hi": 0.356,
+      "gain_lo": -0.3605,
+      "gain_hi": 0.353,
       "gain_p": 0.0
     },
     {
@@ -432,8 +495,8 @@
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 0.6391,
-      "gain_lo": -0.3564,
-      "gain_hi": 0.3565,
+      "gain_lo": -0.3547,
+      "gain_hi": 0.3431,
       "gain_p": 0.0
     },
     {
@@ -441,8 +504,8 @@
       "arm_a": "exit",
       "arm_b": "neutral",
       "gain": 1.4085,
-      "gain_lo": -0.6179,
-      "gain_hi": 0.6356,
+      "gain_lo": -0.6373,
+      "gain_hi": 0.622,
       "gain_p": 0.0
     },
     {
@@ -450,8 +513,8 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.409,
-      "gain_lo": -0.2529,
-      "gain_hi": 0.261,
+      "gain_lo": -0.2592,
+      "gain_hi": 0.2582,
       "gain_p": 0.0002
     },
     {
@@ -459,8 +522,8 @@
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 0.9828,
-      "gain_lo": -0.5414,
-      "gain_hi": 0.525,
+      "gain_lo": -0.5544,
+      "gain_hi": 0.5463,
       "gain_p": 0.0
     },
     {
@@ -468,17 +531,26 @@
       "arm_a": "enact_norecord",
       "arm_b": "neutral",
       "gain": -0.7214,
-      "gain_lo": -0.4982,
-      "gain_hi": 0.4907,
+      "gain_lo": -0.4861,
+      "gain_hi": 0.5042,
       "gain_p": 0.0026
+    },
+    {
+      "layer": "16",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.3566,
+      "gain_lo": -0.2547,
+      "gain_hi": 0.2538,
+      "gain_p": 0.0048
     },
     {
       "layer": "17",
       "arm_a": "enact",
       "arm_b": "report",
       "gain": -0.476,
-      "gain_lo": -0.2192,
-      "gain_hi": 0.2218,
+      "gain_lo": -0.2236,
+      "gain_hi": 0.221,
       "gain_p": 0.0
     },
     {
@@ -486,8 +558,8 @@
       "arm_a": "enact",
       "arm_b": "exit",
       "gain": -0.9112,
-      "gain_lo": -0.3817,
-      "gain_hi": 0.3914,
+      "gain_lo": -0.3933,
+      "gain_hi": 0.3934,
       "gain_p": 0.0
     },
     {
@@ -495,8 +567,8 @@
       "arm_a": "enact",
       "arm_b": "neutral",
       "gain": 0.5616,
-      "gain_lo": -0.2862,
-      "gain_hi": 0.2898,
+      "gain_lo": -0.2837,
+      "gain_hi": 0.2939,
       "gain_p": 0.0
     },
     {
@@ -504,17 +576,17 @@
       "arm_a": "report",
       "arm_b": "exit",
       "gain": -0.4353,
-      "gain_lo": -0.2272,
-      "gain_hi": 0.2299,
-      "gain_p": 0.0
+      "gain_lo": -0.2274,
+      "gain_hi": 0.2343,
+      "gain_p": 0.0002
     },
     {
       "layer": "17",
       "arm_a": "report",
       "arm_b": "neutral",
       "gain": 1.0376,
-      "gain_lo": -0.4863,
-      "gain_hi": 0.4913,
+      "gain_lo": -0.4902,
+      "gain_hi": 0.4728,
       "gain_p": 0.0
     },
     {
@@ -523,7 +595,7 @@
       "arm_b": "neutral",
       "gain": 1.4728,
       "gain_lo": -0.6278,
-      "gain_hi": 0.6267,
+      "gain_hi": 0.6142,
       "gain_p": 0.0
     },
     {
@@ -531,17 +603,17 @@
       "arm_a": "true",
       "arm_b": "neutral",
       "gain": 0.587,
-      "gain_lo": -0.3225,
-      "gain_hi": 0.3232,
-      "gain_p": 0.0002
+      "gain_lo": -0.3246,
+      "gain_hi": 0.3202,
+      "gain_p": 0.0
     },
     {
       "layer": "17",
       "arm_a": "enact",
       "arm_b": "enact_norecord",
       "gain": 1.2861,
-      "gain_lo": -0.6118,
-      "gain_hi": 0.6133,
+      "gain_lo": -0.617,
+      "gain_hi": 0.6243,
       "gain_p": 0.0
     },
     {
@@ -549,9 +621,18 @@
       "arm_a": "enact_norecord",
       "arm_b": "neutral",
       "gain": -0.7245,
-      "gain_lo": -0.4676,
-      "gain_hi": 0.4673,
-      "gain_p": 0.0014
+      "gain_lo": -0.4812,
+      "gain_hi": 0.4631,
+      "gain_p": 0.001
+    },
+    {
+      "layer": "17",
+      "arm_a": "enact",
+      "arm_b": "neutral_b",
+      "gain": 0.5472,
+      "gain_lo": -0.291,
+      "gain_hi": 0.2992,
+      "gain_p": 0.0002
     }
   ],
   "positive_control": {

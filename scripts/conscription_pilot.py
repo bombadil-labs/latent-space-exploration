@@ -62,11 +62,16 @@ OUT = ROOT / "results/conscription_pilot"
 SHARDS = OUT / "shards"
 ARMS = ("enact", "report", "exit", "true", "neutral")
 EXTRA = "enact_norecord"
+NB = "neutral_b"          # the rewording floor; appended LAST so earlier shards stay valid
 BATCH = 2
 WINDOW = list(range(10, 18))          # their-layer numbering; determined on THEIR stimuli
 PAIRS = (("enact", "report"), ("enact", "exit"), ("enact", "true"), ("enact", "neutral"),
          ("report", "exit"), ("report", "neutral"), ("exit", "neutral"), ("true", "neutral"),
-         ("enact", EXTRA), (EXTRA, "neutral"))
+         ("enact", EXTRA), (EXTRA, "neutral"),
+         # THE REWORDING FLOOR. Two turns that assert nothing about the assistant, same closer,
+         # written independently. Every contrast above has to beat THIS, not just the sign-flip
+         # band, before it means anything (results/notes/conscription_pilot.md §2).
+         ("neutral", NB), ("enact", NB))
 N_SIGN = 5000
 N_RAND = 500
 
@@ -87,6 +92,16 @@ def render_all(tok):
         t = render_prompt(tok, [], it["arms"]["enact"])
         verify_offsets_cover_template(tok, t)
         out.append((it["id"], EXTRA, t))
+    # `neutral_b` is APPENDED, not interleaved, so every prompt index below this point is
+    # unchanged and the six shards already paid for on a contended GPU stay valid. Shard
+    # boundaries fall on multiples of 24 and there are 24 items, so the new arm is exactly one
+    # new shard.
+    for it in items:
+        if NB not in it["arms"]:
+            raise SystemExit(f"{it['id']} has no {NB} arm; the grid is out of date")
+        t = render_prompt(tok, it["prefix"], it["arms"][NB])
+        verify_offsets_cover_template(tok, t)
+        out.append((it["id"], NB, t))
     return out
 
 
@@ -104,13 +119,27 @@ def extract() -> None:
     print("example norecord:", repr(rows[len(ARMS)][2])[:220], flush=True)
 
     meta_path = OUT / "extract_meta.json"
-    meta = {"model": S.MODEL, "n_prompts": len(rows), "batch": BATCH, "arms": list(ARMS) + [EXTRA],
+    meta = {"model": S.MODEL, "n_prompts": len(rows), "batch": BATCH,
+            "arms": list(ARMS) + [EXTRA, NB],
             "grid": str(GRID.relative_to(ROOT)),
             "grid_sha": __import__("hashlib").sha256(GRID.read_bytes()).hexdigest()[:16],
-            "order": [[i, a] for i, a, _ in rows], "equivalence": {},
+            "equivalence": {},
             "padding_side": rlm.padding_side, "lib_versions": rlm.lib_versions()}
     if meta_path.exists():
-        meta.update(json.loads(meta_path.read_text()))
+        old = json.loads(meta_path.read_text())
+        meta["equivalence"] = old.get("equivalence", {})
+        prev = [tuple(x) for x in old.get("order", [])]
+        now = [(i, a) for i, a, _ in rows]
+        # An append is safe; anything else invalidates the cached shards, which are indexed by
+        # position and carry no labels of their own.
+        if prev and now[:len(prev)] != prev:
+            raise SystemExit(
+                "the prompt order changed in place, not by appending: cached shards are indexed "
+                "by position and would be silently mislabelled. Delete results/conscription_pilot/"
+                "shards and re-extract.")
+    # always recomputed, never restored from the file: the file may predate an appended arm
+    meta["order"] = [[i, a] for i, a, _ in rows]
+    meta["n_prompts"] = len(rows)
 
     SHARD = 24
     for s0 in range(0, len(texts), SHARD):

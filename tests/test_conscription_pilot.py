@@ -86,12 +86,43 @@ def test_gain_cancels_a_shift_shared_by_both_arms():
     assert p < 0.001, "a consistent +0.3 over 24 items should clear its own band"
 
 
-def test_pairs_cover_every_arm_and_include_the_no_record_variant():
-    arms = set(P.ARMS) | {P.EXTRA}
+def test_pairs_cover_every_arm_and_the_two_controls():
+    arms = set(P.ARMS) | {P.EXTRA, P.NB}
     seen = {a for pair in P.PAIRS for a in pair}
     assert seen == arms, seen ^ arms
     assert ("enact", "report") in P.PAIRS, "the study's central contrast is not measured"
     assert ("enact", P.EXTRA) in P.PAIRS, "rule 1b's exclusion is not testable without this pair"
+    assert ("neutral", P.NB) in P.PAIRS, "no rewording floor: every other contrast is unreadable"
+
+
+def test_every_item_has_a_distinct_neutral_b_sharing_its_closer():
+    """The floor is only a floor if the two no-claim turns differ in wording and in nothing else.
+    Same closer, different opening, and neither one a substring of the other."""
+    import json, re
+    items = json.loads(P.GRID.read_text())["items"]
+    assert len(items) == 24
+    for it in items:
+        a, b = it["arms"]["neutral"], it["arms"][P.NB]
+        closer = re.split(r"(?<=[.!?])\s+", it["arms"]["enact"].rstrip())[-1].strip()
+        assert a != b, it["id"]
+        assert a.rstrip().endswith(closer) and b.rstrip().endswith(closer), it["id"]
+        assert b.count(closer) == 1, f"{it['id']}: doubled closer in {P.NB}"
+        opener_a, opener_b = a[: -len(closer)].strip(), b[: -len(closer)].strip()
+        assert opener_a and opener_b and opener_a != opener_b, it["id"]
+        assert opener_a not in opener_b and opener_b not in opener_a, (
+            f"{it['id']}: one opening contains the other, so this is a paraphrase and "
+            "understates the rewording floor")
+
+
+def test_neutral_b_is_not_systematically_far_longer_or_shorter():
+    """A length-skewed floor would absorb a nuisance the design pairs do not have, and quietly
+    change how conservative every other contrast looks. Measured, not assumed."""
+    import json, re, statistics as st
+    items = json.loads(P.GRID.read_text())["items"]
+    w = lambda t: len(re.findall(r"[A-Za-z']+", t))
+    a = st.mean(w(it["arms"]["neutral"]) for it in items)
+    b = st.mean(w(it["arms"][P.NB]) for it in items)
+    assert abs(a - b) < 3.0, f"neutral {a:.2f} vs neutral_b {b:.2f} words"
 
 
 def test_window_is_the_one_determined_on_their_stimuli():
