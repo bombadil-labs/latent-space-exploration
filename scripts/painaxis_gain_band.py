@@ -49,6 +49,7 @@ IN = ROOT / "results/painaxis_floor_nulls"
 OUT = ROOT / "results/painaxis_gain_band"
 N_BOOT = 200
 N_SEEDS = 200
+CKPT = 10
 
 
 def fold_masks(PA, set_ids, sets_arr, seed):
@@ -103,30 +104,52 @@ def run_cell(ext: str, ds: str) -> None:
     layers = list(range(A.shape[1]))
     t0 = time.time()
 
+    # Checkpoint every CKPT replicates. The first run of this was killed by the sandbox 20
+    # minutes in with nothing on disk, because results were only written at the end. Long CPU
+    # jobs in this environment have to assume they will be interrupted.
+    ck = OUT / f"gain_{ext}_{ds}.partial.npz"
+    split_curves = np.full((N_SEEDS, len(layers)), np.nan)
+    boot_curves = np.full((N_BOOT, len(layers)), np.nan)
+    base = None
+    k0_split = k0_boot = 0
+    if ck.exists():
+        z = np.load(ck)
+        if z["split"].shape == split_curves.shape and z["boot"].shape == boot_curves.shape:
+            split_curves, boot_curves, base = z["split"], z["boot"], z["base"]
+            k0_split, k0_boot = int(z["k_split"]), int(z["k_boot"])
+            print(f"  {ext} {ds} resuming at split={k0_split} boot={k0_boot}", flush=True)
+
+    def save(k_split, k_boot):
+        np.savez(ck, split=split_curves, boot=boot_curves, base=base,
+                 k_split=k_split, k_boot=k_boot)
+
     # --- point estimate on the published split ------------------------------------------
-    base = curve(PA, A, cats, fold_masks(PA, sets_.tolist(), sets_, PA.RANDOM_SEED), layers)
+    if base is None:
+        base = curve(PA, A, cats, fold_masks(PA, sets_.tolist(), sets_, PA.RANDOM_SEED), layers)
+        save(0, 0)
 
     # --- (1) split band: re-draw the fold assignment ------------------------------------
-    split_curves = np.full((N_SEEDS, len(layers)), np.nan)
-    for k in range(N_SEEDS):
+    for k in range(k0_split, N_SEEDS):
         split_curves[k] = curve(PA, A, cats, fold_masks(PA, sets_.tolist(), sets_, 1000 + k), layers)
-        if k % 25 == 0:
-            print(f"  {ext} {ds} split {k}/{N_SEEDS} {time.time()-t0:.0f}s", flush=True)
+        if (k + 1) % CKPT == 0 or k + 1 == N_SEEDS:
+            save(k + 1, k0_boot)
+            print(f"  {ext} {ds} split {k+1}/{N_SEEDS} {time.time()-t0:.0f}s", flush=True)
 
     # --- (2) cluster bootstrap over sets -------------------------------------------------
     uniq = sorted(set(sets_.tolist()))
-    rng = np.random.default_rng(abs(hash((ext, ds))) % (2**31))
     rows_by_set = {s: np.where(sets_ == s)[0] for s in uniq}
-    boot_curves = np.full((N_BOOT, len(layers)), np.nan)
-    for k in range(N_BOOT):
+    for k in range(k0_boot, N_BOOT):
+        # The rng is reseeded per replicate so a resume reproduces the same draw it would have
+        # made in an uninterrupted run; a single stream advanced by the loop would not.
+        rng = np.random.default_rng([abs(hash((ext, ds))) % (2**31), k])
         idx, bsets, present = cluster_resample(uniq, rows_by_set, rng)
         # folds assigned on the DISTINCT ids present, so duplicates never straddle the split
-        if len(present) < PA.N_FOLDS:
-            continue
-        splits = fold_masks(PA, present, bsets, PA.RANDOM_SEED)
-        boot_curves[k] = curve(PA, A[idx], cats[idx], splits, layers)
-        if k % 25 == 0:
-            print(f"  {ext} {ds} boot {k}/{N_BOOT} {time.time()-t0:.0f}s", flush=True)
+        if len(present) >= PA.N_FOLDS:
+            splits = fold_masks(PA, present, bsets, PA.RANDOM_SEED)
+            boot_curves[k] = curve(PA, A[idx], cats[idx], splits, layers)
+        if (k + 1) % CKPT == 0 or k + 1 == N_BOOT:
+            save(N_SEEDS, k + 1)
+            print(f"  {ext} {ds} boot {k+1}/{N_BOOT} {time.time()-t0:.0f}s", flush=True)
 
     (OUT / f"gain_{ext}_{ds}.json").write_text(json.dumps({
         "extraction": ext, "dataset": ds, "n_boot": N_BOOT, "n_seeds": N_SEEDS,
@@ -135,6 +158,7 @@ def run_cell(ext: str, ds: str) -> None:
         "split_curves": split_curves.tolist(),
         "boot_curves": boot_curves.tolist(),
     }))
+    ck.unlink(missing_ok=True)
     print(f"CELL DONE {ext} {ds} {time.time()-t0:.0f}s", flush=True)
 
 

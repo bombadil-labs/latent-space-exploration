@@ -85,12 +85,21 @@ class Pooled:
     n_jobs: int
 
 
-def _encode(rlm, texts: Sequence[str]):
-    enc = rlm.tok(list(texts), return_tensors="pt", padding=True, add_special_tokens=True)
+def _encode(rlm, texts: Sequence[str], *, add_special_tokens: bool = True):
+    """Tokenise for capture.
+
+    `add_special_tokens=False` is for text ALREADY rendered through the chat template: Gemma-2's
+    template emits `<bos>` itself, so letting the tokenizer add a second one shifts every
+    position and puts a duplicated BOS at the start of the mean. The flag is threaded rather
+    than inferred because "does this string already carry a BOS" is not decidable from the
+    string, and guessing it is exactly the class of error the §7 assertions exist to catch.
+    """
+    enc = rlm.tok(list(texts), return_tensors="pt", padding=True,
+                  add_special_tokens=add_special_tokens)
     return enc["input_ids"], enc["attention_mask"]
 
 
-def _pooled_job(rlm, texts: Sequence[str]) -> dict:
+def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -> dict:
     """ONE NDIF job: masked-mean and final-token pooling at all block outputs + embeddings.
 
     Pooling happens INSIDE the trace on purpose. Returning [B, S, d] for 43 layers is ~300 MB a
@@ -102,7 +111,7 @@ def _pooled_job(rlm, texts: Sequence[str]) -> dict:
 
     from .remote import _run_saved
 
-    ids, mask = _encode(rlm, texts)
+    ids, mask = _encode(rlm, texts, add_special_tokens=add_special_tokens)
     blocks = rlm.blocks
     embed = _embed_module(rlm)
     n_layers = len(blocks)
@@ -160,7 +169,7 @@ def _pooled_job(rlm, texts: Sequence[str]) -> dict:
 
 def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
                    equivalence_min_cos: float = 0.999, check_every: int = 1,
-                   verbose: bool = True) -> Pooled:
+                   add_special_tokens: bool = True, verbose: bool = True) -> Pooled:
     """Pooled residuals at every layer for `texts`, with the §7 assertions on the way."""
     # (1) padding convention. We index end-relative; right padding would put pads at -1.
     checks.assert_padding_convention(rlm.padding_side, "end_relative")
@@ -177,9 +186,9 @@ def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
     for bi, start in enumerate(range(0, len(texts), batch_size)):
         batch = list(texts[start:start + batch_size])
         t0 = time.time()
-        out = _pooled_job(rlm, batch)
+        out = _pooled_job(rlm, batch, add_special_tokens=add_special_tokens)
         n_jobs += 1
-        ids, mask = _encode(rlm, batch)
+        ids, mask = _encode(rlm, batch, add_special_tokens=add_special_tokens)
         mask = np.asarray(mask)
         n_real = mask.sum(axis=1)
         seq_len = mask.shape[1]
@@ -199,7 +208,7 @@ def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
         # (2) batched-vs-single on the SHORTEST item: the maximally padded row.
         if check_every and bi % check_every == 0 and len(batch) > 1:
             j = checks.shortest_item_index([int(x) for x in n_real])
-            single = _pooled_job(rlm, [batch[j]])
+            single = _pooled_job(rlm, [batch[j]], add_special_tokens=add_special_tokens)
             n_jobs += 1
             for name, bat, sing in (
                 ("mean@mid", out["mean"][j, n_layers // 2], single["mean"][0, n_layers // 2]),
@@ -220,7 +229,8 @@ def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
 
 
 def cross_check_against_asserted_path(rlm, texts: Sequence[str], layer: int,
-                                      pooled: dict, *, min_cos: float = 0.999) -> dict:
+                                      pooled: dict, *, min_cos: float = 0.999,
+                                      add_special_tokens: bool = True) -> dict:
     """(5) This module's IN-TRACE pooling vs offline pooling of `remote.remote_residuals`.
 
     `remote_residuals` is the reviewed single-layer path that returns the full [B, S, d]. Pooling
@@ -230,6 +240,16 @@ def cross_check_against_asserted_path(rlm, texts: Sequence[str], layer: int,
     """
     from .remote import remote_residuals
 
+    if not add_special_tokens:
+        # remote_residuals does its own tokenisation with add_special_tokens=True. On text that
+        # already carries a template BOS the two paths would encode DIFFERENT token sequences,
+        # and the comparison would be between two different inputs -- a check that can only
+        # mislead. Run this cross-check on the raw stimuli instead; the in-trace arithmetic it
+        # validates does not depend on which string went in.
+        raise ValueError(
+            "cross_check_against_asserted_path cannot run on chat-rendered text: the offline "
+            "path re-tokenises with add_special_tokens=True and would compare two different "
+            "token sequences. Cross-check on the raw (untemplated) stimuli.")
     hs = remote_residuals(rlm, texts, layer)
     ids, mask = _encode(rlm, texts)
     mask = np.asarray(mask).astype(np.float32)
