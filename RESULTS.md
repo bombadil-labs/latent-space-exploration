@@ -2387,6 +2387,77 @@ their numbers; any claim about what the axis *means* does. Also untested on thei
 per-category breakdown, the unembedding readout, and the control-vector cosines, so their
 orthogonality claim is still unchecked on gemma. No base `gemma-2-9b`, no shame control.
 
+## 2026-09-21 (hour 52) — GOAL 2: the null arms are clean, and the floor nobody measured takes most of the effect (agent)
+
+Note: `results/notes/painaxis_floor_nulls.md`. **227 tests pass.** Every number below verified from
+`results/painaxis_floor_nulls/floor_null_curves.csv` directly, not from the agent's summary.
+
+**Tier A's numbers survive as a signal and do not survive as a finding about computation.**
+
+**The nulls are clean.** Over 224 cells (8 × 29 layers) at 500 draws each: random-direction mean
+**0.4999** (range 0.488–0.509), shuffled-label mean **0.5002** (0.496–0.505). No layer-wise trend,
+never systematically below 0.5, never near treatment. The shuffled arm ran their *full* pipeline,
+denoising included, on labels permuted within sentence set — each set holds exactly one sentence per
+category, so fold balance is exactly preserved and the folds, built from `sets`, carry no label
+information. The leak I warned about is not there.
+
+**The noise floor, which their method never estimated (non-negotiable 3).** A *single* draw of the
+shuffled null reaches **0.617** at its 97.5th percentile; a single fixed random direction reaches
+**0.759**. **Any AUC below ~0.64 out of this pipeline is indistinguishable from nothing at the
+single-draw level.** Their paper reports no null at all.
+
+**The floor. Nobody — them or us — had ever measured the static embedding layer.**
+
+| extraction | dataset | layer | treatment | embedding floor | gain over floor |
+|---|---|---|---|---|---|
+| final_token | S2_1P | 26 | 0.944 | 0.872 | **+0.072** |
+| final_token | S2_3P | 26 | 0.927 | 0.882 | **+0.045** |
+| final_token | S1_1P | 26 | 0.864 | 0.775 | **+0.088** |
+| final_token | S1_3P | 26 | 0.870 | 0.825 | **+0.045** |
+| mean | S2_1P | 21 | 0.918 | 0.872 | **+0.046** |
+| mean | S2_3P | 21 | 0.906 | 0.882 | **+0.025** |
+| mean | S1_1P | 21 | 0.825 | 0.775 | **+0.050** |
+| mean | S1_3P | 21 | 0.856 | 0.825 | **+0.031** |
+
+**Twenty-eight transformer blocks buy between +0.025 and +0.088 AUC over a bag of static token
+embeddings.** On `mean` — the extraction their headline quotes — it is +0.046 and +0.025.
+
+**And the reading Tier A gave the curves does not survive either.** Tier A called `final_token` "the
+one that shows the model building something" because it climbs 0.795 → 0.944. Measured against the
+floor, **43 of 112 `final_token` cells sit BELOW it**, including every layer up to block 12 on S2_1P
+(−0.076 at block 0): 0.795 is *under* 0.872. The `mean` curve is flat above its floor for twenty
+layers — blocks 1–2 below it, blocks 3–19 within +0.023 — with the only real structure a late rise
+at 20–26 worth about +0.03. **8 of 112 `mean` cells are below their floor.**
+
+**The degeneracy check passed exactly, and it was checked first.** All four sets, 3P included, end in
+a single distinct token (id 25, `':'`); the final-token *embedding* is bit-identical across sentences
+(max abs deviation **0.0**) and its AUC is exactly 0.5000 for treatment and both nulls. So the
+`final_token` floor cannot be its own embedding row — the mean-bag floor is the right comparison, a
+distinction that caught me out on first reading of the CSV.
+
+**Two independent extractions agree to 2.2e-16 across all 224 cells.** Tier A's `.npz` were gone
+(gitignored), so this was a fresh 800-sentence run — which is what makes the exact reproduction a
+genuine cross-check rather than a cache hit. Embedding capture is bit-exactly `hidden_states[0]`, and
+`hidden_states[0]` is bit-exactly a pure `embed_tokens` lookup, so the floor is genuinely
+position-free — the object `docs/specs/conscription_instrument_v1.md` §3 asks for, now built and
+shared as `embed_bag.npz`.
+
+**What the agent got wrong, and one of them is our own recurring failure.** It nearly sized the whole
+run off **an instrument measuring itself**: its timing probe said one 29-layer curve took 284 s, which
+would have capped the null at ~50 draws — the probe was competing with the still-running Tier B
+extraction on four cores, and single-threaded the same curve takes **3.3 s**. A factor of 86. It
+re-timed and ran 500. Its first null design also understated its own band (redrawing a direction per
+fold averages five draws and narrows the band by √5); it now reports both, and the honest
+single-draw width is 0.298. And its prediction was wrong in an interesting direction: it expected the
+floor to embarrass `mean` and spare `final_token`. It did both.
+
+**Not done:** no band on the gain — **the +0.046 has no error bar**, and a paired resample over
+sentence sets is the obvious next thing. No word-count floor (the spec wants two). No no-patch arm,
+because there is no patch — said plainly rather than quietly dropped. Per-category, readout and
+cosine sections still have no arms. The floor is measured on Qwen2.5-1.5B; **it has not been measured
+on gemma-2-9b-it**, where hour 51 found static embeddings already covering ~70% of the
+chance-to-peak distance on `mean`.
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
