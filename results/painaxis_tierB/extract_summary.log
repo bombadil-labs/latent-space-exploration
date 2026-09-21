@@ -1,0 +1,11 @@
+model=google/gemma-2-9b-it blocks=42 d=3584 padding_side=left bos=2 pad=0
+  crosscheck vs remote_residuals: {'layer': 17, 'n_texts': 6, 'mean_min_cos': 0.9999967535962663, 'mean_max_rel': 0.005032150540500879, 'final_token_min_cos': 0.9999479685973316, 'final_token_max_rel': 0.007575757801532745}
+  S1_1P[0] 100 sentences, 10 jobs, 71s -> S1_1P_0000.npz
+  S1_1P[100] 100 sentences, 10 jobs, 67s -> S1_1P_0100.npz
+  S1_3P[0] 100 sentences, 10 jobs, 67s -> S1_3P_0000.npz
+  S1_3P[100] 100 sentences, 10 jobs, 67s -> S1_3P_0100.npz
+  S2_1P[0] 100 sentences, 10 jobs, 67s -> S2_1P_0000.npz
+  S2_1P[100] 100 sentences, 10 jobs, 497s -> S2_1P_0100.npz
+  S2_3P[0] 100 sentences, 10 jobs, 72s -> S2_3P_0000.npz
+  S2_3P[100] 100 sentences, 10 jobs, 70s -> S2_3P_0100.npz
+EXTRACTION DONE

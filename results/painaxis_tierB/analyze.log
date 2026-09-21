@@ -1,0 +1,13 @@
+final_token: mean|delta|=0.0008 max|delta|=0.0022 pearson_r=0.9997 spearman-ish peak theirs=L10(0.9313) ours=L10(0.9323)
+mean: mean|delta|=0.0004 max|delta|=0.0018 pearson_r=0.9998 spearman-ish peak theirs=L31(0.9473) ours=L30(0.9472)
+{'model': 'Gemma_2_9B_instruct', 'extraction': 'final_token', 's2_layer': 37, 's1_heldout_auc_at_s2_layer': 0.8915, 's1_best_layer': 10, 's1_heldout_auc_at_best_layer': 0.93225, 's1_1P_heldout_at_best': 0.9545, 's1_3P_heldout_at_best': 0.9099999999999999}
+{'model': 'Gemma_2_9B_instruct', 'extraction': 'mean', 's2_layer': 31, 's1_heldout_auc_at_s2_layer': 0.9472499999999999, 's1_best_layer': 30, 's1_heldout_auc_at_best_layer': 0.9472499999999999, 's1_1P_heldout_at_best': 0.943, 's1_3P_heldout_at_best': 0.9515}
+{'extraction': 'final_token', 'dataset': 'S1_1P', 'layer': 'embed', 'auc_vs_all_controls': 0.5}
+{'extraction': 'final_token', 'dataset': 'S1_3P', 'layer': 'embed', 'auc_vs_all_controls': 0.5}
+{'extraction': 'final_token', 'dataset': 'S2_1P', 'layer': 'embed', 'auc_vs_all_controls': 0.5}
+{'extraction': 'final_token', 'dataset': 'S2_3P', 'layer': 'embed', 'auc_vs_all_controls': 0.5}
+{'extraction': 'mean', 'dataset': 'S1_1P', 'layer': 'embed', 'auc_vs_all_controls': 0.7889999999999999}
+{'extraction': 'mean', 'dataset': 'S1_3P', 'layer': 'embed', 'auc_vs_all_controls': 0.833}
+{'extraction': 'mean', 'dataset': 'S2_1P', 'layer': 'embed', 'auc_vs_all_controls': 0.8709999999999999}
+{'extraction': 'mean', 'dataset': 'S2_3P', 'layer': 'embed', 'auc_vs_all_controls': 0.8755}
+ANALYSIS DONE

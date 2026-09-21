@@ -1,0 +1,9 @@
+layer,auc_vs_all_controls,auc_vs_neutral,auc_std,model,extraction,dataset
+embed,0.5,0.5,0.0,Gemma_2_9B_instruct,final_token,S1_1P
+embed,0.5,0.5,0.0,Gemma_2_9B_instruct,final_token,S1_3P
+embed,0.5,0.5,0.0,Gemma_2_9B_instruct,final_token,S2_1P
+embed,0.5,0.5,0.0,Gemma_2_9B_instruct,final_token,S2_3P
+embed,0.7889999999999999,0.7665,0.05161395160225579,Gemma_2_9B_instruct,mean,S1_1P
+embed,0.833,0.8055,0.05306599664568643,Gemma_2_9B_instruct,mean,S1_3P
+embed,0.8709999999999999,0.8074999999999999,0.037369773882109596,Gemma_2_9B_instruct,mean,S2_1P
+embed,0.8755,0.8285,0.04163532154313206,Gemma_2_9B_instruct,mean,S2_3P
