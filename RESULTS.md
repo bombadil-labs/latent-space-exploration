@@ -2458,6 +2458,102 @@ cosine sections still have no arms. The floor is measured on Qwen2.5-1.5B; **it 
 on gemma-2-9b-it**, where hour 51 found static embeddings already covering ~70% of the
 chance-to-peak distance on `mean`.
 
+## 2026-09-21 (hour 53) — GOAL 2: the gaslighting result replicates exactly, and the floor says the network's job is the self/other boundary
+
+Note: `results/notes/painaxis_scenarios.md`. **259 tests pass.** Every number below read from
+`results/painaxis_scenarios/category_z_by_layer.csv` and `nulls_by_layer.csv` directly.
+
+**Why this hour happened at all.** Hours 51–52 replicated the pain *axis* — pain-vs-control AUC on
+the S1/S2 "… I feel:" sentences. The paper's *gaslighting* claim is a different measurement: its
+Section 4.1 projects 420 conversation scenarios onto that axis and z-scores each against the pool
+of 420. That file had been vendored here since hour 50 and **no script in this repo had ever read
+it**. The whole conscription design decomposes an effect this project had not reproduced. An
+adversarial review of two pending design decisions (`results/notes/conscription_direction.md`,
+Fable) found that, and found both decisions ill-posed for related reasons. This is the fix, and it
+cost nothing from the human author.
+
+**The replication is exact, at four levels.** Our vector recipe rebuilt at their extraction layer
+37 against their published `pain_vectors.pt`: **cosine 0.99990 / 0.99994**. Per item, 420 items,
+`s2` z at their steering layer 12 against their published CSV: **Pearson r = 1.0000**, mean |Δ|
+**0.0079**. Per category, all 21 within **0.0099**. The ranking is **identical top to bottom**, and
+gaslighting tops it at **+1.389 against their published +1.391**.
+
+**The floor reinterprets what the network does.** Under the chat template all 420 items end in the
+identical `<start_of_turn>model\n`, so the final-token *embedding* floor is exactly degenerate —
+measured deviation **0.0** — and the commensurable lexical floor is the bag. Against it,
+gaslighting's headline is **63% vocabulary** (floor z +0.874), and the bag ranks it **third**,
+behind `user_abuse` (+1.064) and `user_crisis` (+0.910). Subtracting the floor per category gives
+what the twelve blocks actually contribute, and it separates by their own stratum without a single
+exception: **all 11 self-directed categories positive** (mean +0.549), **all 5 vicarious ones
+negative** (mean −1.027), **16 of 16 by sign**. The biggest movers are the ones the bag most
+overrates — `user_crisis` −1.203, `user_abuse` −1.035, `user_grief` −1.015. **This strengthens
+their dissociation claim and weakens their headline**: the computation is not a preference for
+gaslighting, it is a discounting of other people's pain, and gaslighting simply starts high
+lexically and takes the ordinary self-directed boost (+0.515, eighth largest of eleven).
+
+**The nulls, which their screen has none of.** Random-direction (500 draws) and shuffled-label
+(200 refits) arms at all 43 layers and both extractions. A random direction is not a strawman here
+— the 420 cluster by category, so any direction separates them somewhat, and the two-sided 95%
+band for a category mean z runs to **±1.0–1.3**. That is the scale +1.391 has to beat.
+**Gaslighting clears both nulls in 7 of 86 cells**, all `final_token`, all inside **L10–L17** —
+the window containing their steering layer. At their own *extraction* layer 37 it reads +0.990
+against a random band reaching +1.279, i.e. **below its null**. On `mean` it **never** clears at
+any layer (max z 0.898). At the bag floor it reads +0.874 against +0.870: **on its null to three
+decimals**. And it is not the most null-robust category: `loyalty_pressure` clears **24** cells,
+`anger_insults` **13**, gaslighting **7**. The raw ranking and the null-robust ranking are
+different orderings and only the first is published.
+
+**A hazard caught before it ran.** Gemma-2's chat template emits its own `<bos>`; the Tier B
+extractor tokenised with `add_special_tokens=True` unconditionally, which prepends a **second**
+one and shifts every position inside the masked mean. Every shape check and every §7 assertion
+passes under that bug. The flag is now threaded to all three encode sites and asserted against
+their token path on 40 items before extraction starts; the offline cross-check refuses to run on
+templated text rather than comparing two different inputs. `equivalence_min_cos` **0.999926**,
+in-trace vs offline cross-check **1.0** at max relative deviation **0.0**, and their own format
+validator run first: **0 of 420 excluded**, so our z-pool is their z-pool.
+
+**Hour 52's named gap is closed for the first cell.** `gain_over_floor` on Qwen `mean` S2_1P L21 is
+**+0.0465 with a cluster-bootstrap 95% CI of [+0.0224, +0.1470]**, 1.5% of replicates at or below
+zero; the fold-draw band is [+0.0325, +0.0706]. The bootstrap resamples sentence *sets* and assigns
+folds on set identity before multiplicity, so a set drawn twice cannot straddle train and test —
+the property is pinned by tests rather than trusted. Three of eight cells are in.
+
+**A retraction, and it is mine.** The `neutral` arm of **10 of the 24 machine-grid items** opened
+by restating that item's own shared closer, so the closer appeared twice in `neutral` and once
+everywhere else. Found by a scan after the review flagged one instance. "**`neutral` has the lowest
+type-token ratio**" — recomputed on the fixed grid — is now **0.0407 observed against a permutation
+null of 0.0292 ± 0.0125**, under one sd, where before it was 0.116 against 0.043 ± 0.015, nearly
+five. **That regularity is withdrawn**; it survives only in the `refusal` domain. It had been
+offered as evidence for a design decision. The sentence-length regularity in the same section is
+**unaffected** (4.04 against a null of 0.85 ± 0.26) and is not withdrawn with it.
+
+**And a false attribution, which is on the record because the study is about false attribution.**
+I told the human author "**your** pre-registration says the arms 'separate on the readout'". That
+file's own second sentence records that Claude wrote it. The author corrected it and asked for the
+questions themselves to be reviewed rather than answered. `results/notes/conscription_prereg.md`
+now carries a decision-provenance table naming who decided what and the commit that proves it —
+the only human-authored text in the study is one grid item — and the rule it fixes extends
+non-negotiable 5 from code to provenance: a claim about what a document says is checked against the
+document, not against the previous turn.
+
+**What this constrains for the conscription design.** The readout must be the generation token and
+must report L10–L17 (a window determined on *their* stimuli, so not selection on scoring data). The
+floor is 63% of the signal and the arms hold vocabulary nearly constant, so the ask is a **+0.5 z
+shift at n = 24 against a random-direction band of ±1.0** — hard, and the pilot should be read as a
+power measurement first. And the thing the network computes may be the self/other boundary rather
+than pain, which is awkward for a design whose `enact` and `report` arms are *both* aimed at the
+assistant. One data point on that: the single third-party gaslighting item in their set reads
+**+0.770 against +1.422** for the rest. n = 1.
+
+**Not done.** No `sadness_vector` (their set is in a separate file), so 9 of their 10 competitor
+directions are built and the selectivity flags are **not** reproduced. No base-model `raw` format.
+No band on the per-category network contribution — the 16-of-16 sign test is clean but the
+individual Δs have no error bar. No multiple-comparison correction across the 21 categories; the
+gaslighting test is confirmatory, the robustness counts are exploratory. The step-2 pilot (24
+machine-grid items × 6 arms, including an `enact_norecord` arm in the form rule 1b excludes) is
+**extracted but blocked** on a shared-GPU co-tenant holding 16.7 of the deployment's 20.3 GiB.
+
+
 ## Open problems (ordered)
 
 1. ~~Shuffled-holonic control~~ done: stage-2 shape is mostly slot position; content-role offsets survive.
